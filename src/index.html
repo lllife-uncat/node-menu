@@ -1,0 +1,59 @@
+<html>
+<head>
+	<script src="venders/angular/angular.js"></script>
+	<script src="venders/angular-route/angular-route.js"></script>
+	<script src="http://10.0.0.67:35729/livereload.js"></script>
+	<script src="js/final.js"></script>
+	<link rel="stylesheet" href="venders/semantic/css/semantic.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body ng-app="MenuApp"  ng-controller="NavigateController">
+	
+	<div class="ui inverted menu">
+
+		<a class="active item" href="#/home" ng-class="{ active: location=='/' }">
+			<i class="home icon"></i> Home
+		</a> <!-- Home -->
+
+		<a class="item" href="#/product" ng-class="{ active: location=='/product' }">
+			<i class="cart icon" ></i> Product
+		</a> <!-- Product-->
+
+		<a class="item" href="#/category" ng-class="{ active: location=='/category' }">
+			<i class="sitemap icon"></i> Category
+		</a> <!-- Category -->
+
+		<a class="item" href="#/image" ng-class="{ active: location=='/image' }">
+			<i class="photo icon"></i> Image
+		</a> <!-- Image -->
+
+		<a class="item" href="#/video" ng-class="{ active: location=='/video' }">
+			<i class="video icon"></i> Video
+		</a> <!-- Video -->
+
+		<a class="item" href="#/user" ng-class="{ active: location=='/user' }">
+			<i class="user icon"></i> User
+		</a> <!-- Video -->
+
+		<div class="right menu">
+			<div class="item">
+				<div class="ui icon input">
+					<input type="text" placeholder="Search...">
+					<i class="search link icon"></i>
+				</div>
+			</div>
+			<a class="ui item">
+				Logout
+			</a>
+		</div>
+	</div> <!-- header -->
+
+
+<div class="ui stacked segment primary">
+		<div ng-view>
+
+		</div>
+	</div> <!-- content -->
+</body>
+</html>

@@ -1,0 +1,101 @@
+body {
+	background-color: white;
+	font-family: droid_sansregular;
+}
+
+.m .input {
+	padding: 0px 3px;
+	background-color: green;
+}
+
+
+@font-face {
+    font-family: 'bebas_neueregular';
+    src: url('/venders/fonts/BebasNeue-webfont.eot');
+    src: url('/venders/fonts/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/venders/fonts/BebasNeue-webfont.woff') format('woff'),
+         url('/venders/fonts/BebasNeue-webfont.ttf') format('truetype'),
+         url('/venders/fonts/BebasNeue-webfont.svg#bebas_neueregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'droid_sansregular';
+    src: url('/venders/fonts/DroidSans-webfont.eot');
+    src: url('/venders/fonts/DroidSans-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/venders/fonts/DroidSans-webfont.woff') format('woff'),
+         url('/venders/fonts/DroidSans-webfont.ttf') format('truetype'),
+         url('/venders/fonts/DroidSans-webfont.svg#droid_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'BEBAS___';
+    src: url('/venders/fonts/BEBAS___-webfont.eot');
+    src: url('/venders/fonts/BEBAS___-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/venders/fonts/BEBAS___-webfont.woff') format('woff'),
+         url('/venders/fonts/BEBAS___-webfont.ttf') format('truetype'),
+         url('/venders/fonts/BEBAS___-webfont.svg#droid_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gooddogregular';
+    src: url('/venders/fonts/GoodDog-webfont.eot');
+    src: url('/venders/fonts/GoodDog-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/venders/fonts/GoodDog-webfont.woff') format('woff'),
+         url('/venders/fonts/GoodDog-webfont.ttf') format('truetype'),
+         url('/venders/fonts/GoodDog-webfont.svg#gooddogregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+ }
+
+ @font-face {
+    font-family: 'walkway_boldregular';
+    src: url('/venders/fonts/Walkway_Bold-webfont.eot');
+    src: url('/venders/fonts/Walkway_Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/venders/fonts/Walkway_Bold-webfont.woff') format('woff'),
+         url('/venders/fonts/Walkway_Bold-webfont.ttf') format('truetype'),
+         url('/venders/fonts/Walkway_Bold-webfont.svg#walkway_boldregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+label {
+	font-family: BEBAS___ ;
+	letter-spacing: .05em; 
+	/*text-shadow: 1px 1px 2px lightgray;*/
+}
+
+
+.ko-input:focus {
+	background-color: green;
+}
+
+
+.ko-checkbox {
+	margin: 5px;
+	float: left;
+
+}
+
+.ko-checkbox label {
+
+	font-family: bebas_neueregular;
+	font-size: 120%;
+	color: black;
+	/*font-weight: bolder;*/
+	/*letter-spacing: 0.15em;*/
+}
+
+.ko-checkbox:hover {
+	text-shadow: 1px 1px 5px gray;
+}
