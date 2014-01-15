@@ -89,9 +89,9 @@ label {
 
 .ko-checkbox label {
 
-	font-family: bebas_neueregular;
-	font-size: 120%;
-	color: black;
+	font-family: droid_sansregular;
+	font-size: 100%;
+	color: gray;
 	/*font-weight: bolder;*/
 	/*letter-spacing: 0.15em;*/
 }
@@ -99,3 +99,65 @@ label {
 .ko-checkbox:hover {
 	text-shadow: 1px 1px 5px gray;
 }
+
+.ko-tag {
+    margin: 3px;
+    text-decoration: none;
+}
+/*
+.ko-tag span {
+    font-family: droid_sansregular;
+    text-decoration: none;
+}
+
+span {
+     font-family: droid_sansregular;
+     text-decoration: none;
+}
+*/
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+
+.fragmentWrapper {
+    overflow: hidden;
+}
+
+.fragment {
+    position: relative;
+    -moz-transition-property: left;
+    -o-transition-property: left;
+    -webkit-transition-property: left;
+    transition-property: left;
+    -moz-transition-duration: 0.1s;
+    -o-transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
+    transition-duration: 0.1s
+}
+
+.fragment:not(.active) {
+    left: 540px;
+}
+
+.fragment.active {
+    left: 0px;
+}
+
+.button {
+    margin: 3px;
+}
+

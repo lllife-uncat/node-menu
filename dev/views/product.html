@@ -1,5 +1,32 @@
-<div>
+<div class="fragment {{transitionState}}">
+
 	<div class="ui form">
+		<div div="ui two field">
+			<div class="field">
+				<div class="ui icon buttons">
+					<div class="ui button" ng-class="{ active : search }" ng-click="openSearch();openList();">
+						<i class="search icon" ></i>
+					</div>
+<!-- 					<div class="ui button" ng-class="{ active : list }" ng-click="openList()">
+						<i class="play icon"></i>
+					</div>
+					<div class="ui button">
+						<i class="shuffle icon"></i>
+					</div> -->
+				</div>
+			</div>
+
+			<div class="field" ng-show="search">
+				<div class="ui action input">
+					<input type="text" placeholder="Search...">
+					<div class="ui icon button"><i class="search icon"></i></div>
+				</div>				
+			</div> <!--search -->
+		</div>
+	</div> <!-- tool bar -->
+
+	<div class="ui form" ng-show="!search">
+
 		<div class="ui four fields">
 
 			<div class="field">
@@ -21,7 +48,6 @@
 				<label>Primary Price</label>
 				<input type="text" placeholder="Price">
 			</div>
-
 		</div>
 
 		<div class="ui four fields">
@@ -52,8 +78,6 @@
 			<div class="field">
 				<label>Color</label>
 				<div class="ui labeled icon menu">
-
-
 					<a class="blue item active">
 						<i class="adjust icon"></i> Blue
 					</a>
@@ -82,7 +106,7 @@
 		<div call="ui one fields">
 			<div class="field">
 				<label>Categories</label>
-				<div class="ui segment">
+				<div class="ui  segment">
 
 					<div class="ko-checkbox">
 						<input type="checkbox" id="abc"/> <label for="abc">Languages</label>
@@ -185,7 +209,23 @@
 			</div>
 		</div>
 
+		<div call="ui one fields">
+			<div class="field">
+				<label>Branchs</label>
+				<div class="ui  segment">
 
+					<div class="ko-checkbox">
+						<input type="checkbox" id="north"/> <label for="north">North</label>
+					</div>
+					<div class="ko-checkbox">
+						<input type="checkbox" id="east"/> <label for="east">East</label>
+					</div>
+					<div class="ko-checkbox">
+						<input type="checkbox" id="south"/> <label for="south">South</label>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<div class="ui two fields">
 			<div class="field">
@@ -195,77 +235,75 @@
 		</div> <!-- Description -->
 
 
-		<div class="ui one fields">
+		<div class="ui two fields">
 			<div class="field">
-
 				<label>Images</label>
-				<!-- IMPORTANT:  FORM's enctype must be "multipart/form-data" -->
 
-				<div class="ui stacked segment">
-					<form method="post" action="upload-page.php" enctype="multipart/form-data">
-						<input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" />
-					</form>					
+				<div class="ui segment">
+					<div class="mini circular ui button orange">
+
+						<div class="fileupload">
+							<i class="icon photo"></i>
+							<span>Upload</span>
+							<input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" class="upload" />
+						</div>
+					</div>
 				</div>
-
 			</div>
 		</div> <!-- Upload -->
 
-
-		<div class="ui ten field">
-
-			<div class="ui icon small button black">
-				<i class="save icon"></i> Save
-			</div>
-			<div class="ui icon small button black">
-				<i class="cloud icon"></i> Save
+		<div class="ui one field">
+			<div class="ui icon small button">
+				<i class="cart icon"></i> Save
 			</div>
 		</div> <!-- Save -->
 
-	</div>
-</div>
+	</div> <!-- from -->
+</div> <!-- segment -->
 
-<div class="ui   primary">
 
-<!-- 	<table class="ui five column table segment">
+<div class="ui primary" ng-show="list">
+	<table class="ui five column table segment">
 		<thead>
-			<tr><th>Name</th>
+			<tr>
+				<th>Name</th>
 				<th>Status</th>
 				<th>Age</th>
 				<th>Gender</th>
 				<th>Notes</th>
-			</tr></thead>
-			<tbody>
-				<tr>
-					<td>John</td>
-					<td>Approved</td>
-					<td>22</td>
-					<td>Male</td>
-					<td>None</td>
-				</tr>
-				<tr>
-					<td>Jamie</td>
-					<td>Approved</td>
-					<td>32</td>
-					<td>Male</td>
-					<td>Requires call</td>
-				</tr>
-				<tr>
-					<td>Jill</td>
-					<td>Denied</td>
-					<td>22</td>
-					<td>Female</td>
-					<td>None</td>
-				</tr>
-			</tbody>
-			<tfoot>
-				<tr><th>3 People</th>
-					<th>2 Approved</th>
-					<th></th>
-					<th></th>
-					<th></th>
-				</tr></tfoot>
-			</table> -->
-
-
-
-		</div>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>John</td>
+				<td>Approved</td>
+				<td>22</td>
+				<td>Male</td>
+				<td>None</td>
+			</tr>
+			<tr>
+				<td>Jamie</td>
+				<td>Approved</td>
+				<td>32</td>
+				<td>Male</td>
+				<td>Requires call</td>
+			</tr>
+			<tr>
+				<td>Jill</td>
+				<td>Denied</td>
+				<td>22</td>
+				<td>Female</td>
+				<td>None</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th>3 People</th>
+				<th>2 Approved</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</tfoot>
+	</table> 
+</div>

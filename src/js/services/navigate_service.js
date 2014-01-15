@@ -1,6 +1,6 @@
 
 app.factory("NavigateService", function($location) {
-	return function($scope) {
-		$scope.$emit("navigate", $location.path() );
+	return function($xscope) {
+		$xscope.$emit("navigate", $location.path() );
 	};
 });

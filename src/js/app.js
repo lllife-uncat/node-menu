@@ -32,6 +32,10 @@ app.config(function($routeProvider){
 		controller: "UserController"
 	});
 
+	$routeProvider.when("/branch", {
+		templateUrl : "views/branch.html",
+		controller: "BranchController"
+	});
 	$routeProvider.otherwise({
 		redirectTo: "/"
 	});
