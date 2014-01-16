@@ -1,4 +1,4 @@
-var app = angular.module("MenuApp", ["ngRoute", "angularFileUpload"]);
+var app = angular.module("MenuApp", ["ngRoute", "angularFileUpload", 'ui.utils']);
 
 app.config(function($routeProvider){
 

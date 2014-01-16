@@ -43,7 +43,9 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	////////////////////////////////////////////////////
 	// UPDATE
 	///////////////////////////////////////////////////
-	var updateProduct = function(prodcut){
+	$scope.save = function(product){
+		console.log("save...");
+
 		var request = ProductService.add(product);
 		request.success(function(rs){
 			var p = rs.data;

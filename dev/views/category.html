@@ -4,13 +4,15 @@
 		<div class="ui fluid form segment">
 
 			<div class="field">
-				<label for="">Category Title</label>
+				<label for="">Category Title 
+				<span ng-show="currentCategory.identifier" class="ui red pointing left label"> EDIT: {{currentCategory.title}}</span>
+				</label>
 				<input type="text" class="type" ng-model="currentCategory.title">
 			</div>
 
 			<div class="field">
 				<label for="">Description</label>
-				<textarea name="" id="" cols="30" rows="5" ng-model="currentCategory.description"></textarea>
+				<textarea style="font-size:14px;font-family:droid_sansregular" cols="30" rows="5" ng-model="currentCategory.description"></textarea>
 			</div>
 
 			<div class="field">
@@ -47,7 +49,9 @@
 	<div class="ui fluid form segment">
 
 		<div class="field">
-			<label for="">All Category <div class="ui small label circular red">{{categories.length}}</div></label>
+			<label for="">All Category  
+				<span  class="ui green left label">{{categories.length}}</span>
+			</label>
 
 
 			<div class="ui action input">
