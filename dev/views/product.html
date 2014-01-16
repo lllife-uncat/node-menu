@@ -1,309 +1,208 @@
-<div class="fragment {{transitionState}}">
+<!-- MENU -->
 
-	<div class="ui form">
-		<div div="ui two field">
-			<div class="field">
-				<div class="ui icon buttons">
-					<div class="ui button" ng-class="{ active : search }" ng-click="openSearch();openList();">
-						<i class="search icon" ></i>
-					</div>
-<!-- 					<div class="ui button" ng-class="{ active : list }" ng-click="openList()">
-						<i class="play icon"></i>
-					</div>
-					<div class="ui button">
-						<i class="shuffle icon"></i>
-					</div> -->
+
+<div class="ui secondary pointing menu">
+	<a class="item" ng-click="setActiveTab('product')" ng-class="{ active : selectedTab == 'product'}">
+		<i class="cart icon"></i> New Product
+	</a>
+	<a class="item" ng-click="setActiveTab('image')" ng-class="{ active : selectedTab == 'image'}">
+		<i class="photo icon"></i>
+		<span>Images</span>
+		<div class="ui small label circular red" ng-show="pictures.length != 0">{{pictures.length}}</div>
+	</a>
+
+	<div class="right menu">
+		<div class="item">
+			<div class="ui icon input">
+				<input type="text" placeholder="Search...">
+				<i class="search link icon"></i>
+			</div>
+		</div>
+		<a class="item" ng-click="setActiveTab('allProducts')" ng-class="{ active : selectedTab == 'allProducts'}">
+			<i class="cart icon"></i> 
+			<span>All Products</span>
+			<div class="ui small label circular red">1000+</div>
+		</a>
+	</div>
+</div>
+
+
+<!-- IMAGE -->
+
+<div class="ui two column grid" ng-show="selectedTab == 'image'" >
+
+	<div class=" column">
+		<div class="ui segment">
+			<img class="rounded ui image huge" src="{{currentPicture.$url}}" style="width:100%">
+		</div>
+	</div>
+
+	<div class=" column">
+		<div class="ui segment" >
+			<div class="ui small images" style="display:inline-block">
+				<a href=""  ng-repeat="x in pictures"  ng-show="pictures.length > 0"  ng-click="openPicture(x)">
+					<img class="rounded ui image" ng-src="{{x.$url}}" >
+				</a>
+			</div>
+		</div>
+
+		<div class="field">
+			<div class=" ui button mini" ng-click="save(currentCategory)" ng-show="true">
+				<i class="remove icon"></i> 
+				<span ng-if="true">Remove</span>
+				<span ng-if="currentCategory.identifier != null">Update</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- ALL PRODUCT -->
+
+<div class="ui two column grid" ng-hide="selectedTab != 'allProducts'" >
+	<div class=" column">
+		<div class="ui segment">
+			<img class="rounded ui image huge" src="http://semantic-ui.com/images/demo/photo2.jpg" style="width:100%"/>
+		</div>
+	</div>
+	<div class="column"></div>
+</div>
+
+<!--  PRODUCT -->
+<div class="ui two column grid" ng-show="selectedTab == 'product'">
+	<div class=" column">
+		<div class="ui form segment">
+			<div class="ui two fields">
+
+				<div class="field">
+					<label>Product Name</label>
+					<input type="text" placeholder="First Name" class="ko-input">
+				</div>
+
+				<div class="field">
+					<label>Product ID</label>
+					<input type="text" placeholder="Middle Name">
 				</div>
 			</div>
 
-			<div class="field" ng-show="search">
-				<div class="ui action input">
-					<input type="text" placeholder="Search...">
-					<div class="ui icon button"><i class="search icon"></i></div>
-				</div>				
-			</div> <!--search -->
-		</div>
-	</div> <!-- tool bar -->
+			<div class="ui four fields">
 
-	<div class="ui form" ng-show="!search">
+				<div class="field">
+					<label>Price C</label>
+					<input type="text" placeholder="First Name" class="m input">
+				</div>
 
-		<div class="ui four fields">
+				<div class="field">
+					<label>Price B</label>
+					<input type="text" placeholder="Middle Name">
+				</div>
 
-			<div class="field">
-				<label>Product name</label>
-				<input type="text" placeholder="First Name" class="ko-input">
-			</div>
+				<div class="field">
+					<label>Price D</label>
+					<input type="text" placeholder="Last Name">
+				</div>
 
-			<div class="field">
-				<label>Product ID</label>
-				<input type="text" placeholder="Middle Name">
-			</div>
-
-			<div class=" field">
-				<label for="">Hello</label>
-				<input type="text" placeholder="Price">
-			</div>
-
-			<div class="field">
-				<label>Primary Price</label>
-				<input type="text" placeholder="Price">
-			</div>
-		</div>
-
-		<div class="ui four fields">
-
-			<div class="field">
-				<label>Price C</label>
-				<input type="text" placeholder="First Name" class="m input">
-			</div>
-
-			<div class="field">
-				<label>Price B</label>
-				<input type="text" placeholder="Middle Name">
-			</div>
-
-			<div class="field">
-				<label>Price D</label>
-				<input type="text" placeholder="Last Name">
-			</div>
-
-			<div class="field">
-				<label>Price E</label>
-				<input type="text" placeholder="Price">
-			</div>
-
-		</div>
-
-		<div call="ui one fields">
-			<div class="field">
-				<label>Color</label>
-				<div class="ui labeled icon menu">
-					<a class="blue item active">
-						<i class="adjust icon"></i> Blue
-					</a>
-
-					<a class="green item active">
-						<i class="adjust icon"></i> Green
-					</a>
-					<a class="item active" style="color:black">
-						<i class="adjust icon"></i> Black
-					</a>
-					<a class="item active" style="color:gray">
-						<i class="adjust icon"></i> White
-					</a>
-					<a class="item active" style="color:orange">
-						<i class="adjust icon"></i> Orange
-					</a>
-
-					<a class="red item active">
-						<i class="adjust icon"></i> Red
-					</a>
-
+				<div class="field">
+					<label>Price E</label>
+					<input type="text" placeholder="Price">
 				</div>
 			</div>
-		</div>
 
-		<div call="ui one fields">
-			<div class="field">
-				<label>Categories</label>
-				<div class="ui  segment">
-
-					<div class="ko-checkbox">
-						<input type="checkbox" id="abc"/> <label for="abc">Languages</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Download</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Design</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">ภาษาไทย</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Group A</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Group B</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Group C</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">ภาษาไทย</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox" id="abc"/> <label for="abc">Languages</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Download</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Design</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">ภาษาไทย</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Group A</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Group B</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Group C</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">ภาษาไทย</label>
-					</div>
-
-					<div class="ko-checkbox">
-						<input type="checkbox" id="abc"/> <label for="abc">Languages</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Download</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Design</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">ภาษาไทย</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Group A</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Group B</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Group C</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">ภาษาไทย</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox" id="abc"/> <label for="abc">Languages</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Download</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Design</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">ภาษาไทย</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Group A</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Group B</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">Group C</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox"/> <label for="">ภาษาไทย</label>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div call="ui one fields">
-			<div class="field">
-				<label>Branchs</label>
-				<div class="ui  segment">
-
-					<div class="ko-checkbox">
-						<input type="checkbox" id="north"/> <label for="north">North</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox" id="east"/> <label for="east">East</label>
-					</div>
-					<div class="ko-checkbox">
-						<input type="checkbox" id="south"/> <label for="south">South</label>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="ui two fields">
 			<div class="field">
 				<label>Description</label>
 				<textarea style="height:20px;"></textarea>
 			</div>
-		</div> <!-- Description -->
 
 
-		<div class="ui two fields">
 			<div class="field">
 				<label>Images</label>
-
 				<div class="ui segment">
 					<div class="mini circular ui button orange">
-
 						<div class="fileupload">
 							<i class="icon photo"></i>
 							<span>Upload</span>
-							<input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" class="upload" />
+							<!-- <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" class="upload" /> -->
+							<input type="file" ng-file-select="onFileSelect($files)" multiple class="upload">
 						</div>
+					</div> <!-- update -->
+
+					<div class="field"></div>
+
+
+
+					<div class="ui small images" style="display:inline-block">
+						<img class="rounded ui image"  ng-repeat="x in pictures"  ng-src="{{x.$url}}" ng-show="pictures.length > 0">
 					</div>
 				</div>
+			</div> <!-- Upload -->
+
+
+
+			<!-- SAVE / UPDATE -->
+			<div class="field">
+				<div class=" ui button mini" ng-click="save(currentCategory)" ng-show="true">
+
+					<i class="cart icon"></i> 
+					<span ng-if="true">Save</span>
+					<span ng-if="currentCategory.identifier != null">Update</span>
+				</div>
+
+				<div class=" ui button mini" ng-click="cancel()" ng-hide="">
+					<i class="remove sign icon"></i> Cancel
+				</div>
+			</div> <!-- save -->
+
+		</div>
+	</div>
+
+	<div class="column">
+		<div class="ui form segment">
+
+			<div class="ui one fields" ng-show="false"d>
+				<div class="field">
+					<label>Color</label>
+					<div class="ui labeled icon menu">
+						<a class="blue item active">
+							<i class="adjust icon"></i> Blue
+						</a>
+
+						<a class="green item active">
+							<i class="adjust icon"></i> Green
+						</a>
+						<a class="item active" style="color:black">
+							<i class="adjust icon"></i> Black
+						</a>
+						<a class="item active" style="color:gray">
+							<i class="adjust icon"></i> White
+						</a>
+						<a class="item active" style="color:orange">
+							<i class="adjust icon"></i> Orange
+						</a>
+
+						<a class="red item active">
+							<i class="adjust icon"></i> Red
+						</a>
+
+					</div>
+				</div>
+			</div> <!-- color -->
+
+			<div call="ui one fields">
+				<div class="field">
+					<label>Categories</label>
+					<div class="ui action input">
+						<div class="ui icon input">
+							<input type="text" placeholder="Search...">
+							<i class="search link icon"></i>
+						</div>
+					</div>	
+					<div class="ui segment">
+						<div class="ko-tag ui mini circular button" ng-repeat="category in categories | filter: categoryFilter" ng-click="selectCategory(category)" ng-class="{ green : category.$selected}">
+
+							<i class="tags icon"></i> <span>{{$index+1}}. {{category.title}}</span>
+						</div>						
+					</div>
+				</div> <!-- category -->
 			</div>
-		</div> <!-- Upload -->
-
-		<div class="ui one field">
-			<div class="ui icon small button">
-				<i class="cart icon"></i> Save
-			</div>
-		</div> <!-- Save -->
-
-	</div> <!-- from -->
-</div> <!-- segment -->
-
-
-<div class="ui primary" ng-show="list">
-	<table class="ui five column table segment">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Status</th>
-				<th>Age</th>
-				<th>Gender</th>
-				<th>Notes</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>John</td>
-				<td>Approved</td>
-				<td>22</td>
-				<td>Male</td>
-				<td>None</td>
-			</tr>
-			<tr>
-				<td>Jamie</td>
-				<td>Approved</td>
-				<td>32</td>
-				<td>Male</td>
-				<td>Requires call</td>
-			</tr>
-			<tr>
-				<td>Jill</td>
-				<td>Denied</td>
-				<td>22</td>
-				<td>Female</td>
-				<td>None</td>
-			</tr>
-		</tbody>
-		<tfoot>
-			<tr>
-				<th>3 People</th>
-				<th>2 Approved</th>
-				<th></th>
-				<th></th>
-				<th></th>
-			</tr>
-		</tfoot>
-	</table> 
+		</div>
+	</div>
 </div>

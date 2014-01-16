@@ -31,7 +31,10 @@
 
 	<div class="field">
 		<div class=" ui button mini" ng-click="save(currentCategory)" ng-show="currentCategory.title">
-			<i class="reorder icon"></i> Save
+
+			<i class="reorder icon"></i> 
+			<span ng-if="currentCategory.identifier == null">Save</span>
+			<span ng-if="currentCategory.identifier != null">Update</span>
 		</div>
 
 		<div class=" ui button mini" ng-click="cancel()" ng-hide="currentCategory.identifier == null">
@@ -44,10 +47,11 @@
 	<div class="ui fluid form segment">
 
 		<div class="field">
-			<label for="">All Category</label>
+			<label for="">All Category <div class="ui small label circular red">{{categories.length}}</div></label>
+
 
 			<div class="ui action input">
-				<input type="text" placeholder="Search..." ng-model="categoryFilter">
+				<input type="text" placeholder="Filter" ng-model="categoryFilter">
 				<div class="ui icon button"><i class="search icon"></i></div>
 			</div>	
 
@@ -60,7 +64,18 @@
 			</div>
 		</div>
 
+		
+		<div class="field">
+			<label for="">Child</label>
+			<div class="ui segment">
+				
+				
+			</div>
+		</div>
+
 	</div> <!-- parents -->
+
+
 </div>
 
 </div> <!-- second column -->

@@ -1,4 +1,4 @@
-var app = angular.module("MenuApp", ["ngRoute"]);
+var app = angular.module("MenuApp", ["ngRoute", "angularFileUpload"]);
 
 app.config(function($routeProvider){
 
@@ -84,6 +84,29 @@ app.factory("NavigateService", function($location) {
 	return function($xscope) {
 		$xscope.$emit("navigate", $location.path() );
 	};
+});
+app.factory("ProductService", function(ConfigurationService, $http){
+
+	var baseUrl = ConfigurationService.endPoint + "/product";
+	var uploadImageUrl = ConfigurationService.endPoint + "/image/upload";
+
+	return {
+		getBaseUrl : function() { return baseUrl; },
+		getUploadImageUrl : function() { return uploadImageUrl; },
+		getImageUrl : function(id) {
+			return ConfigurationService.endPoint + "/image/" + id;
+		},
+
+		add : function(product){
+			var request = $http({
+				url : baseUrl,
+				method : "POST",
+				data : JSON.stringify(product),
+				headers: { "Content-Type" : "multipart/form-data" }
+			});
+			return request;
+		}
+	}
 });
 app.controller("BranchController", function($scope, NavigateService){
 	$scope.category = true;
@@ -199,29 +222,128 @@ app.controller("NavigateController", function($scope){
 		$scope.show = false;
 	}
 });
-app.controller("ProductController", function($scope, $location){
+app.controller("ProductController", function($scope, $location, CategoryService, ProductService, $upload){
+
+	// active menu
+	$scope.$emit("navigate", $location.path() );	
+
+	// current selected tab	
+	$scope.selectedTab = "product";
+
+	// all pictures
+	$scope.pictures = [];
+
+	// all products
+	$scope.products = [];
+
+	// current selected picture
+	$scope.currentPicture = {};
+
+	// current selected product
+	$scope.currentProduct = {};
 
 
+	/////////////////////////////////////////////////////
+	// UI
+	/////////////////////////////////////////////////////
+	$scope.openPicture = function(p){
+		$scope.currentPicture = p;
+	}
 
-	$scope.$emit("navigate", $location.path() );
+	/////////////////////////////////////////////////////
+	// CATEGORY
+	/////////////////////////////////////////////////////
+	$scope.selectCategory = function(cat){
 
-	$scope.search = false;
-	$scope.list = false;
+		console.log(cat);
 
-	$scope.openSearch = function(){
-		$scope.search = !$scope.search;
-		console.log("search:" + $scope.search);
-	};
+		if(typeof(cat.$selected) == 'undefined') {
+			cat.$selected = true;
+		}else {
+			cat.$selected = !cat.$selected;
+		}
+	}
 
-	$scope.openList = function() {
-		$scope.list = !$scope.list;
-		console.log("list:" + $scope.list);
-	};
+	////////////////////////////////////////////////////
+	// UPDATE
+	///////////////////////////////////////////////////
+	var updateProduct = function(prodcut){
+		var request = ProductService.add(product);
+		request.success(function(rs){
+			var p = rs.data;
+			$scope.products.push(p)
+			$scope.currentProduct = {}
+		});
 
-	$scope.$on("$routeChangeSuccess", function (scope, next, current) {
-		$scope.transitionState = "active"
+		request.error(function(err){
+			console.log(err);
+		});
+	}
+
+	//////////////////////////////////////////////////
+	// GET ALL CATEGORY VIA WEB SERVICE
+	///////////////////////////////////////////////////
+	var request = CategoryService.findAll();
+	request.success(function(data){
+		$scope.categories = data;
+		$scope.categories.forEach(function(d){ d.$active = false; });
+		var so = $scope.categories.sort(function(a,b) { return a.identifier - b.identifier } );
 	});
-	
+
+	request.error(function(error){
+		console.log(error);
+	});	
+
+	/////////////////////////////////////////////////
+	// TEST
+	/////////////////////////////////////////////////
+	$scope.setActiveTab = function(tab){
+		$scope.selectedTab = tab;
+		console.log("selectedTab:" + $scope.selectedTab);
+
+		if(!$scope.$$phases) {
+			// $scope.$digest("selectedTab");
+		}
+	};
+
+	///////////////////////////////////////////////
+	// UPLOAD
+	///////////////////////////////////////////////
+	$scope.onFileSelect = function($files){
+		for(var i = 0; i< $files.length; i++){
+			var file = $files[i]
+
+			console.log("Upload: " + ProductService.getUploadImageUrl());
+			console.log("File:");
+			console.log(file);
+
+			var upload = $upload.upload({
+				url: ProductService.getUploadImageUrl(),
+				method: "POST",
+				data : { data : {}}, 
+				headers : { "Content-Type" : "multipart/form-data" },
+				file: file
+			});
+
+			upload.progress(function(evt){
+				console.log("percent: " + parseInt(100.0 * evt.loaded / evt.total));
+			});
+
+			upload.success(function(rs, status, headers, config){
+				console.log(rs);
+
+				var pic = rs.data;
+				pic.$url = ProductService.getImageUrl(pic.identifier);
+
+				$scope.pictures.push(pic);
+				$scope.currentPicture = pic;
+			});
+
+			upload.error(function(err){
+				console.log(err);
+			});
+		}
+	};
 });
 app.controller("UserController", function($scope, NavigateService){
 	NavigateService($scope);

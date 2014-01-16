@@ -133,31 +133,8 @@ span {
 }
 
 
-.fragmentWrapper {
-    overflow: hidden;
-}
-
-.fragment {
-    position: relative;
-    -moz-transition-property: left;
-    -o-transition-property: left;
-    -webkit-transition-property: left;
-    transition-property: left;
-    -moz-transition-duration: 0.1s;
-    -o-transition-duration: 0.1s;
-    -webkit-transition-duration: 0.1s;
-    transition-duration: 0.1s
-}
-
-.fragment:not(.active) {
-    left: 540px;
-}
-
-.fragment.active {
-    left: 0px;
-}
-
 .button {
-    margin: 3px;
+    /*margin: 3px;*/
 }
+
 
