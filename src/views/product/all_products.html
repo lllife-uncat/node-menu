@@ -33,20 +33,25 @@
             <label for="">Images</label>
           </th>
 
-          <th style="ko-price">
+          <th class="ko-price">
             <label for="">Price </label>
           </th>
 
-          <th style="ko-price">
+          <th class="ko-price">
             <label for="">Promotion</label>
           </th>
 
-          <th style="ko-price">
+          <th class="">
             <label for="">Member</label>
+          </th>
+
+          <th class="ko-price">
+            <label for="">Edit</label>
           </th>
 
         </tr>
       </thead>
+
       <tbody>
         <tr ng-repeat="product in $data | filter:productFilter" style="font-size:80%">
 
@@ -55,63 +60,56 @@
           </td>
 
           <td>
-            <i class="ui mini button ">
-              <i class="archive icon"></i>
-            </i>
-            <i class="ui mini button ">
-              <i class="edit icon"></i>
-            </i>
-            <span>{{product.name}}</span>
-          </div>
-        </td>
+            <i class="ui mini button" ng-if="!product.$edit"> <i class="archive icon"></i> </i>
+            <span ng-if="!product.$edit">{{product.name}}</span>
+            <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.name" /> </div>
+          </td>
 
-        <td>
-          <span>
-            {{product.productId}}
-          </span>
-        </td>
+          <td>
+            <span ng-if="!product.$edit">{{product.productId}} </span>
+            <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.productId" /> </div>
+          </td>
 
-        <td>
-          <div class="">
-            <span ng-if="product.description.length < 150;">{{product.description}}</span>
-            <span ng-if="product.description.length >= 150;">{{product.description.substring(0,200)}} ...</span>
-          </div>
-        </td>
-
-        <td>
-          <div>
-            <div class="ui mini images" style="display:inline-block">
-            <img class="rounded  ui image"  ng-repeat="x in product.$images"  ng-src="{{x}}" ng-show="product.$images.length > -1">
-
+          <td>
+            <div class="">
+              <span ng-if="product.description.length < 150;">{{product.description}}</span>
+              <span ng-if="product.description.length >= 150;">{{product.description.substring(0,200)}} ...</span>
             </div>
-          </div>
-        </td>
+          </td>
 
-        <td class="ko-price">
-          <div class="ui label">
-            <a href="" >{{product.primaryPrice}}</a>
-          </div>
-        </td>
+          <td>
+            <div ng-if="!product.$edit">
+              <div class="ui mini images" style="display:inline-block">
+                <img class="rounded  ui image"  ng-repeat="x in product.$images"  ng-src="{{x}}" ng-show="product.$images.length > -1">
+              </div>
+            </div>
+          </td>
 
-        <td class="ko-price">
-          <div class="ui label" >
-            <a href="">{{product.promotionPrice}}</a>
-          </div>
-        </td>
+          <td class="ko-price">
+            <div class="ui label" ng-if="!product.$edit"> <a href="" >{{product.primaryPrice}}</a> </div>
+            <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.primaryPrice" /> </div>
+          </td>
 
-        <td class="ko-price">
-          <div class="ui label" >
-           <a href="">{{product.memberPrice}}</a>
-         </div>
-       </td>
+          <td class="ko-price">
+            <div class="ui label"  ng-if="!product.$edit"> <a href="">{{product.promotionPrice}}</a> </div>
+            <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.promotionPrice" /> </div>
+          </td>
 
-     </tr>
-   </tbody>
- </table>
-</div>
+          <td class="ko-price">
+            <div class="ui label" ng-if="!product.$edit" > <a href="">{{product.memberPrice}}</a> </div>
+            <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.memberPrice" /> </div>
+          </td>
 
+          <td>
+           <i class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true"> <i class="edit icon" ></i> </i>
+           <i class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false"> <i class="save icon" ></i> </i>
+         </td>
+       </tr> <-- TR -->
+     </tbody> <!-- BODY -->
+   </table> <!--TABLE -->
+ </div>
 
-<script type="text/ng-template" id="custom/pager">
+ <script type="text/ng-template" id="custom/pager">
 
   <i ng-repeat="page in pages" ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}" ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
     <a class="mini ui button" ng-switch-when="prev" ng-click="params.page(page.number)"> Previous</a>
