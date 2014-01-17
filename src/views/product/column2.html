@@ -1,0 +1,52 @@
+<div> <!-- COLUMNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
+	<div class="ui form ">
+
+		<div class="ui one fields" ng-show="false"d>
+			<div class="field">
+				<label>Color</label>
+				<div class="ui labeled icon menu">
+					<a class="blue item active">
+						<i class="adjust icon"></i> Blue
+					</a>
+
+					<a class="green item active">
+						<i class="adjust icon"></i> Green
+					</a>
+					<a class="item active" style="color:black">
+						<i class="adjust icon"></i> Black
+					</a>
+					<a class="item active" style="color:gray">
+						<i class="adjust icon"></i> White
+					</a>
+					<a class="item active" style="color:orange">
+						<i class="adjust icon"></i> Orange
+					</a>
+
+					<a class="red item active">
+						<i class="adjust icon"></i> Red
+					</a>
+
+				</div>
+			</div>
+		</div> <!-- color -->
+
+		<div call="ui one fields"> <!-- CATEGORIES -->
+			<div class="field">
+				<label>Categories
+					<span  class="ui pointing left label" ng-show="getSelectedCategories().length > 0">{{getSelectedCategories().length}}</span>
+				</label>
+				<div class="ui action input">
+					<div class="ui icon input">
+						<input type="text" placeholder="Search...">
+						<i class="search link icon"></i>
+					</div>
+				</div>	
+				<div class="ui segment">
+					<div class="ko-tag ui mini circular button" ng-repeat="category in categories | filter: categoryFilter" ng-click="selectCategory(category)" ng-class="{ green : category.$selected}">
+						<i class="tags icon"></i> <span>{{$index+1}}. {{category.title}}</span>
+					</div>						
+				</div>
+			</div> <!-- field -->
+		</div> <!-- CATEGORIES -->
+	</div> <!-- segment -->
+	</div>  <!-- END COLUMNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->

@@ -18,6 +18,16 @@ app.factory("ProductService", function(ConfigurationService, $http){
 				headers: { "Content-Type" : "multipart/form-data" }
 			});
 			return request;
+		},
+
+		findAll : function() {
+			var request = $http({
+				url: baseUrl,
+				method: "GET",
+				data: {}
+			});
+
+			return request;
 		}
 	}
 });

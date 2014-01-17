@@ -40,7 +40,7 @@ module.exports = (grunt) ->
 				files: ["src/css/*.css"]
 				tasks: ["concat:css"]
 			html:
-				files: ["src/views/*.html"]
+				files: ["src/views/**/*.html"]
 				tasks: ["sync"]
 			index:
 				files: ["src/index.html"]

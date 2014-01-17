@@ -13,9 +13,9 @@ body {
     font-family: 'bebas_neueregular';
     src: url('/venders/fonts/BebasNeue-webfont.eot');
     src: url('/venders/fonts/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/venders/fonts/BebasNeue-webfont.woff') format('woff'),
-         url('/venders/fonts/BebasNeue-webfont.ttf') format('truetype'),
-         url('/venders/fonts/BebasNeue-webfont.svg#bebas_neueregular') format('svg');
+    url('/venders/fonts/BebasNeue-webfont.woff') format('woff'),
+    url('/venders/fonts/BebasNeue-webfont.ttf') format('truetype'),
+    url('/venders/fonts/BebasNeue-webfont.svg#bebas_neueregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -26,9 +26,9 @@ body {
     font-family: 'droid_sansregular';
     src: url('/venders/fonts/DroidSans-webfont.eot');
     src: url('/venders/fonts/DroidSans-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/venders/fonts/DroidSans-webfont.woff') format('woff'),
-         url('/venders/fonts/DroidSans-webfont.ttf') format('truetype'),
-         url('/venders/fonts/DroidSans-webfont.svg#droid_sansregular') format('svg');
+    url('/venders/fonts/DroidSans-webfont.woff') format('woff'),
+    url('/venders/fonts/DroidSans-webfont.ttf') format('truetype'),
+    url('/venders/fonts/DroidSans-webfont.svg#droid_sansregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -39,9 +39,9 @@ body {
     font-family: 'BEBAS___';
     src: url('/venders/fonts/BEBAS___-webfont.eot');
     src: url('/venders/fonts/BEBAS___-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/venders/fonts/BEBAS___-webfont.woff') format('woff'),
-         url('/venders/fonts/BEBAS___-webfont.ttf') format('truetype'),
-         url('/venders/fonts/BEBAS___-webfont.svg#droid_sansregular') format('svg');
+    url('/venders/fonts/BEBAS___-webfont.woff') format('woff'),
+    url('/venders/fonts/BEBAS___-webfont.ttf') format('truetype'),
+    url('/venders/fonts/BEBAS___-webfont.svg#droid_sansregular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -50,20 +50,20 @@ body {
     font-family: 'gooddogregular';
     src: url('/venders/fonts/GoodDog-webfont.eot');
     src: url('/venders/fonts/GoodDog-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/venders/fonts/GoodDog-webfont.woff') format('woff'),
-         url('/venders/fonts/GoodDog-webfont.ttf') format('truetype'),
-         url('/venders/fonts/GoodDog-webfont.svg#gooddogregular') format('svg');
+    url('/venders/fonts/GoodDog-webfont.woff') format('woff'),
+    url('/venders/fonts/GoodDog-webfont.ttf') format('truetype'),
+    url('/venders/fonts/GoodDog-webfont.svg#gooddogregular') format('svg');
     font-weight: normal;
     font-style: normal;
- }
+}
 
- @font-face {
+@font-face {
     font-family: 'walkway_boldregular';
     src: url('/venders/fonts/Walkway_Bold-webfont.eot');
     src: url('/venders/fonts/Walkway_Bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/venders/fonts/Walkway_Bold-webfont.woff') format('woff'),
-         url('/venders/fonts/Walkway_Bold-webfont.ttf') format('truetype'),
-         url('/venders/fonts/Walkway_Bold-webfont.svg#walkway_boldregular') format('svg');
+    url('/venders/fonts/Walkway_Bold-webfont.woff') format('woff'),
+    url('/venders/fonts/Walkway_Bold-webfont.ttf') format('truetype'),
+    url('/venders/fonts/Walkway_Bold-webfont.svg#walkway_boldregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -133,12 +133,66 @@ span {
 }
 
 
-.button {
-    /*margin: 3px;*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
+.ui.form input[type="number"] {
 
-texarea {
-    font-size: 200%;
+    font-family: BEBAS___ ;
+    /*font-weight: bolder;*/
+
+
+    width:95%; 
+    margin: 0em;
+    padding: 0.85em 1.2em;
+    font-size: 0.875em;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    outline: none;
+    color: rgba(0, 0, 0, 0.7);
+    -webkit-border-radius: 0.3125em;
+    -moz-border-radius: 0.3125em;
+    border-radius: 0.3125em;
+    -webkit-transition: background-color 0.3s ease-out, box-shadow 0.2s ease, border-color 0.2s ease;
+    -moz-transition: background-color 0.3s ease-out, box-shadow 0.2s ease, border-color 0.2s ease;
+    -o-transition: background-color 0.3s ease-out, box-shadow 0.2s ease, border-color 0.2s ease;
+    -ms-transition: background-color 0.3s ease-out, box-shadow 0.2s ease, border-color 0.2s ease;
+    transition: background-color 0.3s ease-out, box-shadow 0.2s ease, border-color 0.2s ease;
+    -webkit-box-shadow: 0em 0em 0em 0em rgba(0, 0, 0, 0.3) inset;
+    -moz-box-shadow: 0em 0em 0em 0em rgba(0, 0, 0, 0.3) inset;
+    box-shadow: 0em 0em 0em 0em rgba(0, 0, 0, 0.3) inset;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
+.ui.form input[type="number"]:focus,
+.ui.form textarea:focus {
+  color: rgba(0, 0, 0, 0.85);
+  border-color: rgba(0, 0, 0, 0.2);
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  -webkit-appearance: none;
+  -webkit-box-shadow: 0.3em 0em 0em 0em rgba(0, 0, 0, 0.2) inset;
+  -moz-box-shadow: 0.3em 0em 0em 0em rgba(0, 0, 0, 0.2) inset;
+  box-shadow: 0.3em 0em 0em 0em rgba(0, 0, 0, 0.2) inset;
+
+/*  -webkit-box-shadow: 0.3em 0em 0em 0em lightgreen inset;
+  -moz-box-shadow: 0.3em 0em 0em 0em lightgreen inset;
+  box-shadow: 0.3em 0em 0em 0em lightgreen inset;*/
+}
+
+.ui.form textarea {
+        font-family: droid_sansregular;
+}
+
+.ng-table {
+    /*border: 1px solid #000;*/
+}

@@ -1,0 +1,30 @@
+
+<!-- IMAGE -->
+
+<div class="ui two column grid">
+
+	<div class=" column">
+		<div class="ui ">
+			<img class="rounded ui image huge" src="{{currentPicture.$url}}" style="width:100%">
+		</div>
+	</div>
+
+	<div class=" column">
+		<label>{{currentProduct.name}}</label>
+		<div class="ui segment" >
+			<div class="ui small images" style="display:inline-block">
+				<a href=""  ng-repeat="x in pictures"  ng-show="pictures.length > 0"  ng-click="openPicture(x)">
+					<img class="rounded ui image" ng-src="{{x.$url}}" >
+				</a>
+			</div>
+		</div>
+
+		<div class="field">
+			<div class=" ui button mini" ng-click="save(currentCategory)" ng-show="true">
+				<i class="remove icon"></i> 
+				<span ng-if="true">Remove</span>
+				<span ng-if="currentCategory.identifier != null">Update</span>
+			</div>
+		</div>
+	</div>
+</div>

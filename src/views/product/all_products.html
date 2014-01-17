@@ -1,0 +1,75 @@
+
+<div class="column">
+  <div class="ui raised segment">
+   <div class="ko-tag ui mini circular button" ng-repeat="category in categories | filter: categoryFilter" ng-click="selectCategory(category)" ng-class="{ green : category.$selected}">
+    <i class="tags icon"></i> <span>{{$index+1}}. {{category.title}}</span>
+  </div>  
+</div>
+
+<div class="column">
+  <table ng-table="tableParams" template-pagination="custom/pager" class="ui padded table segment">
+    <thead style="font-size:80%;color:gray">
+      <tr>
+        <th>
+          <label for="">Product Name</label>
+        </th>
+        <th>
+          <label for="">Product ID</label>
+        </th>
+        <th>
+          <label for="">Description</label>
+        </th>
+        <th>
+          <i class="large dollar basic icon"></i>
+          <label for="">Price
+          </label>
+        </th>
+        <th>
+          <label for="">Promotion</label>
+        </th>
+        <th>
+          <label for="">Member</label>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="product in $data" style="font-size:80%">
+        <td>
+          <div class="ui" style="text-decorate:none;">{{product.name}}</div>
+        </td>
+        <td>{{product.productId}}</td>
+        <td>
+          <div class="">
+            {{product.description}}
+          </div>
+        </td>
+        <td>
+          <div class="ui form" style="text-aligh:right">{{product.primaryPrice}}</div>
+        </td>
+        <td>
+          <div class="label ui">{{product.promotionPrice}}</div>
+        </td>
+        <td>
+          <div class="label ui">{{product.memberPrice}}</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<script type="text/ng-template" id="custom/pager">
+
+  <i ng-repeat="page in pages" ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}" ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+    <a class="mini ui button" ng-switch-when="prev" ng-click="params.page(page.number)"> Previous</a>
+    <a class="mini ui button" ng-switch-when="next" ng-click="params.page(page.number)"> Next </a>
+  </i>
+
+  <div class="btn-group" ng-hide="true">
+    <button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)" class="btn btn-default">10</button>
+    <button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)" class="btn btn-default">25</button>
+    <button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)" class="btn btn-default">50</button>
+    <button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)" class="btn btn-default">100</button>
+  </div>
+
+</script>

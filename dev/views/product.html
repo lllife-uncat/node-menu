@@ -1,7 +1,4 @@
-<!-- MENU -->
-
-
-<div class="ui secondary pointing menu">
+<div class="ui secondary pointing menu"> <!-- MENU -->
 	<a class="item" ng-click="setActiveTab('product')" ng-class="{ active : selectedTab == 'product'}">
 		<i class="cart icon"></i> New Product
 	</a>
@@ -24,196 +21,19 @@
 			<div class="ui small label circular red">1000+</div>
 		</a>
 	</div>
-</div>
-
+</div>  <!-- MENU -->
 
 <!-- IMAGE -->
-
-<div class="ui two column grid" ng-show="selectedTab == 'image'" >
-
-	<div class=" column">
-		<div class="ui ">
-			<img class="rounded ui image huge" src="{{currentPicture.$url}}" style="width:100%">
-		</div>
-	</div>
-
-	<div class=" column">
-		<label>{{currentProduct.name}}</label>
-		<div class="ui segment" >
-			<div class="ui small images" style="display:inline-block">
-				<a href=""  ng-repeat="x in pictures"  ng-show="pictures.length > 0"  ng-click="openPicture(x)">
-					<img class="rounded ui image" ng-src="{{x.$url}}" >
-				</a>
-			</div>
-		</div>
-
-		<div class="field">
-			<div class=" ui button mini" ng-click="save(currentCategory)" ng-show="true">
-				<i class="remove icon"></i> 
-				<span ng-if="true">Remove</span>
-				<span ng-if="currentCategory.identifier != null">Update</span>
-			</div>
-		</div>
-	</div>
-</div>
+<div ng-include src="'/views/product/image.html'" onload="loadInclude()"  ng-show="selectedTab == 'image'" > 
+	
+</div> 
 
 <!-- ALL PRODUCT -->
+<div class="ui one column grid" ng-hide="selectedTab != 'allProducts'"  ng-include src="'/views/product/all_products.html'"> 
 
-<div class="ui two column grid" ng-hide="selectedTab != 'allProducts'" >
-	<div class=" column">
-		<div class="ui segment">
-			<img class="rounded ui image huge" src="http://semantic-ui.com/images/demo/photo2.jpg" style="width:100%"/>
-		</div>
-	</div>
-	<div class="column"></div>
 </div>
 
-<!--  PRODUCT -->
-<div class="ui two column grid" ng-show="selectedTab == 'product'" >
-	<div class=" column">
-		<div class="ui form segment">
-			<div class="ui two fields">
-
-				<div class="field">
-					<label>Product Name</label>
-					<input type="text" placeholder="Name" class="ko-input" ng-model="currentProduct.name">
-				</div>
-
-				<div class="field">
-					<label>Product ID</label>
-					<input type="text" placeholder="ID" ng-model="currentProduct.productId">
-				</div>
-			</div>
-
-			<div class="ui four fields">
-
-				<div class="field">
-					<label for="">$ Primary</label>
-<!-- 					<a class="item">
-						<div class="ui  horizontal label">$ Primary</div> 
-					</a> -->
-					<input type="text" placeholder="Primary Price" class="m input" mg-model="currentProduct.primaryPrice"/>
-				</div>
-
-				<div class="field">
-					<label for="">$ Promotion</label>
-<!-- 					<a class="item">
-						<div class="ui  horizontal label">$ Promotion</div> 
-					</a> -->
-					<input type="text" placeholder="Promotion Price" ng-model="currentProduct.promotionPrice">
-				</div>
-
-				<div class="field">
-					<label for="">$ Member</label>
-<!-- 					<a class="item">
-						<div class="ui  horizontal label">$ Member</div> 
-					</a> -->
-					<input type="text" placeholder="Member Price" ng-model="currentProduct.memberPrice">
-				</div>
-
-				<div class="field">
-					<label for="">Z Price</label>
-<!-- 					<a class="item">
-						<div class="ui  horizontal label">$ Price</div>
-					</a> -->
-					<input type="text" placeholder="Price" ng-model="currentProduct.promotionPrice">
-				</div>
-			</div>
-
-			<div class="field">
-				<label>Description</label> 
-
-				<textarea style="height:20px;" ng-model="currentProduct.description"></textarea>
-			</div>
-
-			<div class="field">
-				<label>Images</label>
-				<div class="ui segment">
-					<div class="mini circular ui button orange">
-						<div class="fileupload">
-							<i class="icon photo"></i>
-							<span>Upload</span>
-							<!-- <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" class="upload" /> -->
-							<input type="file" ng-file-select="onFileSelect($files)" multiple class="upload">
-						</div>
-					</div> <!-- update -->
-
-					<div class="field"></div>
-
-
-
-					<div class="ui small images" style="display:inline-block">
-						<img class="rounded ui image"  ng-repeat="x in pictures"  ng-src="{{x.$url}}" ng-show="pictures.length > 0">
-					</div>
-				</div>
-			</div> <!-- Upload -->
-		</div>
-
-		<!-- SAVE / UPDATE -->
-		<div class="field">
-			<div class=" ui button mini" ng-click="save(currentProduct)" ng-show="currentProduct.name">
-				<i class="cart icon"></i> 
-				<span ng-if="true">Save</span>
-				<span ng-if="currentCategory.identifier != null">Update</span>
-			</div>
-
-<!-- 				<div class=" ui button mini" ng-click="cancel()" ng-hide="">
-					<i class="remove sign icon"></i> Cancel
-				</div> -->
-			</div> <!-- save -->
-		</div>
-
-
-		<!-- COLOR -->
-		<div class="column">
-			<div class="ui form segment">
-
-				<div class="ui one fields" ng-show="false"d>
-					<div class="field">
-						<label>Color</label>
-						<div class="ui labeled icon menu">
-							<a class="blue item active">
-								<i class="adjust icon"></i> Blue
-							</a>
-
-							<a class="green item active">
-								<i class="adjust icon"></i> Green
-							</a>
-							<a class="item active" style="color:black">
-								<i class="adjust icon"></i> Black
-							</a>
-							<a class="item active" style="color:gray">
-								<i class="adjust icon"></i> White
-							</a>
-							<a class="item active" style="color:orange">
-								<i class="adjust icon"></i> Orange
-							</a>
-
-							<a class="red item active">
-								<i class="adjust icon"></i> Red
-							</a>
-
-						</div>
-					</div>
-				</div> <!-- color -->
-
-				<div call="ui one fields">
-					<div class="field">
-						<label>Categories</label>
-						<div class="ui action input">
-							<div class="ui icon input">
-								<input type="text" placeholder="Search...">
-								<i class="search link icon"></i>
-							</div>
-						</div>	
-						<div class="ui segment">
-							<div class="ko-tag ui mini circular button" ng-repeat="category in categories | filter: categoryFilter" ng-click="selectCategory(category)" ng-class="{ green : category.$selected}">
-
-								<i class="tags icon"></i> <span>{{$index+1}}. {{category.title}}</span>
-							</div>						
-						</div>
-					</div> <!-- category -->
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="ui two column grid" ng-show="selectedTab == 'product'">
+	<div  class="column" ng-include src="'/views/product/column1.html'"> </div> <!--column 1 -->
+	<div  class="column" ng-include src="'/views/product/column2.html'"> </div> <!--column 2 -->
+</div>

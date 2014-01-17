@@ -13,7 +13,6 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 	//////////////////////////////////////////////////
 	// GET ALL CATEGORY VIA WEB SERVICE
 	///////////////////////////////////////////////////
-
 	var request = CategoryService.findAll();
 
 	request.success(function(data){
@@ -56,7 +55,6 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 			$scope.$emit("message", msg);
 		});
 	}
-
 
 	//////////////////////////////////////////////////////////
 	// UPDATE UI
