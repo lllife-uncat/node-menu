@@ -40,7 +40,7 @@
 		</a> <!-- Category -->
 
 		<a class="item" href="#/image" ng-class="{ active: location=='/image' }">
-			<i class="photo icon"></i> Image
+			<i class="photo icon"></i> Images
 		</a> <!-- Image -->
 
 <!-- 		<a class="item" href="#/video" ng-class="{ active: location=='/video' }">
@@ -56,33 +56,27 @@
 		</a> --> <!-- Video -->
 
 		<div class="right menu">
-<!-- 			<div class="item">
-				<div class="ui icon input">
-					<input type="text" placeholder="Search...">
-					<i class="search link icon"></i>
-				</div>
+			<div class="ui mini label pointing right" ng-show="show" ng-class="{red : error, green : !error}" ng-click="hide()"> 
+				<span>{{message}} </span>
 			</div>
-		-->			<a class="ui item">
-		Logout
-	</a>
-</div>
 
-<div class="ui bottom attached progress  active green">
-	<div class="bar"></div>
-</div> <!-- progress -->
+			<a class="ui item" ng-show="show"> <i class="user icon orange"></i></a>
+
+			<a class="ui item"> Logout </a>
+		</div>
+
+		<div class="ui bottom attached progress  active green">
+			<div class="bar"></div>
+		</div> <!-- progress -->
+
+	</div> <!-- header -->
 
 
 
-</div> <!-- header -->
-
-<div class="ui message" ng-show="show" ng-class="{red : error, green : !error}" ng-click="hide()"> 
-	<span>{{message}} </span>
-</div>
-
-<div class="ui segment ">
-	<div ng-view>
-	</div>
-</div> <!-- content -->
+	<div class="ui segment ">
+		<div ng-view>
+		</div>
+	</div> <!-- content -->
 
 
 	<script>

@@ -10,6 +10,12 @@ app.controller("NavigateController", function($scope){
 		$scope.error = data.error;
 		$scope.message = data.message;
 		$scope.show = true;
+
+		setTimeout(function(){
+			$scope.show = false;
+			$scope.$apply('show');
+			console.log("==hide message==");
+		}, 5000);
 	});
 
 	$scope.hide = function(){

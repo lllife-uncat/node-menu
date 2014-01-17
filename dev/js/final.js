@@ -224,6 +224,12 @@ app.controller("NavigateController", function($scope){
 		$scope.error = data.error;
 		$scope.message = data.message;
 		$scope.show = true;
+
+		setTimeout(function(){
+			$scope.show = false;
+			$scope.$apply('show');
+			console.log("==hide message==");
+		}, 5000);
 	});
 
 	$scope.hide = function(){
@@ -243,13 +249,24 @@ function initCategory($scope, CategoryService){
 	});	
 }
 
+function appendImageUrl(product, ProductService){	
+	product.$images = [];
+	product.imageIds.forEach(function(i){
+		var url = ProductService.getImageUrl(i);
+		product.$images.push(url)
+	});
+}
+
 function initProduct($scope, ProductService, ngTableParams){
 
 	var request = ProductService.findAll();
 
 	request.success(function(data){
 		$scope.products = data;
-		// $scope.products.forEach(function(d){ d.$active = false; });
+		$scope.products.forEach(function(d){ 		
+			appendImageUrl(d, ProductService);
+		});
+
 		var so = $scope.products.sort(function(a,b) { return a.identifier - b.identifier } );
 
 		console.log("== all products ==");
@@ -296,8 +313,6 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	// current selected product
 	$scope.currentProduct = { primaryPrice: null, memberPrice: null };
 
-	// $scope.someCategorySelected = false;
-
 
 	///////////////////////////////////////////////
 	// Init
@@ -309,6 +324,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	/////////////////////////////////////////////////////
 	// UI
 	/////////////////////////////////////////////////////
+
 	$scope.openPicture = function(p){
 		$scope.currentPicture = p;
 	};
@@ -348,12 +364,15 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		}else {
 			cat.$selected = !cat.$selected;
 		}
-
-		if(cat.$selected) {
-			console.log("selected: " + cat.$selected);
-		}
 	}
 
+	$scope.selectProductCategory = function(cat){
+		if(typeof(cat.$selectedFilter) == 'undefined'){
+			cat.$selectedFilter = true;
+		}else {
+			cat.$selectedFilter = !cat.$selectedFilter;
+		}
+	}
 
 	////////////////////////////////////////////////////
 	// UPDATE
@@ -374,9 +393,13 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		var request = ProductService.add(product);
 		request.success(function(rs){
 			var p = rs.data;
+			appendImageUrl(p, ProductService);
+
 			$scope.products.push(p);
 			$scope.currentProduct = {};
 			$scope.pictures = [];
+
+			$scope.$emit("message", { error : false, message : "Save complete"});
 		});
 
 		request.error(function(err){

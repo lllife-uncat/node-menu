@@ -1,12 +1,10 @@
 <div class="ui two column grid">
 	<div class="column">
 
-		<div class="ui fluid form segment">
+		<div class="ui fluid form">
 
 			<div class="field">
-				<label for="">Category Title 
-				<span ng-show="currentCategory.identifier" class="ui red pointing left label"> EDIT: {{currentCategory.title}}</span>
-				</label>
+				<label for="">Category Title </label>
 				<input type="text" class="type" ng-model="currentCategory.title">
 			</div>
 
@@ -18,22 +16,26 @@
 			<div class="field">
 				<label for="">Parent</label>
 
+				<div class="ui icon input">
+				<input type="text" placeholder="Filter" ng-model="parentFilter.title">
+					<div class="ui icon"><i class="search link icon"></i></div>
+				</div>	
+
 				<div class="ui segment">
-					<div class="ko-tag ui mini button disable " 
-					ng-repeat="category in categories" 
-					ng-class="{ 'active circular green' : currentCategory.parentId === category.identifier}"
+					<a class="ko-tag ui label" 
+					ng-repeat="category in categories | filter:parentFilter" 
+					ng-class="{ 'active green' : currentCategory.parentId === category.identifier}"
 					ng-hide="currentCategory.identifier === category.identifier"
 					ng-click="setParent(category)">
 
-					<i class=""></i> <span>{{$index+1}}. {{category.title}}</span>
-				</div>
+					<i class="tags icon"></i> <span>{{$index+1}}. {{category.title}}</span>
+				</a>
 			</div>
 		</div> <!-- parents -->
 	</div>
 
 	<div class="field">
 		<div class=" ui button mini" ng-click="save(currentCategory)" ng-show="currentCategory.title">
-
 			<i class="reorder icon"></i> 
 			<span ng-if="currentCategory.identifier == null">Save</span>
 			<span ng-if="currentCategory.identifier != null">Update</span>
@@ -46,30 +48,27 @@
 </div> <!-- first column -->
 
 <div class="column">
-	<div class="ui fluid form segment">
+	<div class="ui fluid form">
 
 		<div class="field">
-			<label for="">All Category  
-				<span  class="ui pointing left label">{{categories.length}}</span>
-			</label>
+			<label for="">All Category </label>
 
-
-			<div class="ui action input">
-				<input type="text" placeholder="Filter" ng-model="categoryFilter">
-				<div class="ui icon button"><i class="search icon"></i></div>
+			<div class="ui icon input">
+				<input type="text" placeholder="Filter" ng-model="categoryFilter.title">
+				<div class="ui icon "><i class="search link icon"></i></div>
 			</div>	
 
 			<div class="ui segment">
-				<div class="ko-tag ui mini  button"
+				<a class="ko-tag ui label"
 				ng-repeat="category in categories | filter: categoryFilter" 
 				ng-click="setEditCategory(category)"
-				ng-class="{green : category.parentId !== null , circular : currentCategory.identifier === category.identifier , orange : category.parentId === null }">
-				<i class="edit icon"></i> <span>{{$index+1}}. {{category.title}}</span>
-			</div>
+				ng-class="{green : category.parentId !== null , inverted : currentCategory.identifier === category.identifier , orange : category.parentId === null }">
+				<i class="tags icon"></i> <span>{{$index+1}}. {{category.title}}</span>
+			</a>
 		</div>
 
 		
-		<div class="field">
+		<div class="field" ng-show="false">
 			<label for="">Child</label>
 			<div class="ui segment">
 				
@@ -78,8 +77,6 @@
 		</div>
 
 	</div> <!-- parents -->
-
-
 </div>
 
 </div> <!-- second column -->

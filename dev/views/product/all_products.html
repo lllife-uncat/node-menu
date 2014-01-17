@@ -1,60 +1,113 @@
 
 <div class="column">
   <div class="ui raised segment">
-   <div class="ko-tag ui mini circular button" ng-repeat="category in categories | filter: categoryFilter" ng-click="selectCategory(category)" ng-class="{ green : category.$selected}">
-    <i class="tags icon"></i> <span>{{$index+1}}. {{category.title}}</span>
-  </div>  
-</div>
+    <a class="ko-tag ui label" ng-repeat="category in categories | filter:allCategoryFilter" ng-click="selectProductCategory(category)" ng-class="{ green : category.$selectedFilter}">
+      <i class="tags icon"></i> {{$index+1}}. {{category.title}}
+    </a>  
+  </div>
 
-<div class="column">
-  <table ng-table="tableParams" template-pagination="custom/pager" class="ui padded table segment">
-    <thead style="font-size:80%;color:gray">
-      <tr>
-        <th>
-          <label for="">Product Name</label>
-        </th>
-        <th>
-          <label for="">Product ID</label>
-        </th>
-        <th>
-          <label for="">Description</label>
-        </th>
-        <th>
-          <i class="large dollar basic icon"></i>
-          <label for="">Price
-          </label>
-        </th>
-        <th>
-          <label for="">Promotion</label>
-        </th>
-        <th>
-          <label for="">Member</label>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="product in $data" style="font-size:80%">
-        <td>
-          <div class="ui" style="text-decorate:none;">{{product.name}}</div>
-        </td>
-        <td>{{product.productId}}</td>
-        <td>
-          <div class="">
-            {{product.description}}
+  <div class="column">
+    <table ng-table="tableParams" template-pagination="custom/pager" class="ui padded table segment">
+      <thead style="font-size:80%;color:gray">
+        <tr>
+
+          <th style="width:20px;">
+            <label for="">
+              <i class="ui bolt icon"></i>
+            </label>
+          </th>
+
+          <th>
+            <label for="">Product</label>
+          </th>
+
+          <th>
+            <label for="">ID</label>
+          </th>
+
+          <th>
+            <label for="">Description</label>
+          </th>
+
+          <th>
+            <label for="">Images</label>
+          </th>
+
+          <th style="ko-price">
+            <label for="">Price </label>
+          </th>
+
+          <th style="ko-price">
+            <label for="">Promotion</label>
+          </th>
+
+          <th style="ko-price">
+            <label for="">Member</label>
+          </th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="product in $data | filter:productFilter" style="font-size:80%">
+
+          <td class="ko-index">
+            <span> {{$index + 1}}</span>
+          </td>
+
+          <td>
+            <i class="ui mini button ">
+              <i class="archive icon"></i>
+            </i>
+            <i class="ui mini button ">
+              <i class="edit icon"></i>
+            </i>
+            <span>{{product.name}}</span>
           </div>
         </td>
+
         <td>
-          <div class="ui form" style="text-aligh:right">{{product.primaryPrice}}</div>
+          <span>
+            {{product.productId}}
+          </span>
         </td>
+
         <td>
-          <div class="label ui">{{product.promotionPrice}}</div>
+          <div class="">
+            <span ng-if="product.description.length < 150;">{{product.description}}</span>
+            <span ng-if="product.description.length >= 150;">{{product.description.substring(0,200)}} ...</span>
+          </div>
         </td>
+
         <td>
-          <div class="label ui">{{product.memberPrice}}</div>
+          <div>
+            <div class="ui mini images" style="display:inline-block">
+            <img class="rounded  ui image"  ng-repeat="x in product.$images"  ng-src="{{x}}" ng-show="product.$images.length > -1">
+
+            </div>
+          </div>
         </td>
-      </tr>
-    </tbody>
-  </table>
+
+        <td class="ko-price">
+          <div class="ui label">
+            <a href="" >{{product.primaryPrice}}</a>
+          </div>
+        </td>
+
+        <td class="ko-price">
+          <div class="ui label" >
+            <a href="">{{product.promotionPrice}}</a>
+          </div>
+        </td>
+
+        <td class="ko-price">
+          <div class="ui label" >
+           <a href="">{{product.memberPrice}}</a>
+         </div>
+       </td>
+
+     </tr>
+   </tbody>
+ </table>
 </div>
 
 

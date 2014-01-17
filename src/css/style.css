@@ -100,9 +100,12 @@ label {
 	text-shadow: 1px 1px 5px gray;
 }
 
-.ko-tag {
+.ko-tag.label {
     margin: 3px;
-    text-decoration: none;
+}
+
+.ko-tag.button {
+    margin: 3px;
 }
 /*
 .ko-tag span {
@@ -142,9 +145,9 @@ input::-webkit-inner-spin-button {
 
 .ui.form input[type="number"] {
 
-    font-family: BEBAS___ ;
-    /*font-weight: bolder;*/
-
+    font-family: droid_sansregular ;
+    font-weight: bolder;
+    /*text-shadow: 1px 1px 1px gray;*/
 
     width:95%; 
     margin: 0em;
@@ -190,9 +193,37 @@ input::-webkit-inner-spin-button {
 }
 
 .ui.form textarea {
-        font-family: droid_sansregular;
+    font-family: droid_sansregular;
 }
 
 .ng-table {
     /*border: 1px solid #000;*/
+}
+
+i.ui.mini.button {
+    padding:2px;
+}
+
+/* all about price */
+.ko-price {
+    width: 80px;
+}
+
+.ko-price div {
+    width: 80px;
+}
+
+.ko-price a {
+    font-family: BEBAS___;
+    text-decoration: none;
+    color: black;
+    float:right;
+}
+
+.ko-index {
+    width:20px;
+}
+
+.ko-index span {
+    float: right;
 }

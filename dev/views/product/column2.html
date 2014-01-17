@@ -33,7 +33,7 @@
 		<div call="ui one fields"> <!-- CATEGORIES -->
 			<div class="field">
 				<label>Categories
-					<span  class="ui pointing left label" ng-show="getSelectedCategories().length > 0">{{getSelectedCategories().length}}</span>
+					<span  class="ui pointing left mini label" ng-show="getSelectedCategories().length > 0">{{getSelectedCategories().length}}</span>
 				</label>
 				<div class="ui action input">
 					<div class="ui icon input">
@@ -42,9 +42,9 @@
 					</div>
 				</div>	
 				<div class="ui segment">
-					<div class="ko-tag ui mini circular button" ng-repeat="category in categories | filter: categoryFilter" ng-click="selectCategory(category)" ng-class="{ green : category.$selected}">
+					<a class="ko-tag ui label" ng-repeat="category in categories | filter: categoryFilter" ng-click="selectCategory(category)" ng-class="{ green : category.$selected}">
 						<i class="tags icon"></i> <span>{{$index+1}}. {{category.title}}</span>
-					</div>						
+					</a>						
 				</div>
 			</div> <!-- field -->
 		</div> <!-- CATEGORIES -->

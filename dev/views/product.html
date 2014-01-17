@@ -9,16 +9,22 @@
 	</a>
 
 	<div class="right menu">
-		<div class="item">
+		<div class="item" ng-show="selectedTab == 'allProducts'">
 			<div class="ui icon input">
-				<input type="text" placeholder="Search...">
+				<input type="text" placeholder="Filter categories..." ng-model="allCategoryFilter.title">
+				<i class="search link icon"></i>
+			</div>
+		</div>
+		<div class="item" ng-show="selectedTab == 'allProducts'">
+			<div class="ui icon input">
+				<input type="text" placeholder="Search product..." ng-model="productFilter">
 				<i class="search link icon"></i>
 			</div>
 		</div>
 		<a class="item" ng-click="setActiveTab('allProducts')" ng-class="{ active : selectedTab == 'allProducts'}">
 			<i class="cart icon"></i> 
 			<span>All Products</span>
-			<div class="ui small label circular red">1000+</div>
+			<div class="ui small label circular red">{{products.length}}</div>
 		</a>
 	</div>
 </div>  <!-- MENU -->
@@ -29,7 +35,7 @@
 </div> 
 
 <!-- ALL PRODUCT -->
-<div class="ui one column grid" ng-hide="selectedTab != 'allProducts'"  ng-include src="'/views/product/all_products.html'"> 
+<div class="" ng-hide="selectedTab != 'allProducts'"  ng-include src="'/views/product/all_products.html'"> 
 
 </div>
 
