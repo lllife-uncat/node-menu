@@ -94,7 +94,23 @@ app.factory("ProductService", function(ConfigurationService, $http){
 		getBaseUrl : function() { return baseUrl; },
 		getUploadImageUrl : function() { return uploadImageUrl; },
 		getImageUrl : function(id) {
-			return ConfigurationService.endPoint + "/image/" + id;
+			return ConfigurationService.endPoint + "/image/url/" + id;
+		},
+
+		getImageInfo: function(id){
+			var url = ConfigurationService.endPoint + "/image/" + id;
+			var request = $http.get(url);
+			return request;
+		},
+
+		addImage : function(image){
+			var request = $http({
+				url : ConfigurationService.endPoint + "/image",
+				method : "POST",
+				data : JSON.stringify(image),
+				headers : { "Content-Type" : "multipart/form-data" }
+			});
+			return request;
 		},
 
 		add : function(product){
@@ -254,10 +270,23 @@ function appendImageUrl(product, ProductService){
 	product.$images = product.$images || [];
 	product.imageIds.forEach(function(i){
 		var url = ProductService.getImageUrl(i);
-		product.$images.push({
-			identifier : i,
-			$url : url
+		var request = ProductService.getImageInfo(i);
+
+		request.success(function(rs){
+			var img = rs;
+			img.$url = url;
+
+			console.log("==init image==");
+			console.log(img);
+
+			product.$images.push(img);
 		});
+
+		request.error(function(err){
+			console.log("==init image failed==");
+			console.log(err);
+		});
+		
 	});
 }
 
@@ -317,6 +346,9 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	// current selected product
 	$scope.currentProduct = { primaryPrice: null, memberPrice: null, $images :[], $imageIds :[] };
 
+	// inline editing
+	$scope.inlineEditing = false;
+
 
 	///////////////////////////////////////////////
 	// Init
@@ -329,13 +361,33 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	// UI
 	/////////////////////////////////////////////////////
 
+	$scope.setInlineEditing = function(edit){
+		$scope.inlineEditing = edit;
+		console.log("==inline editing==");
+		console.log("inline: " + $scope.inlineEditing);
+	}
+
+
+	$scope.saveImage = function(pic){
+		var request = ProductService.addImage(pic);
+		request.success(function(data){
+			$scope.$emit("message", { error: false, message: "Update Success." });
+			$scope.currentPicture = {};
+		});
+
+		request.error(function(error){
+			$scope.$emit("message", { error: true, message : error} );
+		});
+	};
+
+
 	$scope.openPicture = function(p){
 		$scope.currentPicture = p;
 	};
 
 	$scope.loadInclude = function(){
 		console.log("loading...");
-	}
+	};
 
 	$scope.getSelectedCategories = function(){
 		var cats = []
@@ -416,13 +468,9 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		var request = ProductService.add(product);
 		request.success(function(rs){
 			var p = rs.data;
-
-			// appendImageUrl(p, ProductService);
-			// $scope.products.push(p);
-			// $scope.currentProduct = {};
-			// $scope.pictures = [];
-
 			$scope.$emit("message", { error : false, message : "Save complete"});
+
+			$scope.setInlineEditing(false);
 		});
 
 		request.error(function(err){
@@ -442,16 +490,6 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		$scope.currentProduct.$images.forEach(function(x){
 			$scope.currentPicture = x;
 		});
-
-		// $scope.pictures = [];
-		// $scope.currentProduct.imageIds.forEach(function(x){
-		// 	var pic = {
-		// 		identifier: x,
-		// 		$url : ProductService.getImageUrl(x)
-		// 	};
-		// 	$scope.pictures.push(pic);
-		// 	$scope.currentPicture = pic;
-		// });
 	}
 
 	/////////////////////////////////////////////////

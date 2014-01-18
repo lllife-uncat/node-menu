@@ -57,7 +57,7 @@
       </thead>
 
       <tbody>
-        <tr ng-repeat="product in $data | filter:productFilter" style="font-size:80%">
+        <tr ng-repeat="product in $data | filter:productFilter" style="font-size:80%" ng-click="selectProduct(product);">
 
           <td class="ko-index">
             <span> {{$index + 1}}</span>
@@ -86,24 +86,14 @@
 
 
           <td>
+            <i class="ui mini button" ng-click="setActiveTab('image'); selectProduct(product);" ng-if="product.$edit"> <i class="add icon" ></i> </i>
+
             <div ng-if="!product.$edit">
-
-              <i class="ui mini button" ng-click="setActiveTab('image'); selectProduct(product);"> <i class="add icon" ></i> </i>
-
-<!--               <div class="form field" ng-click="selectProduct(product);" >
-
-                <div class="fileupload ui mi label">
-                  <input type="file" ng-file-select="onFileSelect($files)" multiple class="upload">
-                  <i class="ko-upload add icon"></i> 
-                </div>
-              </div>  --><!-- update -->
-
-
               <div class="ui mini images" style="display:inline-block">
-                <img class="rounded  ui image"  ng-repeat="x in product.$images"  ng-src="{{x.$url}}" ng-show="product.$images.length > -1">
+                <img class="rounded  ui image"  ng-repeat="x in product.$images"  ng-src="{{x.$url}}" ng-show="product.$images.length > -1 && x.archive == false">
               </div>
-
             </div>
+
           </td>
 
           <td class="ko-price">
@@ -122,7 +112,7 @@
           </td>
 
           <td>
-           <i class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true"> <i class="edit icon" ></i> </i>
+           <i class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true;setInlineEditing(true);"> <i class="edit icon" ></i> </i>
            <i class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false;inlineUpdate(product)"> <i class="save icon" ></i> </i>
          </td>
        </tr> <!-- TR -->

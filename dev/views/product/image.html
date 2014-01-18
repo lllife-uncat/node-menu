@@ -3,9 +3,16 @@
 
 <div class="ui two column grid">
 
-	<div class=" column">
+	<div class=" column" ng-show="currentPicture.identifier != null">
+		<div class="ui floating message" ng-class="{ red : currentPicture.archive}">
+			<p>{{currentPicture.title}}</p>
+		</div>
 		<div class="ui ">
 			<img class="rounded ui image huge" src="{{currentPicture.$url}}" style="width:100%">
+		</div>
+		
+		<div class="ui floating message">
+			<p>{{currentPicture.description}}</p>
 		</div>
 	</div>
 
@@ -16,7 +23,7 @@
 
 			<div class="ui small images" style="display:inline-block">
 				<a href=""  ng-repeat="x in currentProduct.$images"  ng-show="currentProduct.$images.length > 0"  ng-click="openPicture(x)">
-					<img class="rounded ui image" ng-src="{{x.$url}}" >
+					<img class="rounded ui image" ng-src="{{x.$url}}" ng-class="{ 'disabled' : x.archive }">
 				</a>
 			</div>
 
@@ -33,11 +40,43 @@
 
 		</div>
 
-		<div class="field">
-			<div class=" ui button mini" ng-click="save(currentCategory)" ng-show="true">
+		<div class="ui form" ng-if="currentPicture.identifier != null">
+			<div class="field">
+				<label for="">Title</label>
+				<input type="text" ng-model="currentPicture.title"/>
+			</div>
+
+			<div class="field">
+				<label for="">Description</label>
+				<input type="text" ng-model="currentPicture.description">
+			</div>
+
+			<div class="field">
+				<!-- <input type="checkbox" name="" id="archiveImage" ng-model="currentPicture.arhive"> -->
+				<i class="ui mini button" ng-class="{ red : currentPicture.archive }" ng-click="currentPicture.archive = !currentPicture.archive">
+					<i class="archive icon"></i> Archive
+				</i>
+			</div>
+		</div>
+
+		<div class="field"></div>
+
+
+		<div class="field"  ng-if="currentPicture.identifier != null">
+			<div class=" ui button mini" ng-click="saveImage(currentPicture)">
+				<i class="tags icon"></i> 
+				<span>Save</span>
+			</div>
+
+			<div class=" ui button mini" ng-click="removeImage(currentPicture)" ng-show="false">
 				<i class="remove icon"></i> 
-				<span ng-if="true">Remove</span>
-				<span ng-if="currentCategory.identifier != null">Update</span>
+				<span>Remove</span>
+			</div>
+
+			<div class=" ui button mini" ng-click="setActiveTab('allProducts')" ng-show="inlineEditing">
+
+				<span>Back To Inline Edit</span>
+				<i class="forward icon"></i> 
 			</div>
 		</div>
 	</div>
