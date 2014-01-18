@@ -3,17 +3,20 @@
 
 <div class="ui two column grid">
 
-	<div class=" column" ng-show="currentPicture.identifier != null">
-		<div class="ui floating message" ng-class="{ red : currentPicture.archive}">
-			<p>{{currentPicture.title}}</p>
+	<div class=" column" >
+		<div ng-show="currentPicture.identifier != null">
+			<div class="ui floating message" ng-class="{ red : currentPicture.archive}">
+				<p>{{currentPicture.title}}</p>
+			</div>
+			<div class="ui ">
+				<img class="rounded ui image huge" src="{{currentPicture.$url}}" style="width:100%">
+			</div>
+			
+			<div class="ui floating message">
+				<p>{{currentPicture.description}}</p>
+			</div>		
 		</div>
-		<div class="ui ">
-			<img class="rounded ui image huge" src="{{currentPicture.$url}}" style="width:100%">
-		</div>
-		
-		<div class="ui floating message">
-			<p>{{currentPicture.description}}</p>
-		</div>
+
 	</div>
 
 	<div class=" column">

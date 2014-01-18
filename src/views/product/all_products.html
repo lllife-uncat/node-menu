@@ -64,7 +64,9 @@
           </td>
 
           <td>
-            <i class="ui mini button" ng-if="!product.$edit"> <i class="archive icon"></i> </i>
+            <i class="ui mini button" ng-if="!product.$edit" ng-class="{red : product.archive}" ng-click="product.archive = !product.archive;inlineUpdate(product);"> 
+              <i class="archive icon"></i> 
+            </i>
             <span ng-if="!product.$edit">{{product.name}}</span>
             <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.name" /> </div>
           </td>
@@ -112,8 +114,10 @@
           </td>
 
           <td>
-           <i class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true;setInlineEditing(true);"> <i class="edit icon" ></i> </i>
-           <i class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false;inlineUpdate(product)"> <i class="save icon" ></i> </i>
+            <div ng-if="!product.archive">
+             <i class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true;setInlineEditing(true);"> <i class="edit icon" ></i> </i>
+             <i class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false;inlineUpdate(product)"> <i class="save icon" ></i> </i>              
+           </div>
          </td>
        </tr> <!-- TR -->
      </tbody> <!-- BODY -->
