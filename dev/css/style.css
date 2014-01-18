@@ -235,3 +235,8 @@ i.ui.mini.button {
 .ko-index span {
     float: right;
 }
+
+div .ko-archive {
+    text-decoration: line-through;
+    font-family: BEBAS___;
+}

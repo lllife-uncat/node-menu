@@ -290,6 +290,19 @@ function appendImageUrl(product, ProductService){
 	});
 }
 
+function reloadTable($scope, data, ngTableParams){
+		var config1 = { page: 1,  count: 10};
+		var config2 = {
+			total: data.length, 
+			getData: function($defer, params) {
+				$defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+			}
+		};
+
+		$scope.tableParams = new ngTableParams( config1 , config2);	
+		// $scope.$apply('tableParms');
+}
+
 function initProduct($scope, ProductService, ngTableParams){
 
 	var request = ProductService.findAll();
@@ -305,15 +318,8 @@ function initProduct($scope, ProductService, ngTableParams){
 		console.log("== all products ==");
 		console.log($scope.products);
 
-		var config1 = { page: 1,  count: 10};
-		var config2 = {
-			total: data.length, 
-			getData: function($defer, params) {
-				$defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-			}
-		};
-
-		$scope.tableParams = new ngTableParams( config1 , config2);
+		console.log("==reload table==");
+		reloadTable($scope, data, ngTableParams);
 	});
 
 	request.error(function(error){
@@ -348,6 +354,9 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 
 	// inline editing
 	$scope.inlineEditing = false;
+
+	// show archive or not;
+	$scope.showArchive = false;
 
 
 	///////////////////////////////////////////////
@@ -456,6 +465,12 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 			$scope.currentProduct = {};
 			$scope.currentProduct.$images = [];
 
+			// reload table
+			console.log("==reload table==");
+			//reloadTable($scope, $scope.products, ngTableParams);
+
+			$scope.tableParams.reload();
+
 			$scope.$emit("message", { error : false, message : "Save complete"});
 		});
 
@@ -489,6 +504,15 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		$scope.currentProduct = product;
 		$scope.currentProduct.$images.forEach(function(x){
 			$scope.currentPicture = x;
+		});
+
+		$scope.categories.forEach(function(cat){
+			var match = product.categoryIds.indexOf(cat.identifier);
+			if(match != -1){
+				cat.$selected = true;
+			}else {
+				cat.$selected = false;
+			}
 		});
 	}
 
