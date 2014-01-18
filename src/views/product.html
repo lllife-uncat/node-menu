@@ -5,7 +5,7 @@
 	<a class="item" ng-click="setActiveTab('image')" ng-class="{ active : selectedTab == 'image'}">
 		<i class="photo icon"></i>
 		<span>Images</span>
-		<div class="ui small label circular red" ng-show="pictures.length != 0">{{pictures.length}}</div>
+		<div class="ui small label circular red" ng-show="currentProduct.$images.length != 0">{{currentProduct.$images.length}}</div>
 	</a>
 
 	<div class="right menu">

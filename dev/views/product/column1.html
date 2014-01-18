@@ -13,6 +13,17 @@
 				</div>
 			</div>
 
+			<div class="ui two fields">
+				<div class="field">
+					<label for="">Brand</label>
+					<input class="ko-price" type="text" ng-model="currentProduct.brand"/>					
+				</div>
+				<div class="field">
+					<label for="">Model</label>
+					<input class="ko-price" type="text" ng-model="currentProduct.model"/>
+				</div>
+			</div>
+
 			<div class="ui four fields">
 
 				<div class="field">
@@ -31,10 +42,10 @@
 				</div>
 
 				<div class="field">
-					<label for="">Z Price</label>
-					<input class="ko-price" type="number" onkeyup="this.value=this.value.replace(/[^\d]/,'')" ng-model="currentProduct.$price">
+
 				</div>
 			</div>
+
 
 			<div class="field">
 				<label>Description</label> 
@@ -46,7 +57,7 @@
 				<div class="ui segment">
 					<div class="mini ui button">
 						<div class="fileupload">
-							<i class="icon photo"></i>
+							<i class="icon cloud upload"></i>
 							<span>Upload</span>
 							<!-- <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" class="upload" /> -->
 							<input type="file" ng-file-select="onFileSelect($files)" multiple class="upload">
@@ -55,13 +66,13 @@
 
 					<div class="field"></div>
 					<div class="ui small images" style="display:inline-block">
-						<img class="rounded ui image"  ng-repeat="x in pictures"  ng-src="{{x.$url}}" ng-show="pictures.length > 0">
+						<img class="rounded ui image"  ng-repeat="x in currentProduct.$images"  ng-src="{{x.$url}}" ng-show="currentProduct.$images.length > 0">
 					</div>
 				</div>
 			</div> <!-- UPLOAD -->
 		</div>
 
-		
+
 		<div class="field"> <!-- SAVE / UPDATE -->
 			<div class=" ui button mini" ng-click="save(currentProduct)" ng-show="valid()">
 				<i class="cart icon"></i> 

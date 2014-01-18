@@ -11,11 +11,15 @@ function initCategory($scope, CategoryService){
 	});	
 }
 
+// append image object into $images property.
 function appendImageUrl(product, ProductService){	
-	product.$images = [];
+	product.$images = product.$images || [];
 	product.imageIds.forEach(function(i){
 		var url = ProductService.getImageUrl(i);
-		product.$images.push(url)
+		product.$images.push({
+			identifier : i,
+			$url : url
+		});
 	});
 }
 
@@ -60,8 +64,8 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	// current selected tab	
 	$scope.selectedTab = "product";
 
-	// all pictures
-	$scope.pictures = [];
+	// // all pictures
+	// $scope.pictures = [];
 
 	// all products
 	$scope.products = [];
@@ -73,7 +77,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	$scope.currentPicture = {};
 
 	// current selected product
-	$scope.currentProduct = { primaryPrice: null, memberPrice: null };
+	$scope.currentProduct = { primaryPrice: null, memberPrice: null, $images :[], $imageIds :[] };
 
 
 	///////////////////////////////////////////////
@@ -144,7 +148,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		product.imageIds = [];
 		product.categoryIds = [];
 
-		$scope.pictures.forEach(function(pic){
+		product.$images.forEach(function(pic){
 			product.imageIds.push(pic.identifier);
 		});
 
@@ -154,12 +158,13 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 
 		var request = ProductService.add(product);
 		request.success(function(rs){
+			// append url
 			var p = rs.data;
 			appendImageUrl(p, ProductService);
 
 			$scope.products.push(p);
 			$scope.currentProduct = {};
-			$scope.pictures = [];
+			$scope.currentProduct.$images = [];
 
 			$scope.$emit("message", { error : false, message : "Save complete"});
 		});
@@ -169,7 +174,47 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		});
 	}
 
+	$scope.inlineUpdate = function(product){
+		var request = ProductService.add(product);
+		request.success(function(rs){
+			var p = rs.data;
 
+			// appendImageUrl(p, ProductService);
+			// $scope.products.push(p);
+			// $scope.currentProduct = {};
+			// $scope.pictures = [];
+
+			$scope.$emit("message", { error : false, message : "Save complete"});
+		});
+
+		request.error(function(err){
+			console.log(err);
+		});
+	};
+
+
+	$scope.selectProduct = function(product){
+		console.log("==select product==");
+		console.log(product);
+
+		var ubutton = $("#uploadFileButton");
+		console.log(ubutton.click());
+
+		$scope.currentProduct = product;
+		$scope.currentProduct.$images.forEach(function(x){
+			$scope.currentPicture = x;
+		});
+
+		// $scope.pictures = [];
+		// $scope.currentProduct.imageIds.forEach(function(x){
+		// 	var pic = {
+		// 		identifier: x,
+		// 		$url : ProductService.getImageUrl(x)
+		// 	};
+		// 	$scope.pictures.push(pic);
+		// 	$scope.currentPicture = pic;
+		// });
+	}
 
 	/////////////////////////////////////////////////
 	// TEST
@@ -212,7 +257,8 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 				var pic = rs.data;
 				pic.$url = ProductService.getImageUrl(pic.identifier);
 
-				$scope.pictures.push(pic);
+				$scope.currentProduct.$images = $scope.currentProduct.$images || [];
+				$scope.currentProduct.$images.push(pic);
 				$scope.currentPicture = pic;
 			});
 

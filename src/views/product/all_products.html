@@ -26,8 +26,12 @@
           </th>
 
           <th>
-            <label for="">Description</label>
+            <label for="">Brand</label>
           </th>
+          <th>
+            <label for="">Model</label>
+          </th>
+
 
           <th>
             <label for="">Images</label>
@@ -71,17 +75,34 @@
           </td>
 
           <td>
-            <div class="">
-              <span ng-if="product.description.length < 150;">{{product.description}}</span>
-              <span ng-if="product.description.length >= 150;">{{product.description.substring(0,200)}} ...</span>
-            </div>
+            <span ng-if="!product.$edit">{{product.brand}} </span>
+            <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.brand" /> </div>
           </td>
 
           <td>
+            <span ng-if="!product.$edit">{{product.model}} </span>
+            <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.model" /> </div>
+          </td>
+
+
+          <td>
             <div ng-if="!product.$edit">
+
+              <i class="ui mini button" ng-click="setActiveTab('image'); selectProduct(product);"> <i class="add icon" ></i> </i>
+
+<!--               <div class="form field" ng-click="selectProduct(product);" >
+
+                <div class="fileupload ui mi label">
+                  <input type="file" ng-file-select="onFileSelect($files)" multiple class="upload">
+                  <i class="ko-upload add icon"></i> 
+                </div>
+              </div>  --><!-- update -->
+
+
               <div class="ui mini images" style="display:inline-block">
-                <img class="rounded  ui image"  ng-repeat="x in product.$images"  ng-src="{{x}}" ng-show="product.$images.length > -1">
+                <img class="rounded  ui image"  ng-repeat="x in product.$images"  ng-src="{{x.$url}}" ng-show="product.$images.length > -1">
               </div>
+
             </div>
           </td>
 
@@ -102,9 +123,9 @@
 
           <td>
            <i class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true"> <i class="edit icon" ></i> </i>
-           <i class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false"> <i class="save icon" ></i> </i>
+           <i class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false;inlineUpdate(product)"> <i class="save icon" ></i> </i>
          </td>
-       </tr> <-- TR -->
+       </tr> <!-- TR -->
      </tbody> <!-- BODY -->
    </table> <!--TABLE -->
  </div>

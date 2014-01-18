@@ -12,11 +12,25 @@
 	<div class=" column">
 		<label>{{currentProduct.name}}</label>
 		<div class="ui segment" >
+
+
 			<div class="ui small images" style="display:inline-block">
-				<a href=""  ng-repeat="x in pictures"  ng-show="pictures.length > 0"  ng-click="openPicture(x)">
+				<a href=""  ng-repeat="x in currentProduct.$images"  ng-show="currentProduct.$images.length > 0"  ng-click="openPicture(x)">
 					<img class="rounded ui image" ng-src="{{x.$url}}" >
 				</a>
 			</div>
+
+			<div class="field" style="margin-bottom:10px;"></div>
+
+			<div class="form field mini ui button">
+				<div class="fileupload">
+					<i class="icon cloud upload"></i>
+					<span>Upload</span>
+					<!-- <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" class="upload" /> -->
+					<input type="file" ng-file-select="onFileSelect($files)" multiple class="upload" id="fileUploadButton">
+				</div>
+			</div> <!-- update -->
+
 		</div>
 
 		<div class="field">
