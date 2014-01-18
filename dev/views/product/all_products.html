@@ -19,10 +19,11 @@
 
           <th>
             <div>
-              <i class="ui mini button" ng-class="{red : showArchive}" ng-click="showArchive = !showArchive;"> 
+              <i class="ui mini button" ng-class="{ green : !showArchive , red : showArchive }" ng-click="showArchive = !showArchive;" ng-if="false"> 
                 <i class="archive icon"></i> 
-                <label for="">Product</label> 
               </i>
+
+               <label ng-click="showArchive = !showArchive;">Product</label> 
 
             </div>
 
@@ -72,7 +73,7 @@
         </td>
 
         <td>
-          <i class="ui mini button" ng-if="!product.$edit" ng-class="{red : product.archive}" ng-click="product.archive = !product.archive;inlineUpdate(product);"> 
+        <i class="ui mini button" ng-if="!product.$edit" ng-class="{red : product.archive, green: !product.archive }" ng-click="product.archive = !product.archive;inlineUpdate(product);"> 
             <i class="archive icon"></i> 
           </i>
           <span ng-if="!product.$edit" ng-class="{ 'ui label': product.archive }">{{product.name}}</span>
@@ -107,17 +108,17 @@
         </td>
 
         <td class="ko-price">
-          <div class="ui label" ng-if="!product.$edit"> <a href="" >{{product.primaryPrice}}</a> </div>
+          <div class="ui label" ng-if="!product.$edit"> <a href="" >{{product.primaryPrice.formatMoney(2, '.', ',')}}</a> </div>
           <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.primaryPrice" /> </div>
         </td>
 
         <td class="ko-price">
-          <div class="ui label"  ng-if="!product.$edit"> <a href="">{{product.promotionPrice}}</a> </div>
+          <div class="ui label"  ng-if="!product.$edit"> <a href="">{{product.promotionPrice.formatMoney(2, '.', ',')}}</a> </div>
           <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.promotionPrice" /> </div>
         </td>
 
         <td class="ko-price">
-          <div class="ui label" ng-if="!product.$edit" > <a href="">{{product.memberPrice}}</a> </div>
+          <div class="ui label" ng-if="!product.$edit" > <a href="">{{product.memberPrice.formatMoney(2, '.', ',')}}</a> </div>
           <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.memberPrice" /> </div>
         </td>
 
