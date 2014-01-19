@@ -2,7 +2,8 @@
 <div class="column">
   <div class="ui raised segment">
     <a class="ko-tag ui label" ng-repeat="category in categories | filter:allCategoryFilter" ng-click="selectProductCategory(category)" ng-class="{ green : category.$selectedFilter}">
-      <i class="tags icon"></i> {{$index+1}}. {{category.title}}
+      <i class="tags icon"></i> {{$index+1}}. {{category.title}} 
+      <span class="circular label red" ng-if="category.$products.length > 0">({{category.$products.length}})</span>
     </a>  
   </div>
 
@@ -19,14 +20,8 @@
 
           <th>
             <div>
-              <i class="ui mini button" ng-class="{ green : !showArchive , red : showArchive }" ng-click="showArchive = !showArchive;" ng-if="false"> 
-                <i class="archive icon"></i> 
-              </i>
-
-               <label ng-click="showArchive = !showArchive;">Product</label> 
-
+            <label ng-click="showArchiveChange()">Product</label> 
             </div>
-
           </th>
 
           <th>
@@ -65,75 +60,89 @@
       </thead>
 
       <tbody>
-        <tr ng-repeat="product in $data | filter:productFilter" 
-        style="font-size:80%" ng-click="selectProduct(product); " ng-if="product.archive && showArchive || !product.archive && !showArchive">
 
-        <td class="ko-index">
-          <span> {{$index + 1}}</span>
-        </td>
+        <tr ng-repeat="product in $data | filter:productComplexFilter" style="font-size:80%" ng-click="selectProduct(product);">
 
-        <td>
-        <i class="ui mini button" ng-if="!product.$edit" ng-class="{red : product.archive, green: !product.archive }" ng-click="product.archive = !product.archive;inlineUpdate(product);"> 
-            <i class="archive icon"></i> 
-          </i>
-          <span ng-if="!product.$edit" ng-class="{ 'ui label': product.archive }">{{product.name}}</span>
-          <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.name" /> </div>
-        </td>
+          <td class="ko-index">
+            <span> {{$index + 1}}</span>
+          </td>
 
-        <td>
-          <span ng-if="!product.$edit">{{product.productId}} </span>
-          <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.productId" /> </div>
-        </td>
+          <td>
+            <i class="ui mini button" ng-if="!product.$edit" ng-class="{red : product.archive, green: !product.archive }" ng-click="product.archive = !product.archive;inlineUpdate(product);"> 
+              <i class="archive icon"></i> 
+            </i>
+            <span ng-if="!product.$edit" ng-class="{ 'ui label': product.archive }">{{product.name}}</span>
+            <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.name" /> </div>
+          </td>
 
-        <td>
-          <span ng-if="!product.$edit">{{product.brand}} </span>
-          <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.brand" /> </div>
-        </td>
+          <td>
+            <span ng-if="!product.$edit">{{product.productId}} </span>
+            <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.productId" /> </div>
+          </td>
 
-        <td>
-          <span ng-if="!product.$edit">{{product.model}} </span>
-          <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.model" /> </div>
-        </td>
+          <td>
+            <span ng-if="!product.$edit">{{product.brand}} </span>
+            <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.brand" /> </div>
+          </td>
+
+          <td>
+            <span ng-if="!product.$edit">{{product.model}} </span>
+            <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.model" /> </div>
+          </td>
 
 
-        <td>
-          <i class="ui mini button" ng-click="setActiveTab('image'); selectProduct(product);" ng-if="product.$edit"> <i class="add icon" ></i> </i>
+          <td>
 
-          <div ng-if="!product.$edit">
-            <div class="ui mini images" style="display:inline-block">
-              <img class="rounded  ui image"  ng-repeat="x in product.$images"  ng-src="{{x.$url}}" ng-show="product.$images.length > -1 && x.archive == false">
+            <!-- <i class="ui mini button" ng-click="setActiveTab('image'); selectProduct(product);" ng-if="product.$edit"> <i class="add icon" ></i> </i> -->
+
+            <div class="form field mini ui button circular"  ng-if="product.$edit">
+              <div class="fileupload">
+                <i class="icon cloud upload"></i>
+                <span>Upload</span>
+                <!-- <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" class="upload" /> -->
+                <input type="file" ng-file-select="onFileSelect($files)" multiple class="upload" id="fileUploadButton">
+              </div>
+            </div> <!-- update -->
+
+            <i class="ui mini button" ng-if="product.$edit"  ng-click="showImageModal()" > <i class="edit icon" ></i>Detail</i>
+
+            <div ng-if="!product.$edit">
+              <div class="ui mini images" style="display:inline-block">
+                <a href=""  class="ko-thumbnail"  ng-repeat="x in product.$images" ng-show="product.$images.length > -1 && x.archive == false" data-content="{{x.title}}">
+                  <img class="rounded  ui image"  ng-src="{{x.$url}}"  >
+                </a>
+              </div>
             </div>
-          </div>
 
-        </td>
+          </td>
 
-        <td class="ko-price">
-          <div class="ui label" ng-if="!product.$edit"> <a href="" >{{product.primaryPrice.formatMoney(2, '.', ',')}}</a> </div>
-          <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.primaryPrice" /> </div>
-        </td>
+          <td class="ko-price">
+            <div class="ui label" ng-if="!product.$edit"> <a href="" >{{product.primaryPrice.formatMoney(2, '.', ',')}}</a> </div>
+            <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.primaryPrice" /> </div>
+          </td>
 
-        <td class="ko-price">
-          <div class="ui label"  ng-if="!product.$edit"> <a href="">{{product.promotionPrice.formatMoney(2, '.', ',')}}</a> </div>
-          <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.promotionPrice" /> </div>
-        </td>
+          <td class="ko-price">
+            <div class="ui label"  ng-if="!product.$edit"> <a href="">{{product.promotionPrice.formatMoney(2, '.', ',')}}</a> </div>
+            <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.promotionPrice" /> </div>
+          </td>
 
-        <td class="ko-price">
-          <div class="ui label" ng-if="!product.$edit" > <a href="">{{product.memberPrice.formatMoney(2, '.', ',')}}</a> </div>
-          <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.memberPrice" /> </div>
-        </td>
+          <td class="ko-price">
+            <div class="ui label" ng-if="!product.$edit" > <a href="">{{product.memberPrice.formatMoney(2, '.', ',')}}</a> </div>
+            <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.memberPrice" /> </div>
+          </td>
 
-        <td>
-          <div ng-if="!product.archive">
-           <i class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true;setInlineEditing(true);"> <i class="edit icon" ></i> </i>
-           <i class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false;inlineUpdate(product)"> <i class="save icon" ></i> </i>              
-         </div>
-       </td>
-     </tr> <!-- TR -->
-   </tbody> <!-- BODY -->
- </table> <!--TABLE -->
-</div>
+          <td>
+            <div ng-if="!product.archive">
+             <i class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true;setInlineEditing(true);"> <i class="edit icon" ></i> </i>
+             <i class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false;inlineUpdate(product)"> <i class="save icon" ></i> </i>              
+           </div>
+         </td>
+       </tr> <!-- TR -->
+     </tbody> <!-- BODY -->
+   </table> <!--TABLE -->
+ </div>
 
-<script type="text/ng-template" id="custom/pager">
+ <script type="text/ng-template" id="custom/pager">
 
   <i ng-repeat="page in pages" ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}" ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
     <a class="mini ui button" ng-switch-when="prev" ng-click="params.page(page.number)"> Previous</a>

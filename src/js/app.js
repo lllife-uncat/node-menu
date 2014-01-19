@@ -42,16 +42,100 @@ app.config(function($routeProvider){
 });
 
 
+//
+// (123456789.12345).formatMoney(2, '.', ',');
 Number.prototype.formatMoney = function(c, d, t){
-var n = this, 
-    c = isNaN(c = Math.abs(c)) ? 2 : c, 
-    d = d == undefined ? "." : d, 
-    t = t == undefined ? "," : t, 
-    s = n < 0 ? "-" : "", 
-    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
-    j = (j = i.length) > 3 ? j % 3 : 0;
-   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
- };
+	var n = this, 
+	c = isNaN(c = Math.abs(c)) ? 2 : c, 
+	d = d == undefined ? "." : d, 
+	t = t == undefined ? "," : t, 
+	s = n < 0 ? "-" : "", 
+	i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+	j = (j = i.length) > 3 ? j % 3 : 0;
+	return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
+
+
+// load all product's category
+function initCategory($scope, CategoryService){
+	var request = CategoryService.findAll();
+	request.success(function(data){
+		$scope.categories = data;
+		$scope.categories.forEach(function(d){ d.$active = false; });
+		var so = $scope.categories.sort(function(a,b) { return a.identifier - b.identifier } );
+	});
+
+	request.error(function(error){
+		$scope.$emit("message", { error: true, message: error });
+		console.log(error);
+	});	
+}
+
+// append image object into $images property.
+function appendImageUrl(product, ProductService){	
+	product.$images = product.$images || [];
+	product.imageIds.forEach(function(i){
+		var url = ProductService.getImageUrl(i);
+		var request = ProductService.getImageInfo(i);
+
+		request.success(function(rs){
+			var img = rs;
+			img.$url = url;
+
+			// console.log("==init image==");
+			// console.log(img);
+
+			product.$images.push(img);
+		});
+
+		request.error(function(err){
+			$scope.$emit("message", { error: true, message: error });
+			console.log("==init image failed==");
+			console.log(err);
+		});
+		
+	});
+}
+
+function reloadTable($scope, data, ngTableParams){
+	
+	var config1 = { page: 1,  count: 50};
+	var config2 = {
+		total: data.length, 
+		getData: function($defer, params) {
+			$defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+		}
+	};
+
+	 $scope.tableParams = new ngTableParams( config1 , config2);	
+}
+
+function initProduct($scope, ProductService, ngTableParams){
+
+	var request = ProductService.findAll();
+
+	request.success(function(data){
+		$scope.products = data;
+		$scope.products.forEach(function(d){ 		
+			appendImageUrl(d, ProductService);
+		});
+
+		var so = $scope.products.sort(function(a,b) { return a.identifier - b.identifier } );
+
+		// console.log("== all products ==");
+		// console.log($scope.products);
+
+		if(ngTableParams != null){
+			console.log("==reload table==");
+			reloadTable($scope, data, ngTableParams);
+		}
+	});
+
+	request.error(function(error){
+		console.log(error);
+	});	
+}
+
 
 
 

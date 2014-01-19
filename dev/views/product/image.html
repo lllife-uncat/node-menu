@@ -1,86 +1,82 @@
 
 <!-- IMAGE -->
 
-<div class="ui two column grid">
+<div class="ui active modal ko-image raised segment">
 
-	<div class=" column" >
-		<div ng-show="currentPicture.identifier != null">
-			<div class="ui floating message" ng-class="{ red : currentPicture.archive}">
-				<p>{{currentPicture.title}}</p>
-			</div>
-			<div class="ui ">
-				<img class="rounded ui image huge" src="{{currentPicture.$url}}" style="width:100%">
-			</div>
-			
-			<div class="ui floating message">
-				<p>{{currentPicture.description}}</p>
-			</div>		
-		</div>
-
-	</div>
-
-	<div class=" column">
-		<label>{{currentProduct.name}}</label>
-		<div class="ui segment" >
-
-
-			<div class="ui small images" style="display:inline-block">
-				<a href=""  ng-repeat="x in currentProduct.$images"  ng-show="currentProduct.$images.length > 0"  ng-click="openPicture(x)">
-					<img class="rounded ui image" ng-src="{{x.$url}}" ng-class="{ 'disabled' : x.archive }">
-				</a>
-			</div>
-
-			<div class="field" style="margin-bottom:10px;"></div>
-
-			<div class="form field mini ui button">
-				<div class="fileupload">
-					<i class="icon cloud upload"></i>
-					<span>Upload</span>
-					<!-- <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" class="upload" /> -->
-					<input type="file" ng-file-select="onFileSelect($files)" multiple class="upload" id="fileUploadButton">
+	<div class="ui two column grid ">
+		<div class="column" >
+			<div ng-show="currentPicture.identifier != null">
+				<div class="ui label pointing below" ng-class="{ red : currentPicture.archive, green: !currentPicture.archive}">
+					<p>{{currentPicture.title}}</p>
 				</div>
-			</div> <!-- update -->
+				<div class="ui ">
+					<img class="rounded ui image huge" src="{{currentPicture.$url}}" style="width:100%">
+				</div>
+
+				<div class="ui pointing top label">
+					<p>{{currentPicture.description}}</p>
+				</div>		
+			</div>
 
 		</div>
 
-		<div class="ui form" ng-if="currentPicture.identifier != null">
-			<div class="field">
-				<label for="">Title</label>
-				<input type="text" ng-model="currentPicture.title"/>
+		<div class=" column">
+			<label>{{currentProduct.name}}</label>
+			<div class="ui raised segment" >
+
+				<div class="ui small images" style="display:inline-block">
+					<a href="" ng-repeat="x in currentProduct.$images"  ng-show="currentProduct.$images.length > 0"  ng-click="openPicture(x)">
+						<img class="rounded ui image" ng-src="{{x.$url}}" ng-class="{ 'disabled' : x.archive }" data-content="{{x.title}}">
+					</a>
+				</div>
+
+				<div class="field" style="margin-bottom:10px;"></div>
+
+				<div class="form field mini ui button">
+					<div class="fileupload">
+						<i class="icon cloud upload"></i>
+						<span>Upload</span>
+						<!-- <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" class="upload" /> -->
+						<input type="file" ng-file-select="onFileSelect($files)" multiple class="upload" id="fileUploadButton">
+					</div>
+				</div> <!-- update -->
+
 			</div>
 
-			<div class="field">
-				<label for="">Description</label>
-				<input type="text" ng-model="currentPicture.description">
+			<div class="ui form" ng-if="currentPicture.identifier != null">
+				<div class="field">
+					<label for="">Title</label>
+					<input type="text" ng-model="currentPicture.title"/>
+				</div>
+
+				<div class="field">
+					<label for="">Description</label>
+					<input type="text" ng-model="currentPicture.description">
+				</div>
+
+				<div class="field">
+					<!-- <input type="checkbox" name="" id="archiveImage" ng-model="currentPicture.arhive"> -->
+					<i class="ui mini button" ng-class="{ red : currentPicture.archive }" ng-click="currentPicture.archive = !currentPicture.archive">
+						<i class="archive icon"></i> Archive
+					</i>
+				</div>
 			</div>
 
-			<div class="field">
-				<!-- <input type="checkbox" name="" id="archiveImage" ng-model="currentPicture.arhive"> -->
-				<i class="ui mini button" ng-class="{ red : currentPicture.archive }" ng-click="currentPicture.archive = !currentPicture.archive">
-					<i class="archive icon"></i> Archive
-				</i>
+			<div class="field"></div>
+
+
+			<div class="field"  ng-if="currentPicture.identifier != null">
+				<div class=" ui button mini" ng-click="saveAllImage(); hideImageModal();">
+					<i class="tags icon"></i> 
+					<span>Save</span>
+				</div>
+
+				<div class=" ui button mini" ng-click="removeImage(currentPicture)" ng-show="false">
+					<i class="remove icon"></i> 
+					<span>Remove</span>
+				</div>
 			</div>
 		</div>
+	</div>	
 
-		<div class="field"></div>
-
-
-		<div class="field"  ng-if="currentPicture.identifier != null">
-			<div class=" ui button mini" ng-click="saveImage(currentPicture)">
-				<i class="tags icon"></i> 
-				<span>Save</span>
-			</div>
-
-			<div class=" ui button mini" ng-click="removeImage(currentPicture)" ng-show="false">
-				<i class="remove icon"></i> 
-				<span>Remove</span>
-			</div>
-
-			<div class=" ui button mini" ng-click="setActiveTab('allProducts')" ng-show="inlineEditing">
-
-				<span>Back To Inline Edit</span>
-				<i class="forward icon"></i> 
-			</div>
-		</div>
-	</div>
 </div>

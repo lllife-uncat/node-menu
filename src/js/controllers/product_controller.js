@@ -1,77 +1,3 @@
-function initCategory($scope, CategoryService){
-	var request = CategoryService.findAll();
-	request.success(function(data){
-		$scope.categories = data;
-		$scope.categories.forEach(function(d){ d.$active = false; });
-		var so = $scope.categories.sort(function(a,b) { return a.identifier - b.identifier } );
-	});
-
-	request.error(function(error){
-		console.log(error);
-	});	
-}
-
-// append image object into $images property.
-function appendImageUrl(product, ProductService){	
-	product.$images = product.$images || [];
-	product.imageIds.forEach(function(i){
-		var url = ProductService.getImageUrl(i);
-		var request = ProductService.getImageInfo(i);
-
-		request.success(function(rs){
-			var img = rs;
-			img.$url = url;
-
-			console.log("==init image==");
-			console.log(img);
-
-			product.$images.push(img);
-		});
-
-		request.error(function(err){
-			console.log("==init image failed==");
-			console.log(err);
-		});
-		
-	});
-}
-
-function reloadTable($scope, data, ngTableParams){
-		var config1 = { page: 1,  count: 10};
-		var config2 = {
-			total: data.length, 
-			getData: function($defer, params) {
-				$defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-			}
-		};
-
-		$scope.tableParams = new ngTableParams( config1 , config2);	
-		// $scope.$apply('tableParms');
-}
-
-function initProduct($scope, ProductService, ngTableParams){
-
-	var request = ProductService.findAll();
-
-	request.success(function(data){
-		$scope.products = data;
-		$scope.products.forEach(function(d){ 		
-			appendImageUrl(d, ProductService);
-		});
-
-		var so = $scope.products.sort(function(a,b) { return a.identifier - b.identifier } );
-
-		console.log("== all products ==");
-		console.log($scope.products);
-
-		console.log("==reload table==");
-		reloadTable($scope, data, ngTableParams);
-	});
-
-	request.error(function(error){
-		console.log(error);
-	});	
-}
 
 
 
@@ -112,9 +38,123 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	initProduct($scope, ProductService, ngTableParams);
 
 
+	//////////////////////////////
+	// FILTER
+	/////////////////////////////////
+
+	$scope.getActiveProducts = function(){
+		var actives = [];
+		$scope.products.forEach(function(p){
+			if(!p.archive) {
+				actives.push(p);
+			}
+		});
+		return actives;
+	};
+
+
+	$scope.showArchiveChange = function() {
+		$scope.showArchive = !$scope.showArchive;
+
+		console.log("showArchive: " + $scope.showArchive);
+	}
+
+	function getNumberOfSelectedCategory(){
+		var count = 0;
+		$scope.categories.forEach(function(cat){
+			if(cat.$selectedFilter){
+				count++;
+			}
+		});
+		return count;
+	}
+
+	$scope.productComplexFilter = function(p){
+
+		if($scope.selectedTab != "allProducts") {
+			return;
+		}
+
+		// match selected categoryies?
+
+		var matchCategory = false;
+		if(getNumberOfSelectedCategory() == 0){
+			matchCategory = true;
+		}else {
+			$scope.categories.forEach(function(cat){
+				if(cat.$selectedFilter){
+					if(p.categoryIds.indexOf(cat.identifier) != -1){
+						matchCategory = true;
+						return;
+					}
+				}
+			});
+		}
+
+		// match product name or description?
+		var matchSearch = true;
+		if($scope.productFilter){
+			var filter = $scope.productFilter.toUpperCase();
+			try { 
+				var name = p.name.toUpperCase();
+				var desc = p.description.toUpperCase();
+				matchSearch = name.indexOf(filter) != -1 || desc.indexOf(filter) != -1;
+			}catch (err){
+				matchSearch = false;
+			}
+		}
+
+		// match archive status or not?
+		var matchArchive = p.archive && $scope.showArchive || !p.archive && !$scope.showArchive
+
+		// console.log("matchCategory: " + matchCategory);
+		// console.log("productFilter: " + productFilter);
+		// console.log("matchArchive: " + matchArchive);
+		// console.log("showArchive: " + $scope.showArchive);
+
+		var match = matchCategory && matchSearch && matchArchive;
+		console.log(">> match: " + match);
+
+		return match;
+	};
+
+
+	////////////////////////////////////////////
+	// CALCULATE CATEGORY INFO
+	/////////////////////////////////////////////
+	$scope.refreshCatetoryInfo = function(cat){
+		cat.$products = [];
+
+		$scope.products.forEach(function(p){
+			
+			if(p.categoryIds.indexOf(cat.identifier) != -1){
+				cat.$products.push(p);
+			}
+			console.log("==category info==");
+			console.log(p.categoryIds);
+			console.log(p.identifier);
+		});
+	};
+
+	$scope.refreshAllCategoryInfo = function(){
+		console.log("==refresh category info==");
+		$scope.categories.forEach(function(cat){
+			$scope.refreshCatetoryInfo(cat);
+		});
+	};
+
 	/////////////////////////////////////////////////////
 	// UI
 	/////////////////////////////////////////////////////
+	$scope.showImageModal = function(){
+		$('.ko-image').modal('show');
+		// $('.ko-image').modal('hide');
+	};
+
+	$scope.hideImageModal = function(){
+		// $('.ko-image').modal('hide all');
+
+	};
 
 	$scope.setInlineEditing = function(edit){
 		$scope.inlineEditing = edit;
@@ -127,13 +167,19 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		var request = ProductService.addImage(pic);
 		request.success(function(data){
 			$scope.$emit("message", { error: false, message: "Update Success." });
-			$scope.currentPicture = {};
+			// $scope.currentPicture = {};
 		});
 
 		request.error(function(error){
 			$scope.$emit("message", { error: true, message : error} );
 		});
 	};
+
+	$scope.saveAllImage = function(){
+		$scope.currentProduct.$images.forEach(function(img){
+			$scope.saveImage(img);
+		});
+	}
 
 
 	$scope.openPicture = function(p){
@@ -161,7 +207,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		var cats = $scope.getSelectedCategories();
 		var valid = r.name && r.description && r.productId && cats.length != 0 && p;
 
-		console.log("valid: " + valid);
+		// console.log("validate: " + valid);
 		return valid;
 	};
 
@@ -183,6 +229,8 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		}else {
 			cat.$selectedFilter = !cat.$selectedFilter;
 		}
+
+
 	}
 
 	////////////////////////////////////////////////////
@@ -260,6 +308,11 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 				cat.$selected = false;
 			}
 		});
+
+		var thumb = $('.ko-thumbnail');
+		thumb.popup({
+			on: 'hover'
+		});
 	}
 
 	/////////////////////////////////////////////////
@@ -272,6 +325,8 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		if(!$scope.$$phases) {
 			// $scope.$digest("selectedTab");
 		}
+
+		$scope.refreshAllCategoryInfo();
 	};
 
 	///////////////////////////////////////////////

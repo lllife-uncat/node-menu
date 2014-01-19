@@ -1,3 +1,116 @@
-<h1>
+<div class="ui raised segment" ng-if="init() || true">
+	<!-- <div class="ui ribbon label red">Categories</div> -->
 
-</h1>
+
+	<a href="" ng-repeat="category in categories" style="text-decoration:none;" ng-click="selectCategory(category)"   >
+		<span class="ui label ko-tag ko-thumbnail" data-content="{{category.description}}" ng-class="{ green : category.$selected }">
+			<i class="tags icon"></i> {{category.title}}  ({{category.$products.length}})
+
+		</span>
+	</a> 
+
+	<div class="field"><br></div>
+	<a class="mini ui right labeled icon label black" href="#/category" style="text-decoration:none;">
+		<i class="right tags icon " ></i>
+		Manage Category ({{categories.length}})
+	</a>
+</div>
+
+
+<div class="ui two column grid">
+	<div class="column">
+
+		<div class="ui icon input" style="width:100%">
+			<input type="text" placeholder="Search product..." ng-model="productFilter">
+			<i class="search link icon"></i>
+		</div>
+
+
+		<div class="ui raised segment">
+
+			<a href="" ng-repeat="product in products | filter:complexProductFilter" style="text-decoration:none;" ng-click="selectProduct(product)">
+				<span class="ui label ko-tag ko-thumbnail-x" data-content="{{product.description}}" ng-class="{ green : currentProduct.identifier == product.identifier}">
+					<span class="" style="padding:0px;">{{$index + 1}}</span>
+					<i class="cart icon"></i> {{product.name}}
+				</span>
+			</a> 	
+
+			<div class="field"><br></div>
+			<!-- <div class="ui ribbon label green">Products</div> -->
+			<a class="mini ui right labeled icon label black" href="#/product" style="text-decoration:none;">
+				<i class=" cart icon "></i>
+				Manage Product ({{products.length}})
+			</a>
+		</div>
+	</div>
+
+	<div class="column">
+
+		<div class="ui segment" ng-if="currentProduct.name != null">
+			<div class="ui two column grid">
+				<div class="column ">
+
+					<div > 
+						
+						<div class="ui ribbon label black">
+							<i class=" cart icon "></i>
+							{{currentProduct.name}}</div>
+							<p class="" style="color:gray;font-size:small">{{currentProduct.description}}</p>
+						</div>
+
+						<div class="ui mini compact menu">
+							<a class="item">
+								<i class="icon bookmark"></i> {{currentProduct.brand}}
+								<!-- <div class="floating ui red label">22</div> -->
+							</a>
+							<a class="item">
+								<i class="icon empty bookmark"></i> {{currentProduct.model}}
+								<!-- <div class="floating ui teal label">22</div> -->
+							</a>
+						</div>
+
+						<div class="ui divided selection list">
+							<a class="item">
+								<div class="ui red horizontal label">Price</div>
+
+								{{currentProduct.primaryPrice.formatMoney(2, '.', ',')}} 
+								<span style="color:gray;font-size:small">B</span>
+							</a>
+
+							<a class="item">
+								<div class="ui green horizontal label">Member</div>
+								{{currentProduct.memberPrice.formatMoney(2, '.', ',')}} 
+								<span style="color:gray;font-size:small">B</span>
+							</a>
+							<a class="item">
+								<div class="ui purple horizontal label">Promation</div>
+								{{currentProduct.promotionPrice.formatMoney(2, '.', ',')}} 
+								<span style="color:gray;font-size:small">B</span>
+							</a>
+						</div>
+
+
+
+					</div>
+
+					<div class="column">
+						<div class="ui segment" ng-if="currentProduct.$images.length > 0">
+<!-- 							<div class="ui top attached label white">
+								<div class="">
+									<a class="detail"><i class="photo icon"></i> {{currentProduct.$images.length}}</a>
+								</div>	
+							</div> -->
+
+							<div class="ui small rounded images" style="display:inline-block">
+								<a href="" ng-repeat="img in currentProduct.$images"  data-content="{{img.title}}" class="ko-thumbnail-x">
+									<img   src="{{img.$url}}">
+								</a>
+
+							</div>	
+						</div>
+					</div>
+
+				</div>
+			</div> <!-- segment -->
+		</div> <!-- column -->
+</div> <!-- grid -->

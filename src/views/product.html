@@ -2,7 +2,7 @@
 	<a class="item" ng-click="setActiveTab('product')" ng-class="{ active : selectedTab == 'product'}">
 		<i class="cart icon"></i> New Product
 	</a>
-	<a class="item" ng-click="setActiveTab('image')" ng-class="{ active : selectedTab == 'image'}">
+	<a class="item" ng-click="setActiveTab('image')" ng-class="{ active : selectedTab == 'image'}" ng-show="false">
 		<i class="photo icon"></i>
 		<span>Images</span>
 		<div class="ui small label circular red" ng-show="currentProduct.$images.length != 0">{{currentProduct.$images.length}}</div>
@@ -40,6 +40,6 @@
 </div>
 
 <div class="ui two column grid" ng-show="selectedTab == 'product'">
-	<div  class="column" ng-include src="'/views/product/column1.html'"> </div> <!--column 1 -->
+	<div  class="column " ng-include src="'/views/product/column1.html'"> </div> <!--column 1 -->
 	<div  class="column" ng-include src="'/views/product/column2.html'"> </div> <!--column 2 -->
 </div>
