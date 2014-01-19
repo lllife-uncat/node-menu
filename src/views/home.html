@@ -74,27 +74,29 @@
 								<div class="ui red horizontal label">Price</div>
 
 								{{currentProduct.primaryPrice.formatMoney(2, '.', ',')}} 
-								<span style="color:gray;font-size:small">B</span>
+								<span style="color:gray;font-size:small"><i class="ui dollar icon"></i></span>
 							</a>
 
 							<a class="item">
 								<div class="ui green horizontal label">Member</div>
 								{{currentProduct.memberPrice.formatMoney(2, '.', ',')}} 
-								<span style="color:gray;font-size:small">B</span>
+								<span style="color:gray;font-size:small"><i class="ui dollar icon"></i></span>
 							</a>
 							<a class="item">
 								<div class="ui purple horizontal label">Promation</div>
 								{{currentProduct.promotionPrice.formatMoney(2, '.', ',')}} 
-								<span style="color:gray;font-size:small">B</span>
+								<span style="color:gray;font-size:small"><i class="ui dollar icon"></i></span>
 							</a>
 						</div>
 
-
+							  <!-- <span class="ui label"><i class="ui small icon photo black"> {{currentProduct.$images.length}}</span></i> -->
 
 					</div>
 
+					  <!-- <div class="ui vertical divider"><i class="ui photo icon"></i></div> -->
+
 					<div class="column">
-						<div class="ui segment" ng-if="currentProduct.$images.length > 0">
+						<div class="ui label float pointing left" ng-if="currentProduct.$images.length > 0">
 <!-- 							<div class="ui top attached label white">
 								<div class="">
 									<a class="detail"><i class="photo icon"></i> {{currentProduct.$images.length}}</a>

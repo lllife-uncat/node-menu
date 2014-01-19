@@ -85,9 +85,10 @@ body {
 label {
 	/*font-family: BEBAS___ ;*/
     font-family: pt_sansregular;
-	/*letter-spacing: .05em;*/
+    /*font-weight: bolder;*/
+	letter-spacing: .05em;
     /*font-size: small; */
-	text-shadow: 1px 1px 2px lightgray;
+	/*text-shadow: 1px 1px 2px lightgray;*/
     text-transform: uppercase;
 }
 

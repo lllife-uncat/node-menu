@@ -3,41 +3,40 @@
 			<div class="ui two fields">
 
 				<div class="field">
-					<label>Product Name</label>
+					<label><i class="cart icon"></i> Product Name</label>
 					<input type="text" placeholder="Name" class="ko-input" ng-model="currentProduct.name">
 				</div>
 
 				<div class="field">
-					<label>Product ID</label>
+					<label><i class="key icon"></i> Product ID</label>
 					<input type="text" placeholder="ID" ng-model="currentProduct.productId">
 				</div>
 			</div>
 
 			<div class="ui two fields">
 				<div class="field">
-					<label for="">Brand</label>
+					<label for=""><i class="bookmark icon"></i> Brand</label>
 					<input class="ko-price" type="text" ng-model="currentProduct.brand"/>					
 				</div>
 				<div class="field">
-					<label for="">Model</label>
+					<label for=""><i class="empty bookmark icon"></i> Model</label>
 					<input class="ko-price" type="text" ng-model="currentProduct.model"/>
 				</div>
 			</div>
-
 			<div class="ui four fields">
 
 				<div class="field">
-					<label for="">$ Primary</label>
+					<label for=""><i class="dollar icon black"></i>Primary</label>
 					<input class="ko-price" type="number" onkeyup="this.value=this.value.replace(/[^\d]/,'')" ng-model="currentProduct.primaryPrice"/>
 				</div>
 
 				<div class="field">
-					<label for="">$ Promotion</label>
+					<label for=""><i class="dollar icon black"></i>Promotion</label>
 					<input class="ko-price" type="number" onkeyup="this.value=this.value.replace(/[^\d]/,'')" ng-model="currentProduct.promotionPrice">
 				</div>
 
 				<div class="field">
-					<label for="">$ Member</label>
+					<label for=""><i class="dollar icon black"></i>Member</label>
 					<input class="ko-price" type="number" onkeyup="this.value=this.value.replace(/[^\d]/,'')" ng-model="currentProduct.memberPrice">
 				</div>
 
@@ -48,12 +47,12 @@
 
 
 			<div class="field">
-				<label>Description</label> 
+				<label><i class="info letter icon"></i> Description</label> 
 				<textarea style="height:20px;" ng-model="currentProduct.description"></textarea>
 			</div>
 
 			<div class="field">  <!-- UPLOAD -->
-				<label>Images</label>
+				<label><i class="photo icon"></i> Images</label>
 				<div class="ui segment">
 					<div class="mini ui button">
 						<div class="fileupload">
