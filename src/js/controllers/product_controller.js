@@ -233,11 +233,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 
 	}
 
-	////////////////////////////////////////////////////
-	// UPDATE
-	///////////////////////////////////////////////////
-	$scope.save = function(product){
-		console.log("save...");
+	$scope.appendProductDependency = function(product){
 		product.imageIds = [];
 		product.categoryIds = [];
 
@@ -247,7 +243,16 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 
 		$scope.getSelectedCategories().forEach(function(cat){
 			product.categoryIds.push(cat.identifier);
-		});
+		});		
+	};
+
+	////////////////////////////////////////////////////
+	// UPDATE
+	///////////////////////////////////////////////////
+	$scope.save = function(product){
+		console.log("save...");
+
+		$scope.appendProductDependency(product);
 
 		var request = ProductService.add(product);
 		request.success(function(rs){
@@ -274,6 +279,9 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	}
 
 	$scope.inlineUpdate = function(product){
+
+		$scope.appendProductDependency(product);
+
 		var request = ProductService.add(product);
 		request.success(function(rs){
 			var p = rs.data;
@@ -353,6 +361,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 			});
 
 			upload.success(function(rs, status, headers, config){
+				$scope.$emit("message", { error: false, message: "Upload success: " + file.name });
 				console.log(rs);
 
 				var pic = rs.data;
