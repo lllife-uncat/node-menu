@@ -10,6 +10,10 @@ app.factory("ProductService", function(ConfigurationService, $http){
 			return ConfigurationService.endPoint + "/image/url/" + id;
 		},
 
+		getThumbnailUrl : function(id) {
+			return ConfigurationService.endPoint + "/image/thumbnail/" + id;
+		},
+
 		getImageInfo: function(id){
 			var url = ConfigurationService.endPoint + "/image/" + id;
 			var request = $http.get(url);

@@ -366,6 +366,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 
 				var pic = rs.data;
 				pic.$url = ProductService.getImageUrl(pic.identifier);
+				pic.$thumbnail = ProductService.getThumbnailUrl(pic.identifier);
 
 				$scope.currentProduct.$images = $scope.currentProduct.$images || [];
 				$scope.currentProduct.$images.push(pic);

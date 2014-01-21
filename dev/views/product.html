@@ -30,16 +30,16 @@
 </div>  <!-- MENU -->
 
 <!-- IMAGE -->
-<div ng-include src="'/views/product/image.html'" onload="loadInclude()"  ng-show="selectedTab == 'image'" > 
+<div ng-include src="'views/product/image.html'" onload="loadInclude()"  ng-show="selectedTab == 'image'" >
 	
 </div> 
 
 <!-- ALL PRODUCT -->
-<div class="" ng-hide="selectedTab != 'allProducts'"  ng-include src="'/views/product/all_products.html'"> 
+<div class="" ng-hide="selectedTab != 'allProducts'"  ng-include src="'views/product/all_products.html'">
 
 </div>
 
 <div class="ui two column grid" ng-show="selectedTab == 'product'">
-	<div  class="column " ng-include src="'/views/product/column1.html'"> </div> <!--column 1 -->
-	<div  class="column" ng-include src="'/views/product/column2.html'"> </div> <!--column 2 -->
+	<div  class="column " ng-include src="'views/product/column1.html'"> </div> <!--column 1 -->
+	<div  class="column" ng-include src="'views/product/column2.html'"> </div> <!--column 2 -->
 </div>

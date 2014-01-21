@@ -76,12 +76,13 @@ function appendImageUrl(product, ProductService){
 	product.$images = product.$images || [];
 	product.imageIds.forEach(function(i){
 		var url = ProductService.getImageUrl(i);
+		var thumbnail = ProductService.getThumbnailUrl(i);
 		var request = ProductService.getImageInfo(i);
 
 		request.success(function(rs){
 			var img = rs;
 			img.$url = url;
-
+			img.$thumbnail = thumbnail;
 			// console.log("==init image==");
 			// console.log(img);
 

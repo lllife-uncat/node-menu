@@ -76,12 +76,13 @@ function appendImageUrl(product, ProductService){
 	product.$images = product.$images || [];
 	product.imageIds.forEach(function(i){
 		var url = ProductService.getImageUrl(i);
+		var thumbnail = ProductService.getThumbnailUrl(i);
 		var request = ProductService.getImageInfo(i);
 
 		request.success(function(rs){
 			var img = rs;
 			img.$url = url;
-
+			img.$thumbnail = thumbnail;
 			// console.log("==init image==");
 			// console.log(img);
 
@@ -191,6 +192,10 @@ app.factory("ProductService", function(ConfigurationService, $http){
 		getUploadImageUrl : function() { return uploadImageUrl; },
 		getImageUrl : function(id) {
 			return ConfigurationService.endPoint + "/image/url/" + id;
+		},
+
+		getThumbnailUrl : function(id) {
+			return ConfigurationService.endPoint + "/image/thumbnail/" + id;
 		},
 
 		getImageInfo: function(id){
@@ -809,6 +814,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 
 				var pic = rs.data;
 				pic.$url = ProductService.getImageUrl(pic.identifier);
+				pic.$thumbnail = ProductService.getThumbnailUrl(pic.identifier);
 
 				$scope.currentProduct.$images = $scope.currentProduct.$images || [];
 				$scope.currentProduct.$images.push(pic);

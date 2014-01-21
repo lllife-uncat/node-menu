@@ -109,7 +109,7 @@
             <div ng-if="!product.$edit">
               <div class="ui mini images" style="display:inline-block">
                 <a href=""  class="ko-thumbnail"  ng-repeat="x in product.$images" ng-show="product.$images.length > -1 && x.archive == false" data-content="{{x.title}}">
-                  <img class="rounded  ui image"  ng-src="{{x.$url}}"  >
+                  <img class="rounded  ui image"  ng-src="{{x.$thumbnail}}"  >
                 </a>
               </div>
             </div>

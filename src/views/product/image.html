@@ -26,7 +26,7 @@
 
 				<div class="ui small images" style="display:inline-block">
 					<a href="" ng-repeat="x in currentProduct.$images"  ng-show="currentProduct.$images.length > 0"  ng-click="openPicture(x)">
-						<img class="rounded ui image" ng-src="{{x.$url}}" ng-class="{ 'disabled' : x.archive }" data-content="{{x.title}}">
+						<img class="rounded ui image" ng-src="{{x.$thumbnail}}" ng-class="{ 'disabled' : x.archive }" data-content="{{x.title}}">
 					</a>
 				</div>
 
