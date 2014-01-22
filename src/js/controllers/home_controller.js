@@ -71,6 +71,9 @@ app.controller("HomeController", function($scope, NavigateService, CategoryServi
 				cat.$products.push(p);
 			}
 		});
+
+
+		refreshCategoryInfo($scope);
 	};
 
 	$scope.refreshAllCategoryInfo = function(){

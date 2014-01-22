@@ -1,9 +1,8 @@
 <div class="ui raised segment" ng-if="init() || true">
 	<!-- <div class="ui ribbon label red">Categories</div> -->
 
-
 	<a href="" ng-repeat="category in categories" style="text-decoration:none;" ng-click="selectCategory(category)"   >
-		<span class="ui label ko-tag ko-thumbnail" data-content="{{category.description}}" ng-class="{ green : category.$selected }">
+		<span class="ui label ko-tag ko-thumbnail" data-content="{{category.description}}" ng-class="{ green : category.$selected }" ng-if="category.$level === 'C'">
 			<i class="tags icon"></i> {{category.title}}  ({{category.$products.length}})
 
 		</span>

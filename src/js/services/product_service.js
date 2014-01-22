@@ -30,6 +30,19 @@ app.factory("ProductService", function(ConfigurationService, $http){
 			return request;
 		},
 
+		removeImage : function(image){
+			// var request = $http({
+			// 	url : ConfigurationService.endPoint + "/image/" + image.identifier,
+			// 	data : {},
+			// 	method : "DELETE", 
+			// 	headers: { "Content-Type" : "multipart/form-data" }
+			// });
+	
+			var url = ConfigurationService.endPoint + "/image/delete/"+ image.identifier;
+			var request = $http.post(url);
+			return request;
+		},
+
 		add : function(product){
 			var request = $http({
 				url : baseUrl,

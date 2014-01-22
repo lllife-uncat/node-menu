@@ -44,7 +44,7 @@
 					</div>
 				</div>	
 				<div class="ui segment">
-					<a class="ko-tag ui label" ng-repeat="category in categories | filter: categoryFilter" ng-click="selectCategory(category)" ng-class="{ green : category.$selected}">
+					<a class="ko-tag ui label" ng-repeat="category in categories | filter: categoryFilter" ng-click="selectCategory(category)" ng-class="{ green : category.$selected}" ng-if="category.$level === 'C'">
 						<i class="tags icon"></i> <span>{{$index+1}}. {{category.title}}</span>
 					</a>						
 				</div>

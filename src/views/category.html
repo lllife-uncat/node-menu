@@ -1,84 +1,161 @@
 <div class="ui two column grid">
 	<div class="column ">
 
-		<div class="fluid form ui ">
+		<div class="fluid form ui raised segment ">
 
 			<div class="field">
-				<label for="">Title </label>
+
+				<label for=""><i class="tags link icon"></i> Title </label>
 				<input type="text" class="type" ng-model="currentCategory.title">
 			</div>
 
 			<div class="field">
-				<label for="">Description</label>
+				<label for=""><i class="info letter icon"></i> Description</label>
 				<textarea style="font-size:14px;font-family:droid_sansregular" cols="30" rows="5" ng-model="currentCategory.description"></textarea>
 			</div>
 
-			<div class="field">
-				<label for="">Parent</label>
+			<div class="field">  <!-- UPLOAD -->
+				<label><i class="photo icon"></i> Images</label>
+				<div class="ui segment raised">
+					<div class="mini ui button">
+						<div class="fileupload">
+							<i class="icon cloud upload"></i>
+							<span>Upload</span>
+							<input type="file" ng-file-select="onFileSelect($files)" multiple class="upload">
+						</div>
+					</div> <!-- update -->
 
-				<div class="ui icon input">
-					<input type="text" placeholder="Filter" ng-model="parentFilter.title">
-					<div class="ui icon"><i class="search link icon"></i></div>
-				</div>	
+					<div class="mini ui button" ng-click="showImageModal()" ng-if="false" > <i class="edit icon" ></i>Detail</div> <!-- detail -->
 
-				<div class="ui segment">
-					<a class="ko-tag ui label" 
-					ng-repeat="category in categories | filter:parentFilter" 
-					ng-class="{ 'active green' : currentCategory.parentId === category.identifier}"
-					ng-hide="currentCategory.identifier === category.identifier"
-					ng-click="setParent(category)">
+					<div class="field"></div>
+					<div class="ui small images" style="display:inline-block">
+						<img class="rounded ui image"  ng-repeat="x in currentCategory.$images"  ng-src="{{x.$thumbnail}}" ng-show="currentCategory.$images.length > 0">
+					</div>
+				</div>
+			</div> <!-- UPLOAD -->
 
-					<i class="tags icon"></i> <span>{{$index+1}}. {{category.title}}</span>
-				</a>
-			</div>
-		</div> <!-- parents -->
-	</div>
+			<div class="field"> <!-- LEVEL-->
+				<label for=""><i class="tags link icon"></i> Level</label>
 
-	<div class="field">
-		<div class=" ui button mini" ng-click="save(currentCategory)" ng-show="currentCategory.title">
-			<i class="reorder icon"></i> 
-			<span ng-if="currentCategory.identifier == null">Save</span>
-			<span ng-if="currentCategory.identifier != null">Update</span>
+				<div class="ui segment raised">
+					<div class="ui icon input" ng-if="false">
+						<input type="text" placeholder="Filter" ng-model="parentFilter.title">
+						<div class="ui icon"><i class="search link icon"></i></div>
+					</div>	
+
+					<div class="ui">
+						<div class="ui breadcrumb">
+
+							<div class="section" ng-if="selectedLevelA.identifier != null">
+								<div class="ui image label ">
+									<img src="{{selectedLevelA.$images[0].$thumbnail}}" alt="">
+									{{selectedLevelA.title}}
+								</div>
+							</div>
+
+							<span ng-if="selectedLevelB.identifier != null">
+								<i class="right arrow icon divider"></i>
+
+								<div class="section">
+									<div class="ui image label ">
+										<img src="{{selectedLevelB.$images[0].$thumbnail}}" alt="">
+										{{selectedLevelB.title}}
+									</div>
+								</div>	 		
+							</span>
+
+							<span ng-if="(selectedLevelA.identifier != null || selectedLevelB != null) && currentCategory.title">
+								<i class="right arrow icon divider"></i>
+
+								<a class="ui image label green">
+									<img src="{{currentCategory.$images[0].$thumbnail}}">
+									{{currentCategory.title}}
+								</a>
+							</span>
+
+
+						</div>
+					</div>
+				</div> <!-- END LEVEL -->
+			</div> <!-- parents -->
 		</div>
-
-		<div class=" ui button mini" ng-click="cancel()" ng-hide="currentCategory.identifier == null">
-			<i class="remove sign icon"></i> Cancel
-		</div>
-	</div>
-</div> <!-- first column -->
-
-<div class="column">
-	<div class="ui fluid form">
 
 		<div class="field">
-			<label for="">All Category </label>
+			<div class=" ui button mini" ng-click="save(currentCategory)" ng-show="currentCategory.title && currentCategory.$images.length">
+				<i class="reorder icon"></i> 
+				<span ng-if="currentCategory.identifier == null">Save</span>
+				<span ng-if="currentCategory.identifier != null">Update</span>
+			</div>
 
-			<div class="ui icon input">
-				<input type="text" placeholder="Filter" ng-model="categoryFilter.title">
-				<div class="ui icon "><i class="search link icon"></i></div>
-			</div>	
-
-			<div class="ui segment">
-				<a class="ko-tag ui label"
-				ng-repeat="category in categories | filter: categoryFilter" 
-				ng-click="setEditCategory(category)"
-				ng-class="{green : category.parentId !== null , inverted : currentCategory.identifier === category.identifier , orange : category.parentId === null }">
-				<i class="tags icon"></i> <span>{{$index+1}}. {{category.title}}</span>
-			</a>
-		</div>
-
-		
-		<div class="field" ng-show="false">
-			<label for="">Child</label>
-			<div class="ui segment">
-				
-				
+			<div class=" ui button mini" ng-click="cancel()" ng-hide="currentCategory.identifier == null">
+				<i class="remove sign icon"></i> Cancel
 			</div>
 		</div>
+	</div> <!-- first column -->
 
-	</div> <!-- parents -->
-</div>
+	<div class="column">
+		<div class="ui fluid form">
 
-</div> <!-- second column -->
+			<div class="field">
+				<label for="" ng-if="false">All Category </label>
+
+				<div class="ui icon input" ng-if="false">
+					<input type="text" placeholder="Filter" ng-model="categoryFilter.title"/>
+					<div class="ui icon ">
+						<i class="search link icon"></i>
+					</div>
+				</div>	
+			</div>
+
+			<div class="field">
+				<label for=""><i class="tags icon"></i> Level A</label>
+
+				<div class="ui segment">
+
+					<div ng-repeat="category in categoriesA" ng-click="select(category)"  ng-if="category.$level == 'A'" style="display:inline">
+						<a class="ui image label" ng-class="{ green: selectedLevelA.identifier == category.identifier}">
+							<img src="{{category.$images[0].$thumbnail}}">
+							{{category.title}} ({{category.$childs.length}}) 
+						</a>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="field" ng-if="selectedLevelA.identifier != null">
+				<label for=""><i class="tags icon"></i>  Level B</label>
+
+				<div class="ui segment">
+
+					<div ng-repeat="category in categoriesB" ng-click="select(category)"  ng-if="selectedLevelA.identifier == category.parentId" style="display:inline">
+						<a class="ui image label" ng-class="{ green: selectedLevelB.identifier == category.identifier}">
+							<img src="{{category.$images[0].$thumbnail}}">
+							{{category.title}} ({{category.$childs.length}}) 
+						</a>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="field"  ng-if="selectedLevelB.identifier != null">
+				<label for=""><i class="tags icon"></i> Level C</label>
+
+				<div class="ui segment">
+					<div >
+						<div ng-repeat="category in categoriesC" ng-click="ssselect(category)"  ng-if="selectedLevelB.identifier == category.parentId" style="display:inline">
+							<a class="ui image label" ng-class="{ green: selectedLevelB.identifier == category.identifier}">
+								<img src="{{category.$images[0].$thumbnail}}">
+								{{category.title}}
+							</a>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div> <!-- parents -->
+		</div>
+
+	</div> <!-- second column -->
 </div> <!--grid-->
 

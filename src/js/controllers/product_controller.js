@@ -278,6 +278,21 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		});
 	}
 
+	$scope.removeImage = function(image){
+		var request = ProductService.removeImage(image);
+		request.success(function(data){
+			var index = $scope.currentProduct.$images.indexOf(image);
+			if(index != -1){
+				$scope.currentProduct.$images.splice(index, 1);
+				$scope.currentPicture = {};
+			}
+		});
+
+		request.error(function(error){
+			$scope.$emit("message", { error: true, message : "Remove image failed: " + error});
+		});
+	}
+
 	$scope.inlineUpdate = function(product){
 
 		$scope.appendProductDependency(product);
@@ -335,6 +350,12 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		}
 
 		$scope.refreshAllCategoryInfo();
+
+
+		refreshCategoryInfo($scope);
+
+		// init drowdown;
+		$('.ui.dropdown').dropdown();
 	};
 
 	///////////////////////////////////////////////

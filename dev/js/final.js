@@ -63,6 +63,7 @@ function initCategory($scope, CategoryService){
 		$scope.categories = data;
 		$scope.categories.forEach(function(d){ d.$active = false; });
 		var so = $scope.categories.sort(function(a,b) { return a.identifier - b.identifier } );
+
 	});
 
 	request.error(function(error){
@@ -108,7 +109,7 @@ function reloadTable($scope, data, ngTableParams){
 		}
 	};
 
-	 $scope.tableParams = new ngTableParams( config1 , config2);	
+	$scope.tableParams = new ngTableParams( config1 , config2);	
 }
 
 function initProduct($scope, ProductService, ngTableParams){
@@ -137,7 +138,80 @@ function initProduct($scope, ProductService, ngTableParams){
 	});	
 }
 
+function refreshCategoryInfo($scope){
+	$scope.categoriesA =[];
+	$scope.categoriesB =[];
+	$scope.categoriesC = [];
 
+	$scope.categories.forEach(function(cat){
+		if(!cat.parentId){
+			cat.$level = "A";
+			$scope.categoriesA.push(cat);
+		}
+	});
+
+	$scope.categories.forEach(function(cat){
+		$scope.categoriesA.forEach(function(catA){
+			if(cat.parentId == catA.identifier){
+				cat.$level = "B";
+				$scope.categoriesB.push(cat);
+				return;
+			}
+		});
+	});
+
+	$scope.categories.forEach(function(cat){
+		$scope.categoriesB.forEach(function(catB){
+			if(cat.parentId == catB.identifier){
+				cat.$level = "C";
+				$scope.categoriesC.push(cat);
+				return;
+			}
+		});
+	});
+
+	$scope.categoriesA.forEach(function(a){
+		a.$childs = [];
+
+		$scope.categories.forEach(function(cat){
+			if(cat.parentId == a.identifier){
+				a.$childs.push(cat);
+			}
+		});
+	});
+
+	$scope.categoriesB.forEach(function(a){
+		a.$childs = [];
+
+		$scope.categories.forEach(function(cat){
+			if(cat.parentId == a.identifier){
+				a.$childs.push(cat);
+			}
+		});
+	});
+}
+
+function selectComplexCategory($scope, cat){
+	cat.$selected = !(cat.$selected || false);
+
+	if(cat.$selected){
+		$scope.selectedCategory = cat;
+	}
+
+	if(cat.$level === "A") {
+		$scope.selectedLevelA = cat;
+		$scope.selectedLevelB = {};
+		if(!cat.$selected) {
+			$scope.selectedLevelA = {};
+			$scope.selectedCategory = {};
+		}
+	}else if(cat.$level === "B"){
+		$scope.selectedLevelB = cat;
+		$scope.selectedLevelC = {};
+	}else if(cat.$level === "C"){
+		$scope.selectedLevelC = cat;
+	}
+}
 
 
 
@@ -214,6 +288,19 @@ app.factory("ProductService", function(ConfigurationService, $http){
 			return request;
 		},
 
+		removeImage : function(image){
+			// var request = $http({
+			// 	url : ConfigurationService.endPoint + "/image/" + image.identifier,
+			// 	data : {},
+			// 	method : "DELETE", 
+			// 	headers: { "Content-Type" : "multipart/form-data" }
+			// });
+	
+			var url = ConfigurationService.endPoint + "/image/delete/"+ image.identifier;
+			var request = $http.post(url);
+			return request;
+		},
+
 		add : function(product){
 			var request = $http({
 				url : baseUrl,
@@ -239,7 +326,7 @@ app.controller("BranchController", function($scope, NavigateService){
 	$scope.category = true;
 	NavigateService($scope);
 });
-app.controller("CategoryController", function($scope, NavigateService, CategoryService){
+app.controller("CategoryController", function($scope, NavigateService, CategoryService, ProductService, $upload){
 
 	////////////////////////////////////////////////
 	// INITIALIZE VARIABLE
@@ -247,8 +334,22 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 	NavigateService($scope);
 
 	$scope.categories = [];
+	$scope.categoriesA, $scope.categoriesB, $scope.categoriesC, $scope.categoriesD = [];
+	$scope.selectedLevelA, $scope.selectedLevelB, $scope.selectedLevelC = [];
+	$scope.selectedCategory = {};
+
 	$scope.currentCategory = {
 		parentId : null
+	};
+
+	$scope.select = function(cat){
+		selectComplexCategory($scope, cat);
+	}
+
+	$scope.refreshCategoryInfo = function(){
+
+		refreshCategoryInfo($scope);
+
 	};
 
 	//////////////////////////////////////////////////
@@ -258,11 +359,14 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 
 	request.success(function(data){
 		$scope.categories = data;
-		$scope.categories.forEach(function(d){ d.$active = false; });
-		var so = $scope.categories.sort(function(a,b) { return a.identifier - b.identifier } );
-		console.log(so);
+		$scope.categories.forEach(function(d){ 
+			d.$active = false;
+			appendImageUrl(d, ProductService);
+		});
 
-		console.log(data);
+		var so = $scope.categories.sort(function(a,b) { return a.identifier - b.identifier } );
+
+		$scope.refreshCategoryInfo();
 	});
 
 	request.error(function(error){
@@ -273,19 +377,42 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 	// UPDATE DATA
 	////////////////////////////////////////////////////////
 	$scope.save = function(cat){
+
+		cat.parentId = $scope.selectedCategory.identifier;
+		cat.imageIds = [];
+		cat.$images.forEach(function(img){
+			cat.imageIds.push(img.identifier);
+		});
+
 		var request = CategoryService.add(cat);
 		request.success(function(data){
+
+			var newCat = data.data;
+
 			var message = {
-				message : new Date() + " -- Update success: " + data.data.title,
+				message : "Update success: " + newCat.title,
 				error : false
 			}
 			if(typeof($scope.currentCategory.identifier) === 'undefined') {
-				console.log(data.data);
-				$scope.categories.push(data.data);				
+				newCat.$images = [];
+				newCat.imageIds.forEach(function(id){
+					pic = {};
+					pic.identifier = id;
+					pic.$url = ProductService.getImageUrl(pic.identifier);
+					pic.$thumbnail = ProductService.getThumbnailUrl(pic.identifier);
+
+					console.log(pic);
+
+					newCat.$images.push(pic);
+				});
+
+				$scope.categories.push(newCat);				
 			}
 
 			$scope.$emit("message", message);
 			$scope.currentCategory = { parentId : null };
+
+			$scope.refreshCategoryInfo();
 		});
 
 		request.error(function(err){
@@ -295,31 +422,75 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 			}
 			$scope.$emit("message", msg);
 		});
+
 	}
 
 	//////////////////////////////////////////////////////////
 	// UPDATE UI
 	///////////////////////////////////////////////////////////
-	$scope.setEditCategory = function(cat){
-		cat.$active = !cat.$active;
-		$scope.currentCategory = cat;
-	};
+	// $scope.setEditCategory = function(cat){
+	// 	cat.$active = !cat.$active;
+	// 	$scope.currentCategory = cat;
+	// };
 
-	$scope.setParent = function(parent){
-		console.log("current: " + $scope.currentCategory.parentId);
-		console.log("click: " + parent.identifier);
+	// $scope.setParent = function(parent){
+	// 	console.log("current: " + $scope.currentCategory.parentId);
+	// 	console.log("click: " + parent.identifier);
 
-		if($scope.currentCategory.parentId == parent.identifier) {
-			$scope.currentCategory.parentId = null;
-		}else {
-			console.log("update...");
-			$scope.currentCategory.parentId = parent.identifier;
+	// 	if($scope.currentCategory.parentId == parent.identifier) {
+	// 		$scope.currentCategory.parentId = null;
+	// 	}else {
+	// 		console.log("update...");
+	// 		$scope.currentCategory.parentId = parent.identifier;
+	// 	}
+	// };
+
+	// $scope.cancel = function(){
+	// 	$scope.currentCategory = { parentId: null };
+	// }
+
+	///////////////////////////////////////////////
+	// UPLOAD
+	///////////////////////////////////////////////
+	$scope.onFileSelect = function($files){
+		for(var i = 0; i< $files.length; i++){
+			var file = $files[i]
+
+			console.log("Upload: " + ProductService.getUploadImageUrl());
+			console.log("File:");
+			console.log(file);
+
+			var upload = $upload.upload({
+				url: ProductService.getUploadImageUrl(),
+				method: "POST",
+				data : { data : {}}, 
+				headers : { "Content-Type" : "multipart/form-data" },
+				file: file
+			});
+
+			upload.progress(function(evt){
+				console.log("percent: " + parseInt(100.0 * evt.loaded / evt.total));
+			});
+
+			upload.success(function(rs, status, headers, config){
+				$scope.$emit("message", { error: false, message: "Upload success: " + file.name });
+				console.log(rs);
+
+				var pic = rs.data;
+				pic.$url = ProductService.getImageUrl(pic.identifier);
+				pic.$thumbnail = ProductService.getThumbnailUrl(pic.identifier);
+
+				$scope.currentCategory.$images = $scope.currentCategory.$images || [];
+				$scope.currentCategory.$images.push(pic);
+				$scope.currentPicture = pic;
+			});
+
+			upload.error(function(err){
+				console.log(err);
+			});
 		}
 	};
 
-	$scope.cancel = function(){
-		$scope.currentCategory = { parentId: null };
-	}
 });
 app.controller("HomeController", function($scope, NavigateService, CategoryService, ProductService){
 	NavigateService($scope);
@@ -394,6 +565,9 @@ app.controller("HomeController", function($scope, NavigateService, CategoryServi
 				cat.$products.push(p);
 			}
 		});
+
+
+		refreshCategoryInfo($scope);
 	};
 
 	$scope.refreshAllCategoryInfo = function(){
@@ -726,6 +900,21 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		});
 	}
 
+	$scope.removeImage = function(image){
+		var request = ProductService.removeImage(image);
+		request.success(function(data){
+			var index = $scope.currentProduct.$images.indexOf(image);
+			if(index != -1){
+				$scope.currentProduct.$images.splice(index, 1);
+				$scope.currentPicture = {};
+			}
+		});
+
+		request.error(function(error){
+			$scope.$emit("message", { error: true, message : "Remove image failed: " + error});
+		});
+	}
+
 	$scope.inlineUpdate = function(product){
 
 		$scope.appendProductDependency(product);
@@ -783,6 +972,12 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		}
 
 		$scope.refreshAllCategoryInfo();
+
+
+		refreshCategoryInfo($scope);
+
+		// init drowdown;
+		$('.ui.dropdown').dropdown();
 	};
 
 	///////////////////////////////////////////////

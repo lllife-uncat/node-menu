@@ -1,11 +1,12 @@
 
 <div class="column">
   <div class="ui raised segment">
-    <a class="ko-tag ui label" ng-repeat="category in categories | filter:allCategoryFilter" ng-click="selectProductCategory(category)" ng-class="{ green : category.$selectedFilter}">
+    <a class="ko-tag ui label" ng-repeat="category in categories | filter:allCategoryFilter" ng-click="selectProductCategory(category)" ng-class="{ green : category.$selectedFilter}" ng-if="category.$level === 'C'">
       <i class="tags icon"></i> {{$index+1}}. {{category.title}} 
       <span class="circular label red" ng-if="category.$products.length > 0">({{category.$products.length}})</span>
     </a>  
   </div>
+
 
   <div class="column">
     <table ng-table="tableParams" template-pagination="custom/pager" class="ui padded table segment">
@@ -20,7 +21,7 @@
 
           <th>
             <div>
-            <label ng-click="showArchiveChange()">Product</label> 
+              <label ng-click="showArchiveChange()">Product</label> 
             </div>
           </th>
 

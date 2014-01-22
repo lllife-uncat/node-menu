@@ -63,6 +63,7 @@ function initCategory($scope, CategoryService){
 		$scope.categories = data;
 		$scope.categories.forEach(function(d){ d.$active = false; });
 		var so = $scope.categories.sort(function(a,b) { return a.identifier - b.identifier } );
+
 	});
 
 	request.error(function(error){
@@ -108,7 +109,7 @@ function reloadTable($scope, data, ngTableParams){
 		}
 	};
 
-	 $scope.tableParams = new ngTableParams( config1 , config2);	
+	$scope.tableParams = new ngTableParams( config1 , config2);	
 }
 
 function initProduct($scope, ProductService, ngTableParams){
@@ -137,6 +138,79 @@ function initProduct($scope, ProductService, ngTableParams){
 	});	
 }
 
+function refreshCategoryInfo($scope){
+	$scope.categoriesA =[];
+	$scope.categoriesB =[];
+	$scope.categoriesC = [];
 
+	$scope.categories.forEach(function(cat){
+		if(!cat.parentId){
+			cat.$level = "A";
+			$scope.categoriesA.push(cat);
+		}
+	});
+
+	$scope.categories.forEach(function(cat){
+		$scope.categoriesA.forEach(function(catA){
+			if(cat.parentId == catA.identifier){
+				cat.$level = "B";
+				$scope.categoriesB.push(cat);
+				return;
+			}
+		});
+	});
+
+	$scope.categories.forEach(function(cat){
+		$scope.categoriesB.forEach(function(catB){
+			if(cat.parentId == catB.identifier){
+				cat.$level = "C";
+				$scope.categoriesC.push(cat);
+				return;
+			}
+		});
+	});
+
+	$scope.categoriesA.forEach(function(a){
+		a.$childs = [];
+
+		$scope.categories.forEach(function(cat){
+			if(cat.parentId == a.identifier){
+				a.$childs.push(cat);
+			}
+		});
+	});
+
+	$scope.categoriesB.forEach(function(a){
+		a.$childs = [];
+
+		$scope.categories.forEach(function(cat){
+			if(cat.parentId == a.identifier){
+				a.$childs.push(cat);
+			}
+		});
+	});
+}
+
+function selectComplexCategory($scope, cat){
+	cat.$selected = !(cat.$selected || false);
+
+	if(cat.$selected){
+		$scope.selectedCategory = cat;
+	}
+
+	if(cat.$level === "A") {
+		$scope.selectedLevelA = cat;
+		$scope.selectedLevelB = {};
+		if(!cat.$selected) {
+			$scope.selectedLevelA = {};
+			$scope.selectedCategory = {};
+		}
+	}else if(cat.$level === "B"){
+		$scope.selectedLevelB = cat;
+		$scope.selectedLevelC = {};
+	}else if(cat.$level === "C"){
+		$scope.selectedLevelC = cat;
+	}
+}
 
 
