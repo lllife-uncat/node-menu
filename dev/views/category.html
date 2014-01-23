@@ -1,3 +1,24 @@
+<div class="ui secondary pointing menu">
+
+	<div class="right menu" ng-if="lastSelectedCategory.identifier">
+
+		<div class="item">
+			<!-- <div class="ui label mini">Selected Category</div> -->
+			<a class="ui image label blue">
+				<img src="{{lastSelectedCategory.$images[0].$thumbnail}}" ng-if="false">  {{lastSelectedCategory.title}}
+			</a>
+		</div>
+		<div class="item">
+			<div class="ui button mini" ng-click="edit(lastSelectedCategory)"><i class="Edit icon"></i>Edit</div>
+		</div>
+
+		<div class="item" ng-if="false">
+			<div class="ui button mini"><i class="Edit icon"></i>Remove</div>
+		</div>
+	</div>
+</div>
+
+
 <div class="ui two column grid">
 	<div class="column ">
 
@@ -9,9 +30,19 @@
 				<input type="text" class="type" ng-model="currentCategory.title">
 			</div>
 
+			<div class="ui two fields">
+				<div class="field">
+					<label for=""><i class="tags link icon"></i> ID</label>
+					<input type="text" ng-model="currentCategory.id">
+				</div>
+				<div class="field">
+					
+				</div>
+			</div>
+
 			<div class="field">
 				<label for=""><i class="info letter icon"></i> Description</label>
-				<textarea style="font-size:14px;font-family:droid_sansregular" cols="30" rows="5" ng-model="currentCategory.description"></textarea>
+				<textarea style="height:20px;" cols="30" rows="5" ng-model="currentCategory.description"></textarea>
 			</div>
 
 			<div class="field">  <!-- UPLOAD -->
@@ -35,7 +66,7 @@
 			</div> <!-- UPLOAD -->
 
 			<div class="field"> <!-- LEVEL-->
-				<label for=""><i class="tags link icon"></i> Level</label>
+				<label for=""><i class="tags link icon"></i> Category Level</label>
 
 				<div class="ui segment raised">
 					<div class="ui icon input" ng-if="false">
@@ -81,16 +112,22 @@
 		</div>
 
 		<div class="field">
-			<div class=" ui button mini" ng-click="save(currentCategory)" ng-show="currentCategory.title && currentCategory.$images.length">
+			<div class=" ui button mini" ng-click="save(currentCategory)" ng-show="currentCategory.title && currentCategory.$images.length && currentCategory.identifier == null">
+				<i class="reorder icon"></i> 
+				<span>Save</span>
+			</div>
+
+			<div class=" ui button mini" ng-click="save(currentCategory)" ng-if="currentCategory.identifier != null && selectedCategory.identifier != currentCategory.identifier">
 				<i class="reorder icon"></i> 
 				<span ng-if="currentCategory.identifier == null">Save</span>
-				<span ng-if="currentCategory.identifier != null">Update</span>
+				<span >Update</span>
 			</div>
 
 			<div class=" ui button mini" ng-click="cancel()" ng-hide="currentCategory.identifier == null">
 				<i class="remove sign icon"></i> Cancel
 			</div>
 		</div>
+
 	</div> <!-- first column -->
 
 	<div class="column">
@@ -108,9 +145,9 @@
 			</div>
 
 			<div class="field">
-				<label for=""><i class="tags icon"></i> Level A</label>
+				<label for=""><i class="tags icon"></i> Main Category</label>
 
-				<div class="ui segment">
+				<div class="ui raised segment">
 
 					<div ng-repeat="category in categoriesA" ng-click="select(category)"  ng-if="category.$level == 'A'" style="display:inline">
 						<a class="ui image label" ng-class="{ green: selectedLevelA.identifier == category.identifier}">
@@ -123,9 +160,9 @@
 			</div>
 
 			<div class="field" ng-if="selectedLevelA.identifier != null">
-				<label for=""><i class="tags icon"></i>  Level B</label>
+				<label for=""><i class="tags icon"></i> Sub Category</label>
 
-				<div class="ui segment">
+				<div class="ui raised segment">
 
 					<div ng-repeat="category in categoriesB" ng-click="select(category)"  ng-if="selectedLevelA.identifier == category.parentId" style="display:inline">
 						<a class="ui image label" ng-class="{ green: selectedLevelB.identifier == category.identifier}">
@@ -138,12 +175,12 @@
 			</div>
 
 			<div class="field"  ng-if="selectedLevelB.identifier != null">
-				<label for=""><i class="tags icon"></i> Level C</label>
+				<label for=""><i class="tags icon"></i>  Category</label>
 
-				<div class="ui segment">
+				<div class="ui raised segment">
 					<div >
-						<div ng-repeat="category in categoriesC" ng-click="ssselect(category)"  ng-if="selectedLevelB.identifier == category.parentId" style="display:inline">
-							<a class="ui image label" ng-class="{ green: selectedLevelB.identifier == category.identifier}">
+						<div ng-repeat="category in categoriesC" ng-click="select(category)"  ng-if="selectedLevelB.identifier == category.parentId" style="display:inline">
+							<a class="ui image label" ng-class="{ black: selectedLevelC.identifier == category.identifier}">
 								<img src="{{category.$images[0].$thumbnail}}">
 								{{category.title}}
 							</a>
@@ -154,6 +191,8 @@
 
 
 			</div> <!-- parents -->
+
+
 		</div>
 
 	</div> <!-- second column -->

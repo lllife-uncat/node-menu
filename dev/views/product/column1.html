@@ -63,7 +63,7 @@
 						</div>
 					</div> <!-- update -->
 
-					<i class="ui mini button" ng-click="showImageModal()" > <i class="edit icon" ></i>Detail</i> <!-- detail -->
+					<div class="ui mini button" ng-click="showImageModal()" > <i class="edit icon" ></i>Detail</div> <!-- detail -->
 
 					<div class="field"></div>
 					<div class="ui small images" style="display:inline-block">
@@ -71,6 +71,7 @@
 					</div>
 				</div>
 			</div> <!-- UPLOAD -->
+			
 		</div>
 
 
@@ -78,7 +79,6 @@
 			<div class=" ui button mini" ng-click="save(currentProduct)" ng-show="valid()">
 				<i class="cart icon"></i> 
 				<span ng-if="true">Save</span>
-				<span ng-if="currentCategory.identifier != null">Update</span>
 			</div>
 		</div> <!-- SAVE  -->
 

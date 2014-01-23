@@ -1,3 +1,11 @@
+html { 
+    height:100%;
+}
+body { 
+    height:100%;
+}
+
+
 body {
 	background-color: white;
 	font-family: droid_sansregular;
@@ -119,7 +127,7 @@ label {
 
 .ko-tag.label {
     margin: 5px;
-    box-shadow: 1px 1px 3px lightgray;
+    box-shadow: 1px 1px 4px lightgray;
     text-transform: none;
 }
 
@@ -128,9 +136,14 @@ label {
 }
 
 .ui.image.label{
-    margin: 3px;
-    box-shadow: 1px 1px 3px lightgray;
+    margin: 5px;
+    box-shadow: 1px 1px 5px lightgray;
 }
+
+.label.pointing {
+    text-transform: none;
+}
+
 /*
 .ko-tag span {
     font-family: droid_sansregular;

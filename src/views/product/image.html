@@ -6,15 +6,15 @@
 	<div class="ui two column grid ">
 		<div class="column" >
 			<div ng-show="currentPicture.identifier != null">
-				<div class="ui label pointing below" ng-class="{ red : currentPicture.archive, green: !currentPicture.archive}">
-					<p>{{currentPicture.title}}</p>
+				<div class="ui label pointing below" ng-class="{ red : currentPicture.archive, green: !currentPicture.archive}" >
+					<p><i class="ui icon bookmark"></i> {{currentPicture.title}}</p>
 				</div>
 				<div class="ui ">
 					<img class="rounded ui image huge" src="{{currentPicture.$url}}" style="width:100%">
 				</div>
 
-				<div class="ui pointing top label">
-					<p>{{currentPicture.description}}</p>
+				<div class="ui  top label pointing">
+					<p><i class="ui icon bookmark"></i> {{currentPicture.description}}</p>
 				</div>		
 			</div>
 
@@ -45,12 +45,12 @@
 
 			<div class="ui form" ng-if="currentPicture.identifier != null">
 				<div class="field">
-					<label for="">Title</label>
+					<label for=""><i class="ui icon bookmark"></i>  Title</label>
 					<input type="text" ng-model="currentPicture.title"/>
 				</div>
 
 				<div class="field">
-					<label for="">Description</label>
+					<label for=""><i class="ui icon bookmark"></i>  Description</label>
 					<input type="text" ng-model="currentPicture.description">
 				</div>
 
@@ -62,7 +62,7 @@
 				</div>
 			</div>
 
-			<div class="field"></div>
+			<div class="field"><br><br></div>
 
 
 			<div class="field"  ng-if="currentPicture.identifier != null">

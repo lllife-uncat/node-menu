@@ -30,18 +30,61 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	// show archive or not;
 	$scope.showArchive = false;
 
+	// selected category
+	$scope.selectedCategoryA = {};
+	$scope.selectedCategoryB = {};
+	$scope.selectedCategoryC = {};
 
-	///////////////////////////////////////////////
-	// Init
-	//////////////////////////////////////////////
-	initCategory($scope, CategoryService);
-	initProduct($scope, ProductService, ngTableParams);
+	$scope.selectedCategoryLevel = null;
 
 
-	//////////////////////////////
-	// FILTER
-	/////////////////////////////////
 
+	// first initialize category and product information
+	// include image url and thumbnail
+	var request = _initCategory($scope, CategoryService, ProductService);
+	_initProduct($scope, ProductService, ngTableParams);
+
+	// refresh category infos.
+	request.success(function(cat){
+		_refreshCategoryInfo($scope);
+	});
+
+
+	// select level 
+	$scope.selectCategoryLevel = function(level){
+		$scope.selectedCategoryLevel = level;
+	}
+
+	// select category a;
+	$scope.selectCategoryA = function(cat){
+		$scope.selectedCategoryA = cat;
+		$scope.selectedCategoryLevel = "B";
+	};
+
+	// select category b;
+	$scope.selectCategoryB = function(cat){
+		$scope.selectedCategoryB = cat;
+		$scope.selectedCategoryLevel = "C";
+	};	
+
+	// select category b;
+	$scope.selectCategoryC = function(cat){
+		$scope.selectedCategoryC = cat;
+	};	
+
+	// show modal a;
+	$scope.showCategoryModalA = function(){
+		// _refreshCategoryInfo($scope);
+		$(".ko-category-a").modal("show");
+	};
+
+	// show modal b;
+	$scope.showCategoryModalB = function(){
+		// _refreshCategoryInfo($scope);
+		$(".ko-category-b").modal("show");
+	};
+
+	// get all un archive products
 	$scope.getActiveProducts = function(){
 		var actives = [];
 		$scope.products.forEach(function(p){
@@ -52,13 +95,14 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		return actives;
 	};
 
-
+	// show archive change [view trick]
 	$scope.showArchiveChange = function() {
 		$scope.showArchive = !$scope.showArchive;
 
 		console.log("showArchive: " + $scope.showArchive);
 	}
 
+	// get all selected category count
 	function getNumberOfSelectedCategory(){
 		var count = 0;
 		$scope.categories.forEach(function(cat){
@@ -69,6 +113,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		return count;
 	}
 
+	// filter product with conditions.
 	$scope.productComplexFilter = function(p){
 
 		if($scope.selectedTab != "allProducts") {
@@ -119,9 +164,8 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	};
 
 
-	////////////////////////////////////////////
-	// CALCULATE CATEGORY INFO
-	/////////////////////////////////////////////
+
+	// calulate cateogry infos.
 	$scope.refreshCatetoryInfo = function(cat){
 		cat.$products = [];
 
@@ -130,12 +174,10 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 			if(p.categoryIds.indexOf(cat.identifier) != -1){
 				cat.$products.push(p);
 			}
-			console.log("==category info==");
-			console.log(p.categoryIds);
-			console.log(p.identifier);
 		});
 	};
 
+	// refresch category infos.
 	$scope.refreshAllCategoryInfo = function(){
 		console.log("==refresh category info==");
 		$scope.categories.forEach(function(cat){
@@ -143,26 +185,26 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		});
 	};
 
-	/////////////////////////////////////////////////////
-	// UI
-	/////////////////////////////////////////////////////
+
+	// show image manager popup.
 	$scope.showImageModal = function(){
 		$('.ko-image').modal('show');
 		// $('.ko-image').modal('hide');
 	};
 
+	// hide popup.
 	$scope.hideImageModal = function(){
 		// $('.ko-image').modal('hide all');
 
 	};
 
+	// start inline edit.
 	$scope.setInlineEditing = function(edit){
 		$scope.inlineEditing = edit;
-		console.log("==inline editing==");
-		console.log("inline: " + $scope.inlineEditing);
 	}
 
 
+	// save specific image.
 	$scope.saveImage = function(pic){
 		var request = ProductService.addImage(pic);
 		request.success(function(data){
@@ -175,6 +217,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		});
 	};
 
+	// save all images.
 	$scope.saveAllImage = function(){
 		$scope.currentProduct.$images.forEach(function(img){
 			$scope.saveImage(img);
@@ -182,14 +225,17 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	}
 
 
+	// show image in big view area.
 	$scope.openPicture = function(p){
 		$scope.currentPicture = p;
 	};
 
+	// loading...
 	$scope.loadInclude = function(){
 		console.log("loading...");
 	};
 
+	// get all selected category
 	$scope.getSelectedCategories = function(){
 		var cats = []
 		$scope.categories.forEach(function(cat){
@@ -201,38 +247,55 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		return cats;
 	};
 
+	// validate new product.
 	$scope.valid = function(){
 		var r = $scope.currentProduct;
 		var p = r.primaryPrice && r.promotionPrice && r.memberPrice;
-		var cats = $scope.getSelectedCategories();
-		var valid = r.name && r.description && r.productId && cats.length != 0 && p;
+		// var cats = $scope.getSelectedCategories();
+		var cats = $scope.selectedCategoryC.identifier != null;
+		var valid = r.name && r.description && r.productId && cats && p;
 
 		// console.log("validate: " + valid);
 		return valid;
 	};
 
-	/////////////////////////////////////////////////////
-	// CATEGORY
-	/////////////////////////////////////////////////////
-	$scope.selectCategory = function(cat){
 
-		if(typeof(cat.$selected) == 'undefined') {
-			cat.$selected = true;
-		}else {
-			cat.$selected = !cat.$selected;
+	// select cateogry
+	$scope.selectCategory = function(c){
+
+		// if(typeof(cat.$selected) == 'undefined') {
+		// 	cat.$selected = true;
+		// }else {
+		// 	cat.$selected = !cat.$selected;
+		// }
+
+		$scope.selectedCategoryC = c;
+		if(c.parentId != null){
+			$scope.categories.forEach(function(a){
+				if(a.identifier == c.parentId){
+					$scope.selectedCategoryB = a;
+					return;
+				}
+			});
+			$scope.categories.forEach(function(a){
+				if(a.identifier == $scope.selectedCategoryB.identifier){
+					$scope.selectedCategoryA = a;
+					return;
+				}
+			});
 		}
 	}
 
+	// select product category [all product]
 	$scope.selectProductCategory = function(cat){
 		if(typeof(cat.$selectedFilter) == 'undefined'){
 			cat.$selectedFilter = true;
 		}else {
 			cat.$selectedFilter = !cat.$selectedFilter;
 		}
-
-
 	}
 
+	// append product dependencies
 	$scope.appendProductDependency = function(product){
 		product.imageIds = [];
 		product.categoryIds = [];
@@ -241,14 +304,14 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 			product.imageIds.push(pic.identifier);
 		});
 
-		$scope.getSelectedCategories().forEach(function(cat){
-			product.categoryIds.push(cat.identifier);
-		});		
+		// $scope.getSelectedCategories().forEach(function(cat){
+		// 	product.categoryIds.push(cat.identifier);
+		// });		
+		
+		product.categoryIds.push($scope.selectedCategoryC.identifier);
 	};
 
-	////////////////////////////////////////////////////
-	// UPDATE
-	///////////////////////////////////////////////////
+	// update current product
 	$scope.save = function(product){
 		console.log("save...");
 
@@ -258,7 +321,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		request.success(function(rs){
 			// append url
 			var p = rs.data;
-			appendImageUrl(p, ProductService);
+			_appendImageUrl(p, ProductService);
 
 			$scope.products.push(p);
 			$scope.currentProduct = {};
@@ -278,6 +341,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		});
 	}
 
+	// remove image.
 	$scope.removeImage = function(image){
 		var request = ProductService.removeImage(image);
 		request.success(function(data){
@@ -293,6 +357,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		});
 	}
 
+	// start inline update.
 	$scope.inlineUpdate = function(product){
 
 		$scope.appendProductDependency(product);
@@ -311,6 +376,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	};
 
 
+	// select product.
 	$scope.selectProduct = function(product){
 		console.log("==select product==");
 		console.log(product);
@@ -338,29 +404,19 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		});
 	}
 
-	/////////////////////////////////////////////////
-	// TEST
-	/////////////////////////////////////////////////
+
+	// change tab.
 	$scope.setActiveTab = function(tab){
 		$scope.selectedTab = tab;
 		console.log("selectedTab:" + $scope.selectedTab);
-
-		if(!$scope.$$phases) {
-			// $scope.$digest("selectedTab");
-		}
-
 		$scope.refreshAllCategoryInfo();
 
 
-		refreshCategoryInfo($scope);
-
-		// init drowdown;
-		$('.ui.dropdown').dropdown();
+		_refreshCategoryInfo($scope);
 	};
 
-	///////////////////////////////////////////////
-	// UPLOAD
-	///////////////////////////////////////////////
+
+	// upload selected images.
 	$scope.onFileSelect = function($files){
 		for(var i = 0; i< $files.length; i++){
 			var file = $files[i]

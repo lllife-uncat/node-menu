@@ -57,11 +57,14 @@ Number.prototype.formatMoney = function(c, d, t){
 
 
 // load all product's category
-function initCategory($scope, CategoryService){
+function _initCategory($scope, CategoryService, ProductService){
 	var request = CategoryService.findAll();
 	request.success(function(data){
 		$scope.categories = data;
-		$scope.categories.forEach(function(d){ d.$active = false; });
+		$scope.categories.forEach(function(d){
+			d.$active = false; 
+			_appendImageUrl(d, ProductService);
+		});
 		var so = $scope.categories.sort(function(a,b) { return a.identifier - b.identifier } );
 
 	});
@@ -70,10 +73,12 @@ function initCategory($scope, CategoryService){
 		$scope.$emit("message", { error: true, message: error });
 		console.log(error);
 	});	
+
+	return request;
 }
 
 // append image object into $images property.
-function appendImageUrl(product, ProductService){	
+function _appendImageUrl(product, ProductService){	
 	product.$images = product.$images || [];
 	product.imageIds.forEach(function(i){
 		var url = ProductService.getImageUrl(i);
@@ -84,9 +89,6 @@ function appendImageUrl(product, ProductService){
 			var img = rs;
 			img.$url = url;
 			img.$thumbnail = thumbnail;
-			// console.log("==init image==");
-			// console.log(img);
-
 			product.$images.push(img);
 		});
 
@@ -99,7 +101,7 @@ function appendImageUrl(product, ProductService){
 	});
 }
 
-function reloadTable($scope, data, ngTableParams){
+function _reloadTable($scope, data, ngTableParams){
 	
 	var config1 = { page: 1,  count: 50};
 	var config2 = {
@@ -112,14 +114,14 @@ function reloadTable($scope, data, ngTableParams){
 	$scope.tableParams = new ngTableParams( config1 , config2);	
 }
 
-function initProduct($scope, ProductService, ngTableParams){
+function _initProduct($scope, ProductService, ngTableParams){
 
 	var request = ProductService.findAll();
 
 	request.success(function(data){
 		$scope.products = data;
 		$scope.products.forEach(function(d){ 		
-			appendImageUrl(d, ProductService);
+			_appendImageUrl(d, ProductService);
 		});
 
 		var so = $scope.products.sort(function(a,b) { return a.identifier - b.identifier } );
@@ -129,7 +131,7 @@ function initProduct($scope, ProductService, ngTableParams){
 
 		if(ngTableParams != null){
 			console.log("==reload table==");
-			reloadTable($scope, data, ngTableParams);
+			_reloadTable($scope, data, ngTableParams);
 		}
 	});
 
@@ -138,7 +140,7 @@ function initProduct($scope, ProductService, ngTableParams){
 	});	
 }
 
-function refreshCategoryInfo($scope){
+function _refreshCategoryInfo($scope){
 	$scope.categoriesA =[];
 	$scope.categoriesB =[];
 	$scope.categoriesC = [];
@@ -155,7 +157,6 @@ function refreshCategoryInfo($scope){
 			if(cat.parentId == catA.identifier){
 				cat.$level = "B";
 				$scope.categoriesB.push(cat);
-				return;
 			}
 		});
 	});
@@ -165,7 +166,6 @@ function refreshCategoryInfo($scope){
 			if(cat.parentId == catB.identifier){
 				cat.$level = "C";
 				$scope.categoriesC.push(cat);
-				return;
 			}
 		});
 	});
@@ -191,7 +191,7 @@ function refreshCategoryInfo($scope){
 	});
 }
 
-function selectComplexCategory($scope, cat){
+function _selectComplexCategory($scope, cat){
 	cat.$selected = !(cat.$selected || false);
 
 	if(cat.$selected){

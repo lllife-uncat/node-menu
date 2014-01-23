@@ -33,22 +33,89 @@
 		<div call="ui one fields"> <!-- CATEGORIES -->
 			<div class="field">
 
-				<label><i class="tags dollar icon"></i> Category
+				<label><i class="tags dollar icon"></i> Select Product Category </label>
 
-					<span  class="ui pointing left mini label" ng-show="false || getSelectedCategories().length > 0">{{getSelectedCategories().length}}</span>
-				</label>
-				<div class="ui action input">
+				<div class="ui breadcrumb"> 
+
+					<span ng-click="selectCategoryLevel('A')"> <!-- CAT A -->
+
+						<a class="ui image label"  ng-if="!selectedCategoryA.identifier" ng-class="{ green : selectedCategoryLevel == 'A'}">
+							<img src="{{selectedCategoryA.$images[0].$thumbnail}}">
+							Main Category
+						</a>	
+
+						<a class="ui image label"  ng-if="selectedCategoryA.identifier" ng-class="{ green : selectedCategoryLevel == 'A'}">
+							<img src="{{selectedCategoryA.$images[0].$thumbnail}}">
+							{{selectedCategoryA.title}}
+						</a>	
+					</span>
+
+					
+					<span ng-click="selectCategoryLevel('B')">  <!-- CAT B -->
+						<i class="right arrow icon divider"></i>
+
+						<a class="ui image label" ng-if="selectedCategoryB.identifier" ng-class="{ green : selectedCategoryLevel == 'B'}">
+							<img src="{{selectedCategoryB.$images[0].$thumbnail}}">
+							{{selectedCategoryB.title}}
+						</a>
+
+						<a class="ui image label" ng-if="!selectedCategoryB.identifier" ng-class="{ green : selectedCategoryLevel == 'B'}">
+							<img src="{{selectedCategoryB.$images[0].$thumbnail}}">
+							Sub Category
+						</a>
+					</span>
+
+					<span ng-click="selectCategoryLevel('C')"> <!-- CAT C -->
+						<i class="right arrow icon divider" ></i>
+
+						<a class="ui image label" ng-if="selectedCategoryC.identifier" ng-class="{ green : selectedCategoryLevel == 'C'}">
+							<img src="{{selectedCategoryC.$images[0].$thumbnail}}">
+							{{selectedCategoryC.title}}
+						</a>
+						<a class="ui image label" ng-if="!selectedCategoryC.identifier" ng-class="{ green : selectedCategoryLevel == 'C'}">
+							<img src="{{selectedCategoryC.$images[0].$thumbnail}}">
+							Category
+						</a>						
+					</span>
+
+				</div>
+
+				<div class="ui action input" ng-if="false">
 					<div class="ui icon input">
 						<input type="text" placeholder="Search...">
 						<i class="search link icon"></i>
 					</div>
 				</div>	
-				<div class="ui segment">
-					<a class="ko-tag ui label" ng-repeat="category in categories | filter: categoryFilter" ng-click="selectCategory(category)" ng-class="{ green : category.$selected}" ng-if="category.$level === 'C'">
-						<i class="tags icon"></i> <span>{{$index+1}}. {{category.title}}</span>
+
+
+
+				<div class="ui raised segment ko-category-a"  ng-if="selectedCategoryLevel == 'A'">
+					<div>
+						<a class="ui image label" ng-repeat="category in categoriesA" ng-click="selectCategoryA(category)" ng-class="{ green : category.identifier == selectedCategoryA.identifier}">
+							<img src="{{category.$images[0].$thumbnail}}">
+							{{category.title}}
+						</a>	
+					</div>
+				</div>
+
+				<div class="ui raised segment ko-category-b"  ng-if="selectedCategoryLevel == 'B'">
+					<div>
+						<a class="ui image label" ng-repeat="category in categoriesB" ng-click="selectCategoryB(category)" ng-class="{ green : category.identifier == selectedCategoryB.identifier}" ng-if="category.parentId == selectedCategoryA.identifier">
+							<img src="{{category.$images[0].$thumbnail}}">
+							{{category.title}}
+						</a>	
+					</div>
+				</div>
+
+
+				<div class="ui raised segment"  ng-if="selectedCategoryLevel == 'C'">
+					<a class="ui image label"  ng-repeat="category in categoriesC" ng-click="selectCategoryC(category)" ng-class="{ green : category == selectedCategoryC}" ng-if="category.parentId == selectedCategoryB.identifier">
+						<img src="{{category.$images[0].$thumbnail}}">
+						{{category.title}}
 					</a>						
 				</div>
+
 			</div> <!-- field -->
 		</div> <!-- CATEGORIES -->
 	</div> <!-- segment -->
-	</div>  <!-- END COLUMNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
+</div>  <!-- END COLUMNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->

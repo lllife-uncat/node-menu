@@ -1,11 +1,23 @@
 app.controller("HomeController", function($scope, NavigateService, CategoryService, ProductService){
 	NavigateService($scope);
 
-	initCategory($scope, CategoryService);
-	initProduct($scope, ProductService);
+	_initCategory($scope, CategoryService, ProductService);
+	_initProduct($scope, ProductService);
 
 	$scope.currentProduct = {};
 	$scope.productFilter = "";
+	$scope.currentImageIndex = 0;
+
+	$scope.changeImageIndex = function(index){
+		console.log("index: " + index);
+
+		$scope.currentImageIndex = index;
+	}
+
+
+	$scope.flip = function() {
+		$('.ui.cube.shape') .eq(0) .shape('flip over') .end() .eq(1) .shape('flip back') ;
+	};
 
 	$scope.complexProductFilter = function(p){
 		var selectedCategories = 0;
@@ -73,7 +85,7 @@ app.controller("HomeController", function($scope, NavigateService, CategoryServi
 		});
 
 
-		refreshCategoryInfo($scope);
+		_refreshCategoryInfo($scope);
 	};
 
 	$scope.refreshAllCategoryInfo = function(){
@@ -87,15 +99,20 @@ app.controller("HomeController", function($scope, NavigateService, CategoryServi
 	};
 
 	$scope.init = function() {
-		var thumb = $('.ko-thumbnail');
-		thumb.popup({
-			on: 'hover'
-		});
+		// var thumb = $('.ko-thumbnail');
+		// thumb.popup({
+		// 	on: 'hover'
+		// });
 
-		$scope.refreshAllCategoryInfo();
-	}
+$scope.refreshAllCategoryInfo();
+}
 
-	$scope.selectProduct = function(p){
-		$scope.currentProduct = p;
-	};
+$scope.selectProduct = function(p){
+	console.log("hello shape...");
+
+	$('.ui.cube.shape').shape();
+	$scope.currentProduct = p;
+
+	$scope.currentImageIndex = 0;
+};
 });

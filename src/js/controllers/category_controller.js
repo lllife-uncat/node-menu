@@ -9,20 +9,34 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 	$scope.categoriesA, $scope.categoriesB, $scope.categoriesC, $scope.categoriesD = [];
 	$scope.selectedLevelA, $scope.selectedLevelB, $scope.selectedLevelC = [];
 	$scope.selectedCategory = {};
+	$scope.lastSelectedCategory = {};
 
 	$scope.currentCategory = {
 		parentId : null
 	};
 
 	$scope.select = function(cat){
-		selectComplexCategory($scope, cat);
+		_selectComplexCategory($scope, cat);
+		$scope.lastSelectedCategory = cat;
 	}
 
 	$scope.refreshCategoryInfo = function(){
 
-		refreshCategoryInfo($scope);
+		_refreshCategoryInfo($scope);
 
 	};
+
+	$scope.edit = function(cat){
+		$scope.currentCategory = cat;
+
+		if(cat == $scope.selectedLevelA){
+			$scope.selectedLevelA = {};
+		}else if(cat == $scope.selectedLevelB){
+			$scope.selectedLevelB = {};
+		}else if(cat == $scope.selectedLevelC){
+			$scope.selectedLevelC = {};
+		}
+	}
 
 	//////////////////////////////////////////////////
 	// GET ALL CATEGORY VIA WEB SERVICE
@@ -33,7 +47,7 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 		$scope.categories = data;
 		$scope.categories.forEach(function(d){ 
 			d.$active = false;
-			appendImageUrl(d, ProductService);
+			_appendImageUrl(d, ProductService);
 		});
 
 		var so = $scope.categories.sort(function(a,b) { return a.identifier - b.identifier } );
@@ -117,9 +131,9 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 	// 	}
 	// };
 
-	// $scope.cancel = function(){
-	// 	$scope.currentCategory = { parentId: null };
-	// }
+	$scope.cancel = function(){
+		$scope.currentCategory = { parentId: null };
+	}
 
 	///////////////////////////////////////////////
 	// UPLOAD
