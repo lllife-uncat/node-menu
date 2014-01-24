@@ -56,6 +56,14 @@ Number.prototype.formatMoney = function(c, d, t){
 };
 
 
+function _emitMessage($scope, message, error){
+	if(typeof(error) === 'undefined'){
+		$scope.$emit("message", { error: false, message: message })
+	}else {
+		$scope.$emit("message", { error: error, message: message });
+	}
+}
+
 // load all product's category
 function _initCategory($scope, CategoryService, ProductService){
 	var request = CategoryService.findAll();
@@ -138,6 +146,8 @@ function _initProduct($scope, ProductService, ngTableParams){
 	request.error(function(error){
 		console.log(error);
 	});	
+
+	return request;
 }
 
 function _refreshCategoryInfo($scope){
@@ -515,6 +525,38 @@ app.controller("HomeController", function($scope, NavigateService, CategoryServi
 	$scope.currentProduct = {};
 	$scope.productFilter = "";
 	$scope.currentImageIndex = 0;
+	$scope.currentSelectedPage = 0;
+
+
+	$scope.nextImage = function(){
+		var total = $scope.currentProduct.$images.length;
+		if($scope.currentImageIndex < total - 1){
+			$scope.currentImageIndex ++;
+		}else {
+			$scope.currentImageIndex = 0;
+		}
+
+		$scope.$emit("message", { error:false, message: "View image " + $scope.currentProduct.$images[$scope.currentImageIndex].title });
+	}
+
+	$scope.matchPage = function(index){
+		var start = $scope.currentSelectedPage;
+		var end = start + 10;
+
+		// console.log("start: " + start);
+		// console.log("end: " + end);
+
+		var ok = index >= start && index < end;
+
+		return ok;
+	};
+
+	$scope.changePage = function(index){
+		console.log("page: " + index);
+		$scope.currentSelectedPage = index;
+
+		$scope.$emit("message", { error: false, message: "Go to product " + (index + 1) })
+	};
 
 	$scope.changeImageIndex = function(index){
 		console.log("index: " + index);
@@ -528,6 +570,7 @@ app.controller("HomeController", function($scope, NavigateService, CategoryServi
 	};
 
 	$scope.complexProductFilter = function(p){
+
 		var selectedCategories = 0;
 		$scope.categories.forEach(function(cat){
 			if(cat.$selected){
@@ -573,9 +616,7 @@ app.controller("HomeController", function($scope, NavigateService, CategoryServi
 			cat.$selected = !cat.$selected;
 		}
 
-		console.log("==select category==");
-		console.log(cat.title);
-		console.log(cat.$selected);
+		_emitMessage($scope, "Select category " + cat.title);
 	}
 
 
@@ -606,23 +647,25 @@ app.controller("HomeController", function($scope, NavigateService, CategoryServi
 		});
 	};
 
+	$scope.firstInitCurrentProduct = false;
+
 	$scope.init = function() {
-		// var thumb = $('.ko-thumbnail');
-		// thumb.popup({
-		// 	on: 'hover'
-		// });
+		
+		$('.ui.accordion') .accordion() ;
 
-$scope.refreshAllCategoryInfo();
-}
+		if($scope.products && $scope.products.length > 0 && !$scope.firstInitCurrentProduct) {
+			$scope.currentProduct = $scope.products[0];
+			$scope.firstInitCurrentProduct = true;
+		}
 
-$scope.selectProduct = function(p){
-	console.log("hello shape...");
+		$scope.refreshAllCategoryInfo();
+	}
 
-	$('.ui.cube.shape').shape();
-	$scope.currentProduct = p;
-
-	$scope.currentImageIndex = 0;
-};
+	$scope.selectProduct = function(p){
+		$scope.$emit("message", { error:false, message: "View " + p.name });
+		$scope.currentProduct = p;
+		$scope.currentImageIndex = 0;
+	};
 });
 app.controller("ImageController", function($scope, NavigateService){
 	NavigateService($scope);
@@ -639,12 +682,14 @@ app.controller("NavigateController", function($scope){
 		$scope.error = data.error;
 		$scope.message = data.message;
 		$scope.show = true;
+		
+		// $scope.showing = $scope.showing || true;
 
-		setTimeout(function(){
-			$scope.show = false;
-			$scope.$apply('show');
-			console.log("==hide message==");
-		}, 5000);
+
+		// setTimeout(function(){
+		// 	$scope.show = false;
+		// 	$scope.$apply('show');
+		// }, 5000);
 	});
 
 	$scope.hide = function(){

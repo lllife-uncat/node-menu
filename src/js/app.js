@@ -56,6 +56,14 @@ Number.prototype.formatMoney = function(c, d, t){
 };
 
 
+function _emitMessage($scope, message, error){
+	if(typeof(error) === 'undefined'){
+		$scope.$emit("message", { error: false, message: message })
+	}else {
+		$scope.$emit("message", { error: error, message: message });
+	}
+}
+
 // load all product's category
 function _initCategory($scope, CategoryService, ProductService){
 	var request = CategoryService.findAll();
@@ -138,6 +146,8 @@ function _initProduct($scope, ProductService, ngTableParams){
 	request.error(function(error){
 		console.log(error);
 	});	
+
+	return request;
 }
 
 function _refreshCategoryInfo($scope){
