@@ -9,12 +9,24 @@
  *
  * Released: May 22, 2013
  */
+<<<<<<< HEAD
 /*******************************
          Activity Feed
 *******************************/
 .ui.feed a {
   cursor: pointer;
 }
+=======
+
+/*******************************
+         Activity Feed
+*******************************/
+
+.ui.feed a {
+  cursor: pointer;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.feed,
 .ui.feed .event,
 .ui.feed .label,
@@ -25,15 +37,26 @@
   -ms-box-sizing: border-box;
   box-sizing: border-box;
 }
+<<<<<<< HEAD
 /*******************************
             Content
 *******************************/
 /* Event */
+=======
+
+/*******************************
+            Content
+*******************************/
+
+/* Event */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.feed .event {
   width: 100%;
   display: table;
   padding: 1em;
 }
+<<<<<<< HEAD
 .ui.feed .event:first-child {
   border-top: 0px;
 }
@@ -41,63 +64,125 @@
   margin-bottom: 1em;
 }
 /* Event Label */
+=======
+
+.ui.feed .event:first-child {
+  border-top: 0px;
+}
+
+.ui.feed .event:last-child {
+  margin-bottom: 1em;
+}
+
+/* Event Label */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.feed .label {
   width: 3em;
   display: table-cell;
   vertical-align: top;
   text-align: left;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.feed .label .icon {
   font-size: 1.5em;
   padding: 0.5em;
   margin: 0em;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.feed .label img {
   width: 3em;
   margin: 0em;
   border-radius: 50em;
 }
+<<<<<<< HEAD
 .ui.feed .label + .content {
   padding: 0.75em 1em 0em;
 }
 /* Content */
+=======
+
+.ui.feed .label + .content {
+  padding: 0.75em 1em 0em;
+}
+
+/* Content */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.feed .content {
   display: table-cell;
   vertical-align: top;
   text-align: left;
   word-wrap: break-word;
 }
+<<<<<<< HEAD
 /* Date */
+=======
+
+/* Date */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.feed .content .date {
   float: right;
   padding-left: 1em;
   color: rgba(0, 0, 0, 0.4);
 }
+<<<<<<< HEAD
 /* Summary */
 .ui.feed .content .summary {
   color: rgba(0, 0, 0, 0.75);
 }
+=======
+
+/* Summary */
+
+.ui.feed .content .summary {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.feed .content .summary img {
   display: inline-block;
   margin-right: 0.25em;
   width: 4em;
   border-radius: 500px;
 }
+<<<<<<< HEAD
 /* Additional Information */
+=======
+
+/* Additional Information */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.feed .content .extra {
   margin: 1em 0em 0em;
   padding: 0.5em 0em 0em;
   color: rgba(0, 0, 0, 0.5);
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.feed .content .extra.images img {
   display: inline-block;
   margin-right: 0.25em;
   width: 6em;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.feed .content .extra.text {
   padding: 0.5em 1em;
   border-left: 0.2em solid rgba(0, 0, 0, 0.1);
 }
+<<<<<<< HEAD
 /*******************************
             Variations
 *******************************/
@@ -125,3 +210,41 @@
 .ui.small.feed .content .extra.text {
   padding: 0.25em 0.5em;
 }
+=======
+
+/*******************************
+            Variations
+*******************************/
+
+.ui.small.feed {
+  font-size: 0.875em;
+}
+
+.ui.small.feed .label img {
+  width: 2.5em;
+}
+
+.ui.small.feed .label .icon {
+  font-size: 1.25em;
+}
+
+.ui.feed .event {
+  padding: 0.75em 0em;
+}
+
+.ui.small.feed .label + .content {
+  padding: 0.5em 0.5em 0;
+}
+
+.ui.small.feed .content .extra.images img {
+  width: 5em;
+}
+
+.ui.small.feed .content .extra {
+  margin: 0.5em 0em 0em;
+}
+
+.ui.small.feed .content .extra.text {
+  padding: 0.25em 0.5em;
+}
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862

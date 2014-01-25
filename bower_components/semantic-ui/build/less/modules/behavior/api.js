@@ -47,7 +47,11 @@
       queryArguments  = [].slice.call(arguments, 1),
 
       module,
+<<<<<<< HEAD
       invokedResponse
+=======
+      returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     ;
 
     module = {
@@ -350,6 +354,7 @@
       },
 
       setting: function(name, value) {
+<<<<<<< HEAD
         if(value !== undefined) {
           if( $.isPlainObject(name) ) {
             $.extend(true, settings, name);
@@ -357,12 +362,20 @@
           else {
             settings[name] = value;
           }
+=======
+        if( $.isPlainObject(name) ) {
+          $.extend(true, settings, name);
+        }
+        else if(value !== undefined) {
+          settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         else {
           return settings[name];
         }
       },
       internal: function(name, value) {
+<<<<<<< HEAD
         if(value !== undefined) {
           if( $.isPlainObject(name) ) {
             $.extend(true, module, name);
@@ -370,6 +383,13 @@
           else {
             module[name] = value;
           }
+=======
+        if( $.isPlainObject(name) ) {
+          $.extend(true, module, name);
+        }
+        else if(value !== undefined) {
+          module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         else {
           return module[name];
@@ -454,13 +474,21 @@
       },
       invoke: function(query, passedArguments, context) {
         var
+<<<<<<< HEAD
+=======
+          object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           maxDepth,
           found,
           response
         ;
         passedArguments = passedArguments || queryArguments;
         context         = element         || context;
+<<<<<<< HEAD
         if(typeof query == 'string' && instance !== undefined) {
+=======
+        if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           query    = query.split(/[\. ]/);
           maxDepth = query.length - 1;
           $.each(query, function(depth, value) {
@@ -468,6 +496,7 @@
               ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
               : query
             ;
+<<<<<<< HEAD
             if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
               instance = instance[value];
             }
@@ -484,6 +513,23 @@
             }
             else {
               module.error(error.method);
+=======
+            if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              object = object[camelCaseValue];
+            }
+            else if( object[camelCaseValue] !== undefined ) {
+              found = object[camelCaseValue];
+              return false;
+            }
+            else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              object = object[value];
+            }
+            else if( object[value] !== undefined ) {
+              found = object[value];
+              return false;
+            }
+            else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               return false;
             }
           });
@@ -494,6 +540,7 @@
         else if(found !== undefined) {
           response = found;
         }
+<<<<<<< HEAD
         if($.isArray(invokedResponse)) {
           invokedResponse.push(response);
         }
@@ -502,6 +549,16 @@
         }
         else if(response !== undefined) {
           invokedResponse = response;
+=======
+        if($.isArray(returnedValue)) {
+          returnedValue.push(response);
+        }
+        else if(returnedValue !== undefined) {
+          returnedValue = [returnedValue, response];
+        }
+        else if(response !== undefined) {
+          returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         return found;
       }
@@ -520,8 +577,13 @@
       module.initialize();
     }
 
+<<<<<<< HEAD
     return (invokedResponse !== undefined)
       ? invokedResponse
+=======
+    return (returnedValue !== undefined)
+      ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       : this
     ;
   };

@@ -8,31 +8,57 @@
  * http://opensource.org/licenses/MIT
  *
  */
+<<<<<<< HEAD
 /*******************************
             Segment
 *******************************/
+=======
+
+/*******************************
+            Segment
+*******************************/
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.segment {
   position: relative;
   background-color: #FFFFFF;
   -webkit-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
   -moz-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
   margin: 1em 0em;
   padding: 1em;
   -webkit-border-radius: 5px 5px 5px 5px;
   -moz-border-radius: 5px 5px 5px 5px;
+=======
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+  margin: 1em 0em;
+  padding: 1em;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   border-radius: 5px 5px 5px 5px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
 }
+<<<<<<< HEAD
 .ui.segment:first-child {
   margin-top: 0em;
 }
 .ui.segment:last-child {
   margin-bottom: 0em;
 }
+=======
+
+.ui.segment:first-child {
+  margin-top: 0em;
+}
+
+.ui.segment:last-child {
+  margin-bottom: 0em;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.segment:after {
   content: '';
   display: block;
@@ -40,11 +66,16 @@
   clear: both;
   visibility: hidden;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.vertical.segment {
   margin: 0em;
   padding-left: 0em;
   padding-right: 0em;
   background-color: transparent;
+<<<<<<< HEAD
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
@@ -55,11 +86,23 @@
 .ui.vertical.segment:first-child {
   padding-top: 0em;
 }
+=======
+  border-radius: 0px;
+  -webkit-box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.ui.vertical.segment:first-child {
+  padding-top: 0em;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.horizontal.segment {
   margin: 0em;
   padding-top: 0em;
   padding-bottom: 0em;
   background-color: transparent;
+<<<<<<< HEAD
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
@@ -101,16 +144,82 @@
   margin: 2em 0em;
   -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
+=======
+  border-radius: 0px;
+  -webkit-box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.ui.horizontal.segment:first-child {
+  padding-left: 0em;
+}
+
+/*-------------------
+    Loose Coupling
+--------------------*/
+
+.ui.pointing.menu + .ui.attached.segment {
+  top: 1px;
+}
+
+.ui.page.grid.segment .ui.grid .ui.segment.column {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.ui.grid.segment,
+.ui.grid .ui.segment.row,
+.ui.grid .ui.segment.column {
+  border-radius: 0em;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+}
+
+/* No padding on edge content */
+
+.ui.segment > :first-child {
+  margin-top: 0em;
+}
+
+.ui.segment > :last-child {
+  margin-bottom: 0em;
+}
+
+/*******************************
+             Types
+*******************************/
+
+/*-------------------
+        Piled
+--------------------*/
+
+.ui.piled.segment {
+  margin: 2em 0em;
+  -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   -ms-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
   -o-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
   box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
 }
+<<<<<<< HEAD
 .ui.piled.segment:first-child {
   margin-top: 0em;
 }
 .ui.piled.segment:last-child {
   margin-bottom: 0em;
 }
+=======
+
+.ui.piled.segment:first-child {
+  margin-top: 0em;
+}
+
+.ui.piled.segment:last-child {
+  margin-bottom: 0em;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.piled.segment:after,
 .ui.piled.segment:before {
   background-color: #FFFFFF;
@@ -122,6 +231,7 @@
   position: absolute;
   width: 100%;
   -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
   -moz-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
 }
@@ -130,25 +240,52 @@
   -moz-transform: rotate(1.2deg);
   -ms-transform: rotate(1.2deg);
   -o-transform: rotate(1.2deg);
+=======
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.ui.piled.segment:after {
+  -webkit-transform: rotate(1.2deg);
+  -ms-transform: rotate(1.2deg);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   transform: rotate(1.2deg);
   top: 0;
   z-index: -1;
 }
+<<<<<<< HEAD
 .ui.piled.segment:before {
   -webkit-transform: rotate(-1.2deg);
   -moz-transform: rotate(-1.2deg);
   -ms-transform: rotate(-1.2deg);
   -o-transform: rotate(-1.2deg);
+=======
+
+.ui.piled.segment:before {
+  -webkit-transform: rotate(-1.2deg);
+  -ms-transform: rotate(-1.2deg);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   transform: rotate(-1.2deg);
   top: 0;
   z-index: -2;
 }
+<<<<<<< HEAD
 /*-------------------
        Stacked
 --------------------*/
 .ui.stacked.segment {
   padding-bottom: 1.7em;
 }
+=======
+
+/*-------------------
+       Stacked
+--------------------*/
+
+.ui.stacked.segment {
+  padding-bottom: 1.7em;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.stacked.segment:after,
 .ui.stacked.segment:before {
   content: '';
@@ -161,15 +298,26 @@
   height: 5px;
   visibility: visible;
 }
+<<<<<<< HEAD
 .ui.stacked.segment:before {
   bottom: 0px;
 }
 /* Inverted */
+=======
+
+.ui.stacked.segment:before {
+  bottom: 0px;
+}
+
+/* Inverted */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.stacked.inverted.segment:after,
 .ui.stacked.inverted.segment:before {
   background-color: rgba(255, 255, 255, 0.1);
   border-top: 1px solid rgba(255, 255, 255, 0.35);
 }
+<<<<<<< HEAD
 /*-------------------
        Raised
 --------------------*/
@@ -181,20 +329,61 @@
 /*******************************
             States
 *******************************/
+=======
+
+/*-------------------
+       Circular
+--------------------*/
+
+.ui.circular.segment {
+  display: table-cell;
+  padding: 2em;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 500em;
+}
+
+/*-------------------
+       Raised
+--------------------*/
+
+.ui.raised.segment {
+  -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+/*******************************
+            States
+*******************************/
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.disabled.segment {
   opacity: 0.8;
   color: #DDDDDD;
 }
+<<<<<<< HEAD
 /*******************************
            Variations
 *******************************/
 /*-------------------
        Basic
 --------------------*/
+=======
+
+/*******************************
+           Variations
+*******************************/
+
+/*-------------------
+       Basic
+--------------------*/
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.basic.segment {
   position: relative;
   background-color: transparent;
   -webkit-box-shadow: none;
+<<<<<<< HEAD
   -moz-box-shadow: none;
   box-shadow: none;
   -webkit-border-radius: 0px;
@@ -234,30 +423,110 @@
 /*-------------------
    Inverted Colors
 --------------------*/
+=======
+  box-shadow: none;
+  border-radius: 0px;
+}
+
+.ui.basic.segment:first-child {
+  padding-top: 0em;
+}
+
+.ui.basic.segment:last-child {
+  padding-bottom: 0em;
+}
+
+/*-------------------
+       Fittted
+--------------------*/
+
+.ui.fitted.segment {
+  padding: 0em;
+}
+
+/*-------------------
+       Colors
+--------------------*/
+
+.ui.blue.segment {
+  border-top: 0.2em solid #6ECFF5;
+}
+
+.ui.green.segment {
+  border-top: 0.2em solid #A1CF64;
+}
+
+.ui.red.segment {
+  border-top: 0.2em solid #D95C5C;
+}
+
+.ui.orange.segment {
+  border-top: 0.2em solid #F05940;
+}
+
+.ui.purple.segment {
+  border-top: 0.2em solid #564F8A;
+}
+
+.ui.teal.segment {
+  border-top: 0.2em solid #00B5AD;
+}
+
+/*-------------------
+   Inverted Colors
+--------------------*/
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.inverted.black.segment {
   background-color: #5C6166 !important;
   color: #FFFFFF !important;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.inverted.blue.segment {
   background-color: #6ECFF5 !important;
   color: #FFFFFF !important;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.inverted.green.segment {
   background-color: #A1CF64 !important;
   color: #FFFFFF !important;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.inverted.red.segment {
   background-color: #D95C5C !important;
   color: #FFFFFF !important;
 }
+<<<<<<< HEAD
+=======
+
+.ui.inverted.orange.segment {
+  background-color: #F05940 !important;
+  color: #FFFFFF !important;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.inverted.purple.segment {
   background-color: #564F8A !important;
   color: #FFFFFF !important;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.inverted.teal.segment {
   background-color: #00B5AD !important;
   color: #FFFFFF !important;
 }
+<<<<<<< HEAD
 /*-------------------
        Aligned
 --------------------*/
@@ -273,10 +542,42 @@
 /*-------------------
        Floated
 --------------------*/
+=======
+
+/*-------------------
+       Aligned
+--------------------*/
+
+.ui.left.aligned.segment {
+  text-align: left;
+}
+
+.ui.right.aligned.segment {
+  text-align: right;
+}
+
+.ui.center.aligned.segment {
+  text-align: center;
+}
+
+.ui.justified.segment {
+  text-align: justify;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+/*-------------------
+       Floated
+--------------------*/
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.floated.segment,
 .ui.left.floated.segment {
   float: left;
 }
+<<<<<<< HEAD
 .ui.right.floated.segment {
   float: right;
 }
@@ -289,39 +590,93 @@
   -moz-box-shadow: none;
   box-shadow: none;
 }
+=======
+
+.ui.right.floated.segment {
+  float: right;
+}
+
+/*-------------------
+      Inverted
+--------------------*/
+
+.ui.inverted.segment {
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.ui.inverted.segment .segment {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.ui.inverted.segment .inverted.segment {
+  color: #FFFFFF;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.inverted.segment,
 .ui.primary.inverted.segment {
   background-color: #222222;
   color: #FFFFFF;
 }
+<<<<<<< HEAD
 /*-------------------
      Ordinality
 --------------------*/
+=======
+
+/*-------------------
+     Ordinality
+--------------------*/
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.primary.segment {
   background-color: #FFFFFF;
   color: #555555;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.secondary.segment {
   background-color: #FAF9FA;
   color: #777777;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.tertiary.segment {
   background-color: #EBEBEB;
   color: #B0B0B0;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.secondary.inverted.segment {
   background-color: #555555;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.3)), to(rgba(255, 255, 255, 0.3)));
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);
+<<<<<<< HEAD
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);
   background-image: -o-linear-gradient(rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);
   background-image: linear-gradient(rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);
   color: #FAFAFA;
 }
+=======
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.3)), to(rgba(255, 255, 255, 0.3)));
+  background-image: linear-gradient(rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);
+  color: #FAFAFA;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.tertiary.inverted.segment {
   background-color: #555555;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.6)));
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%);
+<<<<<<< HEAD
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%);
   background-image: -o-linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%);
   background-image: linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%);
@@ -341,21 +696,60 @@
   -webkit-box-shadow: 0px 0px 0px 1px #DDDDDD;
   box-shadow: 0px 0px 0px 1px #DDDDDD;
 }
+=======
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.6)));
+  background-image: linear-gradient(rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%);
+  color: #EEEEEE;
+}
+
+/*-------------------
+      Attached
+--------------------*/
+
+.ui.segment.attached {
+  top: -1px;
+  bottom: -1px;
+  border-radius: 0px;
+  margin: 0em;
+  -webkit-box-shadow: 0px 0px 0px 1px #DDDDDD;
+  box-shadow: 0px 0px 0px 1px #DDDDDD;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.top.attached.segment {
   top: 0px;
   bottom: -1px;
   margin-top: 1em;
   margin-bottom: 0em;
+<<<<<<< HEAD
   -moz-border-radius: 5px 5px 0px 0px;
   -webkit-border-radius: 5px 5px 0px 0px;
   border-radius: 5px 5px 0px 0px;
 }
+=======
+  border-radius: 5px 5px 0px 0px;
+}
+
+.ui.segment.top.attached:first-child {
+  margin-top: 0em;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.segment.bottom.attached {
   top: -1px;
   bottom: 0px;
   margin-top: 0em;
   margin-bottom: 1em;
+<<<<<<< HEAD
   -moz-border-radius: 0px 0px 5px 5px;
   -webkit-border-radius: 0px 0px 5px 5px;
   border-radius: 0px 0px 5px 5px;
 }
+=======
+  border-radius: 0px 0px 5px 5px;
+}
+
+.ui.segment.bottom.attached:last-child {
+  margin-bottom: 0em;
+}
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862

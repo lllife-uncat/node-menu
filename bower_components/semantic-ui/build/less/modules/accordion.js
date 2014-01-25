@@ -15,6 +15,7 @@ $.fn.accordion = function(parameters) {
   var
     $allModules     = $(this),
 
+<<<<<<< HEAD
     settings        = ( $.isPlainObject(parameters) )
       ? $.extend(true, {}, $.fn.accordion.settings, parameters)
       : $.fn.accordion.settings,
@@ -28,17 +29,39 @@ $.fn.accordion = function(parameters) {
     moduleNamespace = 'module-' + namespace,
     moduleSelector  = $allModules.selector || '',
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     time            = new Date().getTime(),
     performance     = [],
 
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
+=======
+        settings        = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.accordion.settings, parameters)
+          : $.extend({}, $.fn.accordion.settings),
+
+        className       = settings.className,
+        namespace       = settings.namespace,
+        selector        = settings.selector,
+        error           = settings.error,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+        moduleSelector  = $allModules.selector || '',
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         $module  = $(this),
         $title   = $module.find(selector.title),
         $content = $module.find(selector.content),
@@ -60,6 +83,10 @@ $.fn.accordion = function(parameters) {
         },
 
         instantiate: function() {
+<<<<<<< HEAD
+=======
+          instance = module;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $module
             .data(moduleNamespace, module)
           ;
@@ -120,7 +147,11 @@ $.fn.accordion = function(parameters) {
           var
             $activeTitle     = $title.eq(index),
             $activeContent   = $activeTitle.next($content),
+<<<<<<< HEAD
             $previousTitle   = $title.filter('.' + className.active),
+=======
+            $previousTitle   = $activeTitle.siblings(selector.title).filter('.' + className.active),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             $previousContent = $previousTitle.next($title),
             contentIsOpen    =  ($previousTitle.size() > 0)
           ;
@@ -176,7 +207,11 @@ $.fn.accordion = function(parameters) {
             $activeTitle   = $title.eq(index),
             $activeContent = $activeTitle.next($content)
           ;
+<<<<<<< HEAD
           module.debug('Closing accordion content', $activeTitle);
+=======
+          module.debug('Closing accordion content', $activeContent);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $activeTitle
             .removeClass(className.active)
           ;
@@ -201,6 +236,7 @@ $.fn.accordion = function(parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           module.debug('Changing setting', name, value);
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
@@ -209,6 +245,13 @@ $.fn.accordion = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
@@ -290,9 +333,12 @@ $.fn.accordion = function(parameters) {
             if(moduleSelector) {
               title += ' \'' + moduleSelector + '\'';
             }
+<<<<<<< HEAD
             if($allModules.size() > 1) {
               title += ' ' + '(' + $allModules.size() + ')';
             }
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
               console.groupCollapsed(title);
               if(console.table) {
@@ -310,13 +356,21 @@ $.fn.accordion = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -324,6 +378,7 @@ $.fn.accordion = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -340,6 +395,23 @@ $.fn.accordion = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -350,6 +422,7 @@ $.fn.accordion = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -358,6 +431,16 @@ $.fn.accordion = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -376,8 +459,13 @@ $.fn.accordion = function(parameters) {
       }
     })
   ;
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -393,8 +481,13 @@ $.fn.accordion.settings = {
   exclusive   : true,
   collapsible : true,
 
+<<<<<<< HEAD
   duration    : 300,
   easing      : 'linear',
+=======
+  duration    : 500,
+  easing      : 'easeInOutQuint',
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
   onOpen      : function(){},
   onClose     : function(){},
@@ -411,9 +504,26 @@ $.fn.accordion.settings = {
   selector    : {
     title   : '.title',
     content : '.content'
+<<<<<<< HEAD
   },
+=======
+  }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
 
 };
 
+<<<<<<< HEAD
 })( jQuery, window , document );
+=======
+// Adds easing
+$.extend( $.easing, {
+  easeInOutQuint: function (x, t, b, c, d) {
+    if ((t/=d/2) < 1) return c/2*t*t*t*t*t + b;
+    return c/2*((t-=2)*t*t*t*t + 2) + b;
+  }
+});
+
+})( jQuery, window , document );
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862

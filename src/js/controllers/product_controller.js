@@ -49,11 +49,15 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		_refreshCategoryInfo($scope);
 	});
 
+	// move to top
+	$scope.moveToTop = function(){
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	};
 
 	// select level 
 	$scope.selectCategoryLevel = function(level){
 		$scope.selectedCategoryLevel = level;
-	}
+	};
 
 	// select category a;
 	$scope.selectCategoryA = function(cat){
@@ -188,13 +192,25 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 
 	// show image manager popup.
 	$scope.showImageModal = function(){
-		$('.ko-image').modal('show');
+
+		var dlg = $(".ui.modal");
+		
+		dlg.modal("setting", {
+			// useCSS : false
+			closabel :false
+		});
+
+		dlg.modal('show');
+
+		$scope.imageDialog = dlg;
+
 		// $('.ko-image').modal('hide');
 	};
 
 	// hide popup.
 	$scope.hideImageModal = function(){
 		// $('.ko-image').modal('hide all');
+		$scope.imageDialog.modal("hide");
 
 	};
 
@@ -251,9 +267,11 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	$scope.valid = function(){
 		var r = $scope.currentProduct;
 		var p = r.primaryPrice && r.promotionPrice && r.memberPrice;
+		var img = r.$images.length > 0;
+
 		// var cats = $scope.getSelectedCategories();
 		var cats = $scope.selectedCategoryC.identifier != null;
-		var valid = r.name && r.description && r.productId && cats && p;
+		var valid = r.name && r.description && r.productId && cats && p && img;
 
 		// console.log("validate: " + valid);
 		return valid;
@@ -323,7 +341,12 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 			var p = rs.data;
 			_appendImageUrl(p, ProductService);
 
-			$scope.products.push(p);
+			// append only new insert not update.
+			if($scope.currentProduct.identifier != p.identifier){
+				$scope.products.push(p);				
+			}
+
+			// clear reset current product.
 			$scope.currentProduct = {};
 			$scope.currentProduct.$images = [];
 
@@ -333,7 +356,8 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 
 			$scope.tableParams.reload();
 
-			$scope.$emit("message", { error : false, message : "Save complete"});
+			// $scope.$emit("message", { error : false, message : "Save complete"});
+			_emitMessage($scope, "Save complete");
 		});
 
 		request.error(function(err){
@@ -343,18 +367,42 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 
 	// remove image.
 	$scope.removeImage = function(image){
-		var request = ProductService.removeImage(image);
-		request.success(function(data){
+
 			var index = $scope.currentProduct.$images.indexOf(image);
 			if(index != -1){
 				$scope.currentProduct.$images.splice(index, 1);
 				$scope.currentPicture = {};
+				console.log("remove image: " + image.identifier);
 			}
-		});
 
-		request.error(function(error){
-			$scope.$emit("message", { error: true, message : "Remove image failed: " + error});
-		});
+			console.log("[product]");
+			console.log($scope.currentProduct);
+
+			var idIndex = $scope.currentProduct.imageIds.indexOf(image.identifier);
+
+			if(index != -1){
+				$scope.currentProduct.imageIds.splice(idIndex, 1);
+				console.log("remove image id: " + image.identifier);
+			}
+
+		// var request = ProductService.removeImage(image);
+
+		// request.success(function(data){
+		// 	var index = $scope.currentProduct.$images.indexOf(image);
+		// 	if(index != -1){
+		// 		$scope.currentProduct.$images.splice(index, 1);
+		// 		$scope.currentPicture = {};
+		// 	}
+
+		// 	var idIndex = $scope.currentProduct.imageIds.indexOf(image.identifier);
+		// 	if(index != -1){
+		// 		$scope.currentProduct.imageIds.splice(idIndex, 1);
+		// 	}
+		// });
+
+		// request.error(function(error){
+		// 	$scope.$emit("message", { error: true, message : "Remove image failed: " + error});
+		// });
 	}
 
 	// start inline update.
@@ -365,7 +413,8 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		var request = ProductService.add(product);
 		request.success(function(rs){
 			var p = rs.data;
-			$scope.$emit("message", { error : false, message : "Save complete"});
+			// $scope.$emit("message", { error : false, message : "Save complete"});
+			_emitMessage($scope, "Save complete");
 
 			$scope.setInlineEditing(false);
 		});
@@ -375,14 +424,35 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		});
 	};
 
+	$scope.selectCategoryHierarchy = function(catcId){
+		$scope.categories.forEach(function(cat){
+			if(catcId == cat.identifier) {
+				$scope.selectedCategoryC = cat;
+				return;
+			}
+		});
+
+		$scope.categories.forEach(function(cat){
+			if($scope.selectedCategoryC.parentId == cat.identifier) {
+				$scope.selectedCategoryB = cat;
+				return;
+			}
+		});
+
+		$scope.categories.forEach(function(cat){
+			if($scope.selectedCategoryB.parentId == cat.identifier){
+				$scope.selectedCategoryA = cat;
+				return;
+			}
+		});
+	}
 
 	// select product.
 	$scope.selectProduct = function(product){
-		console.log("==select product==");
-		console.log(product);
 
-		var ubutton = $("#uploadFileButton");
-		console.log(ubutton.click());
+		if(product.categoryIds[0]){
+			$scope.selectCategoryHierarchy(product.categoryIds[0]);
+		}
 
 		$scope.currentProduct = product;
 		$scope.currentProduct.$images.forEach(function(x){

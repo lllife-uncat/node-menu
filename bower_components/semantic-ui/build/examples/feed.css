@@ -41,11 +41,18 @@ body {
 #feed .grid {
   height: 100%;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 #feed > .grid > .column {
   height: 100%;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 /*-------------------
        Inbox
 --------------------*/
@@ -53,16 +60,32 @@ body {
 #feed .inbox.tab {
   background-color: #FFFFFF;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 #feed .inbox.tab .item {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+<<<<<<< HEAD
 #feed .inbox.tab .item .rating {
   margin-top: 0.2rem;
 }
 #feed .inbox.tab .item .description {
   margin-left: 2em;
 }
+=======
+
+#feed .inbox.tab .item .rating {
+  margin-top: 0.2rem;
+}
+
+#feed .inbox.tab .item .description {
+  margin-left: 2em;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 #feed .page {
   float: right;
   margin-top: 0.9em;
@@ -71,17 +94,33 @@ body {
 #feed .middle.column {
   padding: 1em 2em;
 }
+<<<<<<< HEAD
 #feed .right.column {
   padding: 1em 2em;
   background-color: #FFFFFF;
 }
 
 
+=======
+
+#feed .middle.column h2 {
+  margin-top: 0em;
+}
+
+#feed .right.column {
+  padding: 1em 2em;
+  background-color: #FAFAFA;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 /*******************************
           Responsive
 *******************************/
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 @media only screen and (max-width : 1000px) {
   #feed .inbox .date {
     float: none;

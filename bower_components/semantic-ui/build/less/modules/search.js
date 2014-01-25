@@ -14,6 +14,7 @@
 $.fn.search = function(source, parameters) {
   var
     $allModules     = $(this),
+<<<<<<< HEAD
     settings        = $.extend(true, {}, $.fn.search.settings, parameters),
 
 
@@ -24,6 +25,8 @@ $.fn.search = function(source, parameters) {
 
     eventNamespace  = '.' + namespace,
     moduleNamespace = namespace + '-module',
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     moduleSelector  = $allModules.selector || '',
 
     time            = new Date().getTime(),
@@ -32,11 +35,16 @@ $.fn.search = function(source, parameters) {
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $(this)
     .each(function() {
       var
+<<<<<<< HEAD
         $module       = $(this),
         $prompt       = $module.find(selector.prompt),
         $searchButton = $module.find(selector.searchButton),
@@ -46,6 +54,27 @@ $.fn.search = function(source, parameters) {
 
         element       = this,
         instance      = $module.data(moduleNamespace),
+=======
+        settings        = $.extend(true, {}, $.fn.search.settings, parameters),
+
+        className       = settings.className,
+        selector        = settings.selector,
+        error           = settings.error,
+        namespace       = settings.namespace,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = namespace + '-module',
+
+        $module         = $(this),
+        $prompt         = $module.find(selector.prompt),
+        $searchButton   = $module.find(selector.searchButton),
+        $results        = $module.find(selector.results),
+        $result         = $module.find(selector.result),
+        $category       = $module.find(selector.category),
+
+        element         = this,
+        instance        = $module.data(moduleNamespace),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
         module
       ;
@@ -405,6 +434,7 @@ $.fn.search = function(source, parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           module.debug('Changing setting', name, value);
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
@@ -413,12 +443,20 @@ $.fn.search = function(source, parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           module.debug('Changing internal', name, value);
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
@@ -427,6 +465,13 @@ $.fn.search = function(source, parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -514,13 +559,21 @@ $.fn.search = function(source, parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -528,6 +581,7 @@ $.fn.search = function(source, parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -544,6 +598,23 @@ $.fn.search = function(source, parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -554,6 +625,7 @@ $.fn.search = function(source, parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -562,6 +634,16 @@ $.fn.search = function(source, parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -582,8 +664,13 @@ $.fn.search = function(source, parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };

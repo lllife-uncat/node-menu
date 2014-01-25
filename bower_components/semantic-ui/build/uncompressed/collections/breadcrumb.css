@@ -8,14 +8,23 @@
  * http://opensource.org/licenses/MIT
  *
  */
+<<<<<<< HEAD
 /*******************************
            Breadcrumb
 *******************************/
+=======
+
+/*******************************
+           Breadcrumb
+*******************************/
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.breadcrumb {
   margin: 1em 0em;
   display: inline-block;
   vertical-align: middle;
 }
+<<<<<<< HEAD
 .ui.breadcrumb:first-child {
   margin-top: 0em;
 }
@@ -25,6 +34,21 @@
 /*******************************
           Content
 *******************************/
+=======
+
+.ui.breadcrumb:first-child {
+  margin-top: 0em;
+}
+
+.ui.breadcrumb:last-child {
+  margin-bottom: 0em;
+}
+
+/*******************************
+          Content
+*******************************/
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.breadcrumb .divider {
   display: inline-block;
   opacity: 0.5;
@@ -32,19 +56,34 @@
   font-size: 1em;
   color: rgba(0, 0, 0, 0.3);
 }
+<<<<<<< HEAD
 .ui.breadcrumb a.section {
   cursor: pointer;
 }
+=======
+
+.ui.breadcrumb a.section {
+  cursor: pointer;
+}
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.breadcrumb .section {
   display: inline-block;
   margin: 0em;
   padding: 0em;
 }
+<<<<<<< HEAD
 /* Loose Coupling */
+=======
+
+/* Loose Coupling */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.breadcrumb.segment {
   display: inline-block;
   padding: 0.5em 1em;
 }
+<<<<<<< HEAD
 /*******************************
             States
 *******************************/
@@ -63,3 +102,29 @@
 .ui.huge.breadcrumb {
   font-size: 1.3em;
 }
+=======
+
+/*******************************
+            States
+*******************************/
+
+.ui.breadcrumb .active.section {
+  font-weight: bold;
+}
+
+/*******************************
+           Variations
+*******************************/
+
+.ui.small.breadcrumb {
+  font-size: 0.75em;
+}
+
+.ui.large.breadcrumb {
+  font-size: 1.1em;
+}
+
+.ui.huge.breadcrumb {
+  font-size: 1.3em;
+}
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862

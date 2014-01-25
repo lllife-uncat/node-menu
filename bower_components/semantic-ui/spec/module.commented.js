@@ -1,18 +1,30 @@
 // # Semantic Modules
+<<<<<<< HEAD
 // This is a design pattern for creating ui modules in Semantic
 //
 // Semantic is unique in that all arbitrary data is a setting. Semantic modules also are self documenting, with module.debug calls serving to explain state, and log performance data.
 // [Read more about coding conventions](http://semantic-ui.com/guide/javascriptguide.html)
 /*
  * # Semantic Module 1.0
+=======
+// This is a design pattern for creating UI modules in Semantic
+//
+// Semantic is unique in that all arbitrary data is a setting. Semantic modules also are self documenting, with module.debug calls serving to explain state, and log performance data.
+// [Read more about coding conventions](http://semantic-ui.com/guide/javascriptguide.html) and [Read about modules](http://semantic-ui.com/module.html)
+/*
+ * # Semantic Module
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
  * http://github.com/quirkyinc/semantic
  *
  *
  * Copyright 2013 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
+<<<<<<< HEAD
  *
  * Released: April 17 2013
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
  */
 
 ;(function ( $, window, document, undefined ) {
@@ -25,6 +37,7 @@ $.fn.example = function(parameters) {
     // Store a reference to the module group, this can be useful to refer to other modules inside each module
     $allModules     = $(this),
 
+<<<<<<< HEAD
     // Extend settings to merge run-time settings with defaults
     settings        = ( $.isPlainObject(parameters) )
       ? $.extend(true, {}, $.fn.example.settings, parameters)
@@ -42,6 +55,8 @@ $.fn.example = function(parameters) {
     eventNamespace  = '.' + namespace,
     moduleNamespace = 'module-' + namespace,
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     // Preserve selector from outside each scope and mark current time for performance tracking
     moduleSelector  = $allModules.selector || '',
     time            = new Date().getTime(),
@@ -51,7 +66,11 @@ $.fn.example = function(parameters) {
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
 
   // ## Singular
@@ -59,6 +78,31 @@ $.fn.example = function(parameters) {
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
+=======
+
+        // Extend settings to merge run-time settings with defaults
+        settings        = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.example.settings, parameters)
+          : $.extend({}, $.fn.example.settings),
+
+        // Alias settings object for convenience and performance
+        namespace      = settings.namespace,
+        error          = settings.error,
+        className      = settings.className,
+
+        // You may also find it useful to alias your own settings
+        text           = settings.text,
+
+        // Define namespaces for storing module instance and binding events
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+        // Instance is stored and retreived in namespaced DOM metadata
+        instance        = $(this).data(moduleNamespace),
+        element         = this,
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         // Cache selectors using selector settings object for access inside instance of module
         $module        = $(this),
         $text          = $module.find(settings.selector.text),
@@ -66,9 +110,12 @@ $.fn.example = function(parameters) {
         // Define private variables which can be used to maintain internal state, these cannot be changed from outside the module closure so use conservatively. Default values are set using `a || b` syntax
         foo            = false,
 
+<<<<<<< HEAD
         // Instance is stored and retreived in namespaced DOM metadata
         instance        = $module.data(moduleNamespace),
         element         = this,
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
         module
       ;
@@ -108,9 +155,15 @@ $.fn.example = function(parameters) {
         },
 
         // #### Refresh
+<<<<<<< HEAD
         // Selectors are cached so we sometimes need to manually refresh the cache
         refresh: function() {
           module.verbose('Refreshing selector cache for', element);
+=======
+        // Selectors or cached values sometimes need to refreshed
+        refresh: function() {
+          module.verbose('Refreshing elements', element);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $module = $(element);
           $text   = $(this).find(settings.selector.text);
         },
@@ -172,6 +225,7 @@ $.fn.example = function(parameters) {
         // Settings can either be specified by modifying the module defaults, by initializing the module with a settings object, or by changing a setting by invoking this method
         // `$(.foo').example('setting', 'moduleName');`
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -179,6 +233,13 @@ $.fn.example = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
@@ -189,6 +250,7 @@ $.fn.example = function(parameters) {
         // Module internals can be set or retrieved as well
         // `$(.foo').example('internal', 'behavior', function() { // do something });`
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -196,6 +258,13 @@ $.fn.example = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -295,7 +364,11 @@ $.fn.example = function(parameters) {
         // Invoke is used to match internal functions to string lookups.
         // `$('.foo').example('invoke', 'set text', 'Foo')`
         // Method lookups are lazy, looking for many variations of a search string
+<<<<<<< HEAD
         // For example 'set active', will look for both `setText : function(){}`, `set: { text: function(){} }`
+=======
+        // For example 'set text', will look for both `setText : function(){}`, `set: { text: function(){} }`
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         // Invoke attempts to preserve the 'this' chaining unless a value is returned.
         // If multiple values are returned an array of values matching up to the length of the selector is returned
         invoke: function(query, passedArguments, context) {
@@ -329,7 +402,11 @@ $.fn.example = function(parameters) {
                 return false;
               }
               else {
+<<<<<<< HEAD
                 module.error(error.method);
+=======
+                module.error(error.method, query);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -343,6 +420,7 @@ $.fn.example = function(parameters) {
           // ### Invocation response
           // If a user passes in multiple elements invoke will be called for each element and the value will be returned in an array
           // For example ``$('.things').example('has text')`` with two elements might return ``[true, false]`` and for one element ``true``
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -351,6 +429,16 @@ $.fn.example = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -377,8 +465,13 @@ $.fn.example = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 

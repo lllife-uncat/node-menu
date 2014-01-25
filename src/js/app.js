@@ -101,9 +101,10 @@ function _appendImageUrl(product, ProductService){
 		});
 
 		request.error(function(err){
-			$scope.$emit("message", { error: true, message: error });
 			console.log("==init image failed==");
 			console.log(err);
+			$scope.$emit("message", { error: true, message: error });
+			
 		});
 		
 	});

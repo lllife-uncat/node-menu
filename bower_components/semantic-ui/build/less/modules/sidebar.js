@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * # Semantic - Dropdown
+=======
+ * # Semantic - Sidebar
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
  * http://github.com/jlukic/semantic-ui/
  *
  *
@@ -13,6 +17,7 @@
 
 $.fn.sidebar = function(parameters) {
   var
+<<<<<<< HEAD
     $allModules     = $(this),
 
     settings        = ( $.isPlainObject(parameters) )
@@ -35,11 +40,27 @@ $.fn.sidebar = function(parameters) {
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
     invokedResponse
+=======
+    $allModules    = $(this),
+    $body          = $('body'),
+    $head          = $('head'),
+
+    moduleSelector = $allModules.selector || '',
+
+    time           = new Date().getTime(),
+    performance    = [],
+
+    query          = arguments[0],
+    methodInvoked  = (typeof query == 'string'),
+    queryArguments = [].slice.call(arguments, 1),
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
 
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
         $module  = $(this),
 
         $body    = $('body'),
@@ -48,6 +69,25 @@ $.fn.sidebar = function(parameters) {
 
         element  = this,
         instance = $module.data(moduleNamespace),
+=======
+        settings        = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.sidebar.settings, parameters)
+          : $.extend({}, $.fn.sidebar.settings),
+
+        selector        = settings.selector,
+        className       = settings.className,
+        namespace       = settings.namespace,
+        error           = settings.error,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+        $module         = $(this),
+        $style          = $('style[title=' + namespace + ']'),
+
+        element         = this,
+        instance        = $module.data(moduleNamespace),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         module
       ;
 
@@ -99,6 +139,7 @@ $.fn.sidebar = function(parameters) {
           }
         },
 
+<<<<<<< HEAD
 
         show: function() {
           module.debug('Showing sidebar');
@@ -107,22 +148,66 @@ $.fn.sidebar = function(parameters) {
               module.pushPage();
             }
             module.set.active();
+=======
+        show: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          module.debug('Showing sidebar', callback);
+          if(module.is.closed()) {
+            if(!settings.overlay) {
+              if(settings.exclusive) {
+                module.hideAll();
+              }
+              module.pushPage();
+            }
+            module.set.active();
+            callback();
+            $.proxy(settings.onChange, element)();
+            $.proxy(settings.onShow, element)();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             module.debug('Sidebar is already visible');
           }
         },
 
+<<<<<<< HEAD
         hide: function() {
+=======
+        hide: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          module.debug('Hiding sidebar', callback);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           if(module.is.open()) {
             if(!settings.overlay) {
               module.pullPage();
               module.remove.pushed();
             }
             module.remove.active();
+<<<<<<< HEAD
           }
         },
 
+=======
+            callback();
+            $.proxy(settings.onChange, element)();
+            $.proxy(settings.onHide, element)();
+          }
+        },
+
+        hideAll: function() {
+          $(selector.sidebar)
+            .filter(':visible')
+              .sidebar('hide')
+          ;
+        },
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         toggle: function() {
           if(module.is.closed()) {
             module.show();
@@ -194,6 +279,10 @@ $.fn.sidebar = function(parameters) {
           }
         },
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         remove: {
           bodyCSS: function() {
             module.debug('Removing body css styles', $style);
@@ -272,6 +361,7 @@ $.fn.sidebar = function(parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -279,12 +369,20 @@ $.fn.sidebar = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -292,6 +390,13 @@ $.fn.sidebar = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -379,13 +484,21 @@ $.fn.sidebar = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -393,6 +506,7 @@ $.fn.sidebar = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -409,6 +523,23 @@ $.fn.sidebar = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -419,6 +550,7 @@ $.fn.sidebar = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -427,6 +559,16 @@ $.fn.sidebar = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -446,8 +588,13 @@ $.fn.sidebar = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -462,11 +609,18 @@ $.fn.sidebar.settings = {
   performance : true,
 
   useCSS      : true,
+<<<<<<< HEAD
   overlay     : false,
   duration    : 300,
 
   side        : 'left',
 
+=======
+  exclusive   : true,
+  overlay     : false,
+  duration    : 300,
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   onChange     : function(){},
   onShow       : function(){},
   onHide       : function(){},
@@ -480,6 +634,13 @@ $.fn.sidebar.settings = {
     bottom : 'bottom'
   },
 
+<<<<<<< HEAD
+=======
+  selector: {
+    sidebar: '.ui.sidebar'
+  },
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   error   : {
     method   : 'The method you called is not defined.',
     notFound : 'There were no elements that matched the specified selector'
@@ -487,4 +648,8 @@ $.fn.sidebar.settings = {
 
 };
 
+<<<<<<< HEAD
 })( jQuery, window , document );
+=======
+})( jQuery, window , document );
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862

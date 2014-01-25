@@ -31,15 +31,28 @@ app.factory("ProductService", function(ConfigurationService, $http){
 		},
 
 		removeImage : function(image){
-			// var request = $http({
-			// 	url : ConfigurationService.endPoint + "/image/" + image.identifier,
-			// 	data : {},
-			// 	method : "DELETE", 
-			// 	headers: { "Content-Type" : "multipart/form-data" }
-			// });
-	
-			var url = ConfigurationService.endPoint + "/image/delete/"+ image.identifier;
-			var request = $http.post(url);
+			var url = ConfigurationService.endPoint + "/image/"+ image.identifier;
+			console.log("delete image: " + url);
+
+			var headers = {
+				//"User-Agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.76 Safari/537.36",
+				//"Origin": "chrome-extension://hgmloofddffdnphfgcellkdfbfbjeloo",
+				"Content-Type": "multipart/form-data" ,
+				"Accept": "*/*",
+				//"Accept-Encoding": "gzip,deflate,sdch",
+				"Accept-Language": "en-US,en;q=0.8,th;q=0.6"
+			};
+
+			var request = $http({
+				url : url, 
+				data : {},
+				method : "POST" ,
+				headers: headers
+			});
+
+			// var request = $http.delete(url);
+			// var request = $http.post(url);
+
 			return request;
 		},
 

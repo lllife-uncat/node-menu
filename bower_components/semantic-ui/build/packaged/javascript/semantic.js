@@ -15,6 +15,7 @@ $.fn.accordion = function(parameters) {
   var
     $allModules     = $(this),
 
+<<<<<<< HEAD
     settings        = ( $.isPlainObject(parameters) )
       ? $.extend(true, {}, $.fn.accordion.settings, parameters)
       : $.fn.accordion.settings,
@@ -28,17 +29,39 @@ $.fn.accordion = function(parameters) {
     moduleNamespace = 'module-' + namespace,
     moduleSelector  = $allModules.selector || '',
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     time            = new Date().getTime(),
     performance     = [],
 
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
+=======
+        settings        = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.accordion.settings, parameters)
+          : $.extend({}, $.fn.accordion.settings),
+
+        className       = settings.className,
+        namespace       = settings.namespace,
+        selector        = settings.selector,
+        error           = settings.error,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+        moduleSelector  = $allModules.selector || '',
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         $module  = $(this),
         $title   = $module.find(selector.title),
         $content = $module.find(selector.content),
@@ -60,6 +83,10 @@ $.fn.accordion = function(parameters) {
         },
 
         instantiate: function() {
+<<<<<<< HEAD
+=======
+          instance = module;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $module
             .data(moduleNamespace, module)
           ;
@@ -120,7 +147,11 @@ $.fn.accordion = function(parameters) {
           var
             $activeTitle     = $title.eq(index),
             $activeContent   = $activeTitle.next($content),
+<<<<<<< HEAD
             $previousTitle   = $title.filter('.' + className.active),
+=======
+            $previousTitle   = $activeTitle.siblings(selector.title).filter('.' + className.active),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             $previousContent = $previousTitle.next($title),
             contentIsOpen    =  ($previousTitle.size() > 0)
           ;
@@ -176,7 +207,11 @@ $.fn.accordion = function(parameters) {
             $activeTitle   = $title.eq(index),
             $activeContent = $activeTitle.next($content)
           ;
+<<<<<<< HEAD
           module.debug('Closing accordion content', $activeTitle);
+=======
+          module.debug('Closing accordion content', $activeContent);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $activeTitle
             .removeClass(className.active)
           ;
@@ -201,6 +236,7 @@ $.fn.accordion = function(parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           module.debug('Changing setting', name, value);
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
@@ -209,6 +245,13 @@ $.fn.accordion = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
@@ -290,9 +333,12 @@ $.fn.accordion = function(parameters) {
             if(moduleSelector) {
               title += ' \'' + moduleSelector + '\'';
             }
+<<<<<<< HEAD
             if($allModules.size() > 1) {
               title += ' ' + '(' + $allModules.size() + ')';
             }
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
               console.groupCollapsed(title);
               if(console.table) {
@@ -310,13 +356,21 @@ $.fn.accordion = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -324,6 +378,7 @@ $.fn.accordion = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -340,6 +395,23 @@ $.fn.accordion = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -350,6 +422,7 @@ $.fn.accordion = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -358,6 +431,16 @@ $.fn.accordion = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -376,8 +459,13 @@ $.fn.accordion = function(parameters) {
       }
     })
   ;
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -393,8 +481,13 @@ $.fn.accordion.settings = {
   exclusive   : true,
   collapsible : true,
 
+<<<<<<< HEAD
   duration    : 300,
   easing      : 'linear',
+=======
+  duration    : 500,
+  easing      : 'easeInOutQuint',
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
   onOpen      : function(){},
   onClose     : function(){},
@@ -411,13 +504,31 @@ $.fn.accordion.settings = {
   selector    : {
     title   : '.title',
     content : '.content'
+<<<<<<< HEAD
   },
+=======
+  }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
 
 };
 
+<<<<<<< HEAD
 })( jQuery, window , document );
 
+=======
+// Adds easing
+$.extend( $.easing, {
+  easeInOutQuint: function (x, t, b, c, d) {
+    if ((t/=d/2) < 1) return c/2*t*t*t*t*t + b;
+    return c/2*((t-=2)*t*t*t*t + 2) + b;
+  }
+});
+
+})( jQuery, window , document );
+
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 /*
  * # Semantic - API
  * http://github.com/jlukic/semantic-ui/
@@ -467,7 +578,11 @@ $.fn.accordion.settings = {
       queryArguments  = [].slice.call(arguments, 1),
 
       module,
+<<<<<<< HEAD
       invokedResponse
+=======
+      returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     ;
 
     module = {
@@ -770,6 +885,7 @@ $.fn.accordion.settings = {
       },
 
       setting: function(name, value) {
+<<<<<<< HEAD
         if(value !== undefined) {
           if( $.isPlainObject(name) ) {
             $.extend(true, settings, name);
@@ -777,12 +893,20 @@ $.fn.accordion.settings = {
           else {
             settings[name] = value;
           }
+=======
+        if( $.isPlainObject(name) ) {
+          $.extend(true, settings, name);
+        }
+        else if(value !== undefined) {
+          settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         else {
           return settings[name];
         }
       },
       internal: function(name, value) {
+<<<<<<< HEAD
         if(value !== undefined) {
           if( $.isPlainObject(name) ) {
             $.extend(true, module, name);
@@ -790,6 +914,13 @@ $.fn.accordion.settings = {
           else {
             module[name] = value;
           }
+=======
+        if( $.isPlainObject(name) ) {
+          $.extend(true, module, name);
+        }
+        else if(value !== undefined) {
+          module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         else {
           return module[name];
@@ -874,13 +1005,21 @@ $.fn.accordion.settings = {
       },
       invoke: function(query, passedArguments, context) {
         var
+<<<<<<< HEAD
+=======
+          object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           maxDepth,
           found,
           response
         ;
         passedArguments = passedArguments || queryArguments;
         context         = element         || context;
+<<<<<<< HEAD
         if(typeof query == 'string' && instance !== undefined) {
+=======
+        if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           query    = query.split(/[\. ]/);
           maxDepth = query.length - 1;
           $.each(query, function(depth, value) {
@@ -888,6 +1027,7 @@ $.fn.accordion.settings = {
               ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
               : query
             ;
+<<<<<<< HEAD
             if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
               instance = instance[value];
             }
@@ -904,6 +1044,23 @@ $.fn.accordion.settings = {
             }
             else {
               module.error(error.method);
+=======
+            if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              object = object[camelCaseValue];
+            }
+            else if( object[camelCaseValue] !== undefined ) {
+              found = object[camelCaseValue];
+              return false;
+            }
+            else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              object = object[value];
+            }
+            else if( object[value] !== undefined ) {
+              found = object[value];
+              return false;
+            }
+            else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               return false;
             }
           });
@@ -914,6 +1071,7 @@ $.fn.accordion.settings = {
         else if(found !== undefined) {
           response = found;
         }
+<<<<<<< HEAD
         if($.isArray(invokedResponse)) {
           invokedResponse.push(response);
         }
@@ -922,6 +1080,16 @@ $.fn.accordion.settings = {
         }
         else if(response !== undefined) {
           invokedResponse = response;
+=======
+        if($.isArray(returnedValue)) {
+          returnedValue.push(response);
+        }
+        else if(returnedValue !== undefined) {
+          returnedValue = [returnedValue, response];
+        }
+        else if(response !== undefined) {
+          returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         return found;
       }
@@ -940,8 +1108,13 @@ $.fn.accordion.settings = {
       module.initialize();
     }
 
+<<<<<<< HEAD
     return (invokedResponse !== undefined)
       ? invokedResponse
+=======
+    return (returnedValue !== undefined)
+      ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       : this
     ;
   };
@@ -1364,7 +1537,11 @@ $.fn.form = function(fields, parameters) {
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $allModules
     .each(function() {
@@ -1487,12 +1664,21 @@ $.fn.form = function(fields, parameters) {
                 $field      = $(this),
                 $fieldGroup = $field.closest($group)
               ;
+<<<<<<< HEAD
               if( $fieldGroup.hasClass(className.error) ) {
                 module.debug('Revalidating field', $field,  module.get.validation($field));
                 module.validate.field( module.get.validation($field) );
               }
               else if(settings.on == 'change') {
                 module.validate.field( module.get.validation($field) );
+=======
+              if(settings.on == 'change' || ( $fieldGroup.hasClass(className.error) && settings.revalidate) ) {
+                clearTimeout(module.timer);
+                module.timer = setTimeout(function() {
+                  module.debug('Revalidating field', $field,  module.get.validation($field));
+                  module.validate.field( module.get.validation($field) );
+                }, settings.delay);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
             }
           }
@@ -1553,14 +1739,28 @@ $.fn.form = function(fields, parameters) {
         },
 
         add: {
+<<<<<<< HEAD
           prompt: function(field, errors) {
             var
               $field       = module.get.field(field.identifier),
+=======
+          prompt: function(identifier, errors) {
+            var
+              $field       = module.get.field(identifier),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               $fieldGroup  = $field.closest($group),
               $prompt      = $fieldGroup.find(selector.prompt),
               promptExists = ($prompt.size() !== 0)
             ;
+<<<<<<< HEAD
             module.verbose('Adding inline error', field);
+=======
+            errors = (typeof errors == 'string')
+              ? [errors]
+              : errors
+            ;
+            module.verbose('Adding field error state', identifier);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             $fieldGroup
               .addClass(className.error)
             ;
@@ -1575,7 +1775,11 @@ $.fn.form = function(fields, parameters) {
                 .html(errors[0])
               ;
               if(!promptExists) {
+<<<<<<< HEAD
                 if(settings.transition && $.fn.transition !== undefined) {
+=======
+                if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                   module.verbose('Displaying error with css transition', settings.transition);
                   $prompt.transition(settings.transition + ' in', settings.duration);
                 }
@@ -1586,6 +1790,12 @@ $.fn.form = function(fields, parameters) {
                   ;
                 }
               }
+<<<<<<< HEAD
+=======
+              else {
+                module.verbose('Inline errors are disabled, no inline error added', identifier);
+              }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
           },
           errors: function(errors) {
@@ -1608,7 +1818,11 @@ $.fn.form = function(fields, parameters) {
             ;
             if(settings.inline && $prompt.is(':visible')) {
               module.verbose('Removing prompt for field', field);
+<<<<<<< HEAD
               if(settings.transition && $.fn.transition !== undefined) {
+=======
+              if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 $prompt.transition(settings.transition + ' out', settings.duration, function() {
                   $prompt.remove();
                 });
@@ -1677,7 +1891,11 @@ $.fn.form = function(fields, parameters) {
             }
             else {
               formErrors = formErrors.concat(fieldErrors);
+<<<<<<< HEAD
               module.add.prompt(field, fieldErrors);
+=======
+              module.add.prompt(field.identifier, fieldErrors);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               $.proxy(settings.onInvalid, $field)(fieldErrors);
               return false;
             }
@@ -1689,7 +1907,11 @@ $.fn.form = function(fields, parameters) {
             var
               $field        = module.get.field(field.identifier),
               type          = validation.type,
+<<<<<<< HEAD
               value         = $field.val(),
+=======
+              value         = $.trim($field.val() + ''),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
               bracketRegExp = /\[(.*?)\]/i,
               bracket       = bracketRegExp.exec(type),
@@ -1699,7 +1921,11 @@ $.fn.form = function(fields, parameters) {
             ;
             // if bracket notation is used, pass in extra parameters
             if(bracket !== undefined && bracket !== null) {
+<<<<<<< HEAD
               ancillary    = bracket[1];
+=======
+              ancillary    = '' + bracket[1];
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               functionType = type.replace(bracket[0], '');
               isValid      = $.proxy(settings.rules[functionType], $module)(value, ancillary);
             }
@@ -1712,6 +1938,7 @@ $.fn.form = function(fields, parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           module.debug('Changing setting', name, value);
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
@@ -1720,12 +1947,20 @@ $.fn.form = function(fields, parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           module.debug('Changing internal', name, value);
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
@@ -1734,6 +1969,13 @@ $.fn.form = function(fields, parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -1821,13 +2063,21 @@ $.fn.form = function(fields, parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -1835,6 +2085,7 @@ $.fn.form = function(fields, parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -1851,6 +2102,23 @@ $.fn.form = function(fields, parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -1861,6 +2129,7 @@ $.fn.form = function(fields, parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -1869,6 +2138,16 @@ $.fn.form = function(fields, parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -1889,8 +2168,13 @@ $.fn.form = function(fields, parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -1909,6 +2193,12 @@ $.fn.form.settings = {
   on                : 'submit',
   inline            : false,
 
+<<<<<<< HEAD
+=======
+  delay             : 200,
+  revalidate        : true,
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   transition        : 'scale',
   duration          : 150,
 
@@ -1944,7 +2234,10 @@ $.fn.form.settings = {
   },
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   templates: {
     error: function(errors) {
       var
@@ -1973,7 +2266,11 @@ $.fn.form.settings = {
     },
     email: function(value){
       var
+<<<<<<< HEAD
         emailRegExp = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+=======
+        emailRegExp = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", "i")
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       ;
       return emailRegExp.test(value);
     },
@@ -1987,6 +2284,10 @@ $.fn.form.settings = {
       return (value != notValue);
     },
     contains: function(value, text) {
+<<<<<<< HEAD
+=======
+      text = text.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       return (value.search(text) !== -1);
     },
     is: function(value, text) {
@@ -2069,7 +2370,11 @@ $.fn.state = function(parameters) {
     moduleNamespace = namespace + '-module',
 
 
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $allModules
     .each(function() {
@@ -2574,13 +2879,21 @@ $.fn.state = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -2588,6 +2901,7 @@ $.fn.state = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -2604,6 +2918,23 @@ $.fn.state = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -2614,6 +2945,7 @@ $.fn.state = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -2622,6 +2954,16 @@ $.fn.state = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -2642,8 +2984,13 @@ $.fn.state = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -2771,6 +3118,7 @@ $.fn.state.settings = {
 
 $.fn.chatroom = function(parameters) {
   var
+<<<<<<< HEAD
     settings  = $.extend(true, {}, $.fn.chatroom.settings, parameters),
 
     className = settings.className,
@@ -2780,10 +3128,32 @@ $.fn.chatroom = function(parameters) {
 
     // hoist arguments
     moduleArguments = arguments || false
+=======
+    $allModules    = $(this),
+    moduleSelector = $allModules.selector || '',
+
+    time           = new Date().getTime(),
+    performance    = [],
+
+    query          = arguments[0],
+    methodInvoked  = (typeof query == 'string'),
+    queryArguments = [].slice.call(arguments, 1),
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $(this)
     .each(function() {
       var
+<<<<<<< HEAD
+=======
+        settings  = $.extend(true, {}, $.fn.chatroom.settings, parameters),
+
+        className = settings.className,
+        namespace = settings.namespace,
+        selector  = settings.selector,
+        error     = settings.error,
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         $module         = $(this),
 
         $expandButton   = $module.find(selector.expandButton),
@@ -2800,6 +3170,10 @@ $.fn.chatroom = function(parameters) {
         $messageButton  = $module.find(selector.messageButton),
 
         instance        = $module.data('module'),
+<<<<<<< HEAD
+=======
+        element         = this,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
         html            = '',
         users           = {},
@@ -3193,8 +3567,11 @@ $.fn.chatroom = function(parameters) {
 
         },
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       setting: function(name, value) {
         if(value !== undefined) {
           if( $.isPlainObject(name) ) {
@@ -3209,6 +3586,7 @@ $.fn.chatroom = function(parameters) {
         }
       },
       internal: function(name, value) {
+<<<<<<< HEAD
         if(value !== undefined) {
           if( $.isPlainObject(name) ) {
             $.extend(true, module, name);
@@ -3216,6 +3594,13 @@ $.fn.chatroom = function(parameters) {
           else {
             module[name] = value;
           }
+=======
+        if( $.isPlainObject(name) ) {
+          $.extend(true, module, name);
+        }
+        else if(value !== undefined) {
+          module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         else {
           return module[name];
@@ -3283,7 +3668,10 @@ $.fn.chatroom = function(parameters) {
           if(moduleSelector) {
             title += ' \'' + moduleSelector + '\'';
           }
+<<<<<<< HEAD
           title += ' ' + '(' + $allDropdowns.size() + ')';
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
             console.groupCollapsed(title);
             if(console.table) {
@@ -3317,7 +3705,11 @@ $.fn.chatroom = function(parameters) {
               found = instance[value];
             }
             else {
+<<<<<<< HEAD
               module.error(error.method);
+=======
+              module.error(error.method, query);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
           });
         }
@@ -3343,8 +3735,13 @@ $.fn.chatroom = function(parameters) {
   })
 ;
 
+<<<<<<< HEAD
   return (invokedResponse)
     ? invokedResponse
+=======
+  return (returnedValue)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -3542,6 +3939,7 @@ $.fn.chatroom = function(parameters) {
 $.fn.checkbox = function(parameters) {
   var
     $allModules    = $(this),
+<<<<<<< HEAD
 
     settings       = $.extend(true, {}, $.fn.checkbox.settings, parameters),
 
@@ -3552,6 +3950,8 @@ $.fn.checkbox = function(parameters) {
     eventNamespace  = '.' + namespace,
     moduleNamespace = 'module-' + namespace,
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     moduleSelector = $allModules.selector || '',
 
     time           = new Date().getTime(),
@@ -3560,12 +3960,28 @@ $.fn.checkbox = function(parameters) {
     query          = arguments[0],
     methodInvoked  = (typeof query == 'string'),
     queryArguments = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
 
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
+=======
+        settings        = $.extend(true, {}, $.fn.checkbox.settings, parameters),
+
+        className       = settings.className,
+        namespace       = settings.namespace,
+        error           = settings.error,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         $module         = $(this),
         $label          = $(this).next(settings.selector.label).first(),
         $input          = $(this).find(settings.selector.input),
@@ -3619,6 +4035,15 @@ $.fn.checkbox = function(parameters) {
         is: {
           radio: function() {
             return $module.hasClass(className.radio);
+<<<<<<< HEAD
+=======
+          },
+          enabled: function() {
+            return $input.prop('checked') !== undefined && $input.prop('checked');
+          },
+          disabled: function() {
+            return !module.is.enabled();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
@@ -3632,7 +4057,11 @@ $.fn.checkbox = function(parameters) {
         },
 
         enable: function() {
+<<<<<<< HEAD
           module.debug('Enabling checkbox');
+=======
+          module.debug('Enabling checkbox', $input);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $input
             .prop('checked', true)
           ;
@@ -3651,14 +4080,22 @@ $.fn.checkbox = function(parameters) {
 
         toggle: function(event) {
           module.verbose('Determining new checkbox state');
+<<<<<<< HEAD
           if($input.prop('checked') === undefined || !$input.prop('checked')) {
             module.enable();
           }
           else if( module.can.disable() ) {
+=======
+          if( module.is.disabled() ) {
+            module.enable();
+          }
+          else if( module.is.enabled() && module.can.disable() ) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             module.disable();
           }
         },
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -3666,12 +4103,20 @@ $.fn.checkbox = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -3679,6 +4124,13 @@ $.fn.checkbox = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -3746,9 +4198,12 @@ $.fn.checkbox = function(parameters) {
             if(moduleSelector) {
               title += ' \'' + moduleSelector + '\'';
             }
+<<<<<<< HEAD
             if($allModules.size() > 1) {
               title += ' ' + '(' + $allModules.size() + ')';
             }
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
               console.groupCollapsed(title);
               if(console.table) {
@@ -3766,13 +4221,21 @@ $.fn.checkbox = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -3780,6 +4243,7 @@ $.fn.checkbox = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -3796,6 +4260,23 @@ $.fn.checkbox = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -3806,6 +4287,7 @@ $.fn.checkbox = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -3814,6 +4296,16 @@ $.fn.checkbox = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -3834,8 +4326,13 @@ $.fn.checkbox = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -3862,7 +4359,11 @@ $.fn.checkbox.settings = {
   },
 
   selector : {
+<<<<<<< HEAD
     input  : 'input[type=checkbox]',
+=======
+    input  : 'input[type=checkbox], input[type=radio]',
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     label  : 'label'
   },
 
@@ -3891,6 +4392,7 @@ $.fn.dimmer = function(parameters) {
   var
     $allModules     = $(this),
 
+<<<<<<< HEAD
     settings        = ( $.isPlainObject(parameters) )
       ? $.extend(true, {}, $.fn.dimmer.settings, parameters)
       : $.fn.dimmer.settings,
@@ -3904,22 +4406,49 @@ $.fn.dimmer = function(parameters) {
     moduleNamespace = 'module-' + namespace,
     moduleSelector  = $allModules.selector || '',
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     time            = new Date().getTime(),
     performance     = [],
 
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     clickEvent      = ('ontouchstart' in document.documentElement)
       ? 'touchstart'
       : 'click',
 
     invokedResponse
+=======
+
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
 
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
+=======
+        settings        = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.dimmer.settings, parameters)
+          : $.extend({}, $.fn.dimmer.settings),
+
+        selector        = settings.selector,
+        namespace       = settings.namespace,
+        className       = settings.className,
+        error           = settings.error,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+        moduleSelector  = $allModules.selector || '',
+
+        clickEvent      = ('ontouchstart' in document.documentElement)
+          ? 'touchstart'
+          : 'click',
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         $module = $(this),
         $dimmer,
         $dimmable,
@@ -3942,7 +4471,11 @@ $.fn.dimmer = function(parameters) {
               $dimmer = $dimmable.children(selector.dimmer).first();
             }
             else {
+<<<<<<< HEAD
               module.create();
+=======
+              $dimmer = module.create();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
           }
         },
@@ -3986,6 +4519,12 @@ $.fn.dimmer = function(parameters) {
 
         destroy: function() {
           module.verbose('Destroying previous module', $dimmer);
+<<<<<<< HEAD
+=======
+          $module
+            .removeData(moduleNamespace)
+          ;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $dimmable
             .off(eventNamespace)
           ;
@@ -4008,21 +4547,34 @@ $.fn.dimmer = function(parameters) {
 
         addContent: function(element) {
           var
+<<<<<<< HEAD
             $content = $(element).detach()
           ;
           module.debug('Add content to dimmer', $content);
           if($content.parent()[0] !== $dimmer[0]) {
             $dimmer.append($content);
+=======
+            $content = $(element)
+          ;
+          module.debug('Add content to dimmer', $content);
+          if($content.parent()[0] !== $dimmer[0]) {
+            $content.detach().appendTo($dimmer);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
         create: function() {
+<<<<<<< HEAD
           $dimmer = $( settings.template.dimmer() );
           return $dimmer.appendTo($dimmable);
+=======
+          return $( settings.template.dimmer() ).appendTo($dimmable);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         },
 
         animate: {
           show: function(callback) {
+<<<<<<< HEAD
             callback = callback || function(){};
             module.set.dimmed();
             if($.fn.transition !== undefined) {
@@ -4030,6 +4582,23 @@ $.fn.dimmer = function(parameters) {
                 .transition(settings.transition + ' in', settings.duration, function() {
                   module.set.active();
                   callback();
+=======
+            callback = $.isFunction(callback)
+              ? callback
+              : function(){}
+            ;
+            module.set.dimmed();
+            if(settings.useCSS && $.fn.transition !== undefined && $dimmer.transition('is supported')) {
+              $dimmer
+                .transition({
+                  animation : settings.transition + ' in',
+                  queue     : true,
+                  duration  : module.get.duration(),
+                  complete  : function() {
+                    module.set.active();
+                    callback();
+                  }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 })
               ;
             }
@@ -4042,7 +4611,11 @@ $.fn.dimmer = function(parameters) {
                   width   : '100%',
                   height  : '100%'
                 })
+<<<<<<< HEAD
                 .fadeTo(settings.duration, 1, function() {
+=======
+                .fadeTo(module.get.duration(), 1, function() {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                   $dimmer.removeAttr('style');
                   module.set.active();
                   callback();
@@ -4051,6 +4624,7 @@ $.fn.dimmer = function(parameters) {
             }
           },
           hide: function(callback) {
+<<<<<<< HEAD
             callback = callback || function(){};
             module.remove.dimmed();
             if($.fn.transition !== undefined) {
@@ -4059,6 +4633,24 @@ $.fn.dimmer = function(parameters) {
                 .transition(settings.transition + ' out', settings.duration, function() {
                   module.remove.active();
                   callback();
+=======
+            callback = $.isFunction(callback)
+              ? callback
+              : function(){}
+            ;
+            if(settings.useCSS && $.fn.transition !== undefined && $dimmer.transition('is supported')) {
+              module.verbose('Hiding dimmer with css');
+              $dimmer
+                .transition({
+                  animation : settings.transition + ' out',
+                  duration  : module.get.duration(),
+                  queue     : true,
+                  complete  : function() {
+                    module.remove.dimmed();
+                    module.remove.active();
+                    callback();
+                  }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 })
               ;
             }
@@ -4066,8 +4658,14 @@ $.fn.dimmer = function(parameters) {
               module.verbose('Hiding dimmer with javascript');
               $dimmer
                 .stop()
+<<<<<<< HEAD
                 .fadeOut(settings.duration, function() {
                   $dimmer.removeAttr('style');
+=======
+                .fadeOut(module.get.duration(), function() {
+                  $dimmer.removeAttr('style');
+                  module.remove.dimmed();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                   module.remove.active();
                   callback();
                 })
@@ -4079,6 +4677,20 @@ $.fn.dimmer = function(parameters) {
         get: {
           dimmer: function() {
             return $dimmer;
+<<<<<<< HEAD
+=======
+          },
+          duration: function() {
+            if(typeof settings.duration == 'object') {
+              if( module.is.active() ) {
+                return settings.duration.hide;
+              }
+              else {
+                return settings.duration.show;
+              }
+            }
+            return settings.duration;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
@@ -4089,27 +4701,50 @@ $.fn.dimmer = function(parameters) {
         },
 
         is: {
+<<<<<<< HEAD
           dimmer: function() {
             return $module.is(selector.dimmer);
           },
           dimmable: function() {
             return $module.is(selector.dimmable);
           },
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           active: function() {
             return $dimmer.hasClass(className.active);
           },
           animating: function() {
             return ( $dimmer.is(':animated') || $dimmer.hasClass(className.transition) );
           },
+<<<<<<< HEAD
           page: function () {
             return $dimmable.is('body');
           },
           enabled: function() {
             return !$dimmable.hasClass(className.disabled);
+=======
+          dimmer: function() {
+            return $module.is(selector.dimmer);
+          },
+          dimmable: function() {
+            return $module.is(selector.dimmable);
+          },
+          dimmed: function() {
+            return $dimmable.hasClass(className.dimmed);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           },
           disabled: function() {
             return $dimmable.hasClass(className.disabled);
           },
+<<<<<<< HEAD
+=======
+          enabled: function() {
+            return !module.is.disabled();
+          },
+          page: function () {
+            return $dimmable.is('body');
+          },
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           pageDimmer: function() {
             return $dimmer.hasClass(className.pageDimmer);
           }
@@ -4123,6 +4758,10 @@ $.fn.dimmer = function(parameters) {
 
         set: {
           active: function() {
+<<<<<<< HEAD
+=======
+            module.set.dimmed();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             $dimmer
               .removeClass(className.transition)
               .addClass(className.active)
@@ -4158,8 +4797,17 @@ $.fn.dimmer = function(parameters) {
         },
 
         show: function(callback) {
+<<<<<<< HEAD
           module.debug('Showing dimmer', $dimmer, settings);
           if( !(module.is.active() || module.is.animating() ) && module.is.enabled() ) {
+=======
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          module.debug('Showing dimmer', $dimmer, settings);
+          if( !module.is.active() && module.is.enabled() ) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             module.animate.show(callback);
             $.proxy(settings.onShow, element)();
             $.proxy(settings.onChange, element)();
@@ -4170,7 +4818,15 @@ $.fn.dimmer = function(parameters) {
         },
 
         hide: function(callback) {
+<<<<<<< HEAD
           if( module.is.active() && !module.is.animating() ) {
+=======
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          if( module.is.active() || module.is.animating() ) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             module.debug('Hiding dimmer', $dimmer);
             module.animate.hide(callback);
             $.proxy(settings.onHide, element)();
@@ -4183,7 +4839,11 @@ $.fn.dimmer = function(parameters) {
 
         toggle: function() {
           module.verbose('Toggling dimmer visibility', $dimmer);
+<<<<<<< HEAD
           if( !module.is.active() ) {
+=======
+          if( !module.is.dimmed() ) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             module.show();
           }
           else {
@@ -4192,6 +4852,7 @@ $.fn.dimmer = function(parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -4199,12 +4860,20 @@ $.fn.dimmer = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -4212,6 +4881,13 @@ $.fn.dimmer = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -4299,13 +4975,21 @@ $.fn.dimmer = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -4313,6 +4997,7 @@ $.fn.dimmer = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -4329,6 +5014,23 @@ $.fn.dimmer = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -4339,6 +5041,7 @@ $.fn.dimmer = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -4347,6 +5050,16 @@ $.fn.dimmer = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -4369,8 +5082,13 @@ $.fn.dimmer = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -4380,6 +5098,7 @@ $.fn.dimmer.settings = {
   name        : 'Dimmer',
   namespace   : 'dimmer',
 
+<<<<<<< HEAD
   verbose     : true,
   debug       : true,
   performance : true,
@@ -4389,6 +5108,21 @@ $.fn.dimmer.settings = {
   on          : false,
   closable    : true,
   duration    : 500,
+=======
+  debug       : true,
+  verbose     : true,
+  performance : true,
+
+  transition  : 'fade',
+  useCSS      : true,
+  on          : false,
+  closable    : true,
+
+  duration    : {
+    show : 500,
+    hide : 500
+  },
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
   onChange    : function(){},
   onShow      : function(){},
@@ -4434,6 +5168,7 @@ $.fn.dimmer.settings = {
  * http://opensource.org/licenses/MIT
  *
  */
+<<<<<<< HEAD
 
 ;(function ( $, window, document, undefined ) {
 
@@ -4463,11 +5198,31 @@ $.fn.dropdown = function(parameters) {
     methodInvoked     = (typeof query == 'string'),
     queryArguments    = [].slice.call(arguments, 1),
     invokedResponse
+=======
+;(function ( $, window, document, undefined ) {
+
+$.fn.dropdown = function(parameters) {
+    var
+    $allModules    = $(this),
+    $document      = $(document),
+
+    moduleSelector = $allModules.selector || '',
+
+    hasTouch       = ('ontouchstart' in document.documentElement),
+    time           = new Date().getTime(),
+    performance    = [],
+
+    query          = arguments[0],
+    methodInvoked  = (typeof query == 'string'),
+    queryArguments = [].slice.call(arguments, 1),
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
 
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
         $module       = $(this),
         $item         = $module.find(selector.item),
         $text         = $module.find(selector.text),
@@ -4479,6 +5234,31 @@ $.fn.dropdown = function(parameters) {
 
         element       = this,
         instance      = $module.data(dropdownNamespace),
+=======
+        settings          = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.dropdown.settings, parameters)
+          : $.extend({}, $.fn.dropdown.settings),
+
+        className       = settings.className,
+        metadata        = settings.metadata,
+        namespace       = settings.namespace,
+        selector        = settings.selector,
+        error           = settings.error,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+        $module         = $(this),
+        $item           = $module.find(selector.item),
+        $text           = $module.find(selector.text),
+        $input          = $module.find(selector.input),
+
+        $menu           = $module.children(selector.menu),
+
+
+        element         = this,
+        instance        = $module.data(moduleNamespace),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         module
       ;
 
@@ -4486,6 +5266,7 @@ $.fn.dropdown = function(parameters) {
 
         initialize: function() {
           module.debug('Initializing dropdown', settings);
+<<<<<<< HEAD
           if(isTouchDevice) {
             $module
               .on('touchstart' + eventNamespace, module.event.test.toggle)
@@ -4515,13 +5296,29 @@ $.fn.dropdown = function(parameters) {
             .on('mouseleave' + eventNamespace, module.event.item.mouseleave)
             .on(module.get.selectEvent() + eventNamespace, module.event.item.click)
           ;
+=======
+
+          module.save.defaults();
+          module.set.selected();
+
+          if(hasTouch) {
+            module.bind.touchEvents();
+          }
+          module.bind.mouseEvents();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           module.instantiate();
         },
 
         instantiate: function() {
           module.verbose('Storing instance of dropdown', module);
+<<<<<<< HEAD
           $module
             .data(dropdownNamespace, module)
+=======
+          instance = module;
+          $module
+            .data(moduleNamespace, module)
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           ;
         },
 
@@ -4532,6 +5329,7 @@ $.fn.dropdown = function(parameters) {
           ;
           $module
             .off(eventNamespace)
+<<<<<<< HEAD
             .removeData(dropdownNamespace)
           ;
         },
@@ -4550,6 +5348,96 @@ $.fn.dropdown = function(parameters) {
             hide: function(event) {
               module.determine.intent(event, module.hide);
               event.stopPropagation();
+=======
+            .removeData(moduleNamespace)
+          ;
+        },
+
+        bind: {
+          touchEvents: function() {
+            module.debug('Touch device detected binding touch events');
+            $module
+              .on('touchstart' + eventNamespace, module.event.test.toggle)
+            ;
+            $item
+              .on('touchstart' + eventNamespace, module.event.item.mouseenter)
+              .on('touchstart' + eventNamespace, module.event.item.click)
+            ;
+          },
+          mouseEvents: function() {
+            module.verbose('Mouse detected binding mouse events');
+            if(settings.on == 'click') {
+              $module
+                .on('click' + eventNamespace, module.event.test.toggle)
+              ;
+            }
+            else if(settings.on == 'hover') {
+              $module
+                .on('mouseenter' + eventNamespace, module.delay.show)
+                .on('mouseleave' + eventNamespace, module.delay.hide)
+              ;
+            }
+            else {
+              $module
+                .on(settings.on + eventNamespace, module.toggle)
+              ;
+            }
+            $item
+              .on('mouseenter' + eventNamespace, module.event.item.mouseenter)
+              .on('mouseleave' + eventNamespace, module.event.item.mouseleave)
+              .on('click'      + eventNamespace, module.event.item.click)
+            ;
+          },
+          intent: function() {
+            module.verbose('Binding hide intent event to document');
+            if(hasTouch) {
+              $document
+                .on('touchstart' + eventNamespace, module.event.test.touch)
+                .on('touchmove'  + eventNamespace, module.event.test.touch)
+              ;
+            }
+            $document
+              .on('click' + eventNamespace, module.event.test.hide)
+            ;
+          }
+        },
+
+        unbind: {
+          intent: function() {
+            module.verbose('Removing hide intent event from document');
+            if(hasTouch) {
+              $document
+                .off('touchstart' + eventNamespace)
+                .off('touchmove' + eventNamespace)
+              ;
+            }
+            $document
+              .off('click' + eventNamespace)
+            ;
+          }
+        },
+
+        event: {
+          test: {
+            toggle: function(event) {
+              if( module.determine.intent(event, module.toggle) ) {
+                event.preventDefault();
+              }
+            },
+            touch: function(event) {
+              module.determine.intent(event, function() {
+                if(event.type == 'touchstart') {
+                  module.timer = setTimeout(module.hide, settings.delay.touch);
+                }
+                else if(event.type == 'touchmove') {
+                  clearTimeout(module.timer);
+                }
+              });
+              event.stopPropagation();
+            },
+            hide: function(event) {
+              module.determine.intent(event, module.hide);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
           },
 
@@ -4567,6 +5455,10 @@ $.fn.dropdown = function(parameters) {
                   module.verbose('Showing sub-menu', $currentMenu);
                   module.animate.show(false,  $currentMenu);
                 }, settings.delay.show * 2);
+<<<<<<< HEAD
+=======
+                event.preventDefault();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
             },
 
@@ -4586,6 +5478,7 @@ $.fn.dropdown = function(parameters) {
             click: function (event) {
               var
                 $choice = $(this),
+<<<<<<< HEAD
                 text    = $choice.data(metadata.text)  || $choice.text(),
                 value   = $choice.data(metadata.value) || text.toLowerCase()
               ;
@@ -4600,6 +5493,26 @@ $.fn.dropdown = function(parameters) {
                 module.determine.selectAction(text, value);
                 $.proxy(settings.onChange, element)(value, text);
                 event.stopPropagation();
+=======
+                text    = ( $choice.data(metadata.text) !== undefined )
+                  ? $choice.data(metadata.text)
+                  : $choice.text(),
+                value   = ( $choice.data(metadata.value) !== undefined)
+                  ? $choice.data(metadata.value)
+                  : text.toLowerCase(),
+                callback = function() {
+                  module.determine.selectAction(text, value);
+                  $.proxy(settings.onChange, element)(value, text);
+                }
+              ;
+              if( $choice.find(selector.menu).size() === 0 ) {
+                if(event.type == 'touchstart') {
+                  $choice.one('click', callback);
+                }
+                else {
+                  callback();
+                }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
             }
 
@@ -4614,6 +5527,7 @@ $.fn.dropdown = function(parameters) {
         determine: {
           selectAction: function(text, value) {
             module.verbose('Determining action', settings.action);
+<<<<<<< HEAD
             if( $.isFunction( module[settings.action] ) ) {
               module.verbose('Triggering preset action', settings.action);
               module[ settings.action ](text, value);
@@ -4624,6 +5538,18 @@ $.fn.dropdown = function(parameters) {
             }
             else {
               module.error(error.action);
+=======
+            if( $.isFunction( module.action[settings.action] ) ) {
+              module.verbose('Triggering preset action', settings.action, text, value);
+              module.action[ settings.action ](text, value);
+            }
+            else if( $.isFunction(settings.action) ) {
+              module.verbose('Triggering user action', settings.action, text, value);
+              settings.action(text, value);
+            }
+            else {
+              module.error(error.action, settings.action);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
           },
           intent: function(event, callback) {
@@ -4632,13 +5558,22 @@ $.fn.dropdown = function(parameters) {
             if( $(event.target).closest($menu).size() === 0 ) {
               module.verbose('Triggering event', callback);
               callback();
+<<<<<<< HEAD
             }
             else {
               module.verbose('Event occurred in dropdown, canceling callback');
+=======
+              return true;
+            }
+            else {
+              module.verbose('Event occurred in dropdown, canceling callback');
+              return false;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
           }
         },
 
+<<<<<<< HEAD
         bind: {
           intent: function() {
             module.verbose('Binding hide intent event to document');
@@ -4677,10 +5612,66 @@ $.fn.dropdown = function(parameters) {
               : 'click'
             ;
           },
+=======
+        action: {
+
+          nothing: function() {},
+
+          hide: function() {
+            module.hide();
+          },
+
+          activate: function(text, value) {
+            value = (value !== undefined)
+              ? value
+              : text
+            ;
+            module.set.selected(value);
+            module.set.value(value);
+            module.hide();
+          },
+
+          /* Deprecated */
+          auto: function(text, value) {
+            value = (value !== undefined)
+              ? value
+              : text
+            ;
+            module.set.selected(value);
+            module.set.value(value);
+            module.hide();
+          },
+
+          /* Deprecated */
+          changeText: function(text, value) {
+            value = (value !== undefined)
+              ? value
+              : text
+            ;
+            module.set.selected(value);
+            module.hide();
+          },
+
+          /* Deprecated */
+          updateForm: function(text, value) {
+            value = (value !== undefined)
+              ? value
+              : text
+            ;
+            module.set.selected(value);
+            module.set.value(value);
+            module.hide();
+          }
+
+        },
+
+        get: {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           text: function() {
             return $text.text();
           },
           value: function() {
+<<<<<<< HEAD
             return $input.val();
           },
           item: function(value) {
@@ -4695,10 +5686,91 @@ $.fn.dropdown = function(parameters) {
                 }
               })
             ;
+=======
+            return ($input.size() > 0)
+              ? $input.val()
+              : $module.data(metadata.value)
+            ;
+          },
+          item: function(value) {
+            var
+              $selectedItem = false
+            ;
+            value = (value !== undefined)
+              ? value
+              : ( module.get.value() !== undefined)
+                ? module.get.value()
+                : module.get.text()
+            ;
+            if(value !== undefined) {
+              $item
+                .each(function() {
+                  var
+                    $choice       = $(this),
+                    optionText    = ( $choice.data(metadata.text) !== undefined )
+                      ? $choice.data(metadata.text)
+                      : $choice.text(),
+                    optionValue   = ( $choice.data(metadata.value) !== undefined )
+                      ? $choice.data(metadata.value)
+                      : optionText.toLowerCase()
+                  ;
+                  if( optionValue == value ) {
+                    $selectedItem = $(this);
+                  }
+                  else if( !$selectedItem && optionText == value ) {
+                    $selectedItem = $(this);
+                  }
+                })
+              ;
+            }
+            else {
+              value = module.get.text();
+            }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             return $selectedItem || false;
           }
         },
 
+<<<<<<< HEAD
+=======
+        restore: {
+          defaults: function() {
+            module.restore.defaultText();
+            module.restore.defaultValue();
+          },
+          defaultText: function() {
+            var
+              defaultText = $module.data(metadata.defaultText)
+            ;
+            module.debug('Restoring default text', defaultText);
+            module.set.text(defaultText);
+          },
+          defaultValue: function() {
+            var
+              defaultValue = $module.data(metadata.defaultValue)
+            ;
+            if(defaultValue !== undefined) {
+              module.debug('Restoring default value', defaultValue);
+              module.set.selected(defaultValue);
+              module.set.value(defaultValue);
+            }
+          }
+        },
+
+        save: {
+          defaults: function() {
+            module.save.defaultText();
+            module.save.defaultValue();
+          },
+          defaultValue: function() {
+            $module.data(metadata.defaultValue, module.get.value() );
+          },
+          defaultText: function() {
+            $module.data(metadata.defaultText, $text.text() );
+          }
+        },
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         set: {
           text: function(text) {
             module.debug('Changing text', text, $text);
@@ -4707,7 +5779,16 @@ $.fn.dropdown = function(parameters) {
           },
           value: function(value) {
             module.debug('Adding selected value to hidden input', value, $input);
+<<<<<<< HEAD
             $input.val(value);
+=======
+            if($input.size() > 0) {
+              $input.val(value);
+            }
+            else {
+              $module.data(metadata.value, value);
+            }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           },
           active: function() {
             $module.addClass(className.active);
@@ -4722,7 +5803,14 @@ $.fn.dropdown = function(parameters) {
             ;
             if($selectedItem) {
               module.debug('Setting selected menu item to', $selectedItem);
+<<<<<<< HEAD
               selectedText = $selectedItem.data(metadata.text) || $selectedItem.text();
+=======
+              selectedText = ($selectedItem.data(metadata.text) !== undefined)
+                ? $selectedItem.data(metadata.text)
+                : $selectedItem.text()
+              ;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               $item
                 .removeClass(className.active)
               ;
@@ -4744,23 +5832,48 @@ $.fn.dropdown = function(parameters) {
         },
 
         is: {
+<<<<<<< HEAD
           visible: function($subMenu) {
             return ($subMenu)
               ? $subMenu.is(':animated, :visible')
               : $menu.is(':animated, :visible')
+=======
+          selection: function() {
+            return $module.hasClass(className.selection);
+          },
+          animated: function($subMenu) {
+            return ($subMenu)
+              ? $subMenu.is(':animated') || $subMenu.transition('is animating')
+              : $menu.is(':animated') || $menu.transition('is animating')
+            ;
+          },
+          visible: function($subMenu) {
+            return ($subMenu)
+              ? $subMenu.is(':visible')
+              : $menu.is(':visible')
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             ;
           },
           hidden: function($subMenu) {
             return ($subMenu)
+<<<<<<< HEAD
               ? $subMenu.is(':not(:animated, :visible)')
               : $menu.is(':not(:animated, :visible)')
+=======
+              ? $subMenu.is(':not(:visible)')
+              : $menu.is(':not(:visible)')
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             ;
           }
         },
 
         can: {
           click: function() {
+<<<<<<< HEAD
             return (isTouchDevice || settings.on == 'click');
+=======
+            return (hasTouch || settings.on == 'click');
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           },
           show: function() {
             return !$module.hasClass(className.disabled);
@@ -4778,6 +5891,7 @@ $.fn.dropdown = function(parameters) {
               if(settings.transition == 'none') {
                 callback();
               }
+<<<<<<< HEAD
               else if($.fn.transition !== undefined) {
                 $currentMenu.transition({
                   animation : settings.transition + ' in',
@@ -4785,6 +5899,17 @@ $.fn.dropdown = function(parameters) {
                   complete  : callback,
                   queue     : false
                 });
+=======
+              else if($.fn.transition !== undefined && $module.transition('is supported')) {
+                $currentMenu
+                  .transition({
+                    animation : settings.transition + ' in',
+                    duration  : settings.duration,
+                    complete  : callback,
+                    queue     : false
+                  })
+                ;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
               else if(settings.transition == 'slide down') {
                 $currentMenu
@@ -4815,7 +5940,11 @@ $.fn.dropdown = function(parameters) {
                 ;
               }
               else {
+<<<<<<< HEAD
                 module.error(error.transition);
+=======
+                module.error(error.transition, settings.transition);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
             }
           },
@@ -4826,6 +5955,7 @@ $.fn.dropdown = function(parameters) {
             callback = callback || function(){};
             if(module.is.visible($currentMenu) ) {
               module.verbose('Doing menu hide animation', $currentMenu);
+<<<<<<< HEAD
               if($.fn.transition !== undefined) {
                 $currentMenu.transition({
                   animation : settings.transition + ' out',
@@ -4833,6 +5963,17 @@ $.fn.dropdown = function(parameters) {
                   complete  : callback,
                   queue     : false
                 });
+=======
+              if($.fn.transition !== undefined && $module.transition('is supported')) {
+                $currentMenu
+                  .transition({
+                    animation : settings.transition + ' out',
+                    duration  : settings.duration,
+                    complete  : callback,
+                    queue     : false
+                  })
+                ;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
               else if(settings.transition == 'none') {
                 callback();
@@ -4877,16 +6018,29 @@ $.fn.dropdown = function(parameters) {
           if( module.is.hidden() ) {
             module.hideOthers();
             module.set.active();
+<<<<<<< HEAD
             module.animate.show(module.set.visible);
             if( module.can.click() ) {
               module.bind.intent();
             }
+=======
+            module.animate.show(function() {
+              if( module.can.click() ) {
+                module.bind.intent();
+              }
+              module.set.visible();
+            });
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             $.proxy(settings.onShow, element)();
           }
         },
 
         hide: function() {
+<<<<<<< HEAD
           if( module.is.visible() ) {
+=======
+          if( !module.is.animated() && module.is.visible() ) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             module.debug('Hiding dropdown');
             if( module.can.click() ) {
               module.unbind.intent();
@@ -4930,6 +6084,7 @@ $.fn.dropdown = function(parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -4937,12 +6092,20 @@ $.fn.dropdown = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -4950,6 +6113,13 @@ $.fn.dropdown = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -5014,8 +6184,13 @@ $.fn.dropdown = function(parameters) {
               totalTime += data['Execution Time'];
             });
             title += ' ' + totalTime + 'ms';
+<<<<<<< HEAD
             if(dropdownSelector) {
               title += ' \'' + dropdownSelector + '\'';
+=======
+            if(moduleSelector) {
+              title += ' \'' + moduleSelector + '\'';
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
             if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
               console.groupCollapsed(title);
@@ -5034,6 +6209,7 @@ $.fn.dropdown = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
             maxDepth,
             found
           ;
@@ -5051,13 +6227,65 @@ $.fn.dropdown = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+            object = instance,
+            maxDepth,
+            found,
+            response
+          ;
+          passedArguments = passedArguments || queryArguments;
+          context         = element         || context;
+          if(typeof query == 'string' && object !== undefined) {
+            query    = query.split(/[\. ]/);
+            maxDepth = query.length - 1;
+            $.each(query, function(depth, value) {
+              var camelCaseValue = (depth != maxDepth)
+                ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
+                : query
+              ;
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+                module.error(error.method, query);
+                return false;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
             });
           }
           if ( $.isFunction( found ) ) {
+<<<<<<< HEAD
             return found.apply(context, passedArguments);
           }
           return found || false;
+=======
+            response = found.apply(context, passedArguments);
+          }
+          else if(found !== undefined) {
+            response = found;
+          }
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+          }
+          return found;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
       };
 
@@ -5076,8 +6304,13 @@ $.fn.dropdown = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse)
     ? invokedResponse
+=======
+  return (returnedValue)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -5092,17 +6325,30 @@ $.fn.dropdown.settings = {
   performance : true,
 
   on          : 'click',
+<<<<<<< HEAD
   action      : 'hide',
 
   delay: {
     show: 200,
     hide: 300
+=======
+  action      : 'activate',
+
+  delay: {
+    show  : 200,
+    hide  : 300,
+    touch : 50
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   },
 
   transition : 'slide down',
   duration   : 250,
 
+<<<<<<< HEAD
   onChange : function(){},
+=======
+  onChange : function(value, text){},
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   onShow   : function(){},
   onHide   : function(){},
 
@@ -5113,8 +6359,15 @@ $.fn.dropdown.settings = {
   },
 
   metadata: {
+<<<<<<< HEAD
     text  : 'text',
     value : 'value'
+=======
+    defaultText  : 'defaultText',
+    defaultValue : 'defaultValue',
+    text         : 'text',
+    value        : 'value'
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   },
 
   selector : {
@@ -5128,11 +6381,27 @@ $.fn.dropdown.settings = {
     active      : 'active',
     placeholder : 'default',
     disabled    : 'disabled',
+<<<<<<< HEAD
     visible     : 'visible'
+=======
+    visible     : 'visible',
+    selection   : 'selection'
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   }
 
 };
 
+<<<<<<< HEAD
+=======
+// Adds easing
+$.extend( $.easing, {
+  easeOutQuad: function (x, t, b, c, d) {
+    return -c *(t/=d)*(t-2) + b;
+  },
+});
+
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 })( jQuery, window , document );
 /*
  * # Semantic - Modal
@@ -5153,6 +6422,7 @@ $.fn.modal = function(parameters) {
     $window     = $(window),
     $document   = $(document),
 
+<<<<<<< HEAD
     settings    = ( $.isPlainObject(parameters) )
       ? $.extend(true, {}, $.fn.modal.settings, parameters)
       : $.fn.modal.settings,
@@ -5166,6 +6436,8 @@ $.fn.modal = function(parameters) {
     moduleNamespace = 'module-' + namespace,
     moduleSelector  = $allModules.selector || '',
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     time            = new Date().getTime(),
     performance     = [],
 
@@ -5173,19 +6445,47 @@ $.fn.modal = function(parameters) {
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
 
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
 
 
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
         $module      = $(this),
         $context     = $(settings.context),
         $otherModals = $allModules.not($module),
         $close       = $module.find(selector.close),
 
         $focusedElement,
+=======
+        settings    = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.modal.settings, parameters)
+          : $.extend({}, $.fn.modal.settings),
+
+        selector        = settings.selector,
+        className       = settings.className,
+        namespace       = settings.namespace,
+        error           = settings.error,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+        moduleSelector  = $allModules.selector || '',
+
+        $module      = $(this),
+        $context     = $(settings.context),
+        $close       = $module.find(selector.close),
+
+        $allModals,
+        $otherModals,
+        $focusedElement,
+        $dimmable,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         $dimmer,
 
         element      = this,
@@ -5198,17 +6498,50 @@ $.fn.modal = function(parameters) {
         initialize: function() {
           module.verbose('Initializing dimmer', $context);
 
+<<<<<<< HEAD
           $dimmer = $context
             .dimmer('add content', $module)
             .dimmer('get dimmer')
           ;
 
+=======
+          if(typeof $.fn.dimmer === undefined) {
+            module.error(error.dimmer);
+            return;
+          }
+          $dimmable = $context
+            .dimmer({
+              closable : false,
+              useCSS   : true,
+              duration: {
+                show     : settings.duration * 0.9,
+                hide     : settings.duration * 1.1
+              }
+            })
+          ;
+
+          if(settings.detachable) {
+            $dimmable.dimmer('add content', $module);
+          }
+
+          $dimmer = $dimmable
+            .dimmer('get dimmer')
+          ;
+
+          $otherModals = $module.siblings(selector.modal);
+          $allModals   = $otherModals.add($module);
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           module.verbose('Attaching close events', $close);
           $close
             .on('click' + eventNamespace, module.event.close)
           ;
           $window
+<<<<<<< HEAD
             .on('resize', function() {
+=======
+            .on('resize' + eventNamespace, function() {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.event.debounce(module.refresh, 50);
             })
           ;
@@ -5226,8 +6559,20 @@ $.fn.modal = function(parameters) {
         destroy: function() {
           module.verbose('Destroying previous modal');
           $module
+<<<<<<< HEAD
             .off(eventNamespace)
           ;
+=======
+            .removeData(moduleNamespace)
+            .off(eventNamespace)
+          ;
+          $close
+            .off(eventNamespace)
+          ;
+          $context
+            .dimmer('destroy')
+          ;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         },
 
         refresh: function() {
@@ -5243,7 +6588,11 @@ $.fn.modal = function(parameters) {
           ;
           event = $.isFunction(module[event])
             ? module[event]
+<<<<<<< HEAD
             : module.show
+=======
+            : module.toggle
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           ;
           if($toggle.size() > 0) {
             module.debug('Attaching modal events to element', selector, event);
@@ -5259,8 +6608,43 @@ $.fn.modal = function(parameters) {
 
         event: {
           close: function() {
+<<<<<<< HEAD
             module.verbose('Close button pressed');
             $context.dimmer('hide');
+=======
+            module.verbose('Closing element pressed');
+            if( $(this).is(selector.approve) ) {
+              if($.proxy(settings.onApprove, element)() !== false) {
+                module.hide();
+              }
+              else {
+                module.verbose('Approve callback returned false cancelling hide');
+              }
+            }
+            else if( $(this).is(selector.deny) ) {
+              if($.proxy(settings.onDeny, element)() !== false) {
+                module.hide();
+              }
+              else {
+                module.verbose('Deny callback returned false cancelling hide');
+              }
+            }
+            else {
+              module.hide();
+            }
+          },
+          click: function(event) {
+            if( $(event.target).closest(selector.modal).size() === 0 ) {
+              module.debug('Dimmer clicked, hiding all modals');
+              if(settings.allowMultiple) {
+                module.hide();
+              }
+              else {
+                module.hideAll();
+              }
+              event.stopImmediatePropagation();
+            }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           },
           debounce: function(method, delay) {
             clearTimeout(module.timer);
@@ -5272,13 +6656,27 @@ $.fn.modal = function(parameters) {
               escapeKey = 27
             ;
             if(keyCode == escapeKey) {
+<<<<<<< HEAD
               module.debug('Escape key pressed hiding modal');
               $context.dimmer('hide');
+=======
+              if(settings.closable) {
+                module.debug('Escape key pressed hiding modal');
+                module.hide();
+              }
+              else {
+                module.debug('Escape key pressed, but closable is set to false');
+              }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               event.preventDefault();
             }
           },
           resize: function() {
+<<<<<<< HEAD
             if( $context.dimmer('is active') ) {
+=======
+            if( $dimmable.dimmer('is active') ) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.refresh();
             }
           }
@@ -5293,6 +6691,7 @@ $.fn.modal = function(parameters) {
           }
         },
 
+<<<<<<< HEAD
         show: function() {
           module.showDimmer();
           module.cacheSizes();
@@ -5336,10 +6735,118 @@ $.fn.modal = function(parameters) {
             .off('keyup.' + namespace)
           ;
           if(settings.transition && $.fn.transition !== undefined) {
+=======
+        show: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          module.showDimmer();
+          module.showModal(callback);
+        },
+
+        showModal: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          if( !module.is.active() ) {
+            module.cacheSizes();
+            module.set.position();
+            module.set.type();
+
+            if( $otherModals.filter(':visible').size() > 0 && !settings.allowMultiple) {
+              module.debug('Other modals visible, queueing show animation');
+              module.hideOthers(module.showModal);
+            }
+            else {
+              if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
+                module.debug('Showing modal with css animations');
+                $module
+                  .transition(settings.transition + ' in', settings.duration, function() {
+                    module.set.active();
+                    callback();
+                  })
+                ;
+              }
+              else {
+                module.debug('Showing modal with javascript');
+                $module
+                  .fadeIn(settings.duration, settings.easing, function() {
+                    module.set.active();
+                    callback();
+                  })
+                ;
+              }
+              $.proxy(settings.onShow, element)();
+            }
+          }
+          else {
+            module.debug('Modal is already visible');
+          }
+        },
+
+        showDimmer: function() {
+          if( !$dimmable.dimmer('is active') ) {
+            module.debug('Showing dimmer');
+            $dimmable.dimmer('show');
+          }
+          else {
+            module.debug('Dimmer already visible');
+          }
+        },
+
+        hide: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          if($allModals.filter(':visible').size() <= 1) {
+            module.hideDimmer();
+          }
+          module.hideModal(callback);
+        },
+
+        hideDimmer: function() {
+          if( !module.is.active() ) {
+            module.debug('Dimmer is not visible cannot hide');
+            return;
+          }
+          module.debug('Hiding dimmer');
+          if(settings.closable) {
+            $dimmer
+              .off('click' + eventNamespace)
+            ;
+          }
+          $dimmable.dimmer('hide', function() {
+            $module
+              .transition('reset')
+            ;
+            module.remove.active();
+          });
+        },
+
+        hideModal: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          if( !module.is.active() ) {
+            module.debug('Cannot hide modal it is not active');
+            return;
+          }
+          module.debug('Hiding modal');
+          module.remove.keyboardShortcuts();
+          if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             $module
               .transition(settings.transition + ' out', settings.duration, function() {
                 module.remove.active();
                 module.restore.focus();
+<<<<<<< HEAD
+=======
+                callback();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               })
             ;
           }
@@ -5348,17 +6855,51 @@ $.fn.modal = function(parameters) {
               .fadeOut(settings.duration, settings.easing, function() {
                 module.remove.active();
                 module.restore.focus();
+<<<<<<< HEAD
+=======
+                callback();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               })
             ;
           }
           $.proxy(settings.onHide, element)();
         },
 
+<<<<<<< HEAD
         hideAll: function() {
           $otherModals
             .filter(':visible')
             .modal('hide')
           ;
+=======
+        hideAll: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          if( $allModals.is(':visible') ) {
+            module.debug('Hiding all visible modals');
+            module.hideDimmer();
+            $allModals
+              .filter(':visible')
+                .modal('hide modal', callback)
+            ;
+          }
+        },
+
+        hideOthers: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          if( $otherModals.is(':visible') ) {
+            module.debug('Hiding other modals');
+            $otherModals
+              .filter(':visible')
+                .modal('hide modal', callback)
+            ;
+          }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         },
 
         add: {
@@ -5378,7 +6919,13 @@ $.fn.modal = function(parameters) {
 
         restore: {
           focus: function() {
+<<<<<<< HEAD
           $focusedElement.focus();
+=======
+            if($focusedElement && $focusedElement.size() > 0) {
+              $focusedElement.focus();
+            }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
@@ -5393,7 +6940,11 @@ $.fn.modal = function(parameters) {
             ;
           },
           scrolling: function() {
+<<<<<<< HEAD
             $dimmer.removeClass(className.scrolling);
+=======
+            $dimmable.removeClass(className.scrolling);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             $module.removeClass(className.scrolling);
           }
         },
@@ -5403,7 +6954,11 @@ $.fn.modal = function(parameters) {
             height        : $module.outerHeight() + settings.offset,
             contextHeight : (settings.context == 'body')
               ? $(window).height()
+<<<<<<< HEAD
               : $context.height()
+=======
+              : $dimmable.height()
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           };
           module.debug('Caching modal and container sizes', module.cache);
         },
@@ -5417,11 +6972,19 @@ $.fn.modal = function(parameters) {
         is: {
           active: function() {
             return $module.hasClass(className.active);
+<<<<<<< HEAD
+=======
+          },
+          modernBrowser: function() {
+            // appName for IE11 reports 'Netscape' can no longer use
+            return !(window.ActiveXObject || "ActiveXObject" in window);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
         set: {
           active: function() {
+<<<<<<< HEAD
             $module.addClass(className.active);
           },
           dimmerSettings: function() {
@@ -5440,6 +7003,22 @@ $.fn.modal = function(parameters) {
           },
           scrolling: function() {
             $dimmer.addClass(className.scrolling);
+=======
+            module.add.keyboardShortcuts();
+            module.save.focus();
+            $module
+              .addClass(className.active)
+            ;
+            if(settings.closable) {
+              $dimmer
+                .off('click' + eventNamespace)
+                .on('click' + eventNamespace, module.event.click)
+              ;
+            }
+          },
+          scrolling: function() {
+            $dimmable.addClass(className.scrolling);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             $module.addClass(className.scrolling);
           },
           type: function() {
@@ -5474,6 +7053,7 @@ $.fn.modal = function(parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -5481,12 +7061,20 @@ $.fn.modal = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -5494,6 +7082,13 @@ $.fn.modal = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -5578,13 +7173,21 @@ $.fn.modal = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -5592,6 +7195,7 @@ $.fn.modal = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -5608,6 +7212,23 @@ $.fn.modal = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -5618,6 +7239,7 @@ $.fn.modal = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -5626,6 +7248,16 @@ $.fn.modal = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -5646,14 +7278,20 @@ $.fn.modal = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
 
 $.fn.modal.settings = {
 
+<<<<<<< HEAD
   name        : 'Modal',
   namespace   : 'modal',
   verbose     : true,
@@ -5675,15 +7313,56 @@ $.fn.modal.settings = {
   },
   error : {
     method : 'The method you called is not defined.'
+=======
+  name          : 'Modal',
+  namespace     : 'modal',
+
+  debug         : true,
+  verbose       : true,
+  performance   : true,
+
+  allowMultiple : true,
+  detachable    : true,
+  closable      : true,
+  context       : 'body',
+
+  duration      : 500,
+  easing        : 'easeOutExpo',
+  offset        : 0,
+  transition    : 'scale',
+
+  onShow        : function(){},
+  onHide        : function(){},
+  onApprove     : function(){ return true; },
+  onDeny        : function(){ return true; },
+
+  selector    : {
+    close    : '.close, .actions .button',
+    approve  : '.actions .positive, .actions .approve, .actions .ok',
+    deny     : '.actions .negative, .actions .deny, .actions .cancel',
+    modal    : '.ui.modal'
+  },
+  error : {
+    dimmer    : 'UI Dimmer, a required component is not included in this page',
+    method    : 'The method you called is not defined.'
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   },
   className : {
     active    : 'active',
     scrolling : 'scrolling'
+<<<<<<< HEAD
   },
+=======
+  }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 };
 
 
 })( jQuery, window , document );
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 /*
  * # Semantic - Nag
  * http://github.com/jlukic/semantic-ui/
@@ -5700,6 +7379,7 @@ $.fn.modal.settings = {
 $.fn.nag = function(parameters) {
   var
     $allModules     = $(this),
+<<<<<<< HEAD
     settings        = $.extend(true, {}, $.fn.nag.settings, parameters),
 
     className       = settings.className,
@@ -5709,6 +7389,8 @@ $.fn.nag = function(parameters) {
 
     eventNamespace  = '.' + namespace,
     moduleNamespace = namespace + '-module',
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     moduleSelector  = $allModules.selector || '',
 
     time            = new Date().getTime(),
@@ -5717,11 +7399,28 @@ $.fn.nag = function(parameters) {
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $(this)
     .each(function() {
       var
+<<<<<<< HEAD
+=======
+        settings        = $.extend(true, {}, $.fn.nag.settings, parameters),
+
+        className       = settings.className,
+        selector        = settings.selector,
+        error           = settings.error,
+        namespace       = settings.namespace,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = namespace + '-module',
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         $module         = $(this),
 
         $close          = $module.find(selector.close),
@@ -5984,6 +7683,7 @@ $.fn.nag = function(parameters) {
           }
         },
         setting: function(name, value) {
+<<<<<<< HEAD
           module.debug('Changing setting', name, value);
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
@@ -5992,6 +7692,13 @@ $.fn.nag = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
@@ -6093,13 +7800,21 @@ $.fn.nag = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -6107,6 +7822,7 @@ $.fn.nag = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -6123,6 +7839,23 @@ $.fn.nag = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -6133,6 +7866,7 @@ $.fn.nag = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -6141,6 +7875,16 @@ $.fn.nag = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -6160,8 +7904,13 @@ $.fn.nag = function(parameters) {
 
     })
   ;
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -6246,10 +7995,14 @@ $.fn.nag.settings = {
 $.fn.popup = function(parameters) {
   var
     $allModules     = $(this),
+<<<<<<< HEAD
 
     settings        = ( $.isPlainObject(parameters) )
       ? $.extend(true, {}, $.fn.popup.settings, parameters)
       : $.fn.popup.settings,
+=======
+    $document       = $(document),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
     moduleSelector  = $allModules.selector || '',
 
@@ -6260,21 +8013,55 @@ $.fn.popup = function(parameters) {
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
 
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
         $module         = $(this),
 
         $window         = $(window),
         $offsetParent   = $module.offsetParent(),
         $popup          = (settings.inline)
           ? $module.next(settings.selector.popup)
+=======
+        settings        = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.popup.settings, parameters)
+          : $.extend({}, $.fn.popup.settings),
+
+        selector        = settings.selector,
+        className       = settings.className,
+        error           = settings.error,
+        metadata        = settings.metadata,
+        namespace       = settings.namespace,
+
+        eventNamespace  = '.' + settings.namespace,
+        moduleNamespace = 'module-' + namespace,
+
+        $module         = $(this),
+        $context        = $(settings.context),
+        $target         = (settings.target)
+          ? $(settings.target)
+          : $module,
+
+        $window         = $(window),
+
+        $offsetParent   = (settings.inline)
+          ? $target.offsetParent()
+          : $window,
+        $popup          = (settings.inline)
+          ? $target.next(settings.selector.popup)
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           : $window.children(settings.selector.popup).last(),
 
         searchDepth     = 0,
 
+<<<<<<< HEAD
         eventNamespace  = '.' + settings.namespace,
         moduleNamespace = settings.namespace + '-module',
 
@@ -6284,6 +8071,8 @@ $.fn.popup = function(parameters) {
         metadata        = settings.metadata,
         namespace       = settings.namespace,
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         element         = this,
         instance        = $module.data(moduleNamespace),
         module
@@ -6294,17 +8083,33 @@ $.fn.popup = function(parameters) {
         // binds events
         initialize: function() {
           module.debug('Initializing module', $module);
+<<<<<<< HEAD
           if(settings.on == 'hover') {
             $module
               .on('mouseenter' + eventNamespace, module.event.mouseenter)
               .on('mouseleave' + eventNamespace, module.event.mouseleave)
+=======
+          if(settings.on == 'click') {
+            $module
+              .on('click', module.toggle)
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             ;
           }
           else {
             $module
+<<<<<<< HEAD
               .on(settings.on + '' + eventNamespace, module.event[settings.on])
             ;
           }
+=======
+              .on(module.get.startEvent() + eventNamespace, module.event.start)
+              .on(module.get.endEvent() + eventNamespace, module.event.end)
+            ;
+          }
+          if(settings.target) {
+            module.debug('Target set to element', $target);
+          }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $window
             .on('resize' + eventNamespace, module.event.resize)
           ;
@@ -6320,15 +8125,34 @@ $.fn.popup = function(parameters) {
         },
 
         refresh: function() {
+<<<<<<< HEAD
           $popup        = (settings.inline)
             ? $module.next(selector.popup)
             : $window.children(selector.popup).last()
           ;
           $offsetParent = $module.offsetParent();
+=======
+          if(settings.inline) {
+            $popup = $target.next(selector.popup);
+            $offsetParent = $target.offsetParent();
+          }
+          else {
+            $popup = $window.children(selector.popup).last();
+          }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         },
 
         destroy: function() {
           module.debug('Destroying previous module');
+<<<<<<< HEAD
+=======
+          $window
+            .off(eventNamespace)
+          ;
+          $popup
+            .remove()
+          ;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $module
             .off(eventNamespace)
             .removeData(moduleNamespace)
@@ -6336,6 +8160,7 @@ $.fn.popup = function(parameters) {
         },
 
         event: {
+<<<<<<< HEAD
           mouseenter:  function(event) {
             var element = this;
             module.timer = setTimeout(function() {
@@ -6360,6 +8185,24 @@ $.fn.popup = function(parameters) {
           resize: function() {
             if( $popup.is(':visible') ) {
               module.position();
+=======
+          start:  function(event) {
+            module.timer = setTimeout(function() {
+              if( module.is.hidden() ) {
+                module.show();
+              }
+            }, settings.delay);
+          },
+          end:  function() {
+            clearTimeout(module.timer);
+            if( module.is.visible() ) {
+              module.hide();
+            }
+          },
+          resize: function() {
+            if( module.is.visible() ) {
+              module.set.position();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
           }
         },
@@ -6386,24 +8229,38 @@ $.fn.popup = function(parameters) {
               .html(html)
             ;
             if(settings.inline) {
+<<<<<<< HEAD
               module.verbose('Inserting popup element inline');
+=======
+              module.verbose('Inserting popup element inline', $popup);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               $popup
                 .insertAfter($module)
               ;
             }
             else {
+<<<<<<< HEAD
               module.verbose('Appending popup element to body');
               $popup
                 .appendTo( $('body') )
               ;
             }
             $.proxy(settings.onInit, $popup)();
+=======
+              module.verbose('Appending popup element to body', $popup);
+              $popup
+                .appendTo( $context )
+              ;
+            }
+            $.proxy(settings.onCreate, $popup)();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             module.error(error.content);
           }
         },
 
+<<<<<<< HEAD
         remove: function() {
           module.debug('Removing popup');
           $popup
@@ -6416,6 +8273,174 @@ $.fn.popup = function(parameters) {
             var
               boundary  = {
                 top    : $(window).scrollTop(),
+=======
+        // determines popup state
+        toggle: function() {
+          module.debug('Toggling pop-up');
+          if( module.is.hidden() ) {
+            module.debug('Popup is hidden, showing pop-up');
+            module.unbind.close();
+            module.hideAll();
+            module.show();
+          }
+          else {
+            module.debug('Popup is visible, hiding pop-up');
+            module.hide();
+          }
+        },
+
+        show: function(callback) {
+          callback = callback || function(){};
+          module.debug('Showing pop-up', settings.transition);
+          if(!settings.preserve) {
+            module.refresh();
+          }
+          if( !module.exists() ) {
+            module.create();
+          }
+          module.save.conditions();
+          module.set.position();
+          module.animate.show(callback);
+        },
+
+
+        hide: function(callback) {
+          callback = callback || function(){};
+          $module
+            .removeClass(className.visible)
+          ;
+          module.restore.conditions();
+          module.unbind.close();
+          if( module.is.visible() ) {
+            module.animate.hide(callback);
+          }
+        },
+
+        hideAll: function() {
+          $(selector.popup)
+            .filter(':visible')
+              .popup('hide')
+          ;
+        },
+
+        hideGracefully: function(event) {
+          // don't close on clicks inside popup
+          if(event && $(event.target).closest(selector.popup).size() === 0) {
+            module.debug('Click occurred outside popup hiding popup');
+            module.hide();
+          }
+          else {
+            module.debug('Click was inside popup, keeping popup open');
+          }
+        },
+
+        exists: function() {
+          if(settings.inline) {
+            return ( $popup.size() !== 0 );
+          }
+          else {
+            return ( $popup.parent($context).size() );
+          }
+        },
+
+        remove: function() {
+          module.debug('Removing popup');
+          $popup
+            .remove()
+          ;
+        },
+
+        save: {
+          conditions: function() {
+            module.cache = {
+              title: $module.attr('title')
+            };
+            if (module.cache.title) {
+              $module.removeAttr('title');
+            }
+            module.verbose('Saving original attributes', module.cache.title);
+          }
+        },
+        restore: {
+          conditions: function() {
+            if(module.cache && module.cache.title) {
+              $module.attr('title', module.cache.title);
+            }
+            module.verbose('Restoring original attributes', module.cache.title);
+            return true;
+          }
+        },
+        animate: {
+          show: function(callback) {
+            callback = callback || function(){};
+            $module
+              .addClass(className.visible)
+            ;
+            if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
+              $popup
+                .transition(settings.transition + ' in', settings.duration, function() {
+                  module.bind.close();
+                  $.proxy(callback, element)();
+                })
+              ;
+            }
+            else {
+              $popup
+                .stop()
+                .fadeIn(settings.duration, settings.easing, function() {
+                  module.bind.close();
+                  $.proxy(callback, element)();
+                })
+              ;
+            }
+            $.proxy(settings.onShow, element)();
+          },
+          hide: function(callback) {
+            callback = callback || function(){};
+            module.debug('Hiding pop-up');
+            if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
+              $popup
+                .transition(settings.transition + ' out', settings.duration, function() {
+                  module.reset();
+                  callback();
+                })
+              ;
+            }
+            else {
+              $popup
+                .stop()
+                .fadeOut(settings.duration, settings.easing, function() {
+                  module.reset();
+                  callback();
+                })
+              ;
+            }
+            $.proxy(settings.onHide, element)();
+          }
+        },
+
+        get: {
+          startEvent: function() {
+            if(settings.on == 'hover') {
+              return 'mouseenter';
+            }
+            else if(settings.on == 'focus') {
+              return 'focus';
+            }
+          },
+          endEvent: function() {
+            if(settings.on == 'hover') {
+              return 'mouseleave';
+            }
+            else if(settings.on == 'focus') {
+              return 'blur';
+            }
+          },
+          offstagePosition: function() {
+            var
+              boundary  = {
+                top    : $(window).scrollTop(),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 bottom : $(window).scrollTop() + $(window).height(),
                 left   : 0,
                 right  : $(window).width()
@@ -6436,6 +8461,10 @@ $.fn.popup = function(parameters) {
                 left   : (popup.position.left < boundary.left)
               };
             }
+<<<<<<< HEAD
+=======
+            module.verbose('Checking if outside viewable area', popup.position);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             // return only boundaries that have been surpassed
             $.each(offstage, function(direction, isOffstage) {
               if(isOffstage) {
@@ -6478,6 +8507,7 @@ $.fn.popup = function(parameters) {
           }
         },
 
+<<<<<<< HEAD
         // determines popup state
         toggle: function() {
           $module = $(this);
@@ -6695,10 +8725,198 @@ $.fn.popup = function(parameters) {
             if( $(event.target).closest(selector.popup).size() === 0) {
               module.hide();
             }
+=======
+        set: {
+          position: function(position, arrowOffset) {
+            var
+              windowWidth  = $(window).width(),
+              windowHeight = $(window).height(),
+
+              width        = $target.outerWidth(),
+              height       = $target.outerHeight(),
+
+              popupWidth   = $popup.width(),
+              popupHeight  = $popup.outerHeight(),
+
+              parentWidth  = $offsetParent.outerWidth(),
+              parentHeight = $offsetParent.outerHeight(),
+
+              distanceAway = settings.distanceAway,
+
+              offset       = (settings.inline)
+                ? $target.position()
+                : $target.offset(),
+
+              positioning,
+              offstagePosition
+            ;
+            position    = position    || $module.data(metadata.position)    || settings.position;
+            arrowOffset = arrowOffset || $module.data(metadata.offset)      || settings.offset;
+            // adjust for margin when inline
+            if(settings.inline) {
+              if(position == 'left center' || position == 'right center') {
+                arrowOffset  += parseInt( window.getComputedStyle(element).getPropertyValue('margin-top'), 10);
+                distanceAway += -parseInt( window.getComputedStyle(element).getPropertyValue('margin-left'), 10);
+              }
+              else {
+                arrowOffset  += parseInt( window.getComputedStyle(element).getPropertyValue('margin-left'), 10);
+                distanceAway += parseInt( window.getComputedStyle(element).getPropertyValue('margin-top'), 10);
+              }
+            }
+            module.debug('Calculating offset for position', position);
+            switch(position) {
+              case 'top left':
+                positioning = {
+                  bottom :  parentHeight - offset.top + distanceAway,
+                  right  :  parentWidth - offset.left - arrowOffset,
+                  top    : 'auto',
+                  left   : 'auto'
+                };
+              break;
+              case 'top center':
+                positioning = {
+                  bottom :  parentHeight - offset.top + distanceAway,
+                  left   : offset.left + (width / 2) - (popupWidth / 2) + arrowOffset,
+                  top    : 'auto',
+                  right  : 'auto'
+                };
+              break;
+              case 'top right':
+                positioning = {
+                  top    : 'auto',
+                  bottom :  parentHeight - offset.top + distanceAway,
+                  left   : offset.left + width + arrowOffset,
+                  right  : 'auto'
+                };
+              break;
+              case 'left center':
+                positioning = {
+                  top    :  offset.top + (height / 2) - (popupHeight / 2) + arrowOffset,
+                  right  : parentWidth - offset.left + distanceAway,
+                  left   : 'auto',
+                  bottom : 'auto'
+                };
+              break;
+              case 'right center':
+                positioning = {
+                  top    :  offset.top + (height / 2) - (popupHeight / 2) + arrowOffset,
+                  left   : offset.left + width + distanceAway,
+                  bottom : 'auto',
+                  right  : 'auto'
+                };
+              break;
+              case 'bottom left':
+                positioning = {
+                  top    :  offset.top + height + distanceAway,
+                  right  : parentWidth - offset.left - arrowOffset,
+                  left   : 'auto',
+                  bottom : 'auto'
+                };
+              break;
+              case 'bottom center':
+                positioning = {
+                  top    :  offset.top + height + distanceAway,
+                  left   : offset.left + (width / 2) - (popupWidth / 2) + arrowOffset,
+                  bottom : 'auto',
+                  right  : 'auto'
+                };
+              break;
+              case 'bottom right':
+                positioning = {
+                  top    :  offset.top + height + distanceAway,
+                  left   : offset.left + width + arrowOffset,
+                  bottom : 'auto',
+                  right  : 'auto'
+                };
+              break;
+            }
+            // tentatively place on stage
+            $popup
+              .css(positioning)
+              .removeClass(className.position)
+              .addClass(position)
+              .addClass(className.loading)
+            ;
+            // check if is offstage
+            offstagePosition = module.get.offstagePosition();
+
+            // recursively find new positioning
+            if(offstagePosition) {
+              module.debug('Element is outside boundaries', offstagePosition);
+              if(searchDepth < settings.maxSearchDepth) {
+                position = module.get.nextPosition(position);
+                searchDepth++;
+                module.debug('Trying new position', position);
+                return module.set.position(position);
+              }
+              else {
+                module.error(error.recursion);
+                searchDepth = 0;
+                module.reset();
+                $popup.removeClass(className.loading);
+                return false;
+              }
+            }
+            else {
+              module.debug('Position is on stage', position);
+              searchDepth = 0;
+              $popup.removeClass(className.loading);
+              return true;
+            }
+          }
+
+        },
+
+        bind: {
+          close:function() {
+            if(settings.on == 'click' && settings.closable) {
+              module.verbose('Binding popup close event to document');
+              $document
+                .on('click' + eventNamespace, function(event) {
+                  module.verbose('Pop-up clickaway intent detected');
+                  $.proxy(module.hideGracefully, this)(event);
+                })
+              ;
+            }
+          }
+        },
+
+        unbind: {
+          close: function() {
+            if(settings.on == 'click' && settings.closable) {
+              module.verbose('Removing close event from document');
+              $document
+                .off('click' + eventNamespace)
+              ;
+            }
+          }
+        },
+
+        is: {
+          animating: function() {
+            return ( $popup.is(':animated') || $popup.hasClass(className.animating) );
+          },
+          visible: function() {
+            return $popup.is(':visible');
+          },
+          hidden: function() {
+            return !module.is.visible();
+          }
+        },
+
+        reset: function() {
+          $popup
+            .attr('style', '')
+            .removeAttr('style')
+          ;
+          if(!settings.preserve) {
+            module.remove();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -6706,12 +8924,20 @@ $.fn.popup = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -6719,6 +8945,13 @@ $.fn.popup = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -6803,13 +9036,21 @@ $.fn.popup = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -6817,6 +9058,7 @@ $.fn.popup = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -6833,6 +9075,23 @@ $.fn.popup = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -6843,6 +9102,7 @@ $.fn.popup = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -6851,6 +9111,16 @@ $.fn.popup = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -6871,8 +9141,13 @@ $.fn.popup = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -6885,7 +9160,11 @@ $.fn.popup.settings = {
   performance    : true,
   namespace      : 'popup',
 
+<<<<<<< HEAD
   onInit         : function(){},
+=======
+  onCreate       : function(){},
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   onShow         : function(){},
   onHide         : function(){},
 
@@ -6895,6 +9174,7 @@ $.fn.popup.settings = {
   title          : false,
 
   on             : 'hover',
+<<<<<<< HEAD
   clicktoClose   : true,
 
   position       : 'top center',
@@ -6902,11 +9182,27 @@ $.fn.popup.settings = {
   inline         : true,
 
   duration       : 150,
+=======
+  target         : false,
+  closable       : true,
+
+  context        : 'body',
+  position       : 'top center',
+  delay          : 150,
+  inline         : false,
+  preserve       : false,
+
+  duration       : 250,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   easing         : 'easeOutQuint',
   transition     : 'scale',
 
   distanceAway   : 0,
+<<<<<<< HEAD
   arrowOffset    : 0,
+=======
+  offset         : 0,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   maxSearchDepth : 10,
 
   error: {
@@ -6916,6 +9212,7 @@ $.fn.popup.settings = {
   },
 
   metadata: {
+<<<<<<< HEAD
     arrowOffset : 'arrowOffset',
     content     : 'content',
     html        : 'html',
@@ -6928,6 +9225,22 @@ $.fn.popup.settings = {
     popup       : 'ui popup',
     visible     : 'visible',
     loading     : 'loading'
+=======
+    content   : 'content',
+    html      : 'html',
+    offset    : 'offset',
+    position  : 'position',
+    title     : 'title',
+    variation : 'variation'
+  },
+
+  className   : {
+    animating   : 'animating',
+    loading     : 'loading',
+    popup       : 'ui popup',
+    position    : 'top left center bottom right',
+    visible     : 'visible'
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   },
 
   selector    : {
@@ -6966,6 +9279,7 @@ $.fn.popup.settings = {
 
 $.fn.rating = function(parameters) {
   var
+<<<<<<< HEAD
     $allModules     = $(this),
     moduleSelector  = $allModules.selector || '',
 
@@ -6979,6 +9293,10 @@ $.fn.rating = function(parameters) {
 
     eventNamespace  = '.' + namespace,
     moduleNamespace = 'module-' + namespace,
+=======
+    $allModules     = $(this),
+    moduleSelector  = $allModules.selector || '',
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
     time            = new Date().getTime(),
     performance     = [],
@@ -6986,16 +9304,42 @@ $.fn.rating = function(parameters) {
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
         $module  = $(this),
         $icon    = $module.find(selector.icon),
 
         element  = this,
         instance = $module.data(moduleNamespace),
+=======
+        settings        = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.rating.settings, parameters)
+          : $.extend({}, $.fn.rating.settings),
+
+        namespace       = settings.namespace,
+        className       = settings.className,
+        metadata        = settings.metadata,
+        selector        = settings.selector,
+        error           = settings.error,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+        element         = this,
+        instance        = $(this).data(moduleNamespace),
+
+        $module         = $(this),
+        $icon           = $module.find(selector.icon),
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         module
       ;
 
@@ -7024,12 +9368,20 @@ $.fn.rating = function(parameters) {
 
         instantiate: function() {
           module.verbose('Instantiating module', settings);
+<<<<<<< HEAD
+=======
+          instance = module;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $module
             .data(moduleNamespace, module)
           ;
         },
 
         destroy: function() {
+<<<<<<< HEAD
+=======
+          module.verbose('Destroying previous instance', instance);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $module
             .removeData(moduleNamespace)
           ;
@@ -7100,7 +9452,11 @@ $.fn.rating = function(parameters) {
             .on('click' + eventNamespace, module.event.click)
           ;
           $module
+<<<<<<< HEAD
             .addClass(className.active)
+=======
+            .removeClass(className.disabled)
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           ;
         },
 
@@ -7110,7 +9466,11 @@ $.fn.rating = function(parameters) {
             .off(eventNamespace)
           ;
           $module
+<<<<<<< HEAD
             .removeClass(className.active)
+=======
+            .addClass(className.disabled)
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           ;
         },
 
@@ -7140,6 +9500,7 @@ $.fn.rating = function(parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -7147,12 +9508,20 @@ $.fn.rating = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -7160,6 +9529,13 @@ $.fn.rating = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -7227,6 +9603,12 @@ $.fn.rating = function(parameters) {
             if(moduleSelector) {
               title += ' \'' + moduleSelector + '\'';
             }
+<<<<<<< HEAD
+=======
+            if($allModules.size() > 1) {
+              title += ' ' + '(' + $allModules.size() + ')';
+            }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
               console.groupCollapsed(title);
               if(console.table) {
@@ -7244,13 +9626,21 @@ $.fn.rating = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -7258,6 +9648,7 @@ $.fn.rating = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -7274,6 +9665,23 @@ $.fn.rating = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -7284,6 +9692,7 @@ $.fn.rating = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -7292,11 +9701,24 @@ $.fn.rating = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
       };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       if(methodInvoked) {
         if(instance === undefined) {
           module.initialize();
@@ -7312,8 +9734,13 @@ $.fn.rating = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -7342,9 +9769,16 @@ $.fn.rating.settings = {
   },
 
   className : {
+<<<<<<< HEAD
     active  : 'active',
     hover   : 'hover',
     loading : 'loading'
+=======
+    active   : 'active',
+    disabled : 'disabled',
+    hover    : 'hover',
+    loading  : 'loading'
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   },
 
   selector  : {
@@ -7371,6 +9805,7 @@ $.fn.rating.settings = {
 $.fn.search = function(source, parameters) {
   var
     $allModules     = $(this),
+<<<<<<< HEAD
     settings        = $.extend(true, {}, $.fn.search.settings, parameters),
 
 
@@ -7381,6 +9816,8 @@ $.fn.search = function(source, parameters) {
 
     eventNamespace  = '.' + namespace,
     moduleNamespace = namespace + '-module',
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     moduleSelector  = $allModules.selector || '',
 
     time            = new Date().getTime(),
@@ -7389,11 +9826,16 @@ $.fn.search = function(source, parameters) {
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $(this)
     .each(function() {
       var
+<<<<<<< HEAD
         $module       = $(this),
         $prompt       = $module.find(selector.prompt),
         $searchButton = $module.find(selector.searchButton),
@@ -7403,6 +9845,27 @@ $.fn.search = function(source, parameters) {
 
         element       = this,
         instance      = $module.data(moduleNamespace),
+=======
+        settings        = $.extend(true, {}, $.fn.search.settings, parameters),
+
+        className       = settings.className,
+        selector        = settings.selector,
+        error           = settings.error,
+        namespace       = settings.namespace,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = namespace + '-module',
+
+        $module         = $(this),
+        $prompt         = $module.find(selector.prompt),
+        $searchButton   = $module.find(selector.searchButton),
+        $results        = $module.find(selector.results),
+        $result         = $module.find(selector.result),
+        $category       = $module.find(selector.category),
+
+        element         = this,
+        instance        = $module.data(moduleNamespace),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
         module
       ;
@@ -7762,6 +10225,7 @@ $.fn.search = function(source, parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           module.debug('Changing setting', name, value);
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
@@ -7770,12 +10234,20 @@ $.fn.search = function(source, parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           module.debug('Changing internal', name, value);
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
@@ -7784,6 +10256,13 @@ $.fn.search = function(source, parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -7871,13 +10350,21 @@ $.fn.search = function(source, parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -7885,6 +10372,7 @@ $.fn.search = function(source, parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -7901,6 +10389,23 @@ $.fn.search = function(source, parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -7911,6 +10416,7 @@ $.fn.search = function(source, parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -7919,6 +10425,16 @@ $.fn.search = function(source, parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -7939,8 +10455,13 @@ $.fn.search = function(source, parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -8143,6 +10664,7 @@ $.fn.search.settings = {
 $.fn.shape = function(parameters) {
   var
     $allModules     = $(this),
+<<<<<<< HEAD
 
     moduleSelector  = $allModules.selector || '',
     settings        = $.extend(true, {}, $.fn.shape.settings, parameters),
@@ -8156,6 +10678,9 @@ $.fn.shape = function(parameters) {
     // define namespaces for modules
     eventNamespace  = '.' + namespace,
     moduleNamespace = 'module-' + namespace,
+=======
+    $body           = $('body'),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
     time            = new Date().getTime(),
     performance     = [],
@@ -8163,18 +10688,42 @@ $.fn.shape = function(parameters) {
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
 
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
+=======
+        moduleSelector  = $allModules.selector || '',
+        settings        = $.extend(true, {}, $.fn.shape.settings, parameters),
+
+        // internal aliases
+        namespace     = settings.namespace,
+        selector      = settings.selector,
+        error         = settings.error,
+        className     = settings.className,
+
+        // define namespaces for modules
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         // selector cache
         $module       = $(this),
         $sides        = $module.find(selector.sides),
         $side         = $module.find(selector.side),
 
         // private variables
+<<<<<<< HEAD
+=======
+        nextSelector = false,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         $activeSide,
         $nextSide,
 
@@ -8233,6 +10782,7 @@ $.fn.shape = function(parameters) {
             module.reset();
             module.set.active();
           };
+<<<<<<< HEAD
           if(settings.useCSS) {
             if(module.get.transitionEvent()) {
               module.verbose('Starting CSS animation');
@@ -8273,6 +10823,29 @@ $.fn.shape = function(parameters) {
             $sides
               .animate(propertyObject, settings.duration, settings.easing, callback)
             ;
+=======
+          $.proxy(settings.beforeChange, $nextSide[0])();
+          if(module.get.transitionEvent()) {
+            module.verbose('Starting CSS animation');
+            $module
+              .addClass(className.animating)
+            ;
+            module.repaint();
+            $module
+              .addClass(className.animating)
+            ;
+            $activeSide
+              .addClass(className.hidden)
+            ;
+            $sides
+              .css(propertyObject)
+              .one(module.get.transitionEvent(), callback)
+            ;
+            module.set.duration(settings.duration);
+          }
+          else {
+            callback();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
@@ -8286,6 +10859,7 @@ $.fn.shape = function(parameters) {
               }, 0);
             })
           ;
+<<<<<<< HEAD
         },
 
         reset: function() {
@@ -8418,6 +10992,38 @@ $.fn.shape = function(parameters) {
             ;
           }
 
+=======
+        },
+
+        reset: function() {
+          module.verbose('Animating states reset');
+          $module
+            .removeClass(className.animating)
+            .attr('style', '')
+            .removeAttr('style')
+          ;
+          // removeAttr style does not consistently work in safari
+          $sides
+            .attr('style', '')
+            .removeAttr('style')
+          ;
+          $side
+            .attr('style', '')
+            .removeAttr('style')
+            .removeClass(className.hidden)
+          ;
+          $nextSide
+            .removeClass(className.animating)
+            .attr('style', '')
+            .removeAttr('style')
+          ;
+        },
+
+        is: {
+          animating: function() {
+            return $module.hasClass(className.animating);
+          }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         },
 
         set: {
@@ -8428,10 +11034,15 @@ $.fn.shape = function(parameters) {
               ? $activeSide.next(selector.side)
               : $module.find(selector.side).first()
             ;
+<<<<<<< HEAD
+=======
+            nextSelector = false;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             module.verbose('Active side set to', $activeSide);
             module.verbose('Next side set to', $nextSide);
           },
 
+<<<<<<< HEAD
           stageSize: function() {
             var
               stage = {
@@ -8444,11 +11055,57 @@ $.fn.shape = function(parameters) {
               .css({
                 width  : stage.width,
                 height : stage.height
+=======
+          duration: function(duration) {
+            duration = duration || settings.duration;
+            duration = (typeof duration == 'number')
+              ? duration + 'ms'
+              : duration
+            ;
+            module.verbose('Setting animation duration', duration);
+            $sides.add($side)
+              .css({
+                '-webkit-transition-duration': duration,
+                '-moz-transition-duration': duration,
+                '-ms-transition-duration': duration,
+                '-o-transition-duration': duration,
+                'transition-duration': duration
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               })
             ;
           },
 
+<<<<<<< HEAD
           nextSide: function(selector) {
+=======
+          stageSize: function() {
+            var
+              $clone      = $module.clone().addClass(className.loading),
+              $activeSide = $clone.find('.' + settings.className.active),
+              $nextSide   = (nextSelector)
+                ? $clone.find(nextSelector)
+                : ( $activeSide.next(selector.side).size() > 0 )
+                  ? $activeSide.next(selector.side)
+                  : $clone.find(selector.side).first(),
+              newSize = {}
+            ;
+            $activeSide.removeClass(className.active);
+            $nextSide.addClass(className.active);
+            $clone.prependTo($body);
+            newSize = {
+              width  : $nextSide.outerWidth(),
+              height : $nextSide.outerHeight()
+            };
+            $clone.remove();
+            $module
+              .css(newSize)
+            ;
+            module.verbose('Resizing stage to fit new content', newSize);
+          },
+
+          nextSide: function(selector) {
+            nextSelector = selector;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             $nextSide = $module.find(selector);
             if($nextSide.size() === 0) {
               module.error(error.side);
@@ -8464,7 +11121,11 @@ $.fn.shape = function(parameters) {
             $nextSide
               .addClass(className.active)
             ;
+<<<<<<< HEAD
             $.proxy(settings.onChange, $nextSide)();
+=======
+            $.proxy(settings.onChange, $nextSide[0])();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             module.set.defaultSide();
           }
         },
@@ -8474,6 +11135,10 @@ $.fn.shape = function(parameters) {
           up: function() {
             module.debug('Flipping up', $nextSide);
             if( !module.is.animating() ) {
+<<<<<<< HEAD
+=======
+              module.set.stageSize();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.stage.above();
               module.animate( module.get.transform.up() );
             }
@@ -8485,6 +11150,10 @@ $.fn.shape = function(parameters) {
           down: function() {
             module.debug('Flipping down', $nextSide);
             if( !module.is.animating() ) {
+<<<<<<< HEAD
+=======
+              module.set.stageSize();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.stage.below();
               module.animate( module.get.transform.down() );
             }
@@ -8496,6 +11165,10 @@ $.fn.shape = function(parameters) {
           left: function() {
             module.debug('Flipping left', $nextSide);
             if( !module.is.animating() ) {
+<<<<<<< HEAD
+=======
+              module.set.stageSize();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.stage.left();
               module.animate(module.get.transform.left() );
             }
@@ -8507,6 +11180,10 @@ $.fn.shape = function(parameters) {
           right: function() {
             module.debug('Flipping right', $nextSide);
             if( !module.is.animating() ) {
+<<<<<<< HEAD
+=======
+              module.set.stageSize();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.stage.right();
               module.animate(module.get.transform.right() );
             }
@@ -8518,6 +11195,10 @@ $.fn.shape = function(parameters) {
           over: function() {
             module.debug('Flipping over', $nextSide);
             if( !module.is.animating() ) {
+<<<<<<< HEAD
+=======
+              module.set.stageSize();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.stage.behind();
               module.animate(module.get.transform.over() );
             }
@@ -8529,6 +11210,10 @@ $.fn.shape = function(parameters) {
           back: function() {
             module.debug('Flipping back', $nextSide);
             if( !module.is.animating() ) {
+<<<<<<< HEAD
+=======
+              module.set.stageSize();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.stage.behind();
               module.animate(module.get.transform.back() );
             }
@@ -8539,6 +11224,110 @@ $.fn.shape = function(parameters) {
 
         },
 
+<<<<<<< HEAD
+=======
+        get: {
+
+          transform: {
+            up: function() {
+              var
+                translate = {
+                  y: -(($activeSide.outerHeight() - $nextSide.outerHeight()) / 2),
+                  z: -($activeSide.outerHeight() / 2)
+                }
+              ;
+              return {
+                transform: 'translateY(' + translate.y + 'px) translateZ('+ translate.z + 'px) rotateX(-90deg)'
+              };
+            },
+
+            down: function() {
+              var
+                translate = {
+                  y: -(($activeSide.outerHeight() - $nextSide.outerHeight()) / 2),
+                  z: -($activeSide.outerHeight() / 2)
+                }
+              ;
+              return {
+                transform: 'translateY(' + translate.y + 'px) translateZ('+ translate.z + 'px) rotateX(90deg)'
+              };
+            },
+
+            left: function() {
+              var
+                translate = {
+                  x : -(($activeSide.outerWidth() - $nextSide.outerWidth()) / 2),
+                  z : -($activeSide.outerWidth() / 2)
+                }
+              ;
+              return {
+                transform: 'translateX(' + translate.x + 'px) translateZ(' + translate.z + 'px) rotateY(90deg)'
+              };
+            },
+
+            right: function() {
+              var
+                translate = {
+                  x : -(($activeSide.outerWidth() - $nextSide.outerWidth()) / 2),
+                  z : -($activeSide.outerWidth() / 2)
+                }
+              ;
+              return {
+                transform: 'translateX(' + translate.x + 'px) translateZ(' + translate.z + 'px) rotateY(-90deg)'
+              };
+            },
+
+            over: function() {
+              var
+                translate = {
+                  x : -(($activeSide.outerWidth() - $nextSide.outerWidth()) / 2)
+                }
+              ;
+              return {
+                transform: 'translateX(' + translate.x + 'px) rotateY(180deg)'
+              };
+            },
+
+            back: function() {
+              var
+                translate = {
+                  x : -(($activeSide.outerWidth() - $nextSide.outerWidth()) / 2)
+                }
+              ;
+              return {
+                transform: 'translateX(' + translate.x + 'px) rotateY(-180deg)'
+              };
+            }
+          },
+
+          transitionEvent: function() {
+            var
+              element     = document.createElement('element'),
+              transitions = {
+                'transition'       :'transitionend',
+                'OTransition'      :'oTransitionEnd',
+                'MozTransition'    :'transitionend',
+                'WebkitTransition' :'webkitTransitionEnd'
+              },
+              transition
+            ;
+            for(transition in transitions){
+              if( element.style[transition] !== undefined ){
+                return transitions[transition];
+              }
+            }
+          },
+
+          nextSide: function() {
+            return ( $activeSide.next(selector.side).size() > 0 )
+              ? $activeSide.next(selector.side)
+              : $module.find(selector.side).first()
+            ;
+          }
+
+        },
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         stage: {
 
           above: function() {
@@ -8672,6 +11461,7 @@ $.fn.shape = function(parameters) {
           }
         },
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -8679,12 +11469,20 @@ $.fn.shape = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -8692,6 +11490,13 @@ $.fn.shape = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -8779,13 +11584,21 @@ $.fn.shape = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -8793,6 +11606,7 @@ $.fn.shape = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -8809,6 +11623,23 @@ $.fn.shape = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -8819,6 +11650,7 @@ $.fn.shape = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -8827,6 +11659,16 @@ $.fn.shape = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -8847,8 +11689,13 @@ $.fn.shape = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -8874,12 +11721,17 @@ $.fn.shape.settings = {
   beforeChange : function() {},
   onChange     : function() {},
 
+<<<<<<< HEAD
   // use css animation (currently only true is supported)
   useCSS     : true,
 
   // animation duration (useful only with future js animations)
   duration   : 1000,
   easing     : 'easeInOutQuad',
+=======
+  // animation duration
+  duration   : 700,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
   // possible errors
   error: {
@@ -8889,9 +11741,15 @@ $.fn.shape.settings = {
 
   // classnames used
   className   : {
+<<<<<<< HEAD
     css       : 'css',
     animating : 'animating',
     hidden    : 'hidden',
+=======
+    animating : 'animating',
+    hidden    : 'hidden',
+    loading   : 'loading',
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     active    : 'active'
   },
 
@@ -8906,7 +11764,11 @@ $.fn.shape.settings = {
 
 })( jQuery, window , document );
 /*
+<<<<<<< HEAD
  * # Semantic - Dropdown
+=======
+ * # Semantic - Sidebar
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
  * http://github.com/jlukic/semantic-ui/
  *
  *
@@ -8920,6 +11782,7 @@ $.fn.shape.settings = {
 
 $.fn.sidebar = function(parameters) {
   var
+<<<<<<< HEAD
     $allModules     = $(this),
 
     settings        = ( $.isPlainObject(parameters) )
@@ -8942,11 +11805,27 @@ $.fn.sidebar = function(parameters) {
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
     invokedResponse
+=======
+    $allModules    = $(this),
+    $body          = $('body'),
+    $head          = $('head'),
+
+    moduleSelector = $allModules.selector || '',
+
+    time           = new Date().getTime(),
+    performance    = [],
+
+    query          = arguments[0],
+    methodInvoked  = (typeof query == 'string'),
+    queryArguments = [].slice.call(arguments, 1),
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
 
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
         $module  = $(this),
 
         $body    = $('body'),
@@ -8955,6 +11834,25 @@ $.fn.sidebar = function(parameters) {
 
         element  = this,
         instance = $module.data(moduleNamespace),
+=======
+        settings        = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.sidebar.settings, parameters)
+          : $.extend({}, $.fn.sidebar.settings),
+
+        selector        = settings.selector,
+        className       = settings.className,
+        namespace       = settings.namespace,
+        error           = settings.error,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+        $module         = $(this),
+        $style          = $('style[title=' + namespace + ']'),
+
+        element         = this,
+        instance        = $module.data(moduleNamespace),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         module
       ;
 
@@ -9006,6 +11904,7 @@ $.fn.sidebar = function(parameters) {
           }
         },
 
+<<<<<<< HEAD
 
         show: function() {
           module.debug('Showing sidebar');
@@ -9014,22 +11913,66 @@ $.fn.sidebar = function(parameters) {
               module.pushPage();
             }
             module.set.active();
+=======
+        show: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          module.debug('Showing sidebar', callback);
+          if(module.is.closed()) {
+            if(!settings.overlay) {
+              if(settings.exclusive) {
+                module.hideAll();
+              }
+              module.pushPage();
+            }
+            module.set.active();
+            callback();
+            $.proxy(settings.onChange, element)();
+            $.proxy(settings.onShow, element)();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             module.debug('Sidebar is already visible');
           }
         },
 
+<<<<<<< HEAD
         hide: function() {
+=======
+        hide: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          module.debug('Hiding sidebar', callback);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           if(module.is.open()) {
             if(!settings.overlay) {
               module.pullPage();
               module.remove.pushed();
             }
             module.remove.active();
+<<<<<<< HEAD
           }
         },
 
+=======
+            callback();
+            $.proxy(settings.onChange, element)();
+            $.proxy(settings.onHide, element)();
+          }
+        },
+
+        hideAll: function() {
+          $(selector.sidebar)
+            .filter(':visible')
+              .sidebar('hide')
+          ;
+        },
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         toggle: function() {
           if(module.is.closed()) {
             module.show();
@@ -9101,6 +12044,10 @@ $.fn.sidebar = function(parameters) {
           }
         },
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         remove: {
           bodyCSS: function() {
             module.debug('Removing body css styles', $style);
@@ -9179,6 +12126,7 @@ $.fn.sidebar = function(parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -9186,11 +12134,19 @@ $.fn.sidebar = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
+<<<<<<< HEAD
         internal: function(name, value) {
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
@@ -9199,6 +12155,14 @@ $.fn.sidebar = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+        internal: function(name, value) {
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -9286,13 +12250,21 @@ $.fn.sidebar = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -9300,6 +12272,7 @@ $.fn.sidebar = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -9316,6 +12289,23 @@ $.fn.sidebar = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -9326,6 +12316,7 @@ $.fn.sidebar = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -9334,6 +12325,16 @@ $.fn.sidebar = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -9353,8 +12354,13 @@ $.fn.sidebar = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -9369,11 +12375,18 @@ $.fn.sidebar.settings = {
   performance : true,
 
   useCSS      : true,
+<<<<<<< HEAD
   overlay     : false,
   duration    : 300,
 
   side        : 'left',
 
+=======
+  exclusive   : true,
+  overlay     : false,
+  duration    : 300,
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   onChange     : function(){},
   onShow       : function(){},
   onHide       : function(){},
@@ -9387,6 +12400,13 @@ $.fn.sidebar.settings = {
     bottom : 'bottom'
   },
 
+<<<<<<< HEAD
+=======
+  selector: {
+    sidebar: '.ui.sidebar'
+  },
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   error   : {
     method   : 'The method you called is not defined.',
     notFound : 'There were no elements that matched the specified selector'
@@ -9395,6 +12415,10 @@ $.fn.sidebar.settings = {
 };
 
 })( jQuery, window , document );
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 /*
  * # Semantic - Tab
  * http://github.com/jlukic/semantic-ui/
@@ -9435,7 +12459,11 @@ $.fn.sidebar.settings = {
       error           = settings.error,
 
       eventNamespace  = '.' + settings.namespace,
+<<<<<<< HEAD
       moduleNamespace = settings.namespace + '-module',
+=======
+      moduleNamespace = 'module-' + settings.namespace,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
       instance        = $module.data(moduleNamespace),
 
@@ -9444,7 +12472,11 @@ $.fn.sidebar.settings = {
       queryArguments  = [].slice.call(arguments, 1),
 
       module,
+<<<<<<< HEAD
       invokedResponse
+=======
+      returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     ;
 
     module = {
@@ -9462,10 +12494,15 @@ $.fn.sidebar.settings = {
 
         // attach history events
         if(settings.history) {
+<<<<<<< HEAD
+=======
+          module.debug('Initializing page state');
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           if( $.address === undefined ) {
             module.error(error.state);
             return false;
           }
+<<<<<<< HEAD
           else if(settings.path === false) {
             module.error(error.path);
             return false;
@@ -9474,6 +12511,26 @@ $.fn.sidebar.settings = {
             module.verbose('Address library found adding state change event');
             $.address
               .state(settings.path)
+=======
+          else {
+            if(settings.historyType == 'hash') {
+              module.debug('Using hash state change to manage state');
+            }
+            if(settings.historyType == 'html5') {
+              module.debug('Using HTML5 to manage state');
+              if(settings.path !== false) {
+                $.address
+                  .history(true)
+                  .state(settings.path)
+                ;
+              }
+              else {
+                module.error(error.path);
+                return false;
+              }
+            }
+            $.address
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               .unbind('change')
               .bind('change', module.event.history.change)
             ;
@@ -9500,21 +12557,36 @@ $.fn.sidebar.settings = {
       destroy: function() {
         module.debug('Destroying tabs', $module);
         $module
+<<<<<<< HEAD
+=======
+          .removeData(moduleNamespace)
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           .off(eventNamespace)
         ;
       },
 
       event: {
         click: function(event) {
+<<<<<<< HEAD
           module.debug('Navigation clicked');
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           var
             tabPath = $(this).data(metadata.tab)
           ;
           if(tabPath !== undefined) {
             if(settings.history) {
+<<<<<<< HEAD
               $.address.value(tabPath);
             }
             else {
+=======
+              module.verbose('Updating page state', event);
+              $.address.value(tabPath);
+            }
+            else {
+              module.verbose('Changing tab without state management', event);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.changeTab(tabPath);
             }
             event.preventDefault();
@@ -9568,6 +12640,15 @@ $.fn.sidebar.settings = {
         }
       },
 
+<<<<<<< HEAD
+=======
+      set: {
+        state: function(url) {
+          $.address.value(url);
+        }
+      },
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       changeTab: function(tabPath) {
         var
           pushStateAvailable = (window.history && window.history.pushState),
@@ -9630,6 +12711,14 @@ $.fn.sidebar.settings = {
             else {
               module.debug('Opened local tab', currentPath);
               module.activate.all(currentPath);
+<<<<<<< HEAD
+=======
+              if( !module.cache.read(currentPath) ) {
+                module.cache.add(currentPath, true);
+                module.debug('First time tab loaded calling tab init');
+                $.proxy(settings.onTabInit, $tab)(currentPath, parameterArray, historyEvent);
+              }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               $.proxy(settings.onTabLoad, $tab)(currentPath, parameterArray, historyEvent);
             }
           }
@@ -9839,6 +12928,7 @@ $.fn.sidebar.settings = {
       },
 
       setting: function(name, value) {
+<<<<<<< HEAD
         if(value !== undefined) {
           if( $.isPlainObject(name) ) {
             $.extend(true, settings, name);
@@ -9846,12 +12936,20 @@ $.fn.sidebar.settings = {
           else {
             settings[name] = value;
           }
+=======
+        if( $.isPlainObject(name) ) {
+          $.extend(true, settings, name);
+        }
+        else if(value !== undefined) {
+          settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         else {
           return settings[name];
         }
       },
       internal: function(name, value) {
+<<<<<<< HEAD
         if(value !== undefined) {
           if( $.isPlainObject(name) ) {
             $.extend(true, module, name);
@@ -9859,6 +12957,13 @@ $.fn.sidebar.settings = {
           else {
             module[name] = value;
           }
+=======
+        if( $.isPlainObject(name) ) {
+          $.extend(true, module, name);
+        }
+        else if(value !== undefined) {
+          module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         else {
           return module[name];
@@ -9943,13 +13048,21 @@ $.fn.sidebar.settings = {
       },
       invoke: function(query, passedArguments, context) {
         var
+<<<<<<< HEAD
+=======
+          object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           maxDepth,
           found,
           response
         ;
         passedArguments = passedArguments || queryArguments;
         context         = element         || context;
+<<<<<<< HEAD
         if(typeof query == 'string' && instance !== undefined) {
+=======
+        if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           query    = query.split(/[\. ]/);
           maxDepth = query.length - 1;
           $.each(query, function(depth, value) {
@@ -9957,6 +13070,7 @@ $.fn.sidebar.settings = {
               ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
               : query
             ;
+<<<<<<< HEAD
             if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
               instance = instance[value];
             }
@@ -9973,6 +13087,23 @@ $.fn.sidebar.settings = {
             }
             else {
               module.error(error.method);
+=======
+            if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              object = object[camelCaseValue];
+            }
+            else if( object[camelCaseValue] !== undefined ) {
+              found = object[camelCaseValue];
+              return false;
+            }
+            else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              object = object[value];
+            }
+            else if( object[value] !== undefined ) {
+              found = object[value];
+              return false;
+            }
+            else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               return false;
             }
           });
@@ -9983,6 +13114,7 @@ $.fn.sidebar.settings = {
         else if(found !== undefined) {
           response = found;
         }
+<<<<<<< HEAD
         if($.isArray(invokedResponse)) {
           invokedResponse.push(response);
         }
@@ -9991,6 +13123,16 @@ $.fn.sidebar.settings = {
         }
         else if(response !== undefined) {
           invokedResponse = response;
+=======
+        if($.isArray(returnedValue)) {
+          returnedValue.push(response);
+        }
+        else if(returnedValue !== undefined) {
+          returnedValue = [returnedValue, response];
+        }
+        else if(response !== undefined) {
+          returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         return found;
       }
@@ -10009,8 +13151,13 @@ $.fn.sidebar.settings = {
       module.initialize();
     }
 
+<<<<<<< HEAD
     return (invokedResponse !== undefined)
       ? invokedResponse
+=======
+    return (returnedValue !== undefined)
+      ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       : this
     ;
 
@@ -10040,7 +13187,12 @@ $.fn.sidebar.settings = {
 
     // uses pjax style endpoints fetching content from same url with remote-content headers
     auto            : false,
+<<<<<<< HEAD
     history         : false,
+=======
+    history         : true,
+    historyType     : 'hash',
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     path            : false,
 
     context         : 'body',
@@ -10117,7 +13269,11 @@ $.fn.transition = function() {
       || window.msRequestAnimationFrame
       || function(callback) { setTimeout(callback, 0); },
 
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $allModules
     .each(function() {
@@ -10157,11 +13313,16 @@ $.fn.transition = function() {
           animationEnd    = module.get.animationEvent();
           animationName   = module.get.animationName();
 
+<<<<<<< HEAD
           instance        = $module.data(moduleNamespace);
 
           if(instance === undefined) {
             module.instantiate();
           }
+=======
+          instance        = $module.data(moduleNamespace) || module;
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           if(methodInvoked) {
             methodInvoked = module.invoke(query);
           }
@@ -10169,11 +13330,18 @@ $.fn.transition = function() {
           if(methodInvoked === false) {
             module.animate();
           }
+<<<<<<< HEAD
+=======
+          module.instantiate();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         },
 
         instantiate: function() {
           module.verbose('Storing instance of module', module);
+<<<<<<< HEAD
           instance = module;
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $module
             .data(moduleNamespace, instance)
           ;
@@ -10186,15 +13354,57 @@ $.fn.transition = function() {
           ;
         },
 
+<<<<<<< HEAD
         animate: function(overrideSettings) {
           settings = overrideSettings || settings;
           module.debug('Preparing animation', settings.animation);
           if(module.is.animating()) {
             if(settings.queue) {
+=======
+        refresh: function() {
+          module.verbose('Refreshing display type on next animation');
+          delete instance.displayType;
+        },
+
+        forceRepaint: function() {
+          module.verbose('Forcing element repaint');
+          var
+            $parentElement = $module.parent(),
+            $nextElement = $module.next()
+          ;
+          if($nextElement.size() === 0) {
+            $module.detach().appendTo($parentElement);
+          }
+          else {
+            $module.detach().insertBefore($nextElement);
+          }
+        },
+
+        repaint: function() {
+          module.verbose('Repainting element');
+          var
+            fakeAssignment = element.offsetWidth
+          ;
+        },
+
+        animate: function(overrideSettings) {
+          settings = overrideSettings || settings;
+          if(!module.is.supported()) {
+            module.error(error.support);
+            return false;
+          }
+          module.debug('Preparing animation', settings.animation);
+          if(module.is.animating() && settings.queue) {
+            if(!settings.allowRepeats && module.has.direction() && module.is.occuring() && instance.queuing !== true) {
+              module.error(error.repeated);
+            }
+            else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.queue(settings.animation);
             }
             return false;
           }
+<<<<<<< HEAD
           module.save.conditions();
           module.set.duration(settings.duration);
           module.set.animating();
@@ -10214,6 +13424,22 @@ $.fn.transition = function() {
           }
           module.show();
           module.debug('Starting tween', settings.animation, $module.attr('class'));
+=======
+          if(module.can.animate) {
+            module.set.animating(settings.animation);
+          }
+          else {
+            module.error(error.noAnimation, settings.animation);
+          }
+        },
+
+        reset: function() {
+          module.debug('Resetting animation to beginning conditions');
+          $module.off(animationEnd);
+          module.restore.conditions();
+          module.hide();
+          module.remove.animating();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         },
 
         queue: function(animation) {
@@ -10222,6 +13448,10 @@ $.fn.transition = function() {
           $module
             .one(animationEnd, function() {
               instance.queuing = false;
+<<<<<<< HEAD
+=======
+              module.repaint();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.animate.apply(this, settings);
             })
           ;
@@ -10230,6 +13460,7 @@ $.fn.transition = function() {
         complete: function () {
           module.verbose('CSS animation complete', settings.animation);
           if(!module.is.looping()) {
+<<<<<<< HEAD
             if($module.hasClass(className.outward)) {
               module.restore.conditions();
               module.hide();
@@ -10237,15 +13468,34 @@ $.fn.transition = function() {
             else if($module.hasClass(className.inward)) {
               module.restore.conditions();
               module.show();
+=======
+            if( module.is.outward() ) {
+              module.verbose('Animation is outward, hiding element');
+              module.restore.conditions();
+              module.remove.display();
+              module.hide();
+              $.proxy(settings.onHide, this)();
+            }
+            else if( module.is.inward() ) {
+              module.verbose('Animation is outward, showing element');
+              module.restore.conditions();
+              module.show();
+              $.proxy(settings.onShow, this)();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
             else {
               module.restore.conditions();
             }
+<<<<<<< HEAD
+=======
+            module.remove.duration();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             module.remove.animating();
           }
           $.proxy(settings.complete, this)();
         },
 
+<<<<<<< HEAD
         repaint: function(fakeAssignment) {
           module.verbose('Forcing repaint event');
           fakeAssignment = element.offsetWidth;
@@ -10257,28 +13507,81 @@ $.fn.transition = function() {
             if( $module.hasClass(className.inward) || $module.hasClass(className.outward) ) {
               return true;
             }
+=======
+        has: {
+          direction: function(animation) {
+            animation = animation || settings.animation;
+            if( animation.search(className.inward) !== -1 || animation.search(className.outward) !== -1) {
+              module.debug('Direction already set in animation');
+              return true;
+            }
+            return false;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
         set: {
 
+<<<<<<< HEAD
           animating: function() {
             $module.addClass(className.animating);
+=======
+          animating: function(animation) {
+            animation = animation || settings.animation;
+            module.save.conditions();
+            if(module.can.transition() && !module.has.direction()) {
+              module.set.direction();
+            }
+            module.remove.hidden();
+            module.set.display();
+            $module
+              .addClass(className.animating)
+              .addClass(className.transition)
+              .addClass(animation)
+              .one(animationEnd, module.complete)
+            ;
+            module.set.duration(settings.duration);
+            module.debug('Starting tween', settings.animation, $module.attr('class'));
+          },
+
+          display: function() {
+            var
+              displayType = module.get.displayType()
+            ;
+            if(displayType !== 'block') {
+              module.verbose('Setting final visibility to', displayType);
+              $module
+                .css({
+                  display: displayType
+                })
+              ;
+            }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           },
 
           direction: function() {
             if($module.is(':visible')) {
               module.debug('Automatically determining the direction of animation', 'Outward');
               $module
+<<<<<<< HEAD
                 .addClass(className.outward)
                 .removeClass(className.inward)
+=======
+                .removeClass(className.inward)
+                .addClass(className.outward)
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               ;
             }
             else {
               module.debug('Automatically determining the direction of animation', 'Inward');
               $module
+<<<<<<< HEAD
                 .addClass(className.inward)
                 .removeClass(className.outward)
+=======
+                .removeClass(className.outward)
+                .addClass(className.inward)
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               ;
             }
           },
@@ -10306,41 +13609,96 @@ $.fn.transition = function() {
                 'animation-duration': duration
               })
             ;
+<<<<<<< HEAD
+=======
+          },
+
+          hidden: function() {
+            $module
+              .addClass(className.transition)
+              .addClass(className.hidden)
+            ;
+          },
+
+          visible: function() {
+            $module
+              .addClass(className.transition)
+              .addClass(className.visible)
+            ;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
         save: {
+<<<<<<< HEAD
           conditions: function() {
             module.cache = {
               className : $module.attr('class'),
               style     : $module.attr('style')
             };
             module.verbose('Saving original attributes', module.cache);
+=======
+          displayType: function(displayType) {
+            instance.displayType = displayType;
+          },
+          transitionExists: function(animation, exists) {
+            $.fn.transition.exists[animation] = exists;
+            module.verbose('Saving existence of transition', animation, exists);
+          },
+          conditions: function() {
+            instance.cache = {
+              className : $module.attr('class'),
+              style     : $module.attr('style')
+            };
+            module.verbose('Saving original attributes', instance.cache);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
         restore: {
           conditions: function() {
+<<<<<<< HEAD
             if(typeof module.cache === undefined) {
               module.error(error.cache);
               return false;
             }
             if(module.cache.className) {
               $module.attr('class', module.cache.className);
+=======
+            if(instance.cache === undefined) {
+              return false;
+            }
+            if(instance.cache.className) {
+              $module.attr('class', instance.cache.className);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
             else {
               $module.removeAttr('class');
             }
+<<<<<<< HEAD
             if(module.cache.style) {
               $module.attr('style', module.cache.style);
             }
             else {
               $module.removeAttr('style');
+=======
+            if(instance.cache.style) {
+              $module.attr('style', instance.cache.style);
+            }
+            else {
+              if(module.get.displayType() === 'block') {
+                $module.removeAttr('style');
+              }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
             if(module.is.looping()) {
               module.remove.looping();
             }
+<<<<<<< HEAD
             module.verbose('Restoring original attributes', module.cache);
+=======
+            module.verbose('Restoring original attributes', instance.cache);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
@@ -10350,12 +13708,45 @@ $.fn.transition = function() {
             $module.removeClass(className.animating);
           },
 
+<<<<<<< HEAD
+=======
+          display: function() {
+            if(instance.displayType !== undefined) {
+              $module.css('display', '');
+            }
+          },
+
+          duration: function() {
+            $module
+              .css({
+                '-webkit-animation-duration' : '',
+                '-moz-animation-duration'    : '',
+                '-ms-animation-duration'     : '',
+                '-o-animation-duration'      : '',
+                'animation-duration'         : ''
+              })
+            ;
+          },
+
+          hidden: function() {
+            $module.removeClass(className.hidden);
+          },
+
+          visible: function() {
+            $module.removeClass(className.visible);
+          },
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           looping: function() {
             module.debug('Transitions are no longer looping');
             $module
               .removeClass(className.looping)
             ;
+<<<<<<< HEAD
             module.repaint();
+=======
+            module.forceRepaint();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
 
         },
@@ -10364,12 +13755,20 @@ $.fn.transition = function() {
 
           settings: function(animation, duration, complete) {
             // single settings object
+<<<<<<< HEAD
             if($.isPlainObject(animation)) {
+=======
+            if(typeof animation == 'object') {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               return $.extend(true, {}, $.fn.transition.settings, animation);
             }
             // all arguments provided
             else if(typeof complete == 'function') {
+<<<<<<< HEAD
               return $.extend(true, {}, $.fn.transition.settings, {
+=======
+              return $.extend({}, $.fn.transition.settings, {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 animation : animation,
                 complete  : complete,
                 duration  : duration
@@ -10377,33 +13776,64 @@ $.fn.transition = function() {
             }
             // only duration provided
             else if(typeof duration == 'string' || typeof duration == 'number') {
+<<<<<<< HEAD
               return $.extend(true, {}, $.fn.transition.settings, {
+=======
+              return $.extend({}, $.fn.transition.settings, {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 animation : animation,
                 duration  : duration
               });
             }
             // duration is actually settings object
             else if(typeof duration == 'object') {
+<<<<<<< HEAD
               return $.extend(true, {}, $.fn.transition.settings, duration, {
+=======
+              return $.extend({}, $.fn.transition.settings, duration, {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 animation : animation
               });
             }
             // duration is actually callback
             else if(typeof duration == 'function') {
+<<<<<<< HEAD
               return $.extend(true, {}, $.fn.transition.settings, {
+=======
+              return $.extend({}, $.fn.transition.settings, {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 animation : animation,
                 complete  : duration
               });
             }
             // only animation provided
             else {
+<<<<<<< HEAD
               return $.extend(true, {}, $.fn.transition.settings, {
+=======
+              return $.extend({}, $.fn.transition.settings, {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 animation : animation
               });
             }
             return $.fn.transition.settings;
           },
 
+<<<<<<< HEAD
+=======
+          displayType: function() {
+            if(instance.displayType === undefined) {
+              // create fake element to determine display state
+              module.can.transition();
+            }
+            return instance.displayType;
+          },
+
+          transitionExists: function(animation) {
+            return $.fn.transition.exists[animation];
+          },
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           animationName: function() {
             var
               element     = document.createElement('div'),
@@ -10417,7 +13847,11 @@ $.fn.transition = function() {
             ;
             for(animation in animations){
               if( element.style[animation] !== undefined ){
+<<<<<<< HEAD
                 module.verbose('Determining animation vendor name property', animations[animation]);
+=======
+                module.verbose('Determined animation vendor name property', animations[animation]);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return animations[animation];
               }
             }
@@ -10437,7 +13871,11 @@ $.fn.transition = function() {
             ;
             for(animation in animations){
               if( element.style[animation] !== undefined ){
+<<<<<<< HEAD
                 module.verbose('Determining animation vendor end event', animations[animation]);
+=======
+                module.verbose('Determined animation vendor end event', animations[animation]);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return animations[animation];
               }
             }
@@ -10448,17 +13886,27 @@ $.fn.transition = function() {
 
         can: {
           animate: function() {
+<<<<<<< HEAD
             if($module.css(animationName) !== 'none') {
               module.debug('CSS definition found');
               return true;
             }
             else {
               module.debug('Unable to find css definition');
+=======
+            if($module.css(settings.animation) !== 'none') {
+              module.debug('CSS definition found',  $module.css(settings.animation));
+              return true;
+            }
+            else {
+              module.debug('Unable to find css definition', $module.attr('class'));
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               return false;
             }
           },
           transition: function() {
             var
+<<<<<<< HEAD
               $clone           = $('<div>').addClass( $module.attr('class') ).appendTo($('body')),
               currentAnimation = $clone.css(animationName),
               inAnimation      = $clone.addClass(className.inward).css(animationName)
@@ -10473,6 +13921,50 @@ $.fn.transition = function() {
               $clone.remove();
               return false;
             }
+=======
+              elementClass     = $module.attr('class'),
+              animation        = settings.animation,
+              transitionExists = module.get.transitionExists(settings.animation),
+              $clone,
+              currentAnimation,
+              inAnimation,
+              displayType
+            ;
+            if( transitionExists === undefined || instance.displayType === undefined) {
+              module.verbose('Determining whether animation exists');
+              $clone = $('<div>').addClass( elementClass ).appendTo($('body'));
+              currentAnimation = $clone
+                .removeClass(className.inward)
+                .removeClass(className.outward)
+                .addClass(className.animating)
+                .addClass(className.transition)
+                .addClass(animation)
+                .css(animationName)
+              ;
+              inAnimation = $clone
+                .addClass(className.inward)
+                .css(animationName)
+              ;
+              displayType = $clone
+                .attr('class', elementClass)
+                .show()
+                .css('display')
+              ;
+              module.verbose('Determining final display state', displayType);
+              if(currentAnimation != inAnimation) {
+                module.debug('Transition exists for animation', animation);
+                transitionExists = true;
+              }
+              else {
+                module.debug('Static animation found', animation, displayType);
+                transitionExists = false;
+              }
+              $clone.remove();
+              module.save.displayType(displayType);
+              module.save.transitionExists(animation, transitionExists);
+            }
+            return transitionExists;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
@@ -10480,16 +13972,38 @@ $.fn.transition = function() {
           animating: function() {
             return $module.hasClass(className.animating);
           },
+<<<<<<< HEAD
           looping: function() {
             return $module.hasClass(className.looping);
           },
           visible: function() {
             return $module.is(':visible');
+=======
+          inward: function() {
+            return $module.hasClass(className.inward);
+          },
+          outward: function() {
+            return $module.hasClass(className.outward);
+          },
+          looping: function() {
+            return $module.hasClass(className.looping);
+          },
+          occuring: function(animation) {
+            animation = animation || settings.animation;
+            return ( $module.hasClass(animation) );
+          },
+          visible: function() {
+            return $module.is(':visible');
+          },
+          supported: function() {
+            return(animationName !== false && animationEnd !== false);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
         hide: function() {
           module.verbose('Hiding element');
+<<<<<<< HEAD
           $module
             .removeClass(className.visible)
             .addClass(className.transition)
@@ -10504,6 +14018,17 @@ $.fn.transition = function() {
             .addClass(className.transition)
             .addClass(className.visible)
           ;
+=======
+          module.remove.visible();
+          module.set.hidden();
+          module.repaint();
+        },
+
+        show: function(display) {
+          module.verbose('Showing element', display);
+          module.remove.hidden();
+          module.set.visible();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           module.repaint();
         },
 
@@ -10523,6 +14048,7 @@ $.fn.transition = function() {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -10530,12 +14056,20 @@ $.fn.transition = function() {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -10543,6 +14077,13 @@ $.fn.transition = function() {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -10630,13 +14171,21 @@ $.fn.transition = function() {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -10644,6 +14193,7 @@ $.fn.transition = function() {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -10656,6 +14206,20 @@ $.fn.transition = function() {
               }
               else if( instance[camelCaseValue] !== undefined ) {
                 found = instance[camelCaseValue];
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
               else {
@@ -10669,6 +14233,7 @@ $.fn.transition = function() {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -10677,6 +14242,16 @@ $.fn.transition = function() {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found || false;
         }
@@ -10684,12 +14259,18 @@ $.fn.transition = function() {
       module.initialize();
     })
   ;
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
 
+<<<<<<< HEAD
 $.fn.transition.settings = {
 
   // module info
@@ -10727,12 +14308,64 @@ $.fn.transition.settings = {
     visible    : 'visible',
     inward     : 'in',
     outward    : 'out'
+=======
+$.fn.transition.exists = {};
+
+$.fn.transition.settings = {
+
+  // module info
+  name        : 'Transition',
+
+  // debug content outputted to console
+  debug       : true,
+
+  // verbose debug output
+  verbose     : true,
+
+  // performance data output
+  performance : true,
+
+  // event namespace
+  namespace   : 'transition',
+
+  // animation complete event
+  complete    : function() {},
+  onShow      : function() {},
+  onHide      : function() {},
+
+  // whether animation can occur twice in a row
+  allowRepeats : false,
+
+  // animation duration
+  animation  : 'fade',
+  duration   : '700ms',
+
+  // new animations will occur after previous ones
+  queue       : true,
+
+  className   : {
+    animating  : 'animating',
+    disabled   : 'disabled',
+    hidden     : 'hidden',
+    inward     : 'in',
+    loading    : 'loading',
+    looping    : 'looping',
+    outward    : 'out',
+    transition : 'ui transition',
+    visible    : 'visible'
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   },
 
   // possible errors
   error: {
     noAnimation : 'There is no css animation matching the one you specified.',
+<<<<<<< HEAD
     method      : 'The method you called is not defined'
+=======
+    repeated    : 'That animation is already occurring, cancelling repeated animation',
+    method      : 'The method you called is not defined',
+    support     : 'This browser does not support CSS animations'
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   }
 
 };
@@ -10757,10 +14390,13 @@ $.fn.video = function(parameters) {
   var
     $allModules     = $(this),
 
+<<<<<<< HEAD
     settings        = ( $.isPlainObject(parameters) )
       ? $.extend(true, {}, $.fn.video.settings, parameters)
       : $.fn.video.settings,
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     moduleSelector  = $allModules.selector || '',
 
     time            = new Date().getTime(),
@@ -10770,6 +14406,7 @@ $.fn.video = function(parameters) {
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
 
+<<<<<<< HEAD
     selector        = settings.selector,
     className       = settings.className,
     error           = settings.error,
@@ -10780,11 +14417,30 @@ $.fn.video = function(parameters) {
     moduleNamespace = namespace + '-module',
 
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
 
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
+=======
+        settings        = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.video.settings, parameters)
+          : $.extend({}, $.fn.video.settings),
+
+        selector        = settings.selector,
+        className       = settings.className,
+        error           = settings.error,
+        metadata        = settings.metadata,
+        namespace       = settings.namespace,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         $module         = $(this),
         $placeholder    = $module.find(selector.placeholder),
         $playButton     = $module.find(selector.playButton),
@@ -10822,6 +14478,15 @@ $.fn.video = function(parameters) {
             .removeData(moduleNamespace)
             .off(eventNamespace)
           ;
+<<<<<<< HEAD
+=======
+          $placeholder
+            .off(eventNamespace)
+          ;
+          $playButton
+            .off(eventNamespace)
+          ;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         },
 
         // sets new video
@@ -10967,6 +14632,7 @@ $.fn.video = function(parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -10974,12 +14640,20 @@ $.fn.video = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -10987,6 +14661,13 @@ $.fn.video = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -11074,13 +14755,21 @@ $.fn.video = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -11088,6 +14777,7 @@ $.fn.video = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -11104,6 +14794,23 @@ $.fn.video = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -11114,6 +14821,7 @@ $.fn.video = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -11122,6 +14830,16 @@ $.fn.video = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -11141,8 +14859,13 @@ $.fn.video = function(parameters) {
       }
     })
   ;
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };

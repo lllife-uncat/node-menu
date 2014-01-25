@@ -14,6 +14,7 @@
 $.fn.shape = function(parameters) {
   var
     $allModules     = $(this),
+<<<<<<< HEAD
 
     moduleSelector  = $allModules.selector || '',
     settings        = $.extend(true, {}, $.fn.shape.settings, parameters),
@@ -27,6 +28,9 @@ $.fn.shape = function(parameters) {
     // define namespaces for modules
     eventNamespace  = '.' + namespace,
     moduleNamespace = 'module-' + namespace,
+=======
+    $body           = $('body'),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
     time            = new Date().getTime(),
     performance     = [],
@@ -34,18 +38,42 @@ $.fn.shape = function(parameters) {
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
 
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
+=======
+        moduleSelector  = $allModules.selector || '',
+        settings        = $.extend(true, {}, $.fn.shape.settings, parameters),
+
+        // internal aliases
+        namespace     = settings.namespace,
+        selector      = settings.selector,
+        error         = settings.error,
+        className     = settings.className,
+
+        // define namespaces for modules
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         // selector cache
         $module       = $(this),
         $sides        = $module.find(selector.sides),
         $side         = $module.find(selector.side),
 
         // private variables
+<<<<<<< HEAD
+=======
+        nextSelector = false,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         $activeSide,
         $nextSide,
 
@@ -104,6 +132,7 @@ $.fn.shape = function(parameters) {
             module.reset();
             module.set.active();
           };
+<<<<<<< HEAD
           if(settings.useCSS) {
             if(module.get.transitionEvent()) {
               module.verbose('Starting CSS animation');
@@ -144,6 +173,29 @@ $.fn.shape = function(parameters) {
             $sides
               .animate(propertyObject, settings.duration, settings.easing, callback)
             ;
+=======
+          $.proxy(settings.beforeChange, $nextSide[0])();
+          if(module.get.transitionEvent()) {
+            module.verbose('Starting CSS animation');
+            $module
+              .addClass(className.animating)
+            ;
+            module.repaint();
+            $module
+              .addClass(className.animating)
+            ;
+            $activeSide
+              .addClass(className.hidden)
+            ;
+            $sides
+              .css(propertyObject)
+              .one(module.get.transitionEvent(), callback)
+            ;
+            module.set.duration(settings.duration);
+          }
+          else {
+            callback();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
         },
 
@@ -162,7 +214,10 @@ $.fn.shape = function(parameters) {
         reset: function() {
           module.verbose('Animating states reset');
           $module
+<<<<<<< HEAD
             .removeClass(className.css)
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             .removeClass(className.animating)
             .attr('style', '')
             .removeAttr('style')
@@ -190,6 +245,7 @@ $.fn.shape = function(parameters) {
           }
         },
 
+<<<<<<< HEAD
         get: {
 
           transform: {
@@ -291,6 +347,8 @@ $.fn.shape = function(parameters) {
 
         },
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         set: {
 
           defaultSide: function() {
@@ -299,10 +357,15 @@ $.fn.shape = function(parameters) {
               ? $activeSide.next(selector.side)
               : $module.find(selector.side).first()
             ;
+<<<<<<< HEAD
+=======
+            nextSelector = false;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             module.verbose('Active side set to', $activeSide);
             module.verbose('Next side set to', $nextSide);
           },
 
+<<<<<<< HEAD
           stageSize: function() {
             var
               stage = {
@@ -320,6 +383,53 @@ $.fn.shape = function(parameters) {
           },
 
           nextSide: function(selector) {
+=======
+          duration: function(duration) {
+            duration = duration || settings.duration;
+            duration = (typeof duration == 'number')
+              ? duration + 'ms'
+              : duration
+            ;
+            module.verbose('Setting animation duration', duration);
+            $sides.add($side)
+              .css({
+                '-webkit-transition-duration': duration,
+                '-moz-transition-duration': duration,
+                '-ms-transition-duration': duration,
+                '-o-transition-duration': duration,
+                'transition-duration': duration
+              })
+            ;
+          },
+
+          stageSize: function() {
+            var
+              $clone      = $module.clone().addClass(className.loading),
+              $activeSide = $clone.find('.' + settings.className.active),
+              $nextSide   = (nextSelector)
+                ? $clone.find(nextSelector)
+                : ( $activeSide.next(selector.side).size() > 0 )
+                  ? $activeSide.next(selector.side)
+                  : $clone.find(selector.side).first(),
+              newSize = {}
+            ;
+            $activeSide.removeClass(className.active);
+            $nextSide.addClass(className.active);
+            $clone.prependTo($body);
+            newSize = {
+              width  : $nextSide.outerWidth(),
+              height : $nextSide.outerHeight()
+            };
+            $clone.remove();
+            $module
+              .css(newSize)
+            ;
+            module.verbose('Resizing stage to fit new content', newSize);
+          },
+
+          nextSide: function(selector) {
+            nextSelector = selector;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             $nextSide = $module.find(selector);
             if($nextSide.size() === 0) {
               module.error(error.side);
@@ -335,7 +445,11 @@ $.fn.shape = function(parameters) {
             $nextSide
               .addClass(className.active)
             ;
+<<<<<<< HEAD
             $.proxy(settings.onChange, $nextSide)();
+=======
+            $.proxy(settings.onChange, $nextSide[0])();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             module.set.defaultSide();
           }
         },
@@ -345,6 +459,10 @@ $.fn.shape = function(parameters) {
           up: function() {
             module.debug('Flipping up', $nextSide);
             if( !module.is.animating() ) {
+<<<<<<< HEAD
+=======
+              module.set.stageSize();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.stage.above();
               module.animate( module.get.transform.up() );
             }
@@ -356,6 +474,10 @@ $.fn.shape = function(parameters) {
           down: function() {
             module.debug('Flipping down', $nextSide);
             if( !module.is.animating() ) {
+<<<<<<< HEAD
+=======
+              module.set.stageSize();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.stage.below();
               module.animate( module.get.transform.down() );
             }
@@ -367,6 +489,10 @@ $.fn.shape = function(parameters) {
           left: function() {
             module.debug('Flipping left', $nextSide);
             if( !module.is.animating() ) {
+<<<<<<< HEAD
+=======
+              module.set.stageSize();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.stage.left();
               module.animate(module.get.transform.left() );
             }
@@ -378,6 +504,10 @@ $.fn.shape = function(parameters) {
           right: function() {
             module.debug('Flipping right', $nextSide);
             if( !module.is.animating() ) {
+<<<<<<< HEAD
+=======
+              module.set.stageSize();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.stage.right();
               module.animate(module.get.transform.right() );
             }
@@ -389,6 +519,10 @@ $.fn.shape = function(parameters) {
           over: function() {
             module.debug('Flipping over', $nextSide);
             if( !module.is.animating() ) {
+<<<<<<< HEAD
+=======
+              module.set.stageSize();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.stage.behind();
               module.animate(module.get.transform.over() );
             }
@@ -400,6 +534,10 @@ $.fn.shape = function(parameters) {
           back: function() {
             module.debug('Flipping back', $nextSide);
             if( !module.is.animating() ) {
+<<<<<<< HEAD
+=======
+              module.set.stageSize();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.stage.behind();
               module.animate(module.get.transform.back() );
             }
@@ -410,6 +548,110 @@ $.fn.shape = function(parameters) {
 
         },
 
+<<<<<<< HEAD
+=======
+        get: {
+
+          transform: {
+            up: function() {
+              var
+                translate = {
+                  y: -(($activeSide.outerHeight() - $nextSide.outerHeight()) / 2),
+                  z: -($activeSide.outerHeight() / 2)
+                }
+              ;
+              return {
+                transform: 'translateY(' + translate.y + 'px) translateZ('+ translate.z + 'px) rotateX(-90deg)'
+              };
+            },
+
+            down: function() {
+              var
+                translate = {
+                  y: -(($activeSide.outerHeight() - $nextSide.outerHeight()) / 2),
+                  z: -($activeSide.outerHeight() / 2)
+                }
+              ;
+              return {
+                transform: 'translateY(' + translate.y + 'px) translateZ('+ translate.z + 'px) rotateX(90deg)'
+              };
+            },
+
+            left: function() {
+              var
+                translate = {
+                  x : -(($activeSide.outerWidth() - $nextSide.outerWidth()) / 2),
+                  z : -($activeSide.outerWidth() / 2)
+                }
+              ;
+              return {
+                transform: 'translateX(' + translate.x + 'px) translateZ(' + translate.z + 'px) rotateY(90deg)'
+              };
+            },
+
+            right: function() {
+              var
+                translate = {
+                  x : -(($activeSide.outerWidth() - $nextSide.outerWidth()) / 2),
+                  z : -($activeSide.outerWidth() / 2)
+                }
+              ;
+              return {
+                transform: 'translateX(' + translate.x + 'px) translateZ(' + translate.z + 'px) rotateY(-90deg)'
+              };
+            },
+
+            over: function() {
+              var
+                translate = {
+                  x : -(($activeSide.outerWidth() - $nextSide.outerWidth()) / 2)
+                }
+              ;
+              return {
+                transform: 'translateX(' + translate.x + 'px) rotateY(180deg)'
+              };
+            },
+
+            back: function() {
+              var
+                translate = {
+                  x : -(($activeSide.outerWidth() - $nextSide.outerWidth()) / 2)
+                }
+              ;
+              return {
+                transform: 'translateX(' + translate.x + 'px) rotateY(-180deg)'
+              };
+            }
+          },
+
+          transitionEvent: function() {
+            var
+              element     = document.createElement('element'),
+              transitions = {
+                'transition'       :'transitionend',
+                'OTransition'      :'oTransitionEnd',
+                'MozTransition'    :'transitionend',
+                'WebkitTransition' :'webkitTransitionEnd'
+              },
+              transition
+            ;
+            for(transition in transitions){
+              if( element.style[transition] !== undefined ){
+                return transitions[transition];
+              }
+            }
+          },
+
+          nextSide: function() {
+            return ( $activeSide.next(selector.side).size() > 0 )
+              ? $activeSide.next(selector.side)
+              : $module.find(selector.side).first()
+            ;
+          }
+
+        },
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         stage: {
 
           above: function() {
@@ -543,6 +785,7 @@ $.fn.shape = function(parameters) {
           }
         },
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -550,12 +793,20 @@ $.fn.shape = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -563,6 +814,13 @@ $.fn.shape = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -650,13 +908,21 @@ $.fn.shape = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -664,6 +930,7 @@ $.fn.shape = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -680,6 +947,23 @@ $.fn.shape = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -690,6 +974,7 @@ $.fn.shape = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -698,6 +983,16 @@ $.fn.shape = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -718,8 +1013,13 @@ $.fn.shape = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -745,12 +1045,17 @@ $.fn.shape.settings = {
   beforeChange : function() {},
   onChange     : function() {},
 
+<<<<<<< HEAD
   // use css animation (currently only true is supported)
   useCSS     : true,
 
   // animation duration (useful only with future js animations)
   duration   : 1000,
   easing     : 'easeInOutQuad',
+=======
+  // animation duration
+  duration   : 700,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
   // possible errors
   error: {
@@ -760,9 +1065,15 @@ $.fn.shape.settings = {
 
   // classnames used
   className   : {
+<<<<<<< HEAD
     css       : 'css',
     animating : 'animating',
     hidden    : 'hidden',
+=======
+    animating : 'animating',
+    hidden    : 'hidden',
+    loading   : 'loading',
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     active    : 'active'
   },
 

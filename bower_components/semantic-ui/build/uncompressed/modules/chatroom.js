@@ -13,6 +13,7 @@
 
 $.fn.chatroom = function(parameters) {
   var
+<<<<<<< HEAD
     settings  = $.extend(true, {}, $.fn.chatroom.settings, parameters),
 
     className = settings.className,
@@ -22,10 +23,32 @@ $.fn.chatroom = function(parameters) {
 
     // hoist arguments
     moduleArguments = arguments || false
+=======
+    $allModules    = $(this),
+    moduleSelector = $allModules.selector || '',
+
+    time           = new Date().getTime(),
+    performance    = [],
+
+    query          = arguments[0],
+    methodInvoked  = (typeof query == 'string'),
+    queryArguments = [].slice.call(arguments, 1),
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $(this)
     .each(function() {
       var
+<<<<<<< HEAD
+=======
+        settings  = $.extend(true, {}, $.fn.chatroom.settings, parameters),
+
+        className = settings.className,
+        namespace = settings.namespace,
+        selector  = settings.selector,
+        error     = settings.error,
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         $module         = $(this),
 
         $expandButton   = $module.find(selector.expandButton),
@@ -42,6 +65,10 @@ $.fn.chatroom = function(parameters) {
         $messageButton  = $module.find(selector.messageButton),
 
         instance        = $module.data('module'),
+<<<<<<< HEAD
+=======
+        element         = this,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
         html            = '',
         users           = {},
@@ -435,8 +462,11 @@ $.fn.chatroom = function(parameters) {
 
         },
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       setting: function(name, value) {
         if(value !== undefined) {
           if( $.isPlainObject(name) ) {
@@ -451,6 +481,7 @@ $.fn.chatroom = function(parameters) {
         }
       },
       internal: function(name, value) {
+<<<<<<< HEAD
         if(value !== undefined) {
           if( $.isPlainObject(name) ) {
             $.extend(true, module, name);
@@ -458,6 +489,13 @@ $.fn.chatroom = function(parameters) {
           else {
             module[name] = value;
           }
+=======
+        if( $.isPlainObject(name) ) {
+          $.extend(true, module, name);
+        }
+        else if(value !== undefined) {
+          module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         else {
           return module[name];
@@ -525,7 +563,10 @@ $.fn.chatroom = function(parameters) {
           if(moduleSelector) {
             title += ' \'' + moduleSelector + '\'';
           }
+<<<<<<< HEAD
           title += ' ' + '(' + $allDropdowns.size() + ')';
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
             console.groupCollapsed(title);
             if(console.table) {
@@ -559,7 +600,11 @@ $.fn.chatroom = function(parameters) {
               found = instance[value];
             }
             else {
+<<<<<<< HEAD
               module.error(error.method);
+=======
+              module.error(error.method, query);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
           });
         }
@@ -585,8 +630,13 @@ $.fn.chatroom = function(parameters) {
   })
 ;
 
+<<<<<<< HEAD
   return (invokedResponse)
     ? invokedResponse
+=======
+  return (returnedValue)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };

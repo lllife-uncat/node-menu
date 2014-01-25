@@ -2,7 +2,7 @@
 <div class="ui label mini button" style="margin-bottom:10px;" ng-click="openSearch = !openSearch" >
 	<i class="ui icon search" ng-class="{ black : openSearch}" ></i>
 </div>
-		
+
 <div class="ui icon input" style="width:30%" ng-show="openSearch">
 	<input type="text" placeholder="Search" ng-model="productFilter"/>
 	<i class="search link icon"></i>
@@ -66,7 +66,7 @@
 
 			<div>
 				<table class="ui padded table segment" style="font-size:80%;text-transform: none;">
-					<thead>
+					<thead ng-show="false">
 						<tr>
 							<th>
 								<i class="ui icon bolt"></i>
@@ -78,18 +78,33 @@
 								<i class="ui icon cart"></i> Name
 							</th>
 							<th>
+								<i class="ui photo icon"></i>
+							</th>
+							<th>
 								<i class="ui icon dollar"></i> Price
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="product in products | filter:complexProductFilter" ng-click="selectProduct(product)" ng-if="matchPage($index)" ng-class="{ positive : product == currentProduct}">
-							<td>{{ $index + 1}}</td>
+						<tr ng-repeat="product in products | filter:complexProductFilter | orderBy : 'identifier':true" ng-click="selectProduct(product)" ng-if="matchPage($index)" ng-class="{ x : product == currentProduct}">
+							<td>
+								<i class="ui icon bolt" ng-if="false"></i>
+								<span ng-class="{ 'ui label' : product == currentProduct }">{{ $index + 1}}</span>
+							</td>
+
 							<td>{{ product.productId }}</td>
 							<td>{{ product.name }}</td>
+
+							<td>
+								<div class="ui mini images" style="display:inline-block">
+								<a href=""  class="ko-thumbnail"  ng-repeat="x in product.$images | limitTo:1" ng-show="product.$images.length > -1 && x.archive == false" data-content="{{x.title}}">
+										<img class="rounded  ui image"  ng-src="{{x.$thumbnail}}"  >
+									</a>
+								</div>
+							</td>
 							<td class="ko-price">
-								<div class="ui label">
-									<a href="" style="font-size:100%">
+								<div class="">
+									<a href="" style="font-size:90%; letter-spacing: 0.08em;">
 										{{ (product.primaryPrice | currency).replace("$","") }}
 									</a>
 								</div>
@@ -112,8 +127,6 @@
 						</a>
 					</div>
 				</div>
-
-
 
 			</div>
 
@@ -185,7 +198,7 @@
 
 						<!-- <div class="ui attached top label" style="width:100%"><i class="bookmark icon"></i>{{currentProduct.$images[currentImageIndex].title}}</div> -->
 
-	
+
 
 						<div class="ui large rounded images" style="margin:0px;">
 							<a href=""  data-content="{{currentProduct.$images[currentImageIndex].title}}" ng-click="nextImage()"> 
@@ -193,17 +206,16 @@
 							</a>
 						</div>
 
-				
+
 
 						<!-- <div class="ui attached bottom label" style="width:100%"><i class="bookmark icon"></i>{{currentProduct.$images[currentImageIndex].description}}</div> -->
 
 					</div>
 
 
-						<div class="ui  label" style="width:100%; text-transform:none;"><b>Title</b> <i class="photo icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}</div>
+					<div class="ui label" style="width:100%; text-transform:none; margin-bottom:0px;"><i class="photo icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}</div>
 
-
-						<div class="ui  label" style="width:100%; text-transform:none;"><b>Description</b> <i class="photo icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}</div>
+					<div class="ui label" style="width:100%; text-transform:none;"><i class="info icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}</div>
 
 
 

@@ -38,7 +38,11 @@
       error           = settings.error,
 
       eventNamespace  = '.' + settings.namespace,
+<<<<<<< HEAD
       moduleNamespace = settings.namespace + '-module',
+=======
+      moduleNamespace = 'module-' + settings.namespace,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
       instance        = $module.data(moduleNamespace),
 
@@ -47,7 +51,11 @@
       queryArguments  = [].slice.call(arguments, 1),
 
       module,
+<<<<<<< HEAD
       invokedResponse
+=======
+      returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     ;
 
     module = {
@@ -65,10 +73,15 @@
 
         // attach history events
         if(settings.history) {
+<<<<<<< HEAD
+=======
+          module.debug('Initializing page state');
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           if( $.address === undefined ) {
             module.error(error.state);
             return false;
           }
+<<<<<<< HEAD
           else if(settings.path === false) {
             module.error(error.path);
             return false;
@@ -77,6 +90,26 @@
             module.verbose('Address library found adding state change event');
             $.address
               .state(settings.path)
+=======
+          else {
+            if(settings.historyType == 'hash') {
+              module.debug('Using hash state change to manage state');
+            }
+            if(settings.historyType == 'html5') {
+              module.debug('Using HTML5 to manage state');
+              if(settings.path !== false) {
+                $.address
+                  .history(true)
+                  .state(settings.path)
+                ;
+              }
+              else {
+                module.error(error.path);
+                return false;
+              }
+            }
+            $.address
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               .unbind('change')
               .bind('change', module.event.history.change)
             ;
@@ -103,21 +136,36 @@
       destroy: function() {
         module.debug('Destroying tabs', $module);
         $module
+<<<<<<< HEAD
+=======
+          .removeData(moduleNamespace)
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           .off(eventNamespace)
         ;
       },
 
       event: {
         click: function(event) {
+<<<<<<< HEAD
           module.debug('Navigation clicked');
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           var
             tabPath = $(this).data(metadata.tab)
           ;
           if(tabPath !== undefined) {
             if(settings.history) {
+<<<<<<< HEAD
               $.address.value(tabPath);
             }
             else {
+=======
+              module.verbose('Updating page state', event);
+              $.address.value(tabPath);
+            }
+            else {
+              module.verbose('Changing tab without state management', event);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               module.changeTab(tabPath);
             }
             event.preventDefault();
@@ -171,6 +219,15 @@
         }
       },
 
+<<<<<<< HEAD
+=======
+      set: {
+        state: function(url) {
+          $.address.value(url);
+        }
+      },
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       changeTab: function(tabPath) {
         var
           pushStateAvailable = (window.history && window.history.pushState),
@@ -233,6 +290,14 @@
             else {
               module.debug('Opened local tab', currentPath);
               module.activate.all(currentPath);
+<<<<<<< HEAD
+=======
+              if( !module.cache.read(currentPath) ) {
+                module.cache.add(currentPath, true);
+                module.debug('First time tab loaded calling tab init');
+                $.proxy(settings.onTabInit, $tab)(currentPath, parameterArray, historyEvent);
+              }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               $.proxy(settings.onTabLoad, $tab)(currentPath, parameterArray, historyEvent);
             }
           }
@@ -442,6 +507,7 @@
       },
 
       setting: function(name, value) {
+<<<<<<< HEAD
         if(value !== undefined) {
           if( $.isPlainObject(name) ) {
             $.extend(true, settings, name);
@@ -449,12 +515,20 @@
           else {
             settings[name] = value;
           }
+=======
+        if( $.isPlainObject(name) ) {
+          $.extend(true, settings, name);
+        }
+        else if(value !== undefined) {
+          settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         else {
           return settings[name];
         }
       },
       internal: function(name, value) {
+<<<<<<< HEAD
         if(value !== undefined) {
           if( $.isPlainObject(name) ) {
             $.extend(true, module, name);
@@ -462,6 +536,13 @@
           else {
             module[name] = value;
           }
+=======
+        if( $.isPlainObject(name) ) {
+          $.extend(true, module, name);
+        }
+        else if(value !== undefined) {
+          module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         else {
           return module[name];
@@ -546,13 +627,21 @@
       },
       invoke: function(query, passedArguments, context) {
         var
+<<<<<<< HEAD
+=======
+          object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           maxDepth,
           found,
           response
         ;
         passedArguments = passedArguments || queryArguments;
         context         = element         || context;
+<<<<<<< HEAD
         if(typeof query == 'string' && instance !== undefined) {
+=======
+        if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           query    = query.split(/[\. ]/);
           maxDepth = query.length - 1;
           $.each(query, function(depth, value) {
@@ -560,6 +649,7 @@
               ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
               : query
             ;
+<<<<<<< HEAD
             if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
               instance = instance[value];
             }
@@ -576,6 +666,23 @@
             }
             else {
               module.error(error.method);
+=======
+            if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+              object = object[camelCaseValue];
+            }
+            else if( object[camelCaseValue] !== undefined ) {
+              found = object[camelCaseValue];
+              return false;
+            }
+            else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+              object = object[value];
+            }
+            else if( object[value] !== undefined ) {
+              found = object[value];
+              return false;
+            }
+            else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               return false;
             }
           });
@@ -586,6 +693,7 @@
         else if(found !== undefined) {
           response = found;
         }
+<<<<<<< HEAD
         if($.isArray(invokedResponse)) {
           invokedResponse.push(response);
         }
@@ -594,6 +702,16 @@
         }
         else if(response !== undefined) {
           invokedResponse = response;
+=======
+        if($.isArray(returnedValue)) {
+          returnedValue.push(response);
+        }
+        else if(returnedValue !== undefined) {
+          returnedValue = [returnedValue, response];
+        }
+        else if(response !== undefined) {
+          returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
         return found;
       }
@@ -612,8 +730,13 @@
       module.initialize();
     }
 
+<<<<<<< HEAD
     return (invokedResponse !== undefined)
       ? invokedResponse
+=======
+    return (returnedValue !== undefined)
+      ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       : this
     ;
 
@@ -643,7 +766,12 @@
 
     // uses pjax style endpoints fetching content from same url with remote-content headers
     auto            : false,
+<<<<<<< HEAD
     history         : false,
+=======
+    history         : true,
+    historyType     : 'hash',
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     path            : false,
 
     context         : 'body',

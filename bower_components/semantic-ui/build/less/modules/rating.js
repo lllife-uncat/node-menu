@@ -16,6 +16,7 @@ $.fn.rating = function(parameters) {
     $allModules     = $(this),
     moduleSelector  = $allModules.selector || '',
 
+<<<<<<< HEAD
     settings        = $.extend(true, {}, $.fn.rating.settings, parameters),
 
     namespace       = settings.namespace,
@@ -27,22 +28,50 @@ $.fn.rating = function(parameters) {
     eventNamespace  = '.' + namespace,
     moduleNamespace = 'module-' + namespace,
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     time            = new Date().getTime(),
     performance     = [],
 
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
         $module  = $(this),
         $icon    = $module.find(selector.icon),
 
         element  = this,
         instance = $module.data(moduleNamespace),
+=======
+        settings        = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.rating.settings, parameters)
+          : $.extend({}, $.fn.rating.settings),
+
+        namespace       = settings.namespace,
+        className       = settings.className,
+        metadata        = settings.metadata,
+        selector        = settings.selector,
+        error           = settings.error,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+        element         = this,
+        instance        = $(this).data(moduleNamespace),
+
+        $module         = $(this),
+        $icon           = $module.find(selector.icon),
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         module
       ;
 
@@ -71,12 +100,20 @@ $.fn.rating = function(parameters) {
 
         instantiate: function() {
           module.verbose('Instantiating module', settings);
+<<<<<<< HEAD
+=======
+          instance = module;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $module
             .data(moduleNamespace, module)
           ;
         },
 
         destroy: function() {
+<<<<<<< HEAD
+=======
+          module.verbose('Destroying previous instance', instance);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           $module
             .removeData(moduleNamespace)
           ;
@@ -147,7 +184,11 @@ $.fn.rating = function(parameters) {
             .on('click' + eventNamespace, module.event.click)
           ;
           $module
+<<<<<<< HEAD
             .addClass(className.active)
+=======
+            .removeClass(className.disabled)
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           ;
         },
 
@@ -157,7 +198,11 @@ $.fn.rating = function(parameters) {
             .off(eventNamespace)
           ;
           $module
+<<<<<<< HEAD
             .removeClass(className.active)
+=======
+            .addClass(className.disabled)
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           ;
         },
 
@@ -187,6 +232,7 @@ $.fn.rating = function(parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -194,12 +240,20 @@ $.fn.rating = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -207,6 +261,13 @@ $.fn.rating = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -274,6 +335,12 @@ $.fn.rating = function(parameters) {
             if(moduleSelector) {
               title += ' \'' + moduleSelector + '\'';
             }
+<<<<<<< HEAD
+=======
+            if($allModules.size() > 1) {
+              title += ' ' + '(' + $allModules.size() + ')';
+            }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
               console.groupCollapsed(title);
               if(console.table) {
@@ -291,13 +358,21 @@ $.fn.rating = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -305,6 +380,7 @@ $.fn.rating = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -321,6 +397,23 @@ $.fn.rating = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -331,6 +424,7 @@ $.fn.rating = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -339,11 +433,24 @@ $.fn.rating = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
       };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       if(methodInvoked) {
         if(instance === undefined) {
           module.initialize();
@@ -359,8 +466,13 @@ $.fn.rating = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -389,9 +501,16 @@ $.fn.rating.settings = {
   },
 
   className : {
+<<<<<<< HEAD
     active  : 'active',
     hover   : 'hover',
     loading : 'loading'
+=======
+    active   : 'active',
+    disabled : 'disabled',
+    hover    : 'hover',
+    loading  : 'loading'
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   },
 
   selector  : {

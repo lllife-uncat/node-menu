@@ -15,10 +15,13 @@ $.fn.video = function(parameters) {
   var
     $allModules     = $(this),
 
+<<<<<<< HEAD
     settings        = ( $.isPlainObject(parameters) )
       ? $.extend(true, {}, $.fn.video.settings, parameters)
       : $.fn.video.settings,
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     moduleSelector  = $allModules.selector || '',
 
     time            = new Date().getTime(),
@@ -28,6 +31,7 @@ $.fn.video = function(parameters) {
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
 
+<<<<<<< HEAD
     selector        = settings.selector,
     className       = settings.className,
     error           = settings.error,
@@ -38,11 +42,30 @@ $.fn.video = function(parameters) {
     moduleNamespace = namespace + '-module',
 
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
 
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
+=======
+        settings        = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.video.settings, parameters)
+          : $.extend({}, $.fn.video.settings),
+
+        selector        = settings.selector,
+        className       = settings.className,
+        error           = settings.error,
+        metadata        = settings.metadata,
+        namespace       = settings.namespace,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         $module         = $(this),
         $placeholder    = $module.find(selector.placeholder),
         $playButton     = $module.find(selector.playButton),
@@ -80,6 +103,15 @@ $.fn.video = function(parameters) {
             .removeData(moduleNamespace)
             .off(eventNamespace)
           ;
+<<<<<<< HEAD
+=======
+          $placeholder
+            .off(eventNamespace)
+          ;
+          $playButton
+            .off(eventNamespace)
+          ;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         },
 
         // sets new video
@@ -225,6 +257,7 @@ $.fn.video = function(parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -232,12 +265,20 @@ $.fn.video = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -245,6 +286,13 @@ $.fn.video = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -332,13 +380,21 @@ $.fn.video = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -346,6 +402,7 @@ $.fn.video = function(parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -362,6 +419,23 @@ $.fn.video = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -372,6 +446,7 @@ $.fn.video = function(parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -380,6 +455,16 @@ $.fn.video = function(parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -399,8 +484,13 @@ $.fn.video = function(parameters) {
       }
     })
   ;
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };

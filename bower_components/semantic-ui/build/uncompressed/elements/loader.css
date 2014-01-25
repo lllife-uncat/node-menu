@@ -8,10 +8,20 @@
  * http://opensource.org/licenses/MIT
  *
  */
+<<<<<<< HEAD
 /*******************************
             Loader
 *******************************/
 /* Standard Size */
+=======
+
+/*******************************
+            Loader
+*******************************/
+
+/* Standard Size */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.loader {
   display: none;
   position: absolute;
@@ -20,6 +30,7 @@
   margin: 0px;
   z-index: 1000;
   -webkit-transform: translateX(-50%) translateY(-50%);
+<<<<<<< HEAD
   -moz-transform: translateX(-50%) translateY(-50%);
   -o-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
@@ -34,93 +45,199 @@
 /*-------------------
         Text
 --------------------*/
+=======
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.ui.dimmer .loader {
+  display: block;
+}
+
+/*******************************
+             Types
+*******************************/
+
+/*-------------------
+        Text
+--------------------*/
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.text.loader {
   width: auto !important;
   height: auto !important;
   text-align: center;
   font-style: normal;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.mini.text.loader {
   min-width: 16px;
   padding-top: 2em;
   font-size: 0.875em;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.small.text.loader {
   min-width: 24px;
   padding-top: 2.5em;
   font-size: 0.875em;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.text.loader {
   min-width: 32px;
   font-size: 1em;
   padding-top: 3em;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.large.text.loader {
   min-width: 64px;
   padding-top: 5em;
   font-size: 1.2em;
 }
+<<<<<<< HEAD
 /*******************************
             States
 *******************************/
+=======
+
+/*******************************
+            States
+*******************************/
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.loader.active,
 .ui.loader.visible {
   display: block;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.loader.disabled,
 .ui.loader.hidden {
   display: none;
 }
+<<<<<<< HEAD
 /*******************************
             Variations
 *******************************/
 /*-------------------
        Inverted
 --------------------*/
+=======
+
+/*******************************
+            Variations
+*******************************/
+
+/*-------------------
+       Inverted
+--------------------*/
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.dimmer .ui.text.loader,
 .ui.inverted.text.loader {
   color: rgba(255, 255, 255, 0.8);
 }
+<<<<<<< HEAD
 .ui.inverted.dimmer .ui.text.loader {
   color: rgba(0, 0, 0, 0.8);
 }
 /* Tiny Size */
+=======
+
+.ui.inverted.dimmer .ui.text.loader {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* Tiny Size */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.dimmer .mini.ui.loader,
 .ui.inverted .mini.ui.loader {
   background-image: url(../images/loader-mini-inverted.gif);
 }
+<<<<<<< HEAD
 /* Small Size */
+=======
+
+/* Small Size */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.dimmer .small.ui.loader,
 .ui.inverted .small.ui.loader {
   background-image: url(../images/loader-small-inverted.gif);
 }
+<<<<<<< HEAD
 /* Standard Size */
+=======
+
+/* Standard Size */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.dimmer .ui.loader,
 .ui.inverted.loader {
   background-image: url(../images/loader-medium-inverted.gif);
 }
+<<<<<<< HEAD
 /* Large Size */
+=======
+
+/* Large Size */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.dimmer .large.ui.loader,
 .ui.inverted .large.ui.loader {
   background-image: url(../images/loader-large-inverted.gif);
 }
+<<<<<<< HEAD
 /*-------------------
         Sizes
 --------------------*/
 /* Tiny Size */
+=======
+
+/*-------------------
+        Sizes
+--------------------*/
+
+/* Tiny Size */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.inverted.dimmer .ui.mini.loader,
 .ui.mini.loader {
   width: 16px;
   height: 16px;
   background-image: url(../images/loader-mini.gif);
 }
+<<<<<<< HEAD
 /* Small Size */
+=======
+
+/* Small Size */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.inverted.dimmer .ui.small.loader,
 .ui.small.loader {
   width: 24px;
   height: 24px;
   background-image: url(../images/loader-small.gif);
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.inverted.dimmer .ui.loader,
 .ui.loader {
   width: 32px;
@@ -128,21 +245,36 @@
   background: url(../images/loader-medium.gif) no-repeat;
   background-position: 48% 0px;
 }
+<<<<<<< HEAD
 /* Large Size */
+=======
+
+/* Large Size */
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.inverted.dimmer .ui.loader.large,
 .ui.loader.large {
   width: 64px;
   height: 64px;
   background-image: url(../images/loader-large.gif);
 }
+<<<<<<< HEAD
 /*-------------------
        Inline
 --------------------*/
+=======
+
+/*-------------------
+       Inline
+--------------------*/
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 .ui.inline.loader {
   position: static;
   vertical-align: middle;
   margin: 0em;
   -webkit-transform: none;
+<<<<<<< HEAD
   -moz-transform: none;
   -o-transform: none;
   -ms-transform: none;
@@ -152,3 +284,13 @@
 .ui.inline.loader.visible {
   display: inline-block;
 }
+=======
+  -ms-transform: none;
+  transform: none;
+}
+
+.ui.inline.loader.active,
+.ui.inline.loader.visible {
+  display: inline-block;
+}
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862

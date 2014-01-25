@@ -63,7 +63,7 @@
 
       <tbody>
 
-        <tr ng-repeat="product in $data | filter:productComplexFilter" style="font-size:80%" ng-click="selectProduct(product);">
+        <tr ng-repeat="product in $data | filter:productComplexFilter" style="font-size:80%" ng-click="selectProduct(product);" class="repeat-animation">
 
           <td class="ko-index">
             <span> {{$index + 1}}</span>

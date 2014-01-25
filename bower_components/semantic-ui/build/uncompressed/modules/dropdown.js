@@ -8,6 +8,7 @@
  * http://opensource.org/licenses/MIT
  *
  */
+<<<<<<< HEAD
 
 ;(function ( $, window, document, undefined ) {
 
@@ -37,11 +38,31 @@ $.fn.dropdown = function(parameters) {
     methodInvoked     = (typeof query == 'string'),
     queryArguments    = [].slice.call(arguments, 1),
     invokedResponse
+=======
+;(function ( $, window, document, undefined ) {
+
+$.fn.dropdown = function(parameters) {
+    var
+    $allModules    = $(this),
+    $document      = $(document),
+
+    moduleSelector = $allModules.selector || '',
+
+    hasTouch       = ('ontouchstart' in document.documentElement),
+    time           = new Date().getTime(),
+    performance    = [],
+
+    query          = arguments[0],
+    methodInvoked  = (typeof query == 'string'),
+    queryArguments = [].slice.call(arguments, 1),
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
 
   $allModules
     .each(function() {
       var
+<<<<<<< HEAD
         $module       = $(this),
         $item         = $module.find(selector.item),
         $text         = $module.find(selector.text),
@@ -53,6 +74,31 @@ $.fn.dropdown = function(parameters) {
 
         element       = this,
         instance      = $module.data(dropdownNamespace),
+=======
+        settings          = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.dropdown.settings, parameters)
+          : $.extend({}, $.fn.dropdown.settings),
+
+        className       = settings.className,
+        metadata        = settings.metadata,
+        namespace       = settings.namespace,
+        selector        = settings.selector,
+        error           = settings.error,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+
+        $module         = $(this),
+        $item           = $module.find(selector.item),
+        $text           = $module.find(selector.text),
+        $input          = $module.find(selector.input),
+
+        $menu           = $module.children(selector.menu),
+
+
+        element         = this,
+        instance        = $module.data(moduleNamespace),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         module
       ;
 
@@ -60,6 +106,7 @@ $.fn.dropdown = function(parameters) {
 
         initialize: function() {
           module.debug('Initializing dropdown', settings);
+<<<<<<< HEAD
           if(isTouchDevice) {
             $module
               .on('touchstart' + eventNamespace, module.event.test.toggle)
@@ -89,13 +136,29 @@ $.fn.dropdown = function(parameters) {
             .on('mouseleave' + eventNamespace, module.event.item.mouseleave)
             .on(module.get.selectEvent() + eventNamespace, module.event.item.click)
           ;
+=======
+
+          module.save.defaults();
+          module.set.selected();
+
+          if(hasTouch) {
+            module.bind.touchEvents();
+          }
+          module.bind.mouseEvents();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           module.instantiate();
         },
 
         instantiate: function() {
           module.verbose('Storing instance of dropdown', module);
+<<<<<<< HEAD
           $module
             .data(dropdownNamespace, module)
+=======
+          instance = module;
+          $module
+            .data(moduleNamespace, module)
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           ;
         },
 
@@ -106,6 +169,7 @@ $.fn.dropdown = function(parameters) {
           ;
           $module
             .off(eventNamespace)
+<<<<<<< HEAD
             .removeData(dropdownNamespace)
           ;
         },
@@ -124,6 +188,96 @@ $.fn.dropdown = function(parameters) {
             hide: function(event) {
               module.determine.intent(event, module.hide);
               event.stopPropagation();
+=======
+            .removeData(moduleNamespace)
+          ;
+        },
+
+        bind: {
+          touchEvents: function() {
+            module.debug('Touch device detected binding touch events');
+            $module
+              .on('touchstart' + eventNamespace, module.event.test.toggle)
+            ;
+            $item
+              .on('touchstart' + eventNamespace, module.event.item.mouseenter)
+              .on('touchstart' + eventNamespace, module.event.item.click)
+            ;
+          },
+          mouseEvents: function() {
+            module.verbose('Mouse detected binding mouse events');
+            if(settings.on == 'click') {
+              $module
+                .on('click' + eventNamespace, module.event.test.toggle)
+              ;
+            }
+            else if(settings.on == 'hover') {
+              $module
+                .on('mouseenter' + eventNamespace, module.delay.show)
+                .on('mouseleave' + eventNamespace, module.delay.hide)
+              ;
+            }
+            else {
+              $module
+                .on(settings.on + eventNamespace, module.toggle)
+              ;
+            }
+            $item
+              .on('mouseenter' + eventNamespace, module.event.item.mouseenter)
+              .on('mouseleave' + eventNamespace, module.event.item.mouseleave)
+              .on('click'      + eventNamespace, module.event.item.click)
+            ;
+          },
+          intent: function() {
+            module.verbose('Binding hide intent event to document');
+            if(hasTouch) {
+              $document
+                .on('touchstart' + eventNamespace, module.event.test.touch)
+                .on('touchmove'  + eventNamespace, module.event.test.touch)
+              ;
+            }
+            $document
+              .on('click' + eventNamespace, module.event.test.hide)
+            ;
+          }
+        },
+
+        unbind: {
+          intent: function() {
+            module.verbose('Removing hide intent event from document');
+            if(hasTouch) {
+              $document
+                .off('touchstart' + eventNamespace)
+                .off('touchmove' + eventNamespace)
+              ;
+            }
+            $document
+              .off('click' + eventNamespace)
+            ;
+          }
+        },
+
+        event: {
+          test: {
+            toggle: function(event) {
+              if( module.determine.intent(event, module.toggle) ) {
+                event.preventDefault();
+              }
+            },
+            touch: function(event) {
+              module.determine.intent(event, function() {
+                if(event.type == 'touchstart') {
+                  module.timer = setTimeout(module.hide, settings.delay.touch);
+                }
+                else if(event.type == 'touchmove') {
+                  clearTimeout(module.timer);
+                }
+              });
+              event.stopPropagation();
+            },
+            hide: function(event) {
+              module.determine.intent(event, module.hide);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
           },
 
@@ -141,6 +295,10 @@ $.fn.dropdown = function(parameters) {
                   module.verbose('Showing sub-menu', $currentMenu);
                   module.animate.show(false,  $currentMenu);
                 }, settings.delay.show * 2);
+<<<<<<< HEAD
+=======
+                event.preventDefault();
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
             },
 
@@ -160,6 +318,7 @@ $.fn.dropdown = function(parameters) {
             click: function (event) {
               var
                 $choice = $(this),
+<<<<<<< HEAD
                 text    = $choice.data(metadata.text)  || $choice.text(),
                 value   = $choice.data(metadata.value) || text.toLowerCase()
               ;
@@ -174,6 +333,26 @@ $.fn.dropdown = function(parameters) {
                 module.determine.selectAction(text, value);
                 $.proxy(settings.onChange, element)(value, text);
                 event.stopPropagation();
+=======
+                text    = ( $choice.data(metadata.text) !== undefined )
+                  ? $choice.data(metadata.text)
+                  : $choice.text(),
+                value   = ( $choice.data(metadata.value) !== undefined)
+                  ? $choice.data(metadata.value)
+                  : text.toLowerCase(),
+                callback = function() {
+                  module.determine.selectAction(text, value);
+                  $.proxy(settings.onChange, element)(value, text);
+                }
+              ;
+              if( $choice.find(selector.menu).size() === 0 ) {
+                if(event.type == 'touchstart') {
+                  $choice.one('click', callback);
+                }
+                else {
+                  callback();
+                }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
             }
 
@@ -188,6 +367,7 @@ $.fn.dropdown = function(parameters) {
         determine: {
           selectAction: function(text, value) {
             module.verbose('Determining action', settings.action);
+<<<<<<< HEAD
             if( $.isFunction( module[settings.action] ) ) {
               module.verbose('Triggering preset action', settings.action);
               module[ settings.action ](text, value);
@@ -198,6 +378,18 @@ $.fn.dropdown = function(parameters) {
             }
             else {
               module.error(error.action);
+=======
+            if( $.isFunction( module.action[settings.action] ) ) {
+              module.verbose('Triggering preset action', settings.action, text, value);
+              module.action[ settings.action ](text, value);
+            }
+            else if( $.isFunction(settings.action) ) {
+              module.verbose('Triggering user action', settings.action, text, value);
+              settings.action(text, value);
+            }
+            else {
+              module.error(error.action, settings.action);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
           },
           intent: function(event, callback) {
@@ -206,13 +398,22 @@ $.fn.dropdown = function(parameters) {
             if( $(event.target).closest($menu).size() === 0 ) {
               module.verbose('Triggering event', callback);
               callback();
+<<<<<<< HEAD
             }
             else {
               module.verbose('Event occurred in dropdown, canceling callback');
+=======
+              return true;
+            }
+            else {
+              module.verbose('Event occurred in dropdown, canceling callback');
+              return false;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
           }
         },
 
+<<<<<<< HEAD
         bind: {
           intent: function() {
             module.verbose('Binding hide intent event to document');
@@ -251,10 +452,66 @@ $.fn.dropdown = function(parameters) {
               : 'click'
             ;
           },
+=======
+        action: {
+
+          nothing: function() {},
+
+          hide: function() {
+            module.hide();
+          },
+
+          activate: function(text, value) {
+            value = (value !== undefined)
+              ? value
+              : text
+            ;
+            module.set.selected(value);
+            module.set.value(value);
+            module.hide();
+          },
+
+          /* Deprecated */
+          auto: function(text, value) {
+            value = (value !== undefined)
+              ? value
+              : text
+            ;
+            module.set.selected(value);
+            module.set.value(value);
+            module.hide();
+          },
+
+          /* Deprecated */
+          changeText: function(text, value) {
+            value = (value !== undefined)
+              ? value
+              : text
+            ;
+            module.set.selected(value);
+            module.hide();
+          },
+
+          /* Deprecated */
+          updateForm: function(text, value) {
+            value = (value !== undefined)
+              ? value
+              : text
+            ;
+            module.set.selected(value);
+            module.set.value(value);
+            module.hide();
+          }
+
+        },
+
+        get: {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           text: function() {
             return $text.text();
           },
           value: function() {
+<<<<<<< HEAD
             return $input.val();
           },
           item: function(value) {
@@ -269,10 +526,91 @@ $.fn.dropdown = function(parameters) {
                 }
               })
             ;
+=======
+            return ($input.size() > 0)
+              ? $input.val()
+              : $module.data(metadata.value)
+            ;
+          },
+          item: function(value) {
+            var
+              $selectedItem = false
+            ;
+            value = (value !== undefined)
+              ? value
+              : ( module.get.value() !== undefined)
+                ? module.get.value()
+                : module.get.text()
+            ;
+            if(value !== undefined) {
+              $item
+                .each(function() {
+                  var
+                    $choice       = $(this),
+                    optionText    = ( $choice.data(metadata.text) !== undefined )
+                      ? $choice.data(metadata.text)
+                      : $choice.text(),
+                    optionValue   = ( $choice.data(metadata.value) !== undefined )
+                      ? $choice.data(metadata.value)
+                      : optionText.toLowerCase()
+                  ;
+                  if( optionValue == value ) {
+                    $selectedItem = $(this);
+                  }
+                  else if( !$selectedItem && optionText == value ) {
+                    $selectedItem = $(this);
+                  }
+                })
+              ;
+            }
+            else {
+              value = module.get.text();
+            }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             return $selectedItem || false;
           }
         },
 
+<<<<<<< HEAD
+=======
+        restore: {
+          defaults: function() {
+            module.restore.defaultText();
+            module.restore.defaultValue();
+          },
+          defaultText: function() {
+            var
+              defaultText = $module.data(metadata.defaultText)
+            ;
+            module.debug('Restoring default text', defaultText);
+            module.set.text(defaultText);
+          },
+          defaultValue: function() {
+            var
+              defaultValue = $module.data(metadata.defaultValue)
+            ;
+            if(defaultValue !== undefined) {
+              module.debug('Restoring default value', defaultValue);
+              module.set.selected(defaultValue);
+              module.set.value(defaultValue);
+            }
+          }
+        },
+
+        save: {
+          defaults: function() {
+            module.save.defaultText();
+            module.save.defaultValue();
+          },
+          defaultValue: function() {
+            $module.data(metadata.defaultValue, module.get.value() );
+          },
+          defaultText: function() {
+            $module.data(metadata.defaultText, $text.text() );
+          }
+        },
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         set: {
           text: function(text) {
             module.debug('Changing text', text, $text);
@@ -281,7 +619,16 @@ $.fn.dropdown = function(parameters) {
           },
           value: function(value) {
             module.debug('Adding selected value to hidden input', value, $input);
+<<<<<<< HEAD
             $input.val(value);
+=======
+            if($input.size() > 0) {
+              $input.val(value);
+            }
+            else {
+              $module.data(metadata.value, value);
+            }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           },
           active: function() {
             $module.addClass(className.active);
@@ -296,7 +643,14 @@ $.fn.dropdown = function(parameters) {
             ;
             if($selectedItem) {
               module.debug('Setting selected menu item to', $selectedItem);
+<<<<<<< HEAD
               selectedText = $selectedItem.data(metadata.text) || $selectedItem.text();
+=======
+              selectedText = ($selectedItem.data(metadata.text) !== undefined)
+                ? $selectedItem.data(metadata.text)
+                : $selectedItem.text()
+              ;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               $item
                 .removeClass(className.active)
               ;
@@ -318,23 +672,48 @@ $.fn.dropdown = function(parameters) {
         },
 
         is: {
+<<<<<<< HEAD
           visible: function($subMenu) {
             return ($subMenu)
               ? $subMenu.is(':animated, :visible')
               : $menu.is(':animated, :visible')
+=======
+          selection: function() {
+            return $module.hasClass(className.selection);
+          },
+          animated: function($subMenu) {
+            return ($subMenu)
+              ? $subMenu.is(':animated') || $subMenu.transition('is animating')
+              : $menu.is(':animated') || $menu.transition('is animating')
+            ;
+          },
+          visible: function($subMenu) {
+            return ($subMenu)
+              ? $subMenu.is(':visible')
+              : $menu.is(':visible')
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             ;
           },
           hidden: function($subMenu) {
             return ($subMenu)
+<<<<<<< HEAD
               ? $subMenu.is(':not(:animated, :visible)')
               : $menu.is(':not(:animated, :visible)')
+=======
+              ? $subMenu.is(':not(:visible)')
+              : $menu.is(':not(:visible)')
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             ;
           }
         },
 
         can: {
           click: function() {
+<<<<<<< HEAD
             return (isTouchDevice || settings.on == 'click');
+=======
+            return (hasTouch || settings.on == 'click');
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           },
           show: function() {
             return !$module.hasClass(className.disabled);
@@ -352,6 +731,7 @@ $.fn.dropdown = function(parameters) {
               if(settings.transition == 'none') {
                 callback();
               }
+<<<<<<< HEAD
               else if($.fn.transition !== undefined) {
                 $currentMenu.transition({
                   animation : settings.transition + ' in',
@@ -359,6 +739,17 @@ $.fn.dropdown = function(parameters) {
                   complete  : callback,
                   queue     : false
                 });
+=======
+              else if($.fn.transition !== undefined && $module.transition('is supported')) {
+                $currentMenu
+                  .transition({
+                    animation : settings.transition + ' in',
+                    duration  : settings.duration,
+                    complete  : callback,
+                    queue     : false
+                  })
+                ;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
               else if(settings.transition == 'slide down') {
                 $currentMenu
@@ -389,7 +780,11 @@ $.fn.dropdown = function(parameters) {
                 ;
               }
               else {
+<<<<<<< HEAD
                 module.error(error.transition);
+=======
+                module.error(error.transition, settings.transition);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
             }
           },
@@ -400,6 +795,7 @@ $.fn.dropdown = function(parameters) {
             callback = callback || function(){};
             if(module.is.visible($currentMenu) ) {
               module.verbose('Doing menu hide animation', $currentMenu);
+<<<<<<< HEAD
               if($.fn.transition !== undefined) {
                 $currentMenu.transition({
                   animation : settings.transition + ' out',
@@ -407,6 +803,17 @@ $.fn.dropdown = function(parameters) {
                   complete  : callback,
                   queue     : false
                 });
+=======
+              if($.fn.transition !== undefined && $module.transition('is supported')) {
+                $currentMenu
+                  .transition({
+                    animation : settings.transition + ' out',
+                    duration  : settings.duration,
+                    complete  : callback,
+                    queue     : false
+                  })
+                ;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
               else if(settings.transition == 'none') {
                 callback();
@@ -451,16 +858,29 @@ $.fn.dropdown = function(parameters) {
           if( module.is.hidden() ) {
             module.hideOthers();
             module.set.active();
+<<<<<<< HEAD
             module.animate.show(module.set.visible);
             if( module.can.click() ) {
               module.bind.intent();
             }
+=======
+            module.animate.show(function() {
+              if( module.can.click() ) {
+                module.bind.intent();
+              }
+              module.set.visible();
+            });
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             $.proxy(settings.onShow, element)();
           }
         },
 
         hide: function() {
+<<<<<<< HEAD
           if( module.is.visible() ) {
+=======
+          if( !module.is.animated() && module.is.visible() ) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             module.debug('Hiding dropdown');
             if( module.can.click() ) {
               module.unbind.intent();
@@ -504,6 +924,7 @@ $.fn.dropdown = function(parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, settings, name);
@@ -511,12 +932,20 @@ $.fn.dropdown = function(parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
               $.extend(true, module, name);
@@ -524,6 +953,13 @@ $.fn.dropdown = function(parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -588,8 +1024,13 @@ $.fn.dropdown = function(parameters) {
               totalTime += data['Execution Time'];
             });
             title += ' ' + totalTime + 'ms';
+<<<<<<< HEAD
             if(dropdownSelector) {
               title += ' \'' + dropdownSelector + '\'';
+=======
+            if(moduleSelector) {
+              title += ' \'' + moduleSelector + '\'';
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
             if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
               console.groupCollapsed(title);
@@ -608,6 +1049,7 @@ $.fn.dropdown = function(parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
             maxDepth,
             found
           ;
@@ -625,13 +1067,65 @@ $.fn.dropdown = function(parameters) {
               }
               else {
                 module.error(error.method);
+=======
+            object = instance,
+            maxDepth,
+            found,
+            response
+          ;
+          passedArguments = passedArguments || queryArguments;
+          context         = element         || context;
+          if(typeof query == 'string' && object !== undefined) {
+            query    = query.split(/[\. ]/);
+            maxDepth = query.length - 1;
+            $.each(query, function(depth, value) {
+              var camelCaseValue = (depth != maxDepth)
+                ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
+                : query
+              ;
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+                module.error(error.method, query);
+                return false;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
             });
           }
           if ( $.isFunction( found ) ) {
+<<<<<<< HEAD
             return found.apply(context, passedArguments);
           }
           return found || false;
+=======
+            response = found.apply(context, passedArguments);
+          }
+          else if(found !== undefined) {
+            response = found;
+          }
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+          }
+          return found;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
         }
       };
 
@@ -650,8 +1144,13 @@ $.fn.dropdown = function(parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse)
     ? invokedResponse
+=======
+  return (returnedValue)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -666,17 +1165,30 @@ $.fn.dropdown.settings = {
   performance : true,
 
   on          : 'click',
+<<<<<<< HEAD
   action      : 'hide',
 
   delay: {
     show: 200,
     hide: 300
+=======
+  action      : 'activate',
+
+  delay: {
+    show  : 200,
+    hide  : 300,
+    touch : 50
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   },
 
   transition : 'slide down',
   duration   : 250,
 
+<<<<<<< HEAD
   onChange : function(){},
+=======
+  onChange : function(value, text){},
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   onShow   : function(){},
   onHide   : function(){},
 
@@ -687,8 +1199,15 @@ $.fn.dropdown.settings = {
   },
 
   metadata: {
+<<<<<<< HEAD
     text  : 'text',
     value : 'value'
+=======
+    defaultText  : 'defaultText',
+    defaultValue : 'defaultValue',
+    text         : 'text',
+    value        : 'value'
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   },
 
   selector : {
@@ -702,9 +1221,25 @@ $.fn.dropdown.settings = {
     active      : 'active',
     placeholder : 'default',
     disabled    : 'disabled',
+<<<<<<< HEAD
     visible     : 'visible'
+=======
+    visible     : 'visible',
+    selection   : 'selection'
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   }
 
 };
 
+<<<<<<< HEAD
+=======
+// Adds easing
+$.extend( $.easing, {
+  easeOutQuad: function (x, t, b, c, d) {
+    return -c *(t/=d)*(t-2) + b;
+  },
+});
+
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 })( jQuery, window , document );

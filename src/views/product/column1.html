@@ -63,12 +63,19 @@
 						</div>
 					</div> <!-- update -->
 
-					<div class="ui mini button" ng-click="showImageModal()" > <i class="edit icon" ></i>Detail</div> <!-- detail -->
+					<div class="ui mini button" ng-click="showImageModal()" ng-if="currentProduct.$images.length > 0">
+						<i class="edit icon" ></i>Detail
+					</div> <!-- detail -->
+
+					<div class="ui button mini" ng-click="removeImage(currentPicture)" ng-show="currentPicture.identifier != null && currentProduct.$images.length > 0">
+						<i class="ui remove icon"></i>
+						<span>Remove</span>
+					</div>
 
 					<div class="field"></div>
-					<div class="ui small images" style="display:inline-block">
-						<img class="rounded ui image"  ng-repeat="x in currentProduct.$images"  ng-src="{{x.$thumbnail}}" ng-show="currentProduct.$images.length > 0">
-					</div>
+					<a class="ui small images" style="display:inline-block" href="">
+						<img class="rounded ui image"  ng-repeat="x in currentProduct.$images"  ng-src="{{x.$thumbnail}}" ng-show="currentProduct.$images.length > 0" ng-click="openPicture(x)" ng-class="{ 'disabled' : x == currentPicture }">
+					</a>
 				</div>
 			</div> <!-- UPLOAD -->
 			
@@ -81,7 +88,6 @@
 				<span ng-if="true">Save</span>
 			</div>
 		</div> <!-- SAVE  -->
-
 
 
 

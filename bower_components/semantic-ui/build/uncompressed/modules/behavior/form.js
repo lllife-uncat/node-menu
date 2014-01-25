@@ -35,7 +35,11 @@ $.fn.form = function(fields, parameters) {
     query           = arguments[0],
     methodInvoked   = (typeof query == 'string'),
     queryArguments  = [].slice.call(arguments, 1),
+<<<<<<< HEAD
     invokedResponse
+=======
+    returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   ;
   $allModules
     .each(function() {
@@ -158,12 +162,21 @@ $.fn.form = function(fields, parameters) {
                 $field      = $(this),
                 $fieldGroup = $field.closest($group)
               ;
+<<<<<<< HEAD
               if( $fieldGroup.hasClass(className.error) ) {
                 module.debug('Revalidating field', $field,  module.get.validation($field));
                 module.validate.field( module.get.validation($field) );
               }
               else if(settings.on == 'change') {
                 module.validate.field( module.get.validation($field) );
+=======
+              if(settings.on == 'change' || ( $fieldGroup.hasClass(className.error) && settings.revalidate) ) {
+                clearTimeout(module.timer);
+                module.timer = setTimeout(function() {
+                  module.debug('Revalidating field', $field,  module.get.validation($field));
+                  module.validate.field( module.get.validation($field) );
+                }, settings.delay);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               }
             }
           }
@@ -224,14 +237,28 @@ $.fn.form = function(fields, parameters) {
         },
 
         add: {
+<<<<<<< HEAD
           prompt: function(field, errors) {
             var
               $field       = module.get.field(field.identifier),
+=======
+          prompt: function(identifier, errors) {
+            var
+              $field       = module.get.field(identifier),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               $fieldGroup  = $field.closest($group),
               $prompt      = $fieldGroup.find(selector.prompt),
               promptExists = ($prompt.size() !== 0)
             ;
+<<<<<<< HEAD
             module.verbose('Adding inline error', field);
+=======
+            errors = (typeof errors == 'string')
+              ? [errors]
+              : errors
+            ;
+            module.verbose('Adding field error state', identifier);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             $fieldGroup
               .addClass(className.error)
             ;
@@ -246,7 +273,11 @@ $.fn.form = function(fields, parameters) {
                 .html(errors[0])
               ;
               if(!promptExists) {
+<<<<<<< HEAD
                 if(settings.transition && $.fn.transition !== undefined) {
+=======
+                if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                   module.verbose('Displaying error with css transition', settings.transition);
                   $prompt.transition(settings.transition + ' in', settings.duration);
                 }
@@ -257,6 +288,12 @@ $.fn.form = function(fields, parameters) {
                   ;
                 }
               }
+<<<<<<< HEAD
+=======
+              else {
+                module.verbose('Inline errors are disabled, no inline error added', identifier);
+              }
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             }
           },
           errors: function(errors) {
@@ -279,7 +316,11 @@ $.fn.form = function(fields, parameters) {
             ;
             if(settings.inline && $prompt.is(':visible')) {
               module.verbose('Removing prompt for field', field);
+<<<<<<< HEAD
               if(settings.transition && $.fn.transition !== undefined) {
+=======
+              if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 $prompt.transition(settings.transition + ' out', settings.duration, function() {
                   $prompt.remove();
                 });
@@ -348,7 +389,11 @@ $.fn.form = function(fields, parameters) {
             }
             else {
               formErrors = formErrors.concat(fieldErrors);
+<<<<<<< HEAD
               module.add.prompt(field, fieldErrors);
+=======
+              module.add.prompt(field.identifier, fieldErrors);
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               $.proxy(settings.onInvalid, $field)(fieldErrors);
               return false;
             }
@@ -360,7 +405,11 @@ $.fn.form = function(fields, parameters) {
             var
               $field        = module.get.field(field.identifier),
               type          = validation.type,
+<<<<<<< HEAD
               value         = $field.val(),
+=======
+              value         = $.trim($field.val() + ''),
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
 
               bracketRegExp = /\[(.*?)\]/i,
               bracket       = bracketRegExp.exec(type),
@@ -370,7 +419,11 @@ $.fn.form = function(fields, parameters) {
             ;
             // if bracket notation is used, pass in extra parameters
             if(bracket !== undefined && bracket !== null) {
+<<<<<<< HEAD
               ancillary    = bracket[1];
+=======
+              ancillary    = '' + bracket[1];
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
               functionType = type.replace(bracket[0], '');
               isValid      = $.proxy(settings.rules[functionType], $module)(value, ancillary);
             }
@@ -383,6 +436,7 @@ $.fn.form = function(fields, parameters) {
         },
 
         setting: function(name, value) {
+<<<<<<< HEAD
           module.debug('Changing setting', name, value);
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
@@ -391,12 +445,20 @@ $.fn.form = function(fields, parameters) {
             else {
               settings[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            settings[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return settings[name];
           }
         },
         internal: function(name, value) {
+<<<<<<< HEAD
           module.debug('Changing internal', name, value);
           if(value !== undefined) {
             if( $.isPlainObject(name) ) {
@@ -405,6 +467,13 @@ $.fn.form = function(fields, parameters) {
             else {
               module[name] = value;
             }
+=======
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           else {
             return module[name];
@@ -492,13 +561,21 @@ $.fn.form = function(fields, parameters) {
         },
         invoke: function(query, passedArguments, context) {
           var
+<<<<<<< HEAD
+=======
+            object = instance,
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             maxDepth,
             found,
             response
           ;
           passedArguments = passedArguments || queryArguments;
           context         = element         || context;
+<<<<<<< HEAD
           if(typeof query == 'string' && instance !== undefined) {
+=======
+          if(typeof query == 'string' && object !== undefined) {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
             $.each(query, function(depth, value) {
@@ -506,6 +583,7 @@ $.fn.form = function(fields, parameters) {
                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                 : query
               ;
+<<<<<<< HEAD
               if( $.isPlainObject( instance[value] ) && (depth != maxDepth) ) {
                 instance = instance[value];
               }
@@ -522,6 +600,23 @@ $.fn.form = function(fields, parameters) {
               }
               else {
                 module.error(error.method);
+=======
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
                 return false;
               }
             });
@@ -532,6 +627,7 @@ $.fn.form = function(fields, parameters) {
           else if(found !== undefined) {
             response = found;
           }
+<<<<<<< HEAD
           if($.isArray(invokedResponse)) {
             invokedResponse.push(response);
           }
@@ -540,6 +636,16 @@ $.fn.form = function(fields, parameters) {
           }
           else if(response !== undefined) {
             invokedResponse = response;
+=======
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
           }
           return found;
         }
@@ -560,8 +666,13 @@ $.fn.form = function(fields, parameters) {
     })
   ;
 
+<<<<<<< HEAD
   return (invokedResponse !== undefined)
     ? invokedResponse
+=======
+  return (returnedValue !== undefined)
+    ? returnedValue
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
     : this
   ;
 };
@@ -580,6 +691,12 @@ $.fn.form.settings = {
   on                : 'submit',
   inline            : false,
 
+<<<<<<< HEAD
+=======
+  delay             : 200,
+  revalidate        : true,
+
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   transition        : 'scale',
   duration          : 150,
 
@@ -615,7 +732,10 @@ $.fn.form.settings = {
   },
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
   templates: {
     error: function(errors) {
       var
@@ -644,7 +764,11 @@ $.fn.form.settings = {
     },
     email: function(value){
       var
+<<<<<<< HEAD
         emailRegExp = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+=======
+        emailRegExp = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", "i")
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       ;
       return emailRegExp.test(value);
     },
@@ -658,6 +782,10 @@ $.fn.form.settings = {
       return (value != notValue);
     },
     contains: function(value, text) {
+<<<<<<< HEAD
+=======
+      text = text.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+>>>>>>> 763ed5718ca5ba52521779e9c5ba0a18c5213862
       return (value.search(text) !== -1);
     },
     is: function(value, text) {
