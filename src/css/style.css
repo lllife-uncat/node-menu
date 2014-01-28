@@ -97,7 +97,7 @@ label {
     letter-spacing: .01em;
     /*font-size: small; */
     /*text-shadow: 0px 0px 2px lightgray;*/
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 
 
@@ -127,7 +127,7 @@ label {
 
 .ko-tag.label {
     margin: 5px;
-    box-shadow: 1px 1px 4px lightgray;
+    box-shadow: 1px 1px 4px black;
     text-transform: none;
 }
 
@@ -137,7 +137,12 @@ label {
 
 .ui.image.label{
     margin: 5px;
-    box-shadow: 1px 1px 5px lightgray;
+    box-shadow: 1px 1px 10px lightgray;
+}
+
+
+.highlight{
+    box-shadow: 0px 0px 5px red;
 }
 
 .label.pointing {
@@ -270,7 +275,7 @@ i.ui.mini.button {
 }
 
 .ko-price a {
-    font-family: BEBAS___;
+    /*font-family: BEBAS___;*/
     text-decoration: none;
     color: black;
     float:right;
@@ -311,6 +316,30 @@ body {
     /* W3C Markup, IE10 Release Preview */ 
     background-image: linear-gradient(to bottom left, #FFFFFF 0%, #DEDEDE 100%);
 }
+
+.ssko-body {
+
+    /* Note: This gradient may render differently in browsers that don't support the unprefixed gradient syntax */
+
+    /* IE10 Consumer Preview */ 
+    background-image: -ms-linear-gradient(top right, #FFFFFF 0%, #DEDEDE 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: -moz-linear-gradient(top right, #FFFFFF 0%, #DEDEDE 100%);
+
+    /* Opera */ 
+    background-image: -o-linear-gradient(top right, #FFFFFF 0%, #DEDEDE 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(linear, right top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #DEDEDE));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-linear-gradient(top right, #FFFFFF 0%, #DEDEDE 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: linear-gradient(to bottom left, #FFFFFF 0%, #DEDEDE 100%);
+}
+
 
 xxbody {
   background-color: #444444;

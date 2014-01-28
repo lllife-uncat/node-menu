@@ -1,4 +1,4 @@
-	<div class="ui raised segment"> 	<!-- COLUMNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
+	<div class="ui segment"> 	<!-- COLUMNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
 		<div class="ui form">
 			<div class="ui two fields">
 
@@ -59,7 +59,7 @@
 							<i class="icon cloud upload"></i>
 							<span>Upload</span>
 							<!-- <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" class="upload" /> -->
-							<input type="file" ng-file-select="onFileSelect($files)" multiple class="upload">
+							<input type="file" ng-file-select="onFileSelect($files)" multiple class="upload" accept='image/*'>
 						</div>
 					</div> <!-- update -->
 
@@ -74,7 +74,7 @@
 
 					<div class="field"></div>
 					<a class="ui small images" style="display:inline-block" href="">
-						<img class="rounded ui image"  ng-repeat="x in currentProduct.$images"  ng-src="{{x.$thumbnail}}" ng-show="currentProduct.$images.length > 0" ng-click="openPicture(x)" ng-class="{ 'disabled' : x == currentPicture }">
+						<img class="rounded ui image"  ng-repeat="x in currentProduct.$images"  ng-src="{{x.$thumbnail}}" ng-show="currentProduct.$images.length > 0" ng-click="openPicture(x)" ng-class="{ 'highlight' : x == currentPicture }">
 					</a>
 				</div>
 			</div> <!-- UPLOAD -->

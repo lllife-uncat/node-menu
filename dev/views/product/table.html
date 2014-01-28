@@ -1,18 +1,18 @@
 <div ng-if="selectedTab == 'product'">
-	<table class="ui padded table segment" style="font-size:80%;text-transform: none;">
+	<table class="ui padded table green" style="font-size:80%;text-transform: none;">
 		<thead>
 			<tr>
 				<th> <i class="ui icon bolt"></i></th>
-				<th> <i class="ui icon cart"></i> ID </th>
-				<th> <i class="ui icon cart"></i> Name </th>
-				<th> <i class="ui icon cart"></i> Description </th>
+				<th> <i class="ui cart"></i> ID </th>
+				<th> <i class="ui cart"></i> Name </th>
+				<th > <i class="ui cart"></i> Description </th>
 
-				<th><i class="ui icon photo"></i> Images</th>
+				<th><i class="ui photo"></i> Images</th>
 
-				<th> <i class="ui icon dollar"></i> Price </th>
-				<th> <i class="ui icon dollar"></i> Promotion </th>
-				<th> <i class="ui icon dollar"></i> Member </th>
-				<th><i class="ui icon edit"></i> Edit</th>
+				<th> <i class="ui dollar"></i> Price </th>
+				<th> <i class="ui dollar"></i> Promotion </th>
+				<th> <i class="ui dollar"></i> Member </th>
+				<th><i class="ui edit"></i> Edit</th>
 
 			</tr>
 		</thead>
@@ -25,7 +25,7 @@
 				<td>{{ product.name }}</td>
 
 
-				<td>{{ product.description }}</td>
+				<td style="max-width:400px">{{ product.description }}</td>
 
 
 				<td>
@@ -38,7 +38,7 @@
 
 
 				<td class="ko-price"> <!-- price -->
-					<div class="ui label">
+					<div class="ui label black">
 						<a href="" style="font-size:100%">
 							{{ (product.primaryPrice | currency).replace("$","") }}
 						</a>
@@ -46,7 +46,7 @@
 				</td>
 
 				<td class="ko-price"> <!-- member -->
-					<div class="ui label">
+					<div class="ui black label">
 						<a href="" style="font-size:100%">
 							{{ (product.memberPrice | currency).replace("$","") }}
 						</a>
@@ -54,7 +54,7 @@
 				</td>
 
 				<td class="ko-price"> <!-- promotion -->
-					<div class="ui label">
+					<div class="ui label black">
 						<a href="" style="font-size:100%">
 							{{ (product.promotionPrice | currency).replace("$","") }}
 						</a>

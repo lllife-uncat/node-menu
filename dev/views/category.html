@@ -4,7 +4,7 @@
 
 		<div class="item">
 			<!-- <div class="ui label mini">Selected Category</div> -->
-			<a class="ui image label blue">
+			<a class="ui image label black">
 				<img src="{{lastSelectedCategory.$images[0].$thumbnail}}" ng-if="false">  {{lastSelectedCategory.title}}
 			</a>
 		</div>
@@ -20,9 +20,98 @@
 
 
 <div class="ui two column grid">
+
+
+	<div class="column">
+		<div class="ui fluid form segment" style="min-height:40%">
+
+			<div class="field">
+				<label for="" ng-if="false">All Category </label>
+
+				<div class="ui icon input" ng-if="false">
+					<input type="text" placeholder="Filter" ng-model="categoryFilter.title"/>
+					<div class="ui icon ">
+						<i class="search link icon"></i>
+					</div>
+				</div>	
+			</div>
+
+			<div class="field">
+				<label for=""><i class="tags icon"></i> Main Category</label>
+
+				<div class="ui">
+
+					<div ng-repeat="category in categoriesA" ng-click="select(category)"  ng-if="category.$level == 'A'" style="display:inline">
+						<a class="ui image label" ng-class="{ green: selectedLevelA.identifier == category.identifier, black: selectedLevelA.identifier != category.identifier }">
+							<img src="{{category.$images[0].$thumbnail}}">
+							{{category.title}} ({{category.$childs.length}}) 
+						</a>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="field" ng-if="selectedLevelA.identifier != null">
+				<label for=""><i class="tags icon"></i> Sub Category</label>
+
+				<div class="ui">
+
+					<div ng-repeat="category in categoriesB" ng-click="select(category)"  ng-if="selectedLevelA.identifier == category.parentId" style="display:inline">
+						<a class="ui image label" ng-class="{ green: selectedLevelB.identifier == category.identifier, black: selectedLevelB.identifier != category.identifier}">
+							<img src="{{category.$images[0].$thumbnail}}">
+							{{category.title}} ({{category.$childs.length}}) 
+						</a>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="field"  ng-if="selectedLevelB.identifier != null">
+				<label for=""><i class="tags icon"></i>  Category</label>
+
+				<div class="ui">
+					<div >
+						<div ng-repeat="category in categoriesC" ng-click="select(category)"  ng-if="selectedLevelB.identifier == category.parentId" style="display:inline">
+							<a class="ui image label" ng-class="{ green: selectedLevelC.identifier == category.identifier ,  black: selectedLevelC.identifier != category.identifier}">
+								<img src="{{category.$images[0].$thumbnail}}">
+								{{category.title}}
+							</a>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div> <!-- parents -->
+
+
+		</div>
+
+
+
+		<div style="">
+			<div class="ui small message" >
+				<i class="ui checkmark sign icon green" ng-if="selectedLevelA.identifier != null"></i>
+				Step 1  Select <span>Main Category</span> | <span>Sub Category</span>
+			</div>
+			<div class="ui small message">
+				<i class="ui checkmark sign icon green" ng-if="currentCategory.title && currentCategory.categoryId && currentCategory.description"></i>
+				Step 2 Enter New Category Infomation
+			</div>
+			<div class="ui small message">
+				<i class="ui checkmark sign icon green" ng-if="currentCategory.$images.length > 0"></i>
+				Step 3 Upload Image
+			</div>
+		</div>
+
+	</div> <!-- second column -->
+
+
+  <!-- <div class="ui vertical divider"> </div> -->
+
 	<div class="column ">
 
-		<div class="fluid form ui raised segment ">
+		<div class="form ui segment ko-body">
 
 			<div class="field">
 
@@ -33,7 +122,7 @@
 			<div class="ui two fields">
 				<div class="field">
 					<label for=""><i class="tags link icon"></i> ID</label>
-					<input type="text" ng-model="currentCategory.id">
+					<input type="text" ng-model="currentCategory.categoryId">
 				</div>
 				<div class="field">
 					
@@ -47,7 +136,7 @@
 
 			<div class="field">  <!-- UPLOAD -->
 				<label><i class="photo icon"></i> Images</label>
-				<div class="ui segment raised">
+				<div class="ui segment">
 					<div class="mini ui button">
 						<div class="fileupload">
 							<i class="icon cloud upload"></i>
@@ -68,7 +157,7 @@
 			<div class="field"> <!-- LEVEL-->
 				<label for=""><i class="tags link icon"></i> Category Level</label>
 
-				<div class="ui segment raised">
+				<div class="ui segment">
 					<div class="ui icon input" ng-if="false">
 						<input type="text" placeholder="Filter" ng-model="parentFilter.title">
 						<div class="ui icon"><i class="search link icon"></i></div>
@@ -78,7 +167,7 @@
 						<div class="ui breadcrumb">
 
 							<div class="section" ng-if="selectedLevelA.identifier != null">
-								<div class="ui image label ">
+								<div class="ui image label black">
 									<img src="{{selectedLevelA.$images[0].$thumbnail}}" alt="">
 									{{selectedLevelA.title}}
 								</div>
@@ -88,7 +177,7 @@
 								<i class="right arrow icon divider"></i>
 
 								<div class="section">
-									<div class="ui image label ">
+									<div class="ui image label black">
 										<img src="{{selectedLevelB.$images[0].$thumbnail}}" alt="">
 										{{selectedLevelB.title}}
 									</div>
@@ -130,71 +219,6 @@
 
 	</div> <!-- first column -->
 
-	<div class="column">
-		<div class="ui fluid form">
-
-			<div class="field">
-				<label for="" ng-if="false">All Category </label>
-
-				<div class="ui icon input" ng-if="false">
-					<input type="text" placeholder="Filter" ng-model="categoryFilter.title"/>
-					<div class="ui icon ">
-						<i class="search link icon"></i>
-					</div>
-				</div>	
-			</div>
-
-			<div class="field">
-				<label for=""><i class="tags icon"></i> Main Category</label>
-
-				<div class="ui raised segment">
-
-					<div ng-repeat="category in categoriesA" ng-click="select(category)"  ng-if="category.$level == 'A'" style="display:inline">
-						<a class="ui image label" ng-class="{ green: selectedLevelA.identifier == category.identifier}">
-							<img src="{{category.$images[0].$thumbnail}}">
-							{{category.title}} ({{category.$childs.length}}) 
-						</a>
-					</div>
-
-				</div>
-			</div>
-
-			<div class="field" ng-if="selectedLevelA.identifier != null">
-				<label for=""><i class="tags icon"></i> Sub Category</label>
-
-				<div class="ui raised segment">
-
-					<div ng-repeat="category in categoriesB" ng-click="select(category)"  ng-if="selectedLevelA.identifier == category.parentId" style="display:inline">
-						<a class="ui image label" ng-class="{ green: selectedLevelB.identifier == category.identifier}">
-							<img src="{{category.$images[0].$thumbnail}}">
-							{{category.title}} ({{category.$childs.length}}) 
-						</a>
-					</div>
-
-				</div>
-			</div>
-
-			<div class="field"  ng-if="selectedLevelB.identifier != null">
-				<label for=""><i class="tags icon"></i>  Category</label>
-
-				<div class="ui raised segment">
-					<div >
-						<div ng-repeat="category in categoriesC" ng-click="select(category)"  ng-if="selectedLevelB.identifier == category.parentId" style="display:inline">
-							<a class="ui image label" ng-class="{ black: selectedLevelC.identifier == category.identifier}">
-								<img src="{{category.$images[0].$thumbnail}}">
-								{{category.title}}
-							</a>
-						</div>
-					</div>
-				</div>
-
-
-
-			</div> <!-- parents -->
-
-
-		</div>
-
-	</div> <!-- second column -->
+	
 </div> <!--grid-->
 

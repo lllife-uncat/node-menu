@@ -1,5 +1,5 @@
 <div> <!-- COLUMNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
-	<div class="ui form ">
+	<div class="ui form " >
 
 		<div class="ui one fields" ng-show="false"d>
 			<div class="field">
@@ -30,8 +30,8 @@
 			</div>
 		</div> <!-- color -->
 
-		<div call="ui one fields"> <!-- CATEGORIES -->
-			<div class="field">
+		<div call="ui one fields" style="min-height:30%;"> <!-- CATEGORIES -->
+			<div class="field ui segment">
 
 				<label><i class="tags dollar icon"></i> Select Product Category </label>
 
@@ -39,12 +39,12 @@
 
 					<span ng-click="selectCategoryLevel('A')"> <!-- CAT A -->
 
-						<a class="ui image label"  ng-if="!selectedCategoryA.identifier" ng-class="{ green : selectedCategoryLevel == 'A'}">
+						<a class="ui image label black"  ng-if="!selectedCategoryA.identifier" ng-class="{ green : selectedCategoryLevel == 'A'}">
 							<img src="{{selectedCategoryA.$images[0].$thumbnail}}">
 							Main Category
 						</a>	
 
-						<a class="ui image label"  ng-if="selectedCategoryA.identifier" ng-class="{ green : selectedCategoryLevel == 'A'}">
+						<a class="ui image label"  ng-if="selectedCategoryA.identifier" ng-class="{ green : selectedCategoryLevel == 'A' , black : selectedCategoryLevel != 'A'}">
 							<img src="{{selectedCategoryA.$images[0].$thumbnail}}">
 							{{selectedCategoryA.title}}
 						</a>	
@@ -54,12 +54,12 @@
 					<span ng-click="selectCategoryLevel('B')">  <!-- CAT B -->
 						<i class="right arrow icon divider"></i>
 
-						<a class="ui image label" ng-if="selectedCategoryB.identifier" ng-class="{ green : selectedCategoryLevel == 'B'}">
+						<a class="ui image label" ng-if="selectedCategoryB.identifier" ng-class="{ green : selectedCategoryLevel == 'B', black : selectedCategoryLevel != 'B'}">
 							<img src="{{selectedCategoryB.$images[0].$thumbnail}}">
 							{{selectedCategoryB.title}}
 						</a>
 
-						<a class="ui image label" ng-if="!selectedCategoryB.identifier" ng-class="{ green : selectedCategoryLevel == 'B'}">
+						<a class="ui image label black" ng-if="!selectedCategoryB.identifier" ng-class="{ green : selectedCategoryLevel == 'B'}">
 							<img src="{{selectedCategoryB.$images[0].$thumbnail}}">
 							Sub Category
 						</a>
@@ -68,11 +68,11 @@
 					<span ng-click="selectCategoryLevel('C')"> <!-- CAT C -->
 						<i class="right arrow icon divider" ></i>
 
-						<a class="ui image label" ng-if="selectedCategoryC.identifier" ng-class="{ green : selectedCategoryLevel == 'C'}">
+						<a class="ui image label" ng-if="selectedCategoryC.identifier" ng-class="{ green : selectedCategoryLevel == 'C' , black : selectedCategoryLevel != 'C'}">
 							<img src="{{selectedCategoryC.$images[0].$thumbnail}}">
 							{{selectedCategoryC.title}}
 						</a>
-						<a class="ui image label" ng-if="!selectedCategoryC.identifier" ng-class="{ green : selectedCategoryLevel == 'C'}">
+						<a class="ui image label black" ng-if="!selectedCategoryC.identifier" ng-class="{ green : selectedCategoryLevel == 'C'}">
 							<img src="{{selectedCategoryC.$images[0].$thumbnail}}">
 							Category
 						</a>						
@@ -88,19 +88,18 @@
 				</div>	
 
 
-
-				<div class="ui raised segment ko-category-a"  ng-if="selectedCategoryLevel == 'A'">
+				<div class="ui ko-category-a"  ng-if="selectedCategoryLevel == 'A'">
 					<div>
-						<a class="ui image label" ng-repeat="category in categoriesA" ng-click="selectCategoryA(category)" ng-class="{ green : category.identifier == selectedCategoryA.identifier}">
+						<a class="ui image label" ng-repeat="category in categoriesA" ng-click="selectCategoryA(category)" ng-class="{ green : category.identifier == selectedCategoryA.identifier, black : category.identifier != selectedCategoryA.identifier}">
 							<img src="{{category.$images[0].$thumbnail}}">
 							{{category.title}}
 						</a>	
 					</div>
 				</div>
 
-				<div class="ui raised segment ko-category-b"  ng-if="selectedCategoryLevel == 'B'">
+				<div class="ui ko-category-b"  ng-if="selectedCategoryLevel == 'B'">
 					<div>
-						<a class="ui image label" ng-repeat="category in categoriesB" ng-click="selectCategoryB(category)" ng-class="{ green : category.identifier == selectedCategoryB.identifier}" ng-if="category.parentId == selectedCategoryA.identifier">
+						<a class="ui image label" ng-repeat="category in categoriesB" ng-click="selectCategoryB(category)" ng-class="{ green : category.identifier == selectedCategoryB.identifier, black : category.identifier != selectedCategoryB.identifier}" ng-if="category.parentId == selectedCategoryA.identifier">
 							<img src="{{category.$images[0].$thumbnail}}">
 							{{category.title}}
 						</a>	
@@ -108,8 +107,8 @@
 				</div>
 
 
-				<div class="ui raised segment"  ng-if="selectedCategoryLevel == 'C'">
-					<a class="ui image label"  ng-repeat="category in categoriesC" ng-click="selectCategoryC(category)" ng-class="{ green : category == selectedCategoryC}" ng-if="category.parentId == selectedCategoryB.identifier">
+				<div class="ui"  ng-if="selectedCategoryLevel == 'C'">
+					<a class="ui image label"  ng-repeat="category in categoriesC" ng-click="selectCategoryC(category)" ng-class="{ green : category == selectedCategoryC, black : category != selectedCategoryC}" ng-if="category.parentId == selectedCategoryB.identifier">
 						<img src="{{category.$images[0].$thumbnail}}">
 						{{category.title}}
 					</a>						
@@ -117,5 +116,25 @@
 
 			</div> <!-- field -->
 		</div> <!-- CATEGORIES -->
+
+
+		<div style="">
+			<div class="ui small message" >
+				<i class="ui checkmark sign icon green" ng-if="selectedCategoryC.identifier"></i>
+				Step 1 Select Product Category
+			</div>
+			<div class="ui small message">
+				<i class="ui checkmark sign icon green" ng-if="currentProduct.name && currentProduct.productId && currentProduct.description"></i>
+
+				Step 2 Enter Product Infomation
+			</div>
+			<div class="ui small message">
+				<i class="ui checkmark sign icon green" ng-if="currentProduct.$images.length > 0"></i>
+
+				Step 3 Upload Image Files
+			</div>
+		</div>
+
+
 	</div> <!-- segment -->
 </div>  <!-- END COLUMNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
