@@ -1,5 +1,5 @@
 
-<div class="column">
+<div class="column" ng-class="{ 'animated fadeInDown' : true}">
   <div class="ui segment">
     <a class="ko-tag ui image label" ng-repeat="category in categories | filter:allCategoryFilter" ng-click="selectProductCategory(category)" ng-class="{ green : category.$selectedFilter, black : !category.$selectedFilter}" ng-if="category.$level === 'C'">
       <img src="{{category.$images[0].$thumbnail}}" alt="">
@@ -9,7 +9,7 @@
   </div>
 
 
-  <div class="column">
+  <div class="column" ng-class="{ 'animated fadeInUp' : true}">
     <table ng-table="tableParams" template-pagination="custom/pager" class="ui padded table segment">
       <thead style="font-size:80%;color:gray">
         <tr>

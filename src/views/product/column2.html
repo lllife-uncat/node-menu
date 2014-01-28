@@ -30,7 +30,7 @@
 			</div>
 		</div> <!-- color -->
 
-		<div call="ui one fields" style="min-height:30%;"> <!-- CATEGORIES -->
+		<div call="ui one fields" style="min-height:30%;" ng-class="{ 'animated fadeInUp' : true}"> <!-- CATEGORIES -->
 			<div class="field ui segment">
 
 				<label><i class="tags dollar icon"></i> Select Product Category </label>
@@ -88,7 +88,7 @@
 				</div>	
 
 
-				<div class="ui ko-category-a"  ng-if="selectedCategoryLevel == 'A'">
+				<div class="ui ko-category-a"  ng-if="selectedCategoryLevel == 'A'" ng-class="{ 'animated fadeIn' : true }">
 					<div>
 						<a class="ui image label" ng-repeat="category in categoriesA" ng-click="selectCategoryA(category)" ng-class="{ green : category.identifier == selectedCategoryA.identifier, black : category.identifier != selectedCategoryA.identifier}">
 							<img src="{{category.$images[0].$thumbnail}}">
@@ -97,7 +97,7 @@
 					</div>
 				</div>
 
-				<div class="ui ko-category-b"  ng-if="selectedCategoryLevel == 'B'">
+				<div class="ui ko-category-b"  ng-if="selectedCategoryLevel == 'B'" ng-class="{ 'animated fadeIn' : true }">
 					<div>
 						<a class="ui image label" ng-repeat="category in categoriesB" ng-click="selectCategoryB(category)" ng-class="{ green : category.identifier == selectedCategoryB.identifier, black : category.identifier != selectedCategoryB.identifier}" ng-if="category.parentId == selectedCategoryA.identifier">
 							<img src="{{category.$images[0].$thumbnail}}">
@@ -107,7 +107,7 @@
 				</div>
 
 
-				<div class="ui"  ng-if="selectedCategoryLevel == 'C'">
+				<div class="ui"  ng-if="selectedCategoryLevel == 'C'" ng-class="{ 'animated fadeIn' : true }">
 					<a class="ui image label"  ng-repeat="category in categoriesC" ng-click="selectCategoryC(category)" ng-class="{ green : category == selectedCategoryC, black : category != selectedCategoryC}" ng-if="category.parentId == selectedCategoryB.identifier">
 						<img src="{{category.$images[0].$thumbnail}}">
 						{{category.title}}
@@ -121,17 +121,17 @@
 		<div style="">
 			<div class="ui small message" >
 				<i class="ui checkmark sign icon green" ng-if="selectedCategoryC.identifier"></i>
-				Step 1 Select Product Category
+				Step <span class="ui circular label"> 1 </span> Select Product Category
 			</div>
 			<div class="ui small message">
 				<i class="ui checkmark sign icon green" ng-if="currentProduct.name && currentProduct.productId && currentProduct.description"></i>
 
-				Step 2 Enter Product Infomation
+				Step <span class="ui circular label"> 2 </span> Enter Product Infomation
 			</div>
 			<div class="ui small message">
 				<i class="ui checkmark sign icon green" ng-if="currentProduct.$images.length > 0"></i>
 
-				Step 3 Upload Image Files
+				Step <span class="ui circular label"> 3 </span> Upload Images
 			</div>
 		</div>
 

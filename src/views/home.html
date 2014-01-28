@@ -1,20 +1,22 @@
 
-<div class="ui label mini button" style="margin-bottom:10px;" ng-click="openSearch = !openSearch" >
-	<i class="ui icon search" ng-class="{ black : openSearch}" ></i>
+<div class="ui label mini button" style="margin-bottom:10px;" ng-click="openSearch = !openSearch" ng-init="openSearch = true" ng-cloak>
+	<i class="ui icon search" ></i>
 </div>
 
-<div class="ui icon input" style="width:30%" ng-show="openSearch">
+<div class="ui icon input" style="width:30%" ng-show="openSearch" ng-cloak>
 	<input type="text" placeholder="Search" ng-model="productFilter"/>
 	<i class="search link icon"></i>
 </div>
 
 
-<div class="ui basic accordionx" style="width:100%; margin-top:10px; margin-bottom:10px;" ng-if="openSearch">
+<div class="ui basic accordionx" style="width:100%; margin-top:10px; margin-bottom:10px;" ng-if="openSearch" ng-class="{ 'animated fadeInDown' : openSearch }" >
 	<div class=" title">
 		<!-- <i class="ui tags icon"></i> -->
 	</div>
 	<div class="content">
-		<div  ng-if="init() || true" class="ui segment raised black">
+		<div  ng-if="init() || true" class="ui segment">
+
+			<!--
 			<div class="ui left floated small image rounded" ng-repeat="category in categories" ng-click="selectCategory(category)" ng-if="false">
 				<a class="ui right corner label" ng-class="{ green : category.$selected }"> 
 					<div class="text"> {{category.$products.length}} </div> 
@@ -24,8 +26,9 @@
 				</a>
 				{{category.title.substring(0,10)}}
 			</div>
+			-->
 
-			<a class="ko-tag ui image label" ng-repeat="category in categories" ng-click="selectCategory(category)"  ng-class="{ green : category.$selected }" ng-if="category.$level === 'C'">
+			<a class="ko-tag ui image label" ng-repeat="category in categoriesC" ng-click="selectCategory(category)"  ng-class="{ green : category.$selected,  black : !category.$selected }" ng-if="category.$level === 'C'">
 				<img src="{{category.$images[0].$thumbnail}}" alt="">
 				<!-- <i class="tags icon"></i>  -->
 				{{category.title}} 
@@ -42,7 +45,7 @@
 	</div>
 </div>
 
-<div class="ui column grid" ng-if="init() || true">
+<div class="ui column grid" ng-if="init() || true" ng-class="{ 'animated fadeInUp' : true}">
 	<div class="six wide column">
 
 		<br>
@@ -85,13 +88,14 @@
 							<th>
 								<i class="ui icon dollar"></i> Price
 							</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="product in products | filter:complexProductFilter | orderBy : 'identifier':true" ng-click="selectProduct(product)" ng-if="matchPage($index)" ng-class="{ x : product == currentProduct}">
+						<tr ng-repeat="product in products | filter:complexProductFilter | orderBy : 'identifier':true" ng-click="selectProduct(product)" ng-if="matchPage($index)" ng-class="{  'animated fadeIn' : true , x : product == currentProduct}">
 							<td>
 								<i class="ui icon bolt" ng-if="false"></i>
-								<span ng-class="{ 'ui label' : product == currentProduct }">{{ $index + 1}}</span>
+								<span ng-class="{ 'ui green label' : product == currentProduct,  'ui label' : product != currentProduct }">{{ $index + 1}}</span>
 							</td>
 
 							<td>{{ product.productId }}</td>
@@ -105,12 +109,13 @@
 								</div>
 							</td>
 							<td class="ui ko-price">
-								<div class="ui mini label red">
+								<div class="ui mini red label">
 									<a href="" style="font-size:90%; letter-spacing: 0.08em;">
 										{{ (product.primaryPrice | currency).replace("$","") }}
 									</a>
 								</div>
 							</td>
+							<td></td>
 						</tr>
 
 					</tbody>
@@ -145,7 +150,7 @@
 
 	<div class="ten wide column" ng-if="true" >
 
-		<div class="ui segment raised" ng-if="currentProduct.name != null">
+		<div class="ui segment" ng-if="currentProduct.name != null">
 			<div class="ui column grid">
 				<div class="column six wide">
 
@@ -202,9 +207,9 @@
 
 
 
-						<div class="ui large rounded images" style="margin:0px;">
+						<div class="ui large rounded images" style="margin:0px;" ng-class="{ 'animated fadeInDown' : true}">
 							<a href=""  data-content="{{currentProduct.$images[currentImageIndex].title}}" ng-click="nextImage()"> 
-								<img src="{{currentProduct.$images[currentImageIndex].$url}}"style="max-width:100%; max-height:70%"/> 
+								<img src="{{currentProduct.$images[currentImageIndex].$url}}"style="max-width:100%; max-height:70%"  /> 
 							</a>
 						</div>
 

@@ -1,4 +1,4 @@
-	<div class="ui segment"> 	<!-- COLUMNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
+	<div class="ui segment" ng-class="{ 'animated fadeInRight' : true}"> 	<!-- COLUMNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
 		<div class="ui form">
 			<div class="ui two fields">
 
@@ -74,7 +74,7 @@
 
 					<div class="field"></div>
 					<a class="ui small images" style="display:inline-block" href="">
-						<img class="rounded ui image"  ng-repeat="x in currentProduct.$images"  ng-src="{{x.$thumbnail}}" ng-show="currentProduct.$images.length > 0" ng-click="openPicture(x)" ng-class="{ 'highlight' : x == currentPicture }">
+						<img class="rounded ui image "  ng-repeat="x in currentProduct.$images"  ng-src="{{x.$thumbnail}}" ng-show="currentProduct.$images.length > 0" ng-click="openPicture(x)" ng-class="{ 'highlight' : x == currentPicture }">
 					</a>
 				</div>
 			</div> <!-- UPLOAD -->

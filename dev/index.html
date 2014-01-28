@@ -27,7 +27,7 @@
 
 </head>
 
-<body ng-app="MenuApp"  ng-controller="NavigateController">
+<body ng-app="MenuApp"  ng-controller="NavigateController" ng-cloak >
 	
 	<div class="ui inverted menu">
 
@@ -78,15 +78,10 @@
 
 
 
-	<div class="ui raised segment" style="height:auto">
+	<div class="ui raised segment" style="min-height:90%">
 		<div ng-view class="">
 		</div>
-
-		<br>
-		<br>
 	</div> <!-- content -->
-	<br>
-
 
 	<!-- <div class="ui section divider"></div> -->
 

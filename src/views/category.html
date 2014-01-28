@@ -1,5 +1,9 @@
 <div class="ui secondary pointing menu">
 
+	<a class="item active">
+		<i class="cart icon"></i> New Category
+	</a>
+
 	<div class="right menu" ng-if="lastSelectedCategory.identifier">
 
 		<div class="item">
@@ -19,13 +23,14 @@
 </div>
 
 
-<div class="ui two column grid">
+<div class="ui two column grid" ng-class="{ 'animated fadeInDown' : true}">
 
 
 	<div class="column">
 		<div class="ui fluid form segment" style="min-height:40%">
 
-			<div class="field">
+			<!--
+			<div class="field" ng-class="{ 'animated fadeIn' : openSearch }" >
 				<label for="" ng-if="false">All Category </label>
 
 				<div class="ui icon input" ng-if="false">
@@ -35,8 +40,9 @@
 					</div>
 				</div>	
 			</div>
+			-->
 
-			<div class="field">
+			<div class="field" ng-class="{ 'animated fadeIn' : true }">
 				<label for=""><i class="tags icon"></i> Main Category</label>
 
 				<div class="ui">
@@ -51,7 +57,7 @@
 				</div>
 			</div>
 
-			<div class="field" ng-if="selectedLevelA.identifier != null">
+			<div class="field" ng-if="selectedLevelA.identifier != null"  ng-class="{ 'animated fadeIn' : true }">
 				<label for=""><i class="tags icon"></i> Sub Category</label>
 
 				<div class="ui">
@@ -66,7 +72,7 @@
 				</div>
 			</div>
 
-			<div class="field"  ng-if="selectedLevelB.identifier != null">
+			<div class="field"  ng-if="selectedLevelB.identifier != null" ng-class="{ 'animated fadeIn' : true }">
 				<label for=""><i class="tags icon"></i>  Category</label>
 
 				<div class="ui">
@@ -91,16 +97,16 @@
 
 		<div style="">
 			<div class="ui small message" >
-				<i class="ui checkmark sign icon green" ng-if="selectedLevelA.identifier != null"></i>
-				Step 1  Select <span>Main Category</span> | <span>Sub Category</span>
+				<i class="ui checkmark sign icon green"   ng-class="{ 'animate fadeInLeft': true }" ng-if="selectedLevelA.identifier != null"></i>
+				Step <span class="ui circular label"> 1 </span>  Select <span>Main Category</span> | <span>Sub Category</span>
 			</div>
 			<div class="ui small message">
-				<i class="ui checkmark sign icon green" ng-if="currentCategory.title && currentCategory.categoryId && currentCategory.description"></i>
-				Step 2 Enter New Category Infomation
+				<i class="ui checkmark sign icon green"  ng-class="{ 'animate fadeInLeft': true }"  ng-if="currentCategory.title && currentCategory.categoryId && currentCategory.description"></i>
+				Step <span class="ui circular label"> 2 </span> Enter New Category Infomation
 			</div>
 			<div class="ui small message">
-				<i class="ui checkmark sign icon green" ng-if="currentCategory.$images.length > 0"></i>
-				Step 3 Upload Image
+				<i class="ui checkmark sign icon green"  ng-class="{ 'animate fadeInLeft': true }"  ng-if="currentCategory.$images.length > 0"></i>
+				Step <span class="ui circular label"> 3 </span> Upload Image
 			</div>
 		</div>
 
@@ -109,7 +115,7 @@
 
   <!-- <div class="ui vertical divider"> </div> -->
 
-	<div class="column ">
+	<div class="column " ng-class="{ 'animated fadeInRight' : true}">
 
 		<div class="form ui segment ko-body">
 
@@ -166,7 +172,7 @@
 					<div class="ui">
 						<div class="ui breadcrumb">
 
-							<div class="section" ng-if="selectedLevelA.identifier != null">
+							<div class="section" ng-if="selectedLevelA.identifier != null" ng-class="{ 'animated fadeInDown' : true }">
 								<div class="ui image label black">
 									<img src="{{selectedLevelA.$images[0].$thumbnail}}" alt="">
 									{{selectedLevelA.title}}
@@ -176,7 +182,7 @@
 							<span ng-if="selectedLevelB.identifier != null">
 								<i class="right arrow icon divider"></i>
 
-								<div class="section">
+								<div class="section" ng-class="{ 'animated fadeInDown' : true }">
 									<div class="ui image label black">
 										<img src="{{selectedLevelB.$images[0].$thumbnail}}" alt="">
 										{{selectedLevelB.title}}
@@ -187,7 +193,7 @@
 							<span ng-if="(selectedLevelA.identifier != null || selectedLevelB != null) && currentCategory.title">
 								<i class="right arrow icon divider"></i>
 
-								<a class="ui image label green">
+								<a class="ui image label green" ng-class="{ 'animated fadeInDown' : true }">
 									<img src="{{currentCategory.$images[0].$thumbnail}}">
 									{{currentCategory.title}}
 								</a>
