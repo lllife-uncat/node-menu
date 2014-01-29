@@ -6,6 +6,10 @@ app.controller("HomeController", function($scope, NavigateService, CategoryServi
 	// Check login.
 	UserService.check($scope);
 
+	$scope.initialize = function(){
+		$scope.currentProduct = $scope.products[0];
+	}
+
 	// Init all data.
 	_initCategory($scope, CategoryService, ProductService);
 	_initProduct($scope, ProductService);

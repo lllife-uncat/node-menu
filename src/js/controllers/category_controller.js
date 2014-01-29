@@ -11,16 +11,83 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 	$scope.categoriesA, $scope.categoriesB, $scope.categoriesC, $scope.categoriesD = [];
 	$scope.selectedLevelA, $scope.selectedLevelB, $scope.selectedLevelC = [];
 	$scope.selectedCategory = {};
-	$scope.lastSelectedCategory = {};
+	// $scope.lastSelectedCategory = {};
+
+	// current selected picture
+	$scope.currentPicture = {};
 
 	$scope.currentCategory = {
 		parentId : null
 	};
 
+	$scope.getParentA = function(cat){
+		var catA = null;
+
+		$scope.categories.forEach(function(c){
+			if(c.identifier == cat.parentId){
+				var parentB = c;
+				$scope.categories.forEach(function(c){
+					if(c.identifier == parentB.parentId) {
+						catA = c;
+						return;
+					}
+				});
+			}
+		});
+
+		return catA;
+	};
+
+	// show image in big view area.
+	$scope.openPicture = function(p){
+		$scope.currentPicture = p;
+	};
+	
+	// remove image.
+	$scope.removeImage = function(image){
+
+		var index = $scope.currentCategory.$images.indexOf(image);
+		if(index != -1){
+			$scope.currentCategory.$images.splice(index, 1);
+			$scope.currentPicture = {};
+			console.log("remove image: " + image.identifier);
+		}
+
+		console.log("[product]");
+		console.log($scope.currentCategory);
+
+		var idIndex = $scope.currentCategory.imageIds.indexOf(image.identifier);
+
+		if(index != -1){
+			$scope.currentCategory.imageIds.splice(idIndex, 1);
+			console.log("remove image id: " + image.identifier);
+		}
+	}
+
+	$scope.getParentB = function(cat){
+		var catB = null;
+
+		$scope.categories.forEach(function(c){
+			if(c.identifier == cat.parentId){
+				catB = c;
+				return;
+			}
+		});
+
+		return catB;
+	}
+
+
+		// move to top
+		$scope.moveToTop = function(){
+			$("html, body").animate({ scrollTop: 0 }, "slow");
+		};
+
+
 	// Select specific category.
 	$scope.select = function(cat){
 		_selectComplexCategory($scope, cat);
-		$scope.lastSelectedCategory = cat;
+		// $scope.lastSelectedCategory = cat;
 	}
 
 	// Refresch category dependency.
@@ -30,17 +97,32 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 
 	};
 
+
 	// Start edit
 	$scope.edit = function(cat){
-		$scope.currentCategory = cat;
 
-		if(cat == $scope.selectedLevelA){
+		if(cat.$level == "A"){
 			$scope.selectedLevelA = {};
-		}else if(cat == $scope.selectedLevelB){
+		}else if(cat.$level == "B"){
 			$scope.selectedLevelB = {};
-		}else if(cat == $scope.selectedLevelC){
+		}else if(cat.$level == "C"){
 			$scope.selectedLevelC = {};
 		}
+
+		$scope.currentCategory = cat;
+
+
+		cat.$images.forEach(function(img){
+			$scope.currentPicture = img;
+		});
+
+		// if(cat == $scope.selectedLevelA){
+		// 	$scope.selectedLevelA = {};
+		// }else if(cat == $scope.selectedLevelB){
+		// 	$scope.selectedLevelB = {};
+		// }else if(cat == $scope.selectedLevelC){
+		// 	$scope.selectedLevelC = {};
+		// }
 	}
 
 	var request = CategoryService.findAll();
@@ -66,7 +148,10 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 	////////////////////////////////////////////////////////
 	$scope.save = function(cat){
 
-		cat.parentId = $scope.selectedCategory.identifier;
+		if(cat != $scope.selectedCategory) {
+			cat.parentId = $scope.selectedCategory.identifier;			
+		}
+
 		cat.imageIds = [];
 		cat.$images.forEach(function(img){
 			cat.imageIds.push(img.identifier);
@@ -113,25 +198,6 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 
 	}
 
-	//////////////////////////////////////////////////////////
-	// UPDATE UI
-	///////////////////////////////////////////////////////////
-	// $scope.setEditCategory = function(cat){
-	// 	cat.$active = !cat.$active;
-	// 	$scope.currentCategory = cat;
-	// };
-
-	// $scope.setParent = function(parent){
-	// 	console.log("current: " + $scope.currentCategory.parentId);
-	// 	console.log("click: " + parent.identifier);
-
-	// 	if($scope.currentCategory.parentId == parent.identifier) {
-	// 		$scope.currentCategory.parentId = null;
-	// 	}else {
-	// 		console.log("update...");
-	// 		$scope.currentCategory.parentId = parent.identifier;
-	// 	}
-	// };
 
 	$scope.cancel = function(){
 		$scope.currentCategory = { parentId: null };

@@ -1,0 +1,58 @@
+<div ng-class="{ 'animated fadeInUp' : true}">
+	<table class="ui padded table segment" style="font-size:80%;text-transform: none;">
+		<thead style="font-size:80%;color:gray">
+			<tr>
+				<th> <i class="ui icon bolt"></i></th>
+				<th> <i class="ui cart"></i> ID </th>
+				<th> <i class="ui cart"></i> Title </th>
+				<th > <i class="ui cart"></i> Description </th>
+
+				<th><i class="ui photo"></i> Images</th>
+
+				<th> <i class="ui dollar"></i> Level </th>
+				<th><i class="ui edit"></i> Edit</th>
+
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr ng-repeat="category in categories  | orderBy : 'identifier':true| limitTo:10"  ng-class="{ positive : category == currentCategory , 'animate fadeInUp' : true}">
+
+				<td>{{ $index + 1}}</td>
+				<td>{{ category.categoryId }}</td>
+				<td>{{ category.name }}</td>
+
+
+				<td style="max-width:400px">{{ category.description }}</td>
+
+
+				<td>
+					<div class="ui mini images" style="display:inline-block">
+						<a href=""  class="ko-thumbnail"  ng-repeat="x in category.$images" ng-show="category.$images.length > -1 && x.archive == false" data-content="{{x.title}}">
+							<img class="rounded  ui image"  ng-src="{{x.$thumbnail}}"  >
+						</a>
+					</div>
+				</td>
+
+
+				<td class="ko-price"> <!-- price -->
+					<div class="ui label black">
+						<a href="" style="font-size:100%">
+							{{ (category.primaryPrice | currency).replace("$","") }}
+						</a>
+					</div>
+				</td>
+
+
+				<td>
+					<div class="ui mini button" href="" style="text-decoration:none;"  ng-click="moveToTop(); selectProduct(product)"  >
+						<i class="ui icon edit"></i>
+					</div>
+				</td>
+
+
+				</tr>
+
+			</tbody>
+		</table>
+	</div>

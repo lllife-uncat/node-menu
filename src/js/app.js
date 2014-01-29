@@ -141,6 +141,10 @@ function _initProduct($scope, ProductService, ngTableParams){
 
 		var so = $scope.products.sort(function(a,b) { return a.identifier - b.identifier } );
 
+		if(typeof($scope.initialize) != 'undefined'){
+			$scope.initialize();
+		}
+
 		// console.log("== all products ==");
 		// console.log($scope.products);
 
@@ -158,6 +162,7 @@ function _initProduct($scope, ProductService, ngTableParams){
 }
 
 function _refreshCategoryInfo($scope){
+
 	$scope.categoriesA =[];
 	$scope.categoriesB =[];
 	$scope.categoriesC = [];
@@ -208,25 +213,43 @@ function _refreshCategoryInfo($scope){
 	});
 }
 
+function _getCateogryById($scope, id){
+	var match = null;
+	$scope.categories.forEach(function(a){
+		if(a.identifier == id) {
+			match = a;
+		}
+	});
+	return match;
+}
+
 function _selectComplexCategory($scope, cat){
 	cat.$selected = !(cat.$selected || false);
 
 	if(cat.$selected){
 		$scope.selectedCategory = cat;
+	}else {
+		$scope.selectedCategory = {};
 	}
 
 	if(cat.$level === "A") {
 		$scope.selectedLevelA = cat;
 		$scope.selectedLevelB = {};
+		$scope.selectedLevelC = {};
+
 		if(!cat.$selected) {
 			$scope.selectedLevelA = {};
-			$scope.selectedCategory = {};
 		}
+
 	}else if(cat.$level === "B"){
 		$scope.selectedLevelB = cat;
+		$scope.selectedLevelA = _getCateogryById($scope, cat.parentId);
 		$scope.selectedLevelC = {};
+
 	}else if(cat.$level === "C"){
 		$scope.selectedLevelC = cat;
+		$scope.selectedLevelB = _getCateogryById($scope, cat.parentId);
+		$scope.selectedLevelA = _getCateogryById($scope, $scope.selectedLevelB.parentId);
 	}
 }
 
