@@ -1,11 +1,15 @@
-app.factory("ProductService", function(ConfigurationService, $http){
+app.factory("ProductService", function(ConfigurationService, $http, UserService){
 
 	var baseUrl = ConfigurationService.endPoint + "/product";
 	var uploadImageUrl = ConfigurationService.endPoint + "/image/upload";
 
 	return {
+
+
 		getBaseUrl : function() { return baseUrl; },
+
 		getUploadImageUrl : function() { return uploadImageUrl; },
+
 		getImageUrl : function(id) {
 			return ConfigurationService.endPoint + "/image/url/" + id;
 		},

@@ -1,0 +1,33 @@
+<div style="width:400px;margin-left:auto; margin-right:auto;">
+	
+
+	<div class="ui icon header" style="width:100%; margin-left:auto; margin-right:auto;" ng-class="{ 'animated fadeIn' : true }" >
+		<i class="circular user icon"></i>Digital Menu Manager
+		<div class="sub header">Have any questions? Contact Us</div>
+	</div>
+
+
+
+	<div class="ui segment raised"  ng-class="{ 'animated fadeInDown' : true }" >
+
+		<div class="ui form fields" >
+			<div class="field">
+				<label for="">User</label>
+				<input type="text" name="" id="" ng-model="user">
+			</div>
+
+			<div class="field">
+				<label for="">Password</label>
+				<input type="password" ng-model="password" ng-enter="login()">
+			</div>
+
+			<div class="field">
+				<div class="ui mini button" ng-click="login()">
+					<i class="ui user icon"></i> Login
+				</div>
+			</div>
+		</div>
+
+		<span class="ui label red" ng-class="{ 'animated fadeIn' : true }" ng-if="error"><i class="ui icon error"></i>  Invalid user / password!</span>
+	</div>
+</div>

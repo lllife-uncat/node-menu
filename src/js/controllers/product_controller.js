@@ -1,10 +1,13 @@
 
 
 
-app.controller("ProductController", function($scope, $location, CategoryService, ProductService, $upload, ngTableParams){
+app.controller("ProductController", function($scope, $location, CategoryService, ProductService, $upload, ngTableParams, UserService){
 
 	// active menu
 	$scope.$emit("navigate", $location.path() );	
+
+	// check login
+	UserService.check($scope);
 
 	// current selected tab	
 	$scope.selectedTab = "product";

@@ -18,7 +18,7 @@
 		</thead>
 		<tbody>
 			<!-- <tr ng-repeat="product in products | filter:complexProductFilter" ng-click="selectProduct(product)" ng-if="matchPage($index)" ng-class="{ positive : product == currentProduct}"> -->
-			<tr ng-repeat="product in products  | orderBy : 'identifier':true| limitTo:10"  ng-class="{ positive : product == currentProduct}">
+			<tr ng-repeat="product in products  | orderBy : 'identifier':true| limitTo:10"  ng-class="{ positive : product == currentProduct, 'animate fadeInUp' : true}">
 
 				<td>{{ $index + 1}}</td>
 				<td>{{ product.productId }}</td>

@@ -36,6 +36,12 @@ app.config(function($routeProvider){
 		templateUrl : "views/branch.html",
 		controller: "BranchController"
 	});
+
+	$routeProvider.when("/login", {
+		templateUrl : "views/login.html",
+		controller : "LoginController"
+	});
+
 	$routeProvider.otherwise({
 		redirectTo: "/"
 	});

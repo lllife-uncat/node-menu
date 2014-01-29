@@ -36,6 +36,12 @@ app.config(function($routeProvider){
 		templateUrl : "views/branch.html",
 		controller: "BranchController"
 	});
+
+	$routeProvider.when("/login", {
+		templateUrl : "views/login.html",
+		controller : "LoginController"
+	});
+
 	$routeProvider.otherwise({
 		redirectTo: "/"
 	});
@@ -261,20 +267,74 @@ app.factory("ConfigurationService", function(){
 		endPoint : "http://10.0.0.67:8877"
 	}
 });
+app.directive('ngEnter', function() {
+    return function(scope, element, attrs) {
+        element.bind("keydown keypress", function(event) {
+            if(event.which === 13) {
+                scope.$apply(function(){
+                    scope.$eval(attrs.ngEnter, {'event': event});
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});
 
 app.factory("NavigateService", function($location) {
 	return function($xscope) {
 		$xscope.$emit("navigate", $location.path() );
 	};
 });
-app.factory("ProductService", function(ConfigurationService, $http){
+
+app.factory("UserService", function($location, $http, ConfigurationService){
+
+	var endPoint = ConfigurationService.endPoint + "/user"
+
+	var status = {
+		isLogged : false,
+		user : ""
+	};
+
+	return {
+
+		status : status, 
+
+		check : function($scope){
+			if(!status.isLogged) {
+				$location.path("/login");
+			}
+		},
+
+		login : function(user, password){
+			var request = $http({
+				url :  endPoint + "/login",
+				method : "POST",
+				data : { user: user, password : password },
+				headers : { "Content-Type" : "multipart/form-data" }
+			});
+			return request;
+		},
+
+		logout : function(){
+			status.isLogged = false;
+			status.user = "";
+			$location.path("/login");
+		}
+	};
+});
+app.factory("ProductService", function(ConfigurationService, $http, UserService){
 
 	var baseUrl = ConfigurationService.endPoint + "/product";
 	var uploadImageUrl = ConfigurationService.endPoint + "/image/upload";
 
 	return {
+
+
 		getBaseUrl : function() { return baseUrl; },
+
 		getUploadImageUrl : function() { return uploadImageUrl; },
+
 		getImageUrl : function(id) {
 			return ConfigurationService.endPoint + "/image/url/" + id;
 		},
@@ -350,13 +410,15 @@ app.controller("BranchController", function($scope, NavigateService){
 	$scope.category = true;
 	NavigateService($scope);
 });
-app.controller("CategoryController", function($scope, NavigateService, CategoryService, ProductService, $upload){
+app.controller("CategoryController", function($scope, NavigateService, CategoryService, ProductService, $upload, UserService){
 
-	////////////////////////////////////////////////
-	// INITIALIZE VARIABLE
-	////////////////////////////////////////////////
+	// Active ui
 	NavigateService($scope);
 
+	// Check login
+	UserService.check($scope);
+
+	// Init controller variable
 	$scope.categories = [];
 	$scope.categoriesA, $scope.categoriesB, $scope.categoriesC, $scope.categoriesD = [];
 	$scope.selectedLevelA, $scope.selectedLevelB, $scope.selectedLevelC = [];
@@ -367,17 +429,20 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 		parentId : null
 	};
 
+	// Select specific category.
 	$scope.select = function(cat){
 		_selectComplexCategory($scope, cat);
 		$scope.lastSelectedCategory = cat;
 	}
 
+	// Refresch category dependency.
 	$scope.refreshCategoryInfo = function(){
 
 		_refreshCategoryInfo($scope);
 
 	};
 
+	// Start edit
 	$scope.edit = function(cat){
 		$scope.currentCategory = cat;
 
@@ -390,9 +455,6 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 		}
 	}
 
-	//////////////////////////////////////////////////
-	// GET ALL CATEGORY VIA WEB SERVICE
-	///////////////////////////////////////////////////
 	var request = CategoryService.findAll();
 
 	request.success(function(data){
@@ -530,12 +592,23 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 	};
 
 });
-app.controller("HomeController", function($scope, NavigateService, CategoryService, ProductService){
+app.controller("HomeController", function($scope, NavigateService, CategoryService, ProductService, UserService){
+
+	// Active menu.
 	NavigateService($scope);
 
+	// Check login.
+	UserService.check($scope);
+
+	// Init all data.
 	_initCategory($scope, CategoryService, ProductService);
 	_initProduct($scope, ProductService);
 
+	// catRequest.success(function(data){
+	// 	$scope.refreshAllCategoryInfo();
+	// });
+
+	// Init variable.
 	$scope.currentProduct = {};
 	$scope.productFilter = "";
 	$scope.currentImageIndex = 0;
@@ -684,13 +757,38 @@ app.controller("HomeController", function($scope, NavigateService, CategoryServi
 app.controller("ImageController", function($scope, NavigateService){
 	NavigateService($scope);
 });
-app.controller("NavigateController", function($scope){
+app.controller("LoginController", function($scope, UserService, $location){
+	$scope.user = "";
+	$scope.password = "";
+	$scope.error = false;
+
+	$scope.login = function(){
+
+		var request = UserService.login($scope.user, $scope.password);
+		request.success(function(rs){
+			if(rs.success){
+
+				UserService.status.isLogged = true;
+				UserService.status.user = $scope.user;
+
+				$location.path("/home")
+			}else {
+				$scope.error = true;
+			}
+		});
+	}
+});
+app.controller("NavigateController", function($scope, UserService){
 	$scope.location = "/";
 
 	$scope.$on("navigate", function(event, url){
 		$scope.location = url;
 		console.log("url:" + url);
 	});
+
+	$scope.isLogged = function() {
+		return UserService.status.isLogged;
+	}
 
 	$scope.$on("message", function(event, data){
 		$scope.error = data.error;
@@ -709,14 +807,21 @@ app.controller("NavigateController", function($scope){
 	$scope.hide = function(){
 		$scope.show = false;
 	}
+
+	$scope.logout = function(){
+		UserService.logout();
+	}
 });
 
 
 
-app.controller("ProductController", function($scope, $location, CategoryService, ProductService, $upload, ngTableParams){
+app.controller("ProductController", function($scope, $location, CategoryService, ProductService, $upload, ngTableParams, UserService){
 
 	// active menu
 	$scope.$emit("navigate", $location.path() );	
+
+	// check login
+	UserService.check($scope);
 
 	// current selected tab	
 	$scope.selectedTab = "product";

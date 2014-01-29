@@ -27,9 +27,9 @@
 
 </head>
 
-<body ng-app="MenuApp"  ng-controller="NavigateController" ng-cloak >
+<body ng-app="MenuApp"  ng-controller="NavigateController" >
 	
-	<div class="ui inverted menu">
+	<div class="ui inverted menu" ng-if="isLogged()">
 
 		<a class="active item" href="#/home" ng-class="{ active: location=='/' }">
 			<i class="home icon"></i> Digital Menu
@@ -65,7 +65,7 @@
 			</div>
 
 			<a class="ui item" ng-show="show"> <i class="user icon orange"></i></a>
-			<a class="ui item" ng-show="true"> <i class="bolt icon orange"></i></a>
+			<a class="ui item" ng-click="logout()" ng-show="isLogged()"> <i class="bolt icon orange"></i></a>
 
 			<!-- <a class="ui item"> Logout </a> -->
 		</div>

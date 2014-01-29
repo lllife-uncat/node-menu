@@ -1,10 +1,14 @@
-app.controller("NavigateController", function($scope){
+app.controller("NavigateController", function($scope, UserService){
 	$scope.location = "/";
 
 	$scope.$on("navigate", function(event, url){
 		$scope.location = url;
 		console.log("url:" + url);
 	});
+
+	$scope.isLogged = function() {
+		return UserService.status.isLogged;
+	}
 
 	$scope.$on("message", function(event, data){
 		$scope.error = data.error;
@@ -22,5 +26,9 @@ app.controller("NavigateController", function($scope){
 
 	$scope.hide = function(){
 		$scope.show = false;
+	}
+
+	$scope.logout = function(){
+		UserService.logout();
 	}
 });

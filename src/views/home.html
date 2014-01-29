@@ -1,20 +1,21 @@
+<div ng-init="init()"></div>
 
-<div class="ui label mini button" style="margin-bottom:10px;" ng-click="openSearch = !openSearch" ng-init="openSearch = true" ng-cloak>
+<div class="ui label mini button" style="margin-bottom:10px;" ng-click="openSearch = !openSearch" ng-init="openSearch = true">
 	<i class="ui icon search" ></i>
 </div>
 
-<div class="ui icon input" style="width:30%" ng-show="openSearch" ng-cloak>
+<div class="ui icon input" style="width:30%" ng-show="openSearch">
 	<input type="text" placeholder="Search" ng-model="productFilter"/>
 	<i class="search link icon"></i>
 </div>
 
 
-<div class="ui basic accordionx" style="width:100%; margin-top:10px; margin-bottom:10px;" ng-if="openSearch" ng-class="{ 'animated fadeInDown' : openSearch }" >
+<div class="ui basic accordionx" style="width:100%; margin-top:10px; margin-bottom:10px;" ng-if="false" ng-class="{ 'animated fadeInDown' : openSearch }" >
 	<div class=" title">
 		<!-- <i class="ui tags icon"></i> -->
 	</div>
 	<div class="content">
-		<div  ng-if="init() || true" class="ui segment">
+		<div class="ui segment">
 
 			<!--
 			<div class="ui left floated small image rounded" ng-repeat="category in categories" ng-click="selectCategory(category)" ng-if="false">
@@ -45,7 +46,7 @@
 	</div>
 </div>
 
-<div class="ui column grid" ng-if="init() || true" ng-class="{ 'animated fadeInUp' : true}">
+<div class="ui column grid" ng-class="{ 'animated fadeInUp' : true}">
 	<div class="six wide column">
 
 		<br>

@@ -1,10 +1,12 @@
-app.controller("CategoryController", function($scope, NavigateService, CategoryService, ProductService, $upload){
+app.controller("CategoryController", function($scope, NavigateService, CategoryService, ProductService, $upload, UserService){
 
-	////////////////////////////////////////////////
-	// INITIALIZE VARIABLE
-	////////////////////////////////////////////////
+	// Active ui
 	NavigateService($scope);
 
+	// Check login
+	UserService.check($scope);
+
+	// Init controller variable
 	$scope.categories = [];
 	$scope.categoriesA, $scope.categoriesB, $scope.categoriesC, $scope.categoriesD = [];
 	$scope.selectedLevelA, $scope.selectedLevelB, $scope.selectedLevelC = [];
@@ -15,17 +17,20 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 		parentId : null
 	};
 
+	// Select specific category.
 	$scope.select = function(cat){
 		_selectComplexCategory($scope, cat);
 		$scope.lastSelectedCategory = cat;
 	}
 
+	// Refresch category dependency.
 	$scope.refreshCategoryInfo = function(){
 
 		_refreshCategoryInfo($scope);
 
 	};
 
+	// Start edit
 	$scope.edit = function(cat){
 		$scope.currentCategory = cat;
 
@@ -38,9 +43,6 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 		}
 	}
 
-	//////////////////////////////////////////////////
-	// GET ALL CATEGORY VIA WEB SERVICE
-	///////////////////////////////////////////////////
 	var request = CategoryService.findAll();
 
 	request.success(function(data){

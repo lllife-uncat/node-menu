@@ -1,9 +1,20 @@
-app.controller("HomeController", function($scope, NavigateService, CategoryService, ProductService){
+app.controller("HomeController", function($scope, NavigateService, CategoryService, ProductService, UserService){
+
+	// Active menu.
 	NavigateService($scope);
 
+	// Check login.
+	UserService.check($scope);
+
+	// Init all data.
 	_initCategory($scope, CategoryService, ProductService);
 	_initProduct($scope, ProductService);
 
+	// catRequest.success(function(data){
+	// 	$scope.refreshAllCategoryInfo();
+	// });
+
+	// Init variable.
 	$scope.currentProduct = {};
 	$scope.productFilter = "";
 	$scope.currentImageIndex = 0;
