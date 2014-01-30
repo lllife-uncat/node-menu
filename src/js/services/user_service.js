@@ -3,7 +3,7 @@ app.factory("UserService", function($location, $http, ConfigurationService){
 	var endPoint = ConfigurationService.endPoint + "/user"
 
 	var status = {
-		isLogged : false,
+		isLogged : true,
 		user : ""
 	};
 

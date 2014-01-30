@@ -1,10 +1,11 @@
+
 <div ng-init="init()"></div>
 
-<div class="ui label mini button" style="margin-bottom:10px;" ng-click="openSearch = !openSearch" ng-init="openSearch = true">
+<div class="ui label mini button " style="margin-bottom:10px;" ng-click="openSearch = !openSearch" ng-init="openSearch = true">
 	<i class="ui icon search" ></i>
 </div>
 
-<div class="ui icon input" style="width:30%" ng-show="openSearch">
+<div class="ui icon input animated fadeInDown" style="width:30%" ng-show="openSearch" >
 	<input type="text" placeholder="Search" ng-model="productFilter"/>
 	<i class="search link icon"></i>
 </div>
@@ -71,7 +72,7 @@
 			</div>
 
 			<div>
-				<table class="ui padded table segment" style="font-size:80%;text-transform: none;">
+				<table class="ui basic table segment" style="font-size:80%;text-transform: none;">
 					<thead ng-show="false">
 						<tr>
 							<th>
@@ -221,9 +222,9 @@
 					</div>
 
 
-					<div class="ui label" style="width:100%; text-transform:none; margin-bottom:0px;"><i class="photo icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}</div>
+					<div class="ui label green" style="width:100%; text-transform:none; margin-bottom:0px;"><i class="photo icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}</div>
 
-					<div class="ui label" style="width:100%; text-transform:none;"><i class="info icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}</div>
+					<div class="ui label green" style="width:100%; text-transform:none;"><i class="info icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}</div>
 
 
 

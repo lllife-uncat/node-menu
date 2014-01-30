@@ -12,7 +12,7 @@
   <div class="column" ng-class="{ 'animated fadeInUp' : true}">
     <table ng-table="tableParams" template-pagination="custom/pager" class="ui padded table segment">
       <thead style="font-size:80%;color:gray">
-        <tr>
+        <tr >
 
           <th style="width:20px;">
             <label for="">
@@ -63,7 +63,7 @@
 
       <tbody>
 
-        <tr ng-repeat="product in $data | filter:productComplexFilter" style="font-size:80%" ng-click="selectProduct(product);" class="repeat-animation">
+        <tr ng-repeat="product in $data | filter:productComplexFilter" style="font-size:80%" ng-click="selectProduct(product);" class="animated fadeIn">
 
           <td class="ko-index">
             <span> {{$index + 1}}</span>

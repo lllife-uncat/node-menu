@@ -38,25 +38,25 @@
 				<td > <!-- price -->
 
 					<span ng-if="getParentA(category)" >
-						<div class="ui image label black" style="text-transform:none;" ng-class="{}">
+						<div class="ui image label black animated fadeInLeft" style="text-transform:none;" ng-class="{}">
 							<img src="{{getParentA(category).$images[0].$thumbnail}}" alt="">
 							{{getParentA(category).title}} 
 						</div>
 
-						<i class="right arrow icon divider"></i>						
+						<i class="right arrow icon divider animated fadeInRight"></i>						
 					</span>
 
 					<span ng-if="getParentB(category)"  >
-						<div class="ui image label black" style="text-transform:none;" ng-class="{}">
+						<div class="ui image label black animated fadeInLeft" style="text-transform:none;" ng-class="{}">
 							<img src="{{getParentB(category).$images[0].$thumbnail}}" alt="">
 							{{getParentB(category).title}}
 						</div>
 
-						<i class="right arrow icon divider"></i>
+						<i class="right arrow icon divider animated fadeInRight"></i>
 
 					</span>
 
-					<span class="ui image label green" style="text-transform:none;" ng-class="{ black : category.$level == 'C', black : category.$level == 'B', black : category.$level == 'A'}">
+					<span class="ui image label green animated fadeInLeft" style="text-transform:none;" ng-class="{ black : category.$level == 'C', black : category.$level == 'B', black : category.$level == 'A'}">
 							<img src="{{category.$images[0].$thumbnail}}" alt="">
 						{{category.title}}
 					</span>
