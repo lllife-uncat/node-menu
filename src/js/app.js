@@ -42,6 +42,11 @@ app.config(function($routeProvider){
 		controller : "LoginController"
 	});
 
+	$routeProvider.when("/synchronize", {
+		templateUrl : "views/synchronize.html",
+		controller : "SynchronizeController"
+	});
+
 	$routeProvider.otherwise({
 		redirectTo: "/"
 	});

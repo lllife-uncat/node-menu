@@ -42,6 +42,11 @@ app.config(function($routeProvider){
 		controller : "LoginController"
 	});
 
+	$routeProvider.when("/synchronize", {
+		templateUrl : "views/synchronize.html",
+		controller : "SynchronizeController"
+	});
+
 	$routeProvider.otherwise({
 		redirectTo: "/"
 	});
@@ -394,6 +399,7 @@ app.factory("ProductService", function(ConfigurationService, $http, UserService)
 		}
 	}
 });
+
 app.factory("UserService", function($location, $http, ConfigurationService){
 
 	var endPoint = ConfigurationService.endPoint + "/user"
@@ -1436,6 +1442,38 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 			});
 		}
 	};
+});
+app.controller("SynchronizeController", function($scope, ConfigurationService){
+
+	var endPoint = ConfigurationService.endPoint + "/eventbus";
+	var eb = new vertx.EventBus(endPoint);
+	var startEvent = "synchronize.start";
+	var statusEvent = "synchronize.status";
+
+	eb.onmessage = function(e) {
+		console.log('message', e.data);
+	};
+	eb.onclose = function() {
+		console.log('close');
+	};
+
+	eb.onopen = function(){
+
+		eb.registerHandler(startEvent, function(message){
+			console.log("== Receive ==");
+			console.log(message);
+		});
+
+		eb.registerHandler(statusEvent, function(message){
+			console.log(message);
+		});
+
+	};
+
+	$scope.start = function() {
+		eb.send(startEvent, "*****");
+	};
+
 });
 app.controller("UserController", function($scope, NavigateService){
 	NavigateService($scope);
