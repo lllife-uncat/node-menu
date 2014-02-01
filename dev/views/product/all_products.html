@@ -106,7 +106,9 @@
               </div>
             </div> <!-- update -->
 
-            <div class="ui mini button" ng-if="product.$edit"  ng-click="showImageModal()" > <i class="edit icon" ></i>Detail</div>
+            <div class="ui mini button" ng-if="product.$edit"  ng-click="showImageModal()" style="margin:2px">
+              <i class="photo icon" ></i>
+            </div>
 
             <div ng-if="!product.$edit">
               <div class="ui mini images" style="display:inline-block">
@@ -135,8 +137,8 @@
 
           <td>
             <div ng-if="!product.archive">
-             <i class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true;setInlineEditing(true);"> <i class="edit icon" ></i> </i>
-             <i class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false;inlineUpdate(product)"> <i class="save icon" ></i> </i>              
+             <div class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true;setInlineEditing(true);"> <i class="edit icon" ></i> </div>
+             <div class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false;inlineUpdate(product)"> <i class="save icon" ></i> </div>              
            </div>
          </td>
        </tr> <!-- TR -->

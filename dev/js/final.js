@@ -1445,17 +1445,21 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 });
 
 
-app.controller("SynchronizeController", function($scope, ConfigurationService, $location){
+app.controller("SynchronizeController", function($scope, ConfigurationService, $location, $rootScope){
 
 	function startSync(){
-		eb.send(startEvent, "Hello Main!", function(reply){
+		eb.send(startEvent, 0 , function(reply){
 
 		});
 	}
 
 	function getInfos(){
 
-		eb.send(listEvent, "Hello Man!", function(reply){
+		console.log("== Get Infos ==");
+
+		eb.send(listEvent, 0 , function(reply){
+
+			console.log("== Receive Reply ==");
 
 			var obj = JSON.parse(reply);
 
@@ -1472,7 +1476,12 @@ app.controller("SynchronizeController", function($scope, ConfigurationService, $
 			});
 
 
-			$scope.$apply();
+			// $scope.$apply();
+			// $scope.$digest();
+			$scope.$apply(function(){
+				$scope.categories = obj.categories;
+				$scope.prodcuts = obj.products;
+			});
 		});
 	}
 
@@ -1487,14 +1496,12 @@ app.controller("SynchronizeController", function($scope, ConfigurationService, $
 
 		eb.onopen = function(){
 
-			eb.registerHandler(startEvent, function(message){
-				console.log("== Receive ==");
-				console.log(message);
-			});
+			// eb.registerHandler(startEvent, function(message){
+			// 	console.log("== Receive ==");
+			// 	console.log(message);
+			// });
 
-			eb.registerHandler(listEvent, function(message){
-
-			});
+			// eb.registerHandler(listEvent, function(message){ });
 
 			eb.registerHandler(statusEvent, function(message){
 				var obj = JSON.parse(message);

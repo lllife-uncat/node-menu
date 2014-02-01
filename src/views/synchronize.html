@@ -5,7 +5,7 @@
 		<i class="ui icon refresh"></i> Refresh
 	</div>
 	<div class="ui mini button" ng-click="start()"  ng-if="products.length > 0 || categories.length > 0">
-		<i class="ui icon refresh"></i> Start Sync
+		<i class="ui icon upload"></i> Publish Changed
 	</div>
 </div>
 
@@ -29,7 +29,7 @@
 			<td>{{$index + 1}}</td>
 			<td>{{category.title}}</td>
 			<td ng-class="{ positive : category.$sync, negative: !category.$sync}">
-				<i class="ui icon checkmark animated fadeInLeft" ng-if="category.$sync"></i>
+				<i class="ui icon checkmark ok sign animated rotateIn" ng-if="category.$sync"></i>
 				{{category.$status}}
 			</td>
 			<td>{{category._createDate}}</td>
@@ -57,7 +57,7 @@
 			<td>{{$index + 1}}</td>
 			<td>{{product.name}}</td>
 			<td ng-class="{ positive : product.$sync, negative: !product.$sync}">
-				<i class="ui icon checkmark animated fadeInLeft" ng-if="product.$sync"></i>
+				<i class="ui icon ok sign animated rotateIn" ng-if="product.$sync"></i>
 				{{product.$status}}
 			</td>
 			<td>{{product._createDate}}</td>
