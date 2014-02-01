@@ -1,17 +1,17 @@
 
 <div ng-init="init()"></div>
 
-<div class="ui label mini button " style="margin-bottom:10px;" ng-click="openSearch = !openSearch" ng-init="openSearch = true">
+<div class="ui label mini button " style="margin-bottom:10px;" ng-click="openSearch = !openSearch" ng-init="openSearch = true" ng-show="false">
 	<i class="ui icon search" ></i>
 </div>
 
-<div class="ui icon input animated fadeInDown" style="width:30%" ng-show="openSearch" >
+<div class="ui icon input animated fadeIn" style="width:30%" ng-show="openSearch" >
 	<input type="text" placeholder="Search" ng-model="productFilter"/>
 	<i class="search link icon"></i>
 </div>
 
 
-<div class="ui basic accordionx" style="width:100%; margin-top:10px; margin-bottom:10px;" ng-if="false" ng-class="{ 'animated fadeInDown' : openSearch }" >
+<div class="ui basic accordionx" style="width:100%; margin-top:10px; margin-bottom:10px;" ng-if="false" ng-class="{ 'animated fadeIn' : openSearch }" >
 	<div class=" title">
 		<!-- <i class="ui tags icon"></i> -->
 	</div>
@@ -28,26 +28,26 @@
 				</a>
 				{{category.title.substring(0,10)}}
 			</div>
-			-->
+		-->
 
-			<a class="ko-tag ui image label" ng-repeat="category in categoriesC" ng-click="selectCategory(category)"  ng-class="{ green : category.$selected,  black : !category.$selected }" ng-if="category.$level === 'C'">
-				<img src="{{category.$images[0].$thumbnail}}" alt="">
-				<!-- <i class="tags icon"></i>  -->
-				{{category.title}} 
-				<span class="circular label red" ng-if="category.$products.length > 0">({{category.$products.length}})</span>
-			</a>  
-
-		</div>
-
-		<a class="mini ui right labeled icon label black" href="#/category" style="text-decoration:none;" ng-if="false">
-			<i class="right tags icon " ></i>
-			Manage Category
-		</a>
+		<a class="ko-tag ui image label" ng-repeat="category in categoriesC" ng-click="selectCategory(category)"  ng-class="{ green : category.$selected,  black : !category.$selected }" ng-if="category.$level === 'C'">
+			<img src="{{category.$images[0].$thumbnail}}" alt="">
+			<!-- <i class="tags icon"></i>  -->
+			{{category.title}} 
+			<span class="circular label red" ng-if="category.$products.length > 0">({{category.$products.length}})</span>
+		</a>  
 
 	</div>
+
+	<a class="mini ui right labeled icon label black" href="#/category" style="text-decoration:none;" ng-if="false">
+		<i class="right tags icon " ></i>
+		Manage Category
+	</a>
+
+</div>
 </div>
 
-<div class="ui column grid" ng-class="{ 'animated fadeInUp' : true}">
+<div class="ui column grid" ng-class="{ 'animated fadeIn' : true}">
 	<div class="six wide column">
 
 		<br>
@@ -72,7 +72,7 @@
 			</div>
 
 			<div>
-				<table class="ui basic table segment" style="font-size:80%;text-transform: none;">
+				<table class="ui basic table segment animated fadeIn" style="font-size:80%;text-transform: none;">
 					<thead ng-show="false">
 						<tr>
 							<th>
@@ -105,7 +105,7 @@
 
 							<td>
 								<div class="ui mini images" style="display:inline-block">
-								<a href=""  class="ko-thumbnail"  ng-repeat="x in product.$images | limitTo:1" ng-show="product.$images.length > -1 && x.archive == false" data-content="{{x.title}}">
+									<a href=""  class="ko-thumbnail"  ng-repeat="x in product.$images | limitTo:1" ng-show="product.$images.length > -1 && x.archive == false" data-content="{{x.title}}">
 										<img class="rounded  ui image"  ng-src="{{x.$thumbnail}}"  >
 									</a>
 								</div>
@@ -221,10 +221,15 @@
 
 					</div>
 
+					<div ng-if="false"> 
+						<div class="ui label green" style="width:100%; text-transform:none; margin-bottom:0px;">
+							<i class="photo icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}
+						</div>
 
-					<div class="ui label green" style="width:100%; text-transform:none; margin-bottom:0px;"><i class="photo icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}</div>
-
-					<div class="ui label green" style="width:100%; text-transform:none;"><i class="info icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}</div>
+						<div class="ui label green" style="width:100%; text-transform:none;">
+							<i class="info icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}
+						</div>
+					</div>
 
 
 

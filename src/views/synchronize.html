@@ -1,4 +1,68 @@
 
 
+<div class=" animated fadeIn" ng-class="{}">
+	<div class="ui mini button" ng-click="refresh()">
+		<i class="ui icon refresh"></i> Refresh
+	</div>
+	<div class="ui mini button" ng-click="start()"  ng-if="products.length > 0 || categories.length > 0">
+		<i class="ui icon refresh"></i> Start Sync
+	</div>
+</div>
 
-<div class="ui button" ng-click="start()">Start</div>
+<hr>
+
+
+<h5 style="display:inline"> Categories</h5> <span class="ui circular red label">{{categories.length}}</span>
+
+<table class="ui small table segment animated fadeInUp" style="font-size:80%" ng-if="categories.length > 0">
+	<thead>
+		<tr>
+			<th><i class="ui icon bolt"></i></th>
+			<th class="six wide">Name</th>
+			<th>Status</th>
+			<th class="three wide">Create</th>
+			<th class="three wide">Last Update</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="category in categories" class="animated fadeIn">
+			<td>{{$index + 1}}</td>
+			<td>{{category.title}}</td>
+			<td ng-class="{ positive : category.$sync, negative: !category.$sync}">
+				<i class="ui icon checkmark animated fadeInLeft" ng-if="category.$sync"></i>
+				{{category.$status}}
+			</td>
+			<td>{{category._createDate}}</td>
+			<td>{{category._lastUpdate}}</td>
+		</tr>
+
+	</tbody>
+</table>
+
+
+<h5 style="display:inline"> Products</h5> <span class="ui circular red label">{{products.length}}</span>
+
+<table class="ui small table segment animated fadeInUp" style="font-size:80%" ng-if="products.length > 0">
+	<thead>
+		<tr>
+			<th><i class="ui icon bolt"></i></th>
+			<th class="six wide">Name</th>
+			<th>Status</th>
+			<th class="three wide">Create</th>
+			<th class="three wide">Last Update</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="product in products" class="animated fadeIn">
+			<td>{{$index + 1}}</td>
+			<td>{{product.name}}</td>
+			<td ng-class="{ positive : product.$sync, negative: !product.$sync}">
+				<i class="ui icon checkmark animated fadeInLeft" ng-if="product.$sync"></i>
+				{{product.$status}}
+			</td>
+			<td>{{product._createDate}}</td>
+			<td>{{product._lastUpdate}}</td>
+		</tr>
+	</tbody>
+</table>
+

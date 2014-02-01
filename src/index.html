@@ -40,20 +40,20 @@
 	<div class="ui inverted menu" ng-if="isLogged()">
 
 		<a class="active item" href="#/home" ng-class="{ active: location=='/' }">
-			<i class="home icon"></i> Digital Menu
+			<i class="home icon"></i> <span class="ui label circular" style="background:none;">Home</span>
 		</a> <!-- Home -->
 
 		<a class="item" href="#/product" ng-class="{ active: location=='/product' }">
-			<i class="cart icon" ></i>
+			<i class="cart icon" ></i> <span class="ui label circular" style="background:none;">Product</span>
 		</a> <!-- Product-->
 
 		<a class="item" href="#/category" ng-class="{ active: location=='/category' }">
-			<i class="tags icon"></i>
+			<i class="tags icon"></i> <span class="ui label circular" style="background:none;">Category</span>
 		</a> <!-- Category -->
 
-<!-- 		<a class="item" href="#/image" ng-class="{ active: location=='/image' }">
-			<i class="photo icon"></i> Images
-		</a> --> <!-- Image -->
+		<a class="item" href="#/synchronize" ng-class="{ active: location=='/synchronize' }">
+			<i class="refresh icon"></i> <span class="ui label circular" style="background:none;">Publish</span>
+		</a> <!-- Image -->
 
 <!-- 		<a class="item" href="#/video" ng-class="{ active: location=='/video' }">
 			<i class="video icon"></i> Video

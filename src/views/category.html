@@ -49,7 +49,7 @@
 
 				<div ng-repeat="category in categoriesA" ng-click="select(category)"  ng-if="category.$level == 'A'" style="display:inline" >
 					<a class="ui image label " ng-class="{ green: selectedLevelA.identifier == category.identifier, black: selectedLevelA.identifier != category.identifier }">
-						<img src="{{category.$images[0].$thumbnail}}" class="animated fadeInDown">
+						<img src="{{category.$images[0].$thumbnail}}" class="animated flipInX">
 						{{category.title}} ({{category.$childs.length}}) 
 					</a>
 				</div>
