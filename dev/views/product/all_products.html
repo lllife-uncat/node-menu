@@ -1,4 +1,21 @@
 
+<div class="confirm-remove ui modal">
+  <div class="ui raised segment">
+    
+    <div class="ui red message">
+      <i class="ui large icon trash"></i>
+      Do you want to remove {{currentRemove}} ?
+    </div>
+    
+    <div class="actions">
+      <div class="ui mini button close">Cancel</div>
+      <div class="ui mini button ok"> <i class="ui trash icon"></i> Remove</div>
+    </div>    
+  </div>
+</div>
+
+
+
 <div class="column" ng-class="{ 'animated fadeInDown' : true}">
   <div class="ui segment">
     <a class="ko-tag ui image label" ng-repeat="category in categories | filter:allCategoryFilter" ng-click="selectProductCategory(category)" ng-class="{ green : category.$selectedFilter, black : !category.$selectedFilter}" ng-if="category.$level === 'C'">
@@ -55,7 +72,7 @@
           </th>
 
           <th class="ko-price">
-            <label for="">Edit</label>
+            <label for="">Edit / Remove</label>
           </th>
 
         </tr>
@@ -63,7 +80,7 @@
 
       <tbody>
 
-        <tr ng-repeat="product in $data | filter:productComplexFilter" style="font-size:80%" ng-click="selectProduct(product);" class="animated fadeIn">
+        <tr ng-repeat="product in $data | filter:productComplexFilter" style="font-size:80%" ng-click="selectProduct(product);" class="animated fadeIn" ng-if="!product.delete">
 
           <td class="ko-index">
             <span> {{$index + 1}}</span>
@@ -136,17 +153,22 @@
           </td>
 
           <td>
-            <div ng-if="!product.archive">
+            <div ng-if="!product.archive" style="display:inline">
              <div class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true;setInlineEditing(true);"> <i class="edit icon" ></i> </div>
              <div class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false;inlineUpdate(product)"> <i class="save icon" ></i> </div>              
            </div>
-         </td>
-       </tr> <!-- TR -->
-     </tbody> <!-- BODY -->
-   </table> <!--TABLE -->
- </div>
 
- <script type="text/ng-template" id="custom/pager">
+           <div class="ui mini button" href="" style="text-decoration:none;"  ng-click="removeProduct(product)" ng-if="!product.$edit" >
+            <i class="ui remove sign icon"></i>
+          </div>
+
+        </td>
+      </tr> <!-- TR -->
+    </tbody> <!-- BODY -->
+  </table> <!--TABLE -->
+</div>
+
+<script type="text/ng-template" id="custom/pager">
 
   <i ng-repeat="page in pages" ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}" ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
     <a class="mini ui button" ng-switch-when="prev" ng-click="params.page(page.number)"> Previous</a>

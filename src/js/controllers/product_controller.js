@@ -52,6 +52,23 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		_refreshCategoryInfo($scope);
 	});
 
+	$scope.removeProduct = function(product){
+
+		$scope.currentRemove = product.name;
+
+		var confirm = $('.confirm-remove.ui.modal');
+		confirm.modal("setting", {
+			closable: false,
+			onApprove : function(){
+				console.log("approve...");
+				product.delete = true;
+				$scope.save(product);
+			}
+		});
+
+		confirm.modal('show');
+	};
+
 	// move to top
 	$scope.moveToTop = function(){
 		$("html, body").animate({ scrollTop: 0 }, "slow");

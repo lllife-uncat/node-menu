@@ -1,25 +1,42 @@
+<div class="confirm-remove ui modal">
+	<div class="ui raised segment">
+		
+		<div class="ui red message">
+			<i class="ui large icon trash"></i>
+			Do you want to remove {{currentRemove}} ?
+		</div>
+
+		<div class="actions">
+			<div class="ui mini button close">Cancel</div>
+			<div class="ui mini button ok"> <i class="ui trash icon"></i> Remove</div>
+		</div>		
+	</div>
+</div>
+
+
+
 <div ng-class="{ 'animated fadeInUp' : true}">
 	<table class="ui table segment" style="font-size:90%;text-transform: none;">
 		<thead style="color:gray">
 			<tr>
 				<th> <i class="ui icon bolt"></i></th>
-				<th> <i class="ui cart"></i> <label for="">ID</label> </th>
+				<th ng-show="false"> <i class="ui cart" ></i> <label for="">ID</label> </th>
 				<th> <i class="ui cart"></i> <label for="">Title</label> </th>
 				<th > <i class="ui cart"></i> <label for="">Description</label> </th>
 
 				<th><i class="ui photo"></i> <label for="">Images</label></th>
 
 				<th> <i class="ui dollar"></i> <label for="">Level</label> </th>
-				<th><i class="ui edit"></i> <label for="">Edit</label></th>
+				<th><i class="ui edit"></i> <label for="">Edit / Remove</label></th>
 
 			</tr>
 		</thead>
 		<tbody>
 
-			<tr ng-repeat="category in categories  | orderBy : 'identifier':true | limitTo:100"  ng-class="{ positive : category == currentCategory , 'animate fadeInUp' : true}">
+			<tr ng-repeat="category in categories  | orderBy : 'identifier':true | limitTo:100"  ng-class="{ positive : category == currentCategory , 'animate fadeInUp' : true}" ng-if="!category.delete">
 
 				<td>{{ $index + 1}}</td>
-				<td>{{ category.categoryId }}</td>
+				<td ng-show="false">{{ category.categoryId }}</td>
 				<td>{{ category.title }}</td>
 
 
@@ -38,26 +55,26 @@
 				<td > <!-- price -->
 
 					<span ng-if="getParentA(category)" >
-						<div class="ui image label black animated fadeInLeft" style="text-transform:none;" ng-class="{}">
+						<div class="ui image label black animated fadeInDown" style="text-transform:none;" ng-class="{}">
 							<img src="{{getParentA(category).$images[0].$thumbnail}}" alt="">
 							{{getParentA(category).title}} 
 						</div>
 
-						<i class="right arrow icon divider animated fadeInRight"></i>						
+						<i class="right arrow icon divider animated fadeIn"></i>						
 					</span>
 
 					<span ng-if="getParentB(category)"  >
-						<div class="ui image label black animated fadeInLeft" style="text-transform:none;" ng-class="{}">
+						<div class="ui image label black animated fadeInDown" style="text-transform:none;" ng-class="{}">
 							<img src="{{getParentB(category).$images[0].$thumbnail}}" alt="">
 							{{getParentB(category).title}}
 						</div>
 
-						<i class="right arrow icon divider animated fadeInRight"></i>
+						<i class="right arrow icon divider animated fadeIn"></i>
 
 					</span>
 
-					<span class="ui image label green animated fadeInLeft" style="text-transform:none;" ng-class="{ black : category.$level == 'C', black : category.$level == 'B', black : category.$level == 'A'}">
-							<img src="{{category.$images[0].$thumbnail}}" alt="">
+					<span class="ui image label green animated fadeInDown" style="text-transform:none;" ng-class="{ black : category.$level == 'C', black : category.$level == 'B', black : category.$level == 'A'}">
+						<img src="{{category.$images[0].$thumbnail}}" alt="">
 						{{category.title}}
 					</span>
 				</td>
@@ -67,11 +84,17 @@
 					<div class="ui mini button" href="" style="text-decoration:none;"  ng-click="moveToTop(); select(category); edit(category)"  >
 						<i class="ui icon edit"></i>
 					</div>
-				</td>
 
+					<div class="ui mini button" href="" style="text-decoration:none;"  ng-click="removeCategory(category)"  ng-if="currentCategory.identifier == null">
+						<i class="ui icon remove sign "></i>
+					</div>
+				</td>
 
 			</tr>
 
 		</tbody>
 	</table>
 </div>
+
+
+

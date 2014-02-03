@@ -480,6 +480,23 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 		return catA;
 	};
 
+	$scope.removeCategory = function(category){
+
+		$scope.currentRemove = category.title;
+
+		var confirm = $('.confirm-remove.ui.modal');
+		confirm.modal("setting", {
+			closable: false,
+			onApprove : function(){
+				console.log("approve...");
+				category.delete = true;
+				$scope.save(category);
+			}
+		});
+
+		confirm.modal('show');
+	};
+
 	// show image in big view area.
 	$scope.openPicture = function(p){
 		$scope.currentPicture = p;
@@ -965,6 +982,23 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	request.success(function(cat){
 		_refreshCategoryInfo($scope);
 	});
+
+	$scope.removeProduct = function(product){
+
+		$scope.currentRemove = product.name;
+
+		var confirm = $('.confirm-remove.ui.modal');
+		confirm.modal("setting", {
+			closable: false,
+			onApprove : function(){
+				console.log("approve...");
+				product.delete = true;
+				$scope.save(product);
+			}
+		});
+
+		confirm.modal('show');
+	};
 
 	// move to top
 	$scope.moveToTop = function(){
