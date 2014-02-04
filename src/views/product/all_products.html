@@ -1,20 +1,4 @@
-
-<div class="confirm-remove ui modal">
-  <div class="ui raised segment">
-    
-    <div class="ui red message">
-      <i class="ui large icon trash"></i>
-      Do you want to remove {{currentRemove}} ?
-    </div>
-    
-    <div class="actions">
-      <div class="ui mini button close">Cancel</div>
-      <div class="ui mini button ok"> <i class="ui trash icon"></i> Remove</div>
-    </div>    
-  </div>
-</div>
-
-
+<div ng-include src=" '/views/dialog/remove_confirm.html' "> </div>
 
 <div class="column" ng-class="{ 'animated fadeInDown' : true}">
   <div class="ui segment">
@@ -67,11 +51,11 @@
             <label for="">Promotion</label>
           </th>
 
-          <th class="">
+          <th class="ko-price">
             <label for="">Member</label>
           </th>
 
-          <th class="ko-price">
+          <th class="two wide">
             <label for="">Edit / Remove</label>
           </th>
 
@@ -103,6 +87,7 @@
             <span ng-if="!product.$edit">{{product.brand}} </span>
             <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.brand" /> </div>
           </td>
+
 
           <td>
             <span ng-if="!product.$edit">{{product.model}} </span>
@@ -159,7 +144,7 @@
            </div>
 
            <div class="ui mini button" href="" style="text-decoration:none;"  ng-click="removeProduct(product)" ng-if="!product.$edit" >
-            <i class="ui remove sign icon"></i>
+            <i class="ui remove sign icon"></i> Remove
           </div>
 
         </td>

@@ -1,0 +1,53 @@
+<div class="ui secondary pointing menu"> <!-- MENU -->
+	<a class="item" ng-click="setActiveTab('product')" ng-class="{ active : selectedTab == 'product'}">
+		<i class="cart icon"></i> New Product
+	</a>
+	<a class="item" ng-click="setActiveTab('image')" ng-class="{ active : selectedTab == 'image'}" ng-show="false">
+		<i class="photo icon"></i>
+		<span>Images</span>
+		<div class="ui small label circular red" ng-show="currentProduct.$images.length != 0">{{currentProduct.$images.length}}</div>
+	</a>
+
+	<div class="right menu">
+		<div class="item" ng-show="selectedTab == 'allProducts'">
+			<div class="ui icon input">
+				<input type="text" placeholder="Filter categories..." ng-model="allCategoryFilter.title">
+				<i class="search link icon"></i>
+			</div>
+		</div>
+		<div class="item" ng-show="selectedTab == 'allProducts'">
+			<div class="ui icon input">
+				<input type="text" placeholder="Search product..." ng-model="productFilter">
+				<i class="search link icon"></i>
+			</div>
+		</div>
+		<a class="item" ng-click="setActiveTab('allProducts')" ng-class="{ active : selectedTab == 'allProducts'}">
+			<i class="cart icon"></i> 
+			<span>All Products</span>
+			<div class="ui small label circular red">{{products.length}}</div>
+		</a>
+	</div>
+</div>  <!-- MENU -->
+
+<!-- IMAGE -->
+<div ng-include src="'/views/product/image.html'" onload="loadInclude()"  ng-show="selectedTab == 'image'" > 
+	
+</div> 
+
+<!-- ALL PRODUCT -->
+<div class="" ng-hide="selectedTab != 'allProducts'"  ng-include src="'views/product/all_products.html'"> 
+
+</div>
+
+<div class="ui two column grid" ng-show="selectedTab == 'product'">
+	
+	<div  class="column" ng-include src="'/views/product/column2.html'" style=""> </div> <!--column 2 -->
+	<div  class="column " ng-include src="'/views/product/column1.html'"> </div> <!--column 1 -->
+</div>
+
+
+<!-- ALL PRODUCT -->
+<!-- <div class="" if="selectedTab == 'product'"  ng-include src="'views/product/all_products.html'"> -->
+
+<br>
+<div  ng-include src="'/views/product/table.html'"> </div> <!--column 2 -->

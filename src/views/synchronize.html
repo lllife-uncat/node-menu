@@ -4,65 +4,98 @@
 	<div class="ui mini button" ng-click="refresh()">
 		<i class="ui icon refresh"></i> Refresh
 	</div>
-	<div class="ui mini button" ng-click="start()"  ng-if="products.length > 0 || categories.length > 0">
+	<div class="ui mini button green" ng-click="start()"  ng-if="products.length > 0 || categories.length > 0">
 		<i class="ui icon upload"></i> Publish Changed
+	</div>
+
+	<div class="ui mini button red animated fadeInDown" ng-click="republish()" style="float:right"  ng-if="products.length == 0 && categories.length == 0">
+		<i class="ui icon upload"></i> Republish All ({{syncHistory.length}})
 	</div>
 </div>
 
 <hr>
 
 
-<h5 style="display:inline"> Categories</h5> <span class="ui circular red label">{{categories.length}}</span>
-
-<table class="ui small table segment animated fadeInUp" style="font-size:80%" ng-if="categories.length > 0">
-	<thead>
-		<tr>
-			<th><i class="ui icon bolt"></i></th>
-			<th class="six wide">Name</th>
-			<th>Status</th>
-			<th class="three wide">Create</th>
-			<th class="three wide">Last Update</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="category in categories" class="animated fadeIn">
-			<td>{{$index + 1}}</td>
-			<td>{{category.title}}</td>
-			<td ng-class="{ positive : category.$sync, negative: !category.$sync}">
-				<i class="ui icon checkmark ok sign animated rotateIn" ng-if="category.$sync"></i>
-				{{category.$status}}
-			</td>
-			<td>{{category._createDate}}</td>
-			<td>{{category._lastUpdate}}</td>
-		</tr>
-
-	</tbody>
-</table>
+<div class="ui small message" ng-if="categories.length == 0 && products.length == 0 && syncHistory.length == 0">No Update</div>
 
 
-<h5 style="display:inline"> Products</h5> <span class="ui circular red label">{{products.length}}</span>
+<div ng-if="categories.length > 0">
+	<h5 style=""> Categories  <span class="ui small red label" style="float:right;display:block">{{categories.length}}</span>  </h5> 
 
-<table class="ui small table segment animated fadeInUp" style="font-size:80%" ng-if="products.length > 0">
-	<thead>
-		<tr>
-			<th><i class="ui icon bolt"></i></th>
-			<th class="six wide">Name</th>
-			<th>Status</th>
-			<th class="three wide">Create</th>
-			<th class="three wide">Last Update</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="product in products" class="animated fadeIn">
-			<td>{{$index + 1}}</td>
-			<td>{{product.name}}</td>
-			<td ng-class="{ positive : product.$sync, negative: !product.$sync}">
-				<i class="ui icon ok sign animated rotateIn" ng-if="product.$sync"></i>
-				{{product.$status}}
-			</td>
-			<td>{{product._createDate}}</td>
-			<td>{{product._lastUpdate}}</td>
-		</tr>
-	</tbody>
-</table>
+	<table class="ui small table segment animated fadeInUp" style="font-size:80%" >
+		<thead>
+			<tr>
+				<th><i class="ui icon bolt"></i></th>
+				<th class="six wide">Name</th>
+				<th>Status</th>
+				<th class="three wide">Create</th>
+				<th class="three wide">Last Update</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="category in categories" class="animated fadeIn">
+				<td>{{$index + 1}}</td>
+				<td>{{category.title}}</td>
+				<td ng-class="{ positive : category.$sync, negative: !category.$sync}">
+					<i class="ui icon checkmark ok sign animated rotateIn" ng-if="category.$sync"></i>
+					{{category.$status}}
+				</td>
+				<td>{{category.createDate}}</td>
+				<td>{{category.lastUpdate}}</td>
+			</tr>
+
+		</tbody>
+	</table>	
+</div>
+
+
+<div ng-if="products.length > 0">
+	<h5 style="" > Products   <span class="ui small red label" style="float:right;display:block">{{products.length}}</span>   </h5>
+
+	<table class="ui small table segment animated fadeInUp" style="font-size:80%" >
+		<thead>
+			<tr>
+				<th><i class="ui icon bolt"></i></th>
+				<th class="six wide">Name</th>
+				<th>Status</th>
+				<th class="three wide">Create</th>
+				<th class="three wide">Last Update</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="product in products" class="animated fadeIn">
+				<td>{{$index + 1}}</td>
+				<td>{{product.name}}</td>
+				<td ng-class="{ positive : product.$sync, negative: !product.$sync}">
+					<i class="ui icon ok sign animated rotateIn" ng-if="product.$sync"></i>
+					{{product.$status}}
+				</td>
+				<td>{{product.createDate}}</td>
+				<td>{{product.lastUpdate}}</td>
+			</tr>
+		</tbody>
+	</table>	
+</div>
+
+<br>
+
+<div ng-if="categories.length == 0 && products.length == 0 && syncHistory.length > 0">
+<!-- 	<div class="ui top attached progress">
+		<div class="bar"></div>
+	</div> -->
+	<div class="ui segment">
+
+		<div class="ui active inline loader" ng-if="false"></div>
+		<span ng-repeat="sync in syncHistory " >
+			<div class="ui  green label animated fadeIn" style="text-transform:none;margin:2px;"> <i class="ui icon ok sign animated rotateIn"></i>  {{sync.title}}</div>
+		</span>
+
+	</div>
+
+
+<!-- 	<div class="ui bottom attached progress">
+		<div class="bar"></div>
+	</div>	 -->
+</div>
+
 

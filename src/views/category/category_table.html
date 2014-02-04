@@ -1,19 +1,4 @@
-<div class="confirm-remove ui modal">
-	<div class="ui raised segment">
-		
-		<div class="ui red message">
-			<i class="ui large icon trash"></i>
-			Do you want to remove {{currentRemove}} ?
-		</div>
-
-		<div class="actions">
-			<div class="ui mini button close">Cancel</div>
-			<div class="ui mini button ok"> <i class="ui trash icon"></i> Remove</div>
-		</div>		
-	</div>
-</div>
-
-
+<div ng-include src=" '/views/dialog/remove_confirm.html' "> </div>
 
 <div ng-class="{ 'animated fadeInUp' : true}">
 	<table class="ui table segment" style="font-size:90%;text-transform: none;">
@@ -86,7 +71,7 @@
 					</div>
 
 					<div class="ui mini button" href="" style="text-decoration:none;"  ng-click="removeCategory(category)"  ng-if="currentCategory.identifier == null">
-						<i class="ui icon remove sign "></i>
+						<i class="ui icon remove sign "></i> Remove
 					</div>
 				</td>
 
@@ -95,6 +80,4 @@
 		</tbody>
 	</table>
 </div>
-
-
 

@@ -2,8 +2,33 @@
 
 app.controller("SynchronizeController", function($scope, ConfigurationService, $location, $rootScope){
 
-	function startSync(){
-		eb.send(startEvent, 0 , function(reply){
+	// active menu
+	$scope.$emit("navigate", $location.path() );	
+
+	// init variable
+	var endPoint = ConfigurationService.endPoint + "/eventbus";
+	var eb = new vertx.EventBus(endPoint);
+	var startEvent = "synchronize.start";
+	var statusEvent = "synchronize.status";
+	var listEvent = "synchronize.list";
+
+	// init variable
+	$scope.categories = [];
+	$scope.products = [];
+	$scope.syncHistory = [];
+
+
+	function startSync(all){
+
+		$scope.syncHistory = [];
+
+		var token = {};
+		token.syncAll = all;
+
+		console.log("== Start Sync ==");
+		console.log(token);
+
+		eb.send(startEvent, token , function(reply){
 
 		});
 	}
@@ -11,6 +36,7 @@ app.controller("SynchronizeController", function($scope, ConfigurationService, $
 	function getInfos(){
 
 		console.log("== Get Infos ==");
+		$scope.syncHistory = [];
 
 		eb.send(listEvent, 0 , function(reply){
 
@@ -61,10 +87,19 @@ app.controller("SynchronizeController", function($scope, ConfigurationService, $
 			eb.registerHandler(statusEvent, function(message){
 				var obj = JSON.parse(message);
 
+				var sync = {};
+				var name = obj.title || obj.name;
+
+				sync.title =  name;
+				$scope.syncHistory.push(sync);
+
 				$scope.categories.forEach(function(cat){
+
+
 					if(cat.identifier == obj.identifier){
 						cat.$sync = true;
 						cat.$status = "Synchronized";
+
 						return;
 					}
 				});
@@ -73,6 +108,11 @@ app.controller("SynchronizeController", function($scope, ConfigurationService, $
 					if(p.identifier == obj.identifier){
 						p.$sync = true;
 						p.$status = "Synchronized";
+
+						var sync = {};
+						sync.title = p.name;
+						$scope.syncHistory.push(sync);
+
 						return;
 					}
 				});
@@ -86,19 +126,7 @@ app.controller("SynchronizeController", function($scope, ConfigurationService, $
 		};		
 	}
 
-	// active menu
-	$scope.$emit("navigate", $location.path() );	
 
-	// init variable
-	var endPoint = ConfigurationService.endPoint + "/eventbus";
-	var eb = new vertx.EventBus(endPoint);
-	var startEvent = "synchronize.start";
-	var statusEvent = "synchronize.status";
-	var listEvent = "synchronize.list";
-
-	// init variable
-	$scope.categories = [];
-	$scope.products = [];
 
 	// register handler
 	register();
@@ -108,6 +136,10 @@ app.controller("SynchronizeController", function($scope, ConfigurationService, $
 	};
 
 	$scope.start = function(){
-		startSync();
+		startSync(false);
+	}
+
+	$scope.republish = function(){
+		startSync(true);
 	}
 });

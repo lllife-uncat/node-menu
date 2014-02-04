@@ -2,13 +2,25 @@ app.factory("ProductService", function(ConfigurationService, $http, UserService)
 
 	var baseUrl = ConfigurationService.endPoint + "/product";
 	var uploadImageUrl = ConfigurationService.endPoint + "/image/upload";
+	var uploadVideoUrl = ConfigurationService.endPoint + "/video/upload";
 
 	return {
 
+		getBaseUrl : function() { 
+			return baseUrl; 
+		},
 
-		getBaseUrl : function() { return baseUrl; },
+		getUploadImageUrl : function() { 
+			return uploadImageUrl; 
+		},
 
-		getUploadImageUrl : function() { return uploadImageUrl; },
+		getUploadVideoUrl : function() {
+			return uploadVideoUrl;
+		},
+
+		getVideoUrl : function(id) {
+			return ConfigurationService.endPoint + "/video/url/" + id;
+		},
 
 		getImageUrl : function(id) {
 			return ConfigurationService.endPoint + "/image/url/" + id;
@@ -20,6 +32,12 @@ app.factory("ProductService", function(ConfigurationService, $http, UserService)
 
 		getImageInfo: function(id){
 			var url = ConfigurationService.endPoint + "/image/" + id;
+			var request = $http.get(url);
+			return request;
+		},
+
+		getVideoInfo : function(id) {
+			var url = ConfigurationService.endPoint + "/video/" + id;
 			var request = $http.get(url);
 			return request;
 		},

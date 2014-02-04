@@ -1,0 +1,92 @@
+<div ng-if="selectedTab == 'product'" ng-class="{ 'animated fadeInUp' : true}">
+	<table class="ui padded table green" style="font-size:80%;text-transform: none;">
+		<thead>
+			<tr>
+				<th> <i class="ui icon bolt"></i></th>
+				<th> <i class="ui cart"></i> ID </th>
+				<th> <i class="ui cart"></i> Name </th>
+				<th > <i class="ui cart"></i> Description </th>
+
+				<th><i class="ui photo"></i> Images</th>
+
+				<th> <i class="ui dollar"></i> Price </th>
+				<th> <i class="ui dollar"></i> Promotion </th>
+				<th> <i class="ui dollar"></i> Member </th>
+				<th><i class="ui edit"></i> Edit </th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<!-- <tr ng-repeat="product in products | filter:complexProductFilter" ng-click="selectProduct(product)" ng-if="matchPage($index)" ng-class="{ positive : product == currentProduct}"> -->
+			<tr ng-repeat="product in products  | orderBy : 'identifier':true| limitTo:10"  ng-class="{ positive : product == currentProduct, 'animate fadeInUp' : true}">
+
+				<td>{{ $index + 1}}</td>
+				<td>{{ product.productId }}</td>
+				<td>{{ product.name }}</td>
+
+
+				<td style="max-width:400px">{{ product.description }}</td>
+
+
+				<td>
+					<div class="ui mini images" style="display:inline-block">
+						<a href=""  class="ko-thumbnail"  ng-repeat="x in product.$images" ng-show="product.$images.length > -1 && x.archive == false" data-content="{{x.title}}">
+							<img class="rounded  ui image"  ng-src="{{x.$thumbnail}}"  >
+						</a>
+					</div>
+				</td>
+
+
+				<td class="ko-price"> <!-- price -->
+					<div class="ui label black animated fadeInUp">
+						<a href="" style="font-size:100%">
+							{{ (product.primaryPrice | currency).replace("$","") }}
+						</a>
+					</div>
+				</td>
+
+				<td class="ko-price"> <!-- member -->
+					<div class="ui black label animated fadeInUp">
+						<a href="" style="font-size:100%">
+							{{ (product.memberPrice | currency).replace("$","") }}
+						</a>
+					</div>
+				</td>
+
+				<td class="ko-price"> <!-- promotion -->
+					<div class="ui label black animated fadeInUp">
+						<a href="" style="font-size:100%">
+							{{ (product.promotionPrice | currency).replace("$","") }}
+						</a>
+					</div>
+				</td>
+
+				<td>
+					<div class="ui mini button" href="" style="text-decoration:none;"  ng-click="moveToTop(); selectProduct(product)"  >
+						<i class="ui icon edit"></i>
+					</div>
+
+
+				</td>
+
+
+				</tr>
+
+			</tbody>
+
+
+			<tfoot><tr><td>
+
+			</td></tr></tfoot>
+
+		</table>
+
+		<div ng-if="false">
+			<div>
+				<a ng-repeat="product in products | filter:complexProductFilter" ng-click="changePage($index)" class="ui circular mini label inverted" ng-if="$index % 10 == 0">
+					<i class="ui cart icon" ng-class="{ black : currentSelectedPage == $index }"></i>
+				</a>
+			</div>
+		</div>
+
+	</div>

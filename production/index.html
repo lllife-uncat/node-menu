@@ -1,0 +1,115 @@
+<html>
+<head>
+
+
+	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+	<!-- 
+	<script src="venders/ng-file-upload/angular-file-upload-shim.js"></script>
+-->
+
+
+
+<script src="venders/sockjs-client/sockjs-0.3.min.js"></script>
+<script src="venders/sockjs-client/vertxbus-2.1.js"></script>
+
+<script src="venders/angular/angular.js"></script>
+<script src="venders/angular-route/angular-route.js"></script>
+<script src="venders/ng-file-upload/angular-file-upload.js"></script>
+<script src="venders/angular-animate/angular-animate.js"></script>
+
+<!-- <script src="venders/angular-ui-utils/ui-utils.js"></script>
+<script src="venders/angular-ui-utils/ui-utils-ieshiv.js"></script> -->
+
+<script src="venders/ng-table/ng-table.src.js"></script>
+
+<script src="venders/jquery/jquery.js"></script>
+<script src="venders/semantic/javascript/semantic.js"></script>
+<script src=""></script>
+<script src="js/final.js"></script>
+
+<link rel="stylesheet" href="venders/semantic/css/semantic.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="venders/ng-table/ng-table.css">
+
+</head>
+
+<body ng-app="MenuApp"  ng-controller="NavigateController" >
+	
+	<div class="ui inverted menu" ng-if="isLogged()">
+
+		<a class="active item" href="#/home" ng-class="{ active: location=='/' }">
+			<i class="home icon"></i> <span class="ui label circular" style="background:none;">Home</span>
+		</a> <!-- Home -->
+
+		<a class="item" href="#/product" ng-class="{ active: location=='/product' }">
+			<i class="cart icon" ></i> <span class="ui label circular" style="background:none;">Product</span>
+		</a> <!-- Product-->
+
+		<a class="item" href="#/category" ng-class="{ active: location=='/category' }">
+			<i class="tags icon"></i> <span class="ui label circular" style="background:none;">Category</span>
+		</a> <!-- Category -->
+
+		<a class="item" href="#/synchronize" ng-class="{ active: location=='/synchronize' }">
+			<i class="upload cloud icon"></i> <span class="ui label circular" style="background:none;">Publish</span>
+		</a> <!-- Image -->
+
+<!-- 		<a class="item" href="#/video" ng-class="{ active: location=='/video' }">
+			<i class="video icon"></i> Video
+		</a> --> <!-- Video -->
+
+<!-- 		<a class="item" href="#/branch" ng-class="{ active: location=='/branch' }">
+			<i class="sitemap icon"></i> Branch
+		</a>  --><!-- Video -->
+
+<!-- 		<a class="item" href="#/user" ng-class="{ active: location=='/user' }">
+			<i class="user icon"></i> User
+		</a> --> <!-- Video -->
+
+		<div class="right menu">
+			<div class="ui mini label pointing right" ng-show="show" ng-class="{red : error, green : !error}" ng-click="hide()"> 
+				<span>{{message}} </span>
+			</div>
+
+			<a class="ui item" ng-show="show"> <i class="user icon orange"></i></a>
+			<a class="ui item" ng-click="logout()" ng-show="isLogged()"> <i class="bolt icon orange"></i></a>
+
+			<!-- <a class="ui item"> Logout </a> -->
+		</div>
+
+		<div class="ui bottom attached progress  black" ng-if="false">
+			<div class="bar"></div>
+		</div> <!-- progress -->
+
+	</div> <!-- header -->
+
+
+
+
+
+	<div class="ui raised segment" style="min-height:90%">
+		<div ng-view class="">
+		</div>
+	</div> <!-- content -->
+
+	<!-- <div class="ui section divider"></div> -->
+
+	<script>
+
+		$(document).ready(function(){
+
+			console.log("==ready==");
+			jQuery('input[type="number"]').keyup(function(){
+				console.log("hello");
+				$(this).val($(this).val().replace(/[^\d]/,''));
+			});
+
+			// console.log("==init popup==");
+			// var thumb = $('.ko-thumbnail');
+			// thumb.popup({
+			// 	on: 'hover'
+			// });
+	});
+	</script>
+
+</body>
+</html>

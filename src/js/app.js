@@ -119,6 +119,25 @@ function _appendImageUrl(product, ProductService){
 		});
 		
 	});
+
+
+	product.mediaIds = product.mediaIds || [];
+	product.$videos = product.$videos || [];
+	product.mediaIds.forEach(function(i){
+		var url = ProductService.getVideoUrl(i);
+		var request = ProductService.getVideoInfo(i);
+
+		request.success(function(rs){
+			var video = rs;
+			video.$url = url;
+			product.$videos.push(video);
+		});
+
+		request.error(function(err){
+			console.log("== Init Video Failed ==");
+			console.log(err);
+		});
+	});
 }
 
 function _reloadTable($scope, data, ngTableParams){

@@ -1,7 +1,7 @@
 
 
 
-app.controller("ProductController", function($scope, $location, CategoryService, ProductService, $upload, ngTableParams, UserService){
+app.controller("ProductController", function($scope, $location, CategoryService, ProductService, $upload, ngTableParams, UserService, $sce){
 
 	// active menu
 	$scope.$emit("navigate", $location.path() );	
@@ -24,8 +24,11 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	// current selected picture
 	$scope.currentPicture = {};
 
+	// current selected video
+	$scope.currentVideo = {};
+
 	// current selected product
-	$scope.currentProduct = { primaryPrice: null, memberPrice: null, $images :[], $imageIds :[] };
+	$scope.currentProduct = { primaryPrice: null, memberPrice: null, $images :[], imageIds :[], mediaIds: [] };
 
 	// inline editing
 	$scope.inlineEditing = false;
@@ -40,6 +43,9 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 
 	$scope.selectedCategoryLevel = null;
 
+	$scope.trustSrc = function(src) {
+		return $sce.trustAsResourceUrl(src);
+	}
 
 
 	// first initialize category and product information
@@ -210,6 +216,13 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	};
 
 
+	$scope.showVideoModal = function(){
+		console.log($scope.currentVideo);
+
+		var dlg = $(".ui.video-player");
+		dlg.modal("show");
+	};
+
 	// show image manager popup.
 	$scope.showImageModal = function(){
 
@@ -265,6 +278,11 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	$scope.openPicture = function(p){
 		$scope.currentPicture = p;
 	};
+
+	// hightlight image
+	$scope.openVideo = function(v){
+		$scope.currentVideo = v;
+	}
 
 	// loading...
 	$scope.loadInclude = function(){
@@ -336,18 +354,24 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	// append product dependencies
 	$scope.appendProductDependency = function(product){
 		product.imageIds = [];
+		product.mediaIds = [];
+
 		product.categoryIds = [];
 
 		product.$images.forEach(function(pic){
 			product.imageIds.push(pic.identifier);
 		});
 
+		product.$videos.forEach(function(vid){
+			product.mediaIds.push(vid.identifier);
+		});
+
 		// $scope.getSelectedCategories().forEach(function(cat){
 		// 	product.categoryIds.push(cat.identifier);
 		// });		
-		
-		product.categoryIds.push($scope.selectedCategoryC.identifier);
-	};
+
+product.categoryIds.push($scope.selectedCategoryC.identifier);
+};
 
 	// update current product
 	$scope.save = function(product){
@@ -368,6 +392,9 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 
 			// clear reset current product.
 			$scope.currentProduct = {};
+			$scope.currentVideo = {};
+
+			$scope.currentProduct.$videos = [];
 			$scope.currentProduct.$images = [];
 
 			// reload table
@@ -385,25 +412,38 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		});
 	}
 
+	$scope.removeVideo = function(video){
+		var index = $scope.currentProduct.$videos.indexOf(video);
+		if(index != -1){
+			$scope.currentProduct.$videos.splice(index, 1);
+			$scope.currentVideo = {}
+		}
+
+		var idIndex = $scope.currentProduct.mediaIds.indexOf(video.identifier);
+		if(index != -1){
+			$scope.currentProduct.mediaIds.splice(idIndex, 1);
+		}
+	};
+
 	// remove image.
 	$scope.removeImage = function(image){
 
-			var index = $scope.currentProduct.$images.indexOf(image);
-			if(index != -1){
-				$scope.currentProduct.$images.splice(index, 1);
-				$scope.currentPicture = {};
-				console.log("remove image: " + image.identifier);
-			}
+		var index = $scope.currentProduct.$images.indexOf(image);
+		if(index != -1){
+			$scope.currentProduct.$images.splice(index, 1);
+			$scope.currentPicture = {};
+			console.log("remove image: " + image.identifier);
+		}
 
-			console.log("[product]");
-			console.log($scope.currentProduct);
+		console.log("[product]");
+		console.log($scope.currentProduct);
 
-			var idIndex = $scope.currentProduct.imageIds.indexOf(image.identifier);
+		var idIndex = $scope.currentProduct.imageIds.indexOf(image.identifier);
 
-			if(index != -1){
-				$scope.currentProduct.imageIds.splice(idIndex, 1);
-				console.log("remove image id: " + image.identifier);
-			}
+		if(index != -1){
+			$scope.currentProduct.imageIds.splice(idIndex, 1);
+			console.log("remove image id: " + image.identifier);
+		}
 
 		// var request = ProductService.removeImage(image);
 
@@ -423,7 +463,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 		// request.error(function(error){
 		// 	$scope.$emit("message", { error: true, message : "Remove image failed: " + error});
 		// });
-	}
+}
 
 	// start inline update.
 	$scope.inlineUpdate = function(product){
@@ -545,4 +585,53 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 			});
 		}
 	};
+
+	// upload selected images.
+	$scope.onVideoSelect = function($files){
+		for(var i = 0; i< $files.length; i++){
+			var file = $files[i]
+
+			console.log("Upload: " + ProductService.getUploadVideoUrl());
+			console.log("File:");
+			console.log(file);
+
+			var name = file.name;
+			var type = file.type;
+
+			var data = {
+				title : name,
+				type : type
+			};
+
+			var upload = $upload.upload({
+				url: ProductService.getUploadVideoUrl(),
+				method: "POST",
+				data : { data : data } , 
+				headers : { "Content-Type" : "multipart/form-data" },
+				file: file
+			});
+
+			upload.progress(function(evt){
+				console.log("percent: " + parseInt(100.0 * evt.loaded / evt.total));
+			});
+
+			upload.success(function(rs, status, headers, config){
+				$scope.$emit("message", { error: false, message: "Upload success: " + file.name });
+				console.log(rs);
+
+				var pic = rs.data;
+				pic.$url = ProductService.getVideoUrl(pic.identifier);
+				// pic.$thumbnail = ProductService.getThumbnailUrl(pic.identifier);
+
+				$scope.currentProduct.$videos = $scope.currentProduct.$videos || [];
+				$scope.currentProduct.$videos.push(pic);
+				$scope.currentPicture = pic;
+			});
+
+			upload.error(function(err){
+				console.log(err);
+			});
+		}
+	};
+
 });

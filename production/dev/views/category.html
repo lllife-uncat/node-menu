@@ -1,0 +1,238 @@
+<div class="ui secondary pointing menu">
+
+	<a class="item active">
+		<i class="cart icon"></i> New Category
+	</a>
+
+	<div class="right menu" ng-if="false">
+
+		<div class="item">
+			<!-- <div class="ui label mini">Selected Category</div> -->
+			<a class="ui image label black">
+				<img src="{{lastSelectedCategory.$images[0].$thumbnail}}" ng-if="false">  {{lastSelectedCategory.title}}
+			</a>
+		</div>
+		<div class="item">
+			<div class="ui button mini" ng-click="edit(lastSelectedCategory)"><i class="Edit icon"></i></div>
+		</div>
+
+		<div class="item" ng-if="false">
+			<div class="ui button mini"><i class="Edit icon"></i>Remove</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="ui two column grid" ng-class="{ 'animated fadeInDown' : true}">
+
+
+	<div class="column">
+		<div class="ui fluid form segment" style="min-height:40%">
+
+			<!--
+			<div class="field" ng-class="{ 'animated fadeIn' : openSearch }" >
+				<label for="" ng-if="false">All Category </label>
+
+				<div class="ui icon input" ng-if="false">
+					<input type="text" placeholder="Filter" ng-model="categoryFilter.title"/>
+					<div class="ui icon ">
+						<i class="search link icon"></i>
+					</div>
+				</div>	
+			</div>
+		-->
+
+		<div class="field" ng-class="{ 'animated fadeIn' : true }">
+			<label for=""><i class="tags icon"></i> Main Category</label>
+
+			<div class="ui">
+
+				<div ng-repeat="category in categoriesA" ng-click="select(category)"  ng-if="category.$level == 'A'" style="display:inline" >
+					<a class="ui image label " ng-class="{ green: selectedLevelA.identifier == category.identifier, black: selectedLevelA.identifier != category.identifier }">
+						<img src="{{category.$images[0].$thumbnail}}" class="animated flipInX">
+						{{category.title}} ({{category.$childs.length}}) 
+					</a>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="field" ng-if="selectedLevelA.identifier != null"  ng-class="{ 'animated fadeIn' : true }">
+			<label for=""><i class="tags icon"></i> Sub Category</label>
+
+			<div class="ui">
+
+				<div ng-repeat="category in categoriesB" ng-click="select(category)"  ng-if="selectedLevelA.identifier == category.parentId" style="display:inline">
+					<a class="ui image label" ng-class="{ green: selectedLevelB.identifier == category.identifier, black: selectedLevelB.identifier != category.identifier}">
+						<img src="{{category.$images[0].$thumbnail}}">
+						{{category.title}} ({{category.$childs.length}}) 
+					</a>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="field"  ng-if="selectedLevelB.identifier != null" ng-class="{ 'animated fadeIn' : true }">
+			<label for=""><i class="tags icon"></i>  Category</label>
+
+			<div class="ui">
+				<div >
+					<div ng-repeat="category in categoriesC" ng-click="select(category)"  ng-if="selectedLevelB.identifier == category.parentId" style="display:inline">
+						<a class="ui image label" ng-class="{ green: selectedLevelC.identifier == category.identifier ,  black: selectedLevelC.identifier != category.identifier}">
+							<img src="{{category.$images[0].$thumbnail}}">
+							{{category.title}}
+						</a>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div> <!-- parents -->
+
+
+	</div>
+
+
+
+	<div style="">
+		<div class="ui small message" >
+			<i class="ui checkmark sign icon green animated rotateIn"   ng-class="{ 'animate fadeIn': true }" ng-if="selectedLevelA.identifier != null"></i>
+			Step <span class="ui circular label"> 1 </span>  Select <span>Main Category</span> | <span>Sub Category</span>
+		</div>
+		<div class="ui small message">
+			<i class="ui checkmark sign icon green animated rotateIn"  ng-class="{ 'animate fadeIn': true }"  ng-if="currentCategory.title && currentCategory.categoryId && currentCategory.description"></i>
+			Step <span class="ui circular label"> 2 </span> Enter New Category Information
+		</div>
+		<div class="ui small message">
+			<i class="ui checkmark sign icon green animated rotateIn"  ng-class="{ 'animate fadeIn': true }"  ng-if="currentCategory.$images.length > 0"></i>
+			Step <span class="ui circular label"> 3 </span> Upload Image
+		</div>
+	</div>
+
+</div> <!-- second column -->
+
+
+<!-- <div class="ui vertical divider"> </div> -->
+
+<div class="column " ng-class="{ 'animated fadeInRight' : true}">
+
+	<div class="form ui segment ko-body">
+
+		<div class="field">
+
+			<label for=""><i class="tags link icon"></i> Title </label>
+			<input type="text" class="type" ng-model="currentCategory.title">
+		</div>
+
+		<div class="ui two fields" ng-hide="true">
+			<div class="field">
+				<label for=""><i class="tags link icon"></i> ID</label>
+				<input type="text" ng-model="currentCategory.categoryId">
+			</div>
+			<div class="field">
+
+			</div>
+		</div>
+
+		<div class="field">
+			<label for=""><i class="info letter icon"></i> Description</label>
+			<textarea style="height:20px;" cols="30" rows="5" ng-model="currentCategory.description"></textarea>
+		</div>
+
+		<div class="field">  <!-- UPLOAD -->
+			<label><i class="photo icon"></i> Images</label>
+			<div class="ui segment">
+				<div class="mini ui button">
+					<div class="fileupload">
+						<i class="icon cloud upload"></i>
+						<span>Upload</span>
+						<input type="file" ng-file-select="onFileSelect($files)" multiple class="upload">
+					</div>
+				</div> <!-- update -->
+
+				<div class="ui button mini" ng-click="removeImage(currentPicture)" ng-show="currentPicture.identifier != null && currentCategory.$images.length > 0">
+					<i class="ui remove icon"></i>
+					<span>Remove</span>
+				</div>
+
+				<div class="mini ui button" ng-click="showImageModal()" ng-if="false" > <i class="edit icon" ></i>Detail</div> <!-- detail -->
+
+				<div class="field"></div>
+				<div class="ui small images" style="display:inline-block">
+					<img class="rounded ui image"  ng-repeat="x in currentCategory.$images"  ng-src="{{x.$thumbnail}}" ng-show="currentCategory.$images.length > 0" ng-click="openPicture(x)" ng-class="{ 'highlight' : x == currentPicture }">
+				</div>
+			</div>
+		</div> <!-- UPLOAD -->
+
+		<div class="field"> <!-- LEVEL-->
+			<label for=""><i class="tags link icon"></i> Category Level</label>
+
+			<div class="ui segment">
+				<div class="ui icon input" ng-if="false">
+					<input type="text" placeholder="Filter" ng-model="parentFilter.title">
+					<div class="ui icon"><i class="search link icon"></i></div>
+				</div>	
+
+				<div class="ui">
+					<div class="ui breadcrumb">
+
+						<div class="section" ng-if="selectedLevelA.identifier != null" ng-class="{ 'animated fadeInDown' : true }">
+							<div class="ui image label black">
+								<img src="{{selectedLevelA.$images[0].$thumbnail}}" alt="">
+								{{selectedLevelA.title}}
+							</div>
+						</div>
+
+						<span ng-if="selectedLevelB.identifier != null">
+							<i class="right arrow icon divider"></i>
+
+							<div class="section" ng-class="{ 'animated fadeInDown' : true }">
+								<div class="ui image label black">
+									<img src="{{selectedLevelB.$images[0].$thumbnail}}" alt="">
+									{{selectedLevelB.title}}
+								</div>
+							</div>	 		
+						</span>
+
+						<span ng-if="(selectedLevelA.identifier != null || selectedLevelB != null) && currentCategory.title">
+							<i class="right arrow icon divider"></i>
+
+							<a class="ui image label green" ng-class="{ 'animated fadeInDown' : true }">
+								<img src="{{currentCategory.$images[0].$thumbnail}}">
+								{{currentCategory.title}}
+							</a>
+						</span>
+
+
+					</div>
+				</div>
+			</div> <!-- END LEVEL -->
+		</div> <!-- parents -->
+	</div>
+
+	<div class="field">
+		<div class=" ui button mini" ng-click="save(currentCategory)" ng-show="currentCategory.title && currentCategory.$images.length && currentCategory.identifier == null">
+			<i class="reorder icon"></i> 
+			<span>Save</span>
+		</div>
+
+		<div class=" ui button mini" ng-click="save(currentCategory)" ng-if="currentCategory.identifier != null">
+			<i class="reorder icon"></i> 
+			<span >Update</span>
+		</div>
+
+		<div class=" ui button mini" ng-click="cancel()" ng-hide="currentCategory.identifier == null">
+			<i class="remove sign icon"></i> Cancel
+		</div>
+	</div>
+
+</div> <!-- first column -->
+
+
+</div> <!--grid-->
+
+
+
+<div  class="column" ng-include src="'views/category/category_table.html'" style=""> </div> <!--column 2 -->
+
