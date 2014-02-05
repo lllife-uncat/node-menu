@@ -11,6 +11,7 @@ app.controller("SynchronizeController", function($scope, ConfigurationService, $
 	var startEvent = "synchronize.start";
 	var statusEvent = "synchronize.status";
 	var listEvent = "synchronize.list";
+	var cleanEvent = "clean.start";
 
 	// init variable
 	$scope.categories = [];
@@ -28,6 +29,12 @@ app.controller("SynchronizeController", function($scope, ConfigurationService, $
 		console.log("== Start Sync ==");
 		console.log(token);
 
+		// clean unrefernce media
+		// eb.send(cleanEvent, {}, function(reply){
+
+		// });
+
+		// start sync
 		eb.send(startEvent, token , function(reply){
 
 		});

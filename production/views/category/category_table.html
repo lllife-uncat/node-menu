@@ -30,7 +30,7 @@
 
 				<td>
 					<div class="ui mini images" style="display:inline-block">
-						<a href=""  class="ko-thumbnail"  ng-repeat="x in category.$images" ng-show="category.$images.length > -1 && x.archive == false" data-content="{{x.title}}">
+						<a href=""  class="ko-thumbnail"  ng-repeat="x in category.$images">
 							<img class="rounded  ui image"  ng-src="{{x.$thumbnail}}"  >
 						</a>
 					</div>

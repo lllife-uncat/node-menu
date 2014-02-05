@@ -48,7 +48,16 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 			onApprove : function(){
 				console.log("approve...");
 				category.delete = true;
-				$scope.save(category);
+				//$scope.save(category);
+
+				var request = CategoryService.add(category);
+				request.success(function(data){
+					var index = $scope.categories.indexOf(category);
+					if(index != -1){
+						$scope.categories.splice(index,1);
+					}
+				 });
+
 			}
 		});
 
@@ -184,6 +193,9 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 				error : false
 			}
 			if(typeof($scope.currentCategory.identifier) === 'undefined') {
+
+				console.log("== New Category ==");
+
 				newCat.$images = [];
 				newCat.imageIds.forEach(function(id){
 					pic = {};

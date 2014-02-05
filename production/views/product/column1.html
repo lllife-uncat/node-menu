@@ -54,19 +54,22 @@
 			<textarea style="height:20px;" ng-model="currentProduct.description"></textarea>
 		</div>
 
-		<div class="ui field">
 
-			<label><i class="info empty star icon"></i>  Highlight / Promotion </label>
+		<div class="ui fields">
+			<div class="field">
 
-			<div class="ui  segment">
+				<label><i class="empty star icon"></i> Highlight / Promotion </label>
 
-				<a style="text-transform:nonex;" class="ui mini button" ng-click="currentProduct.highlight = !currentProduct.highlight" ng-class="{ orange : currentProduct.highlight }">
-					<i class="ui empty thumbs up outline icon" ></i>  Hightlight
-				</a>
-				<a style="text-transform:nonex;" class="ui mini button" ng-click="currentProduct.promotion = !currentProduct.promotion" ng-class="{ orange : currentProduct.promotion }">
-					<i class="ui empty checkmark sign icon" ></i>  Promotion
-				</a>
+				<div class="ui " style="margin-top:20px;margin-bottom:20px;">
 
+				<i style="text-transform:nonex;padding:5px;" class="ui mini button" ng-click="currentProduct.highlight = !currentProduct.highlight" ng-class="{ orange : currentProduct.highlight }">
+						<i class="ui empty thumbs up outline icon" ></i>  Hightlight
+					</i>
+					<i style="text-transform:nonex;padding:5px;" class="ui mini button" ng-click="currentProduct.promotion = !currentProduct.promotion" ng-class="{ orange : currentProduct.promotion }">
+						<i class="ui empty checkmark sign icon" ></i>  Promotion
+					</i>
+
+				</div>
 			</div>
 		</div>
 
@@ -129,13 +132,13 @@
 					</a>
 				</span>
 
-			
+
 				<div class="field">
 					<div class="ui button mini animated fadeIn" ng-click="showVideoModal()" ng-if="currentVideo.identifier" style="margin-top:20px">
 						<i class="ui play icon animated rotateIn"></i> Play {{currentVideo.title}}
 					</div>
 				</div>
-			
+
 
 			</div>
 		</div> <!-- UPLOAD VIDEO-->

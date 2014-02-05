@@ -77,7 +77,7 @@
 
 			<div class="ui">
 				<div >
-					<div ng-repeat="category in categoriesC" ng-click="select(category)"  ng-if="selectedLevelB.identifier == category.parentId" style="display:inline">
+					<div ng-repeat="category in categoriesC" ng-click="_select(category)"  ng-if="selectedLevelB.identifier == category.parentId" style="display:inline">
 						<a class="ui image label" ng-class="{ green: selectedLevelC.identifier == category.identifier ,  black: selectedLevelC.identifier != category.identifier}">
 							<img src="{{category.$images[0].$thumbnail}}">
 							{{category.title}}

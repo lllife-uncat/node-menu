@@ -226,7 +226,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	// show image manager popup.
 	$scope.showImageModal = function(){
 
-		var dlg = $(".ui.modal");
+		var dlg = $(".show-image.ui.modal");
 		
 		dlg.modal("setting", {
 			// useCSS : false
@@ -355,6 +355,8 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	$scope.appendProductDependency = function(product){
 		product.imageIds = [];
 		product.mediaIds = [];
+
+		product.$videos = product.$videos || [];
 
 		product.categoryIds = [];
 

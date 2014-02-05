@@ -1,5 +1,6 @@
 var app = angular.module("MenuApp", ["ngRoute", "angularFileUpload", "ngTable"]);
 
+
 app.config(function($routeProvider){
 
 	$routeProvider.when("/", {
@@ -45,6 +46,11 @@ app.config(function($routeProvider){
 	$routeProvider.when("/synchronize", {
 		templateUrl : "views/synchronize.html",
 		controller : "SynchronizeController"
+	});
+
+	$routeProvider.when("/clean", {
+		templateUrl : "views/clean.html",
+		controller : "CleanController"
 	});
 
 	$routeProvider.otherwise({

@@ -1,5 +1,6 @@
 var app = angular.module("MenuApp", ["ngRoute", "angularFileUpload", "ngTable"]);
 
+
 app.config(function($routeProvider){
 
 	$routeProvider.when("/", {
@@ -45,6 +46,11 @@ app.config(function($routeProvider){
 	$routeProvider.when("/synchronize", {
 		templateUrl : "views/synchronize.html",
 		controller : "SynchronizeController"
+	});
+
+	$routeProvider.when("/clean", {
+		templateUrl : "views/clean.html",
+		controller : "CleanController"
 	});
 
 	$routeProvider.otherwise({
@@ -527,7 +533,16 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 			onApprove : function(){
 				console.log("approve...");
 				category.delete = true;
-				$scope.save(category);
+				//$scope.save(category);
+
+				var request = CategoryService.add(category);
+				request.success(function(data){
+					var index = $scope.categories.indexOf(category);
+					if(index != -1){
+						$scope.categories.splice(index,1);
+					}
+				 });
+
 			}
 		});
 
@@ -663,6 +678,9 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 				error : false
 			}
 			if(typeof($scope.currentCategory.identifier) === 'undefined') {
+
+				console.log("== New Category ==");
+
 				newCat.$images = [];
 				newCat.imageIds.forEach(function(id){
 					pic = {};
@@ -741,6 +759,54 @@ app.controller("CategoryController", function($scope, NavigateService, CategoryS
 		}
 	};
 
+});
+app.controller("CleanController", function($scope, ConfigurationService){
+	// init variable
+	var endPoint = ConfigurationService.endPoint + "/eventbus";
+	var eb = new vertx.EventBus(endPoint);
+	
+	var statusEvent = "clean.status";
+	var startEvent = "clean.start";
+	var listEvent  = "clean.list";
+
+	$scope.cleanHistory = [];
+	$scope.medias = [];
+	$scope.images = [];
+
+	function list() {
+		eb.send(listEvent, {}, function(reply){
+
+			var obj = JSON.parse(reply);
+			$scope.images = obj.images;
+			$scope.medias = obj.medias;
+
+		});
+	}
+
+	eb.onopen = function(){
+		eb.registerHandler(statusEvent, function(message){
+
+			var obj = JSON.parse(message);
+
+			$scope.cleanHistory.push(obj);
+			$scope.$apply();
+		});
+
+		list();
+
+	};
+
+	$scope.start = function(){
+		$scope.cleanHistory = [];
+
+		eb.send(startEvent, {}, function(reply){
+			console.log(reply);
+		});	
+	};
+
+	$scope.list = function(){
+		list();
+	};
 });
 app.controller("HomeController", function($scope, NavigateService, CategoryService, ProductService, UserService){
 
@@ -1194,7 +1260,7 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	// show image manager popup.
 	$scope.showImageModal = function(){
 
-		var dlg = $(".ui.modal");
+		var dlg = $(".show-image.ui.modal");
 		
 		dlg.modal("setting", {
 			// useCSS : false
@@ -1323,6 +1389,8 @@ app.controller("ProductController", function($scope, $location, CategoryService,
 	$scope.appendProductDependency = function(product){
 		product.imageIds = [];
 		product.mediaIds = [];
+
+		product.$videos = product.$videos || [];
 
 		product.categoryIds = [];
 
@@ -1616,6 +1684,7 @@ app.controller("SynchronizeController", function($scope, ConfigurationService, $
 	var startEvent = "synchronize.start";
 	var statusEvent = "synchronize.status";
 	var listEvent = "synchronize.list";
+	var cleanEvent = "clean.start";
 
 	// init variable
 	$scope.categories = [];
@@ -1633,6 +1702,12 @@ app.controller("SynchronizeController", function($scope, ConfigurationService, $
 		console.log("== Start Sync ==");
 		console.log(token);
 
+		// clean unrefernce media
+		// eb.send(cleanEvent, {}, function(reply){
+
+		// });
+
+		// start sync
 		eb.send(startEvent, token , function(reply){
 
 		});

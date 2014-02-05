@@ -48,7 +48,7 @@
 				<td class="ko-price"> <!-- member -->
 					<div class="ui black label animated fadeInUp">
 						<a href="" style="font-size:100%">
-							{{ (product.memberPrice | currency).replace("$","") }}
+							{{ (product.promotionPrice | currency).replace("$","") }}
 						</a>
 					</div>
 				</td>
@@ -56,7 +56,7 @@
 				<td class="ko-price"> <!-- promotion -->
 					<div class="ui label black animated fadeInUp">
 						<a href="" style="font-size:100%">
-							{{ (product.promotionPrice | currency).replace("$","") }}
+							{{ (product.memberPrice | currency).replace("$","") }}
 						</a>
 					</div>
 				</td>

@@ -1,0 +1,57 @@
+<div class="ui mini button" ng-click="list()">
+	<i class="ui icon refresh"></i>
+	Refresh
+</div>
+
+<div class="ui mini button" ng-click="start()">
+	<i class="ui icon trash"></i>
+	Clean All
+</div>
+<hr>
+
+<div class="" style="margin:20px" ng-if="false">
+	<div class="ui label green" ng-repeat="media in cleanHistory" style="margin:2px">
+		<i class="ui icon checkmark sign animated rotateIn"></i>
+		{{ media.identifier }} 
+	</div>
+</div>
+
+<div ng-if="cleanHistory.length == 0 && images.length == 0 && medias.length == 0">
+	<div class="ui small message">Empty</div>
+</div>
+
+<div class="" ng-if="medias.length > 0"> <br>
+	<table class="ui small table segment animated fadeInUp" style="font-size:80%" >
+		<thead>
+			<tr>
+				<th><i class="ui icon bolt"></i></th>
+				<th>Path</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr ng-repeat="video in medias" class="animated fadeIn">
+				<td>{{ video.identifier }}</td>
+				<td>{{ video.path }}</td>
+			</tr>
+		</tbody>
+	</table>	
+</div>
+
+<div class="" ng-if="images.length > 0"> <br>
+	<table class="ui small table segment animated fadeInUp" style="font-size:80%" >
+		<thead>
+			<tr>
+				<th><i class="ui icon bolt"></i></th>
+				<th>Path</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr ng-repeat="image in images" class="animated fadeIn">
+				<td>{{ image.identifier }}</td>
+				<td>{{ image.path }}</td>
+			</tr>
+		</tbody>
+	</table>		
+</div>
