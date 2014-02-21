@@ -1,0 +1,14 @@
+{
+  "name": "Hover",
+  "_cacheHeaders": {
+    "ETag": "\"b81e1162d93c93f887868a72bb2d88fc\"",
+    "Content-Length": "49073",
+    "Content-Type": "text/html; charset=utf-8"
+  },
+  "_release": "e-tag:b81e1162d",
+  "main": "index",
+  "_source": "https://github.com/IanLunn/Hover",
+  "_target": "*",
+  "_originalSource": "https://github.com/IanLunn/Hover",
+  "_direct": true
+}

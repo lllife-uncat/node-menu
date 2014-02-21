@@ -53,6 +53,11 @@ app.config(function($routeProvider){
 		controller : "CleanController"
 	});
 
+	$routeProvider.when("/touch", {
+		templateUrl : "views/touch.html",
+		controller : "TouchController"
+	});
+
 	$routeProvider.otherwise({
 		redirectTo: "/"
 	});

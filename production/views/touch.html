@@ -1,0 +1,91 @@
+<style>
+	
+	/* Styles not relevant to scrolling (just to make the demo look neat and tidy) */
+	/*body { font-family: sans-serif; -webkit-text-size-adjust: 100% }*/
+	/*#scrollable section:nth-child(2n) { }*/
+
+	/* Set the size of the scroller.  Visible border to make the demo easier to understand */
+	#scrollable { white-space: nowrap; width:100%; overflow: hidden ; float: bottom}
+
+	/* Style each 'page' to be the same size and join together into a long horizontal strip.  Use display: table on the section wrapper 
+	to get rid of whitespace between the inline-blocks. */
+
+	/*#sectionwrapper { width: 3600px; display: table }*/
+	#sectionwrapper {  display: table; padding-top:30px;  }
+
+
+
+	/*#sectionwrapper section { width: 600px; height: 400px; display: inline-block; vertical-align: bottom;}*/
+	#sectionwrapper section { display: inline-block; vertical-align: middle;}
+
+	#sectionwrapper section div { padding: 2px; overflow: hidden; white-space: normal;}
+
+</style>
+
+<div class="ui segment">
+	
+	<div class="ui grid">
+		
+
+		<div class="three wide column">
+
+			<div class="ui  grid  small images">
+				<div class="one column row animated fadeInDown" ng-repeat="category in categories | filter:categoryFilter" >
+
+					<div class="column" >
+						<div class="ui">
+							<a hrif="" class="ui label xxx grow" ng-click="selectCategory(category)" ng-class="{ green : currentCategory == category }">{{category.title}} </a>
+							
+						</div>
+						<!-- <img src="{{category.$images[0].$url}}" alt="" style="">   -->
+						
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="twelve wide column" class="animated fadeIn">
+
+			<div class="ui grid">
+
+				<div class="row"  style="height:500px">
+
+					<div class="column" style="margin-left:auto; margin-right:auto;">
+						
+						<div class="ui animated" ng-class="{ fadeIn : show , fadeOut : !show }">
+							<div class="column ui images" style="margin-left:auto; margin-right:auto;">
+								<img src="{{currentProduct.$images[0].$url}}" style="max-height:500px" alt="">
+							</div>		
+						</div>
+
+					</div>
+
+
+				</div>
+
+
+				<div class="row">
+
+					<div class="column">
+						<div id='scrollable'>
+
+							<div id='sectionwrapper' class="ui medium  images ">
+
+								<section ng-repeat="product in products | filter:productFilter" class="animated fadeInLeft" ng-click="selectProduct(product)">
+									<div href="" class="xxx glow"> <img src="{{product.$images[0].$thumbnail}}"> </div>
+								</section>
+
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+</div>

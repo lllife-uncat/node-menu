@@ -53,6 +53,11 @@ app.config(function($routeProvider){
 		controller : "CleanController"
 	});
 
+	$routeProvider.when("/touch", {
+		templateUrl : "views/touch.html",
+		controller : "TouchController"
+	});
+
 	$routeProvider.otherwise({
 		redirectTo: "/"
 	});
@@ -285,6 +290,38 @@ function _selectComplexCategory($scope, cat){
 
 
 
+
+app.factory("BranchService", function($log, $http, ConfigurationService){
+    var endPoint = ConfigurationService.endPoint;
+
+    function findAll(callback) {
+        var request = $http({
+            url : endPoint + "/branch",
+            method : "GET"
+        });
+        request.success(callback);
+        request.error(function(err){
+            $log.error(err);
+        });
+    }
+
+    function add(info, callback){
+        var request = $http({
+            url : endPoint + "/branch",
+            method : "POST",
+            data : JSON.stringify(info)
+        });
+        request.success(callback);
+        request.error(function(err){
+            $log.error(err);
+        });
+    }
+
+    return {
+        findAll : function(callback) { findAll(callback); },
+        add : function(info, callback) { add(info, callback); }
+    }
+});
 app.factory("CategoryService", function(ConfigurationService, $http){
 
 	var baseUrl = ConfigurationService.endPoint + "/category";
@@ -479,9 +516,32 @@ app.factory("UserService", function($location, $http, ConfigurationService){
 		}
 	};
 });
-app.controller("BranchController", function($scope, NavigateService){
+app.controller("BranchController", function($log, $scope, NavigateService, BranchService){
+    // active nav bar
 	$scope.category = true;
 	NavigateService($scope);
+
+    // Scope variable
+    $scope.branchs = [];
+
+    // BranchService.findAll() callback
+    // * Enter function if success
+    function findAllCallback(data) {
+        $scope.branchs = data;
+        $log.info(data);
+    }
+
+    // BranchService.add() callback
+    // * Enter function if success
+    function addCallback(result) {
+
+    }
+
+    BranchService.findAll(findAllCallback);
+
+    $scope.add = function(info){
+        BranchService.add(info, addCallback)
+    }
 });
 app.controller("CategoryController", function($scope, NavigateService, CategoryService, ProductService, $upload, UserService){
 
@@ -1822,6 +1882,80 @@ app.controller("SynchronizeController", function($scope, ConfigurationService, $
 	$scope.republish = function(){
 		startSync(true);
 	}
+});
+
+
+app.controller("TouchController", function($scope, ProductService, CategoryService){
+
+
+	angular.element(document).ready(function(){
+		var scroller = new FTScroller(document.getElementById('scrollable'), {
+			scrollingY: false,
+			snapping: false,
+			scrollbars: false
+		});
+
+
+	});
+
+	var product = _initProduct($scope, ProductService);
+	var request = _initCategory($scope, CategoryService, ProductService);
+
+	request.success(function(data){
+		_refreshCategoryInfo($scope);
+
+		$scope.currentCategory = $scope.categoriesC[0];
+	});
+
+	product.success(function(data){
+		$scope.currentProduct = $scope.products[0];
+	});
+
+
+	$scope.currentProduct = {};
+	$scope.currentCategory = {};
+	$scope.show = true;
+
+	$scope.selectProduct = function(p){
+		$scope.currentProduct = p;
+
+		$scope.show = false;
+
+		setTimeout(function(){
+			$scope.show = true;
+			$scope.$apply();
+		}, 1);
+
+	};
+
+	$scope.selectCategory = function(c){
+		$scope.currentCategory = c;
+	};
+
+	$scope.categoryFilter = function(cat){
+
+		console.log(cat.$level);
+		if(cat.$level === "C") {
+			return true;
+		}
+
+		return false;
+	};
+
+	$scope.productFilter = function(p){
+
+		console.log(p.categoryIds[0]);
+		console.log($scope.currentCategory.identifier);
+
+		console.log("===========");
+
+		if(p.categoryIds[0]  == $scope.currentCategory.identifier) {
+			return true;
+		}
+
+		return false;
+	};
+
 });
 app.controller("UserController", function($scope, NavigateService){
 	NavigateService($scope);
