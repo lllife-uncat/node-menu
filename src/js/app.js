@@ -23,9 +23,9 @@ app.config(function($routeProvider){
 		controller: "ImageController"
 	});
 
-	$routeProvider.when("/video", {
-		templateUrl : "views/video.html",
-		controller: "VideoController"
+	$routeProvider.when("/device", {
+		templateUrl : "views/device.html",
+		controller: "DeviceController"
 	});
 
 	$routeProvider.when("/user", {

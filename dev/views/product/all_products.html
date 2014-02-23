@@ -137,7 +137,7 @@
             <div ng-if="product.$edit" class="ui form"> <input type="number" ng-model="product.memberPrice" /> </div>
           </td>
 
-          <td>
+          <td style="min-width: 200px;">
             <div ng-if="!product.archive" style="display:inline">
              <div class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true;setInlineEditing(true);"> <i class="edit icon" ></i> </div>
              <div class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false;inlineUpdate(product)"> <i class="save icon" ></i> </div>              

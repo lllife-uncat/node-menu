@@ -1,0 +1,73 @@
+<div class="ui secondary pointing menu">
+    <a class="item active">
+        <i class="tablet icon"></i> New Device
+    </a>
+</div>
+
+
+<div class="ui segment animated fadeIn">
+    <div class="ui grid ">
+
+        <div class="ui ten wide column">
+            <div class="ui form">
+
+                <div class="ui fields"> <!-- Device -->
+                    <div class="ui field">
+                        <label for="">
+                            <i class="ui tag icon"></i>
+                            Device ID
+                        </label>
+                        <input type="text" ng-model="currentDevice.deviceId"/>
+                    </div>
+                </div>
+
+                <div class="ui fields"> <!-- S/N -->
+                    <div class="ui field">
+                        <label for="">
+                            <i class="ui key icon"></i>
+                            Serial Number
+                        </label>
+                        <input type="text" ng-model="currentDevice.serialNumber"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="ui six wide column"></div>
+
+    </div>
+
+    <div class="ui mini button" ng-if="currentDevice.deviceId && currentDevice.serialNumber" ng-click="add(currentDevice)">
+        <i class="ui save icon"></i>
+        Save
+    </div>
+</div>
+
+<table class="ui small table animated fadeIn collapsing">
+    <thead>
+    <tr>
+        <th><i class="ui icon bolt"></i></th>
+        <th><label for="">ID</label></th>
+        <th><label for="">Serial Number</label></th>
+        <th><label for="">Edit/Remove</label></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr class="animated fadeIn" ng-repeat="device in devices | orderBy:'identifier':true ">
+        <td>{{$index + 1}}</td>
+        <td>{{device.deviceId}}</td>
+        <td>{{device.serialNumber}}</td>
+        <td style="min-width:200px">
+            <div class="ui mini button" ng-click="edit(device)">
+                <i class="ui edit icon"></i>
+            </div>
+            <div class="ui mini button" ng-click="remove(device)">
+                <i class="ui remove icon"></i> Remove
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+

@@ -19,6 +19,7 @@
 	<script src="venders/angular-route/angular-route.js"></script>
 	<script src="venders/ng-file-upload/angular-file-upload.js"></script>
 	<script src="venders/angular-animate/angular-animate.js"></script>
+    <script src="venders/scroll-reveal/scrollReveal.js"></script>
 
 	<!-- <script src="venders/angular-ui-utils/ui-utils.js"></script> -->
  	<!-- <script src="venders/angular-ui-utils/ui-utils-ieshiv.js"></script> -->
@@ -44,7 +45,7 @@
 		});
 	</script>
 	
-	<div class="ui inverted menu" ng-if="isLogged()">
+	<div class="ui inverted menu animated fadeInDown" ng-if="isLogged()" >
 
 		<a class="active item" href="#/home" ng-class="{ active: location=='/' }">
 			<i class="home icon"></i> <span class="ui label circular" style="background:none;">Home</span>
@@ -58,13 +59,14 @@
 			<i class="tags icon"></i> <span class="ui label circular" style="background:none;">Category</span>
 		</a> <!-- Category -->
 
-<!-- 		<a class="item" href="#/video" ng-class="{ active: location=='/video' }">
-			<i class="video icon"></i> Video
-		</a> --> <!-- Video -->
 
  		<a class="item" href="#/branch" ng-class="{ active: location=='/branch' }">
 			<i class="sitemap icon"></i> <span class="ui label circular" style="background: none">Branch</span>
 		</a>
+
+        <a class="item" href="#/device" ng-class="{ active: location == '/device' }">
+            <i class="tablet icon"></i> <span class="ui label" style="background: none;">Device</span>
+        </a>
 
         <a class="item" href="#/synchronize" ng-class="{ active: location=='/synchronize' }">
             <i class="upload cloud icon"></i> <span class="ui label circular" style="background:none;">Publish</span>
@@ -101,7 +103,9 @@
 
 	<script>
 
+
 		$(document).ready(function(){
+
 
 			console.log("==ready==");
 			jQuery('input[type="number"]').keyup(function(){
