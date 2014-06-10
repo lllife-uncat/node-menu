@@ -5264,6 +5264,10 @@ input::-webkit-inner-spin-button {
     text-shadow: 0px 0px 0.06em gray;
 }
 
+.field input[type=text]{
+    height:35px;
+}
+
 .ui.form input[type="number"]:focus,
 .ui.form textarea:focus {
   color: rgba(0, 0, 0, 0.85);

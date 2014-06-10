@@ -35,32 +35,32 @@
 
 				<label><i class="tags dollar icon"></i> Select Product Category </label>
 
-				<div class="ui breadcrumb"> 
+				<div class="ui breadcrumb">
 
 					<span ng-click="selectCategoryLevel('A')"> <!-- CAT A -->
 
 						<a class="ui image label black"  ng-if="!selectedCategoryA.identifier" ng-class="{ green : selectedCategoryLevel == 'A'}">
-							<img src="{{selectedCategoryA.$images[0].$thumbnail}}">
+							<img ng-src="{{selectedCategoryA.$images[0].$thumbnail}}">
 							Main Category
-						</a>	
+						</a>
 
 						<a class="ui image label"  ng-if="selectedCategoryA.identifier" ng-class="{ green : selectedCategoryLevel == 'A' , black : selectedCategoryLevel != 'A'}">
-							<img src="{{selectedCategoryA.$images[0].$thumbnail}}">
+							<img ng-src="{{selectedCategoryA.$images[0].$thumbnail}}">
 							{{selectedCategoryA.title}}
-						</a>	
+						</a>
 					</span>
 
-					
+
 					<span ng-click="selectCategoryLevel('B')">  <!-- CAT B -->
 						<i class="right arrow icon divider"></i>
 
 						<a class="ui image label" ng-if="selectedCategoryB.identifier" ng-class="{ green : selectedCategoryLevel == 'B', black : selectedCategoryLevel != 'B'}">
-							<img src="{{selectedCategoryB.$images[0].$thumbnail}}">
+							<img ng-src="{{selectedCategoryB.$images[0].$thumbnail}}">
 							{{selectedCategoryB.title}}
 						</a>
 
 						<a class="ui image label black" ng-if="!selectedCategoryB.identifier" ng-class="{ green : selectedCategoryLevel == 'B'}">
-							<img src="{{selectedCategoryB.$images[0].$thumbnail}}">
+							<img ng-src="{{selectedCategoryB.$images[0].$thumbnail}}">
 							Sub Category
 						</a>
 					</span>
@@ -69,13 +69,13 @@
 						<i class="right arrow icon divider" ></i>
 
 						<a class="ui image label" ng-if="selectedCategoryC.identifier" ng-class="{ green : selectedCategoryLevel == 'C' , black : selectedCategoryLevel != 'C'}">
-							<img src="{{selectedCategoryC.$images[0].$thumbnail}}">
+							<img ng-src="{{selectedCategoryC.$images[0].$thumbnail}}">
 							{{selectedCategoryC.title}}
 						</a>
 						<a class="ui image label black" ng-if="!selectedCategoryC.identifier" ng-class="{ green : selectedCategoryLevel == 'C'}">
-							<img src="{{selectedCategoryC.$images[0].$thumbnail}}">
+							<img ng-src="{{selectedCategoryC.$images[0].$thumbnail}}">
 							Category
-						</a>						
+						</a>
 					</span>
 
 				</div>
@@ -85,33 +85,33 @@
 						<input type="text" placeholder="Search...">
 						<i class="search link icon"></i>
 					</div>
-				</div>	
+				</div>
 
 
 				<div class="ui ko-category-a"  ng-if="selectedCategoryLevel == 'A'" ng-class="{ 'animated fadeIn' : true }">
 					<div>
 						<a class="ui image label" ng-repeat="category in categoriesA" ng-click="selectCategoryA(category)" ng-class="{ green : category.identifier == selectedCategoryA.identifier, black : category.identifier != selectedCategoryA.identifier}">
-							<img src="{{category.$images[0].$thumbnail}}">
+							<img ng-src="{{category.$images[0].$thumbnail}}">
 							{{category.title}}
-						</a>	
+						</a>
 					</div>
 				</div>
 
 				<div class="ui ko-category-b"  ng-if="selectedCategoryLevel == 'B'" ng-class="{ 'animated fadeIn' : true }">
 					<div>
 						<a class="ui image label" ng-repeat="category in categoriesB" ng-click="selectCategoryB(category)" ng-class="{ green : category.identifier == selectedCategoryB.identifier, black : category.identifier != selectedCategoryB.identifier}" ng-if="category.parentId == selectedCategoryA.identifier">
-							<img src="{{category.$images[0].$thumbnail}}">
+							<img ng-src="{{category.$images[0].$thumbnail}}">
 							{{category.title}}
-						</a>	
+						</a>
 					</div>
 				</div>
 
 
 				<div class="ui"  ng-if="selectedCategoryLevel == 'C'" ng-class="{ 'animated fadeIn' : true }">
 					<a class="ui image label"  ng-repeat="category in categoriesC" ng-click="selectCategoryC(category)" ng-class="{ green : category == selectedCategoryC, black : category != selectedCategoryC}" ng-if="category.parentId == selectedCategoryB.identifier">
-						<img src="{{category.$images[0].$thumbnail}}">
+						<img ng-src="{{category.$images[0].$thumbnail}}">
 						{{category.title}}
-					</a>						
+					</a>
 				</div>
 
 			</div> <!-- field -->

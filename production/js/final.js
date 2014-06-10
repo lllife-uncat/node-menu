@@ -23,9 +23,9 @@ app.config(function($routeProvider){
 		controller: "ImageController"
 	});
 
-	$routeProvider.when("/video", {
-		templateUrl : "views/video.html",
-		controller: "VideoController"
+	$routeProvider.when("/device", {
+		templateUrl : "views/device.html",
+		controller: "DeviceController"
 	});
 
 	$routeProvider.when("/user", {
@@ -290,6 +290,53 @@ function _selectComplexCategory($scope, cat){
 
 
 
+
+app.factory("BranchService", function($log, $http, ConfigurationService){
+    var endPoint = ConfigurationService.endPoint;
+
+    function BranchInfo() {
+        this.name = "";
+        this.branchId = "";
+        this.description = "";
+        this.phone = "";
+        this.province = "";
+        this.district = "";
+        this.deviceIds = [];
+
+        Object.preventExtensions(this);
+    }
+
+
+    function findAll(callback) {
+        var request = $http({
+            url : endPoint + "/branch",
+            method : "GET"
+        });
+        request.success(callback);
+        request.error(function(err){
+            $log.error(err);
+        });
+    }
+
+    function add(info, callback){
+        var request = $http({
+            url : endPoint + "/branch",
+            method : "POST",
+            data : JSON.stringify(info),
+            headers : { "Content-Type" : "multipart/form-data"}
+        });
+        request.success(callback);
+        request.error(function(err){
+            $log.error(err);
+        });
+    }
+
+    return {
+        BranchInfo : BranchInfo,
+        findAll : function(callback) { findAll(callback); },
+        add : function(info, callback) { add(info, callback); }
+    }
+});
 app.factory("CategoryService", function(ConfigurationService, $http){
 
 	var baseUrl = ConfigurationService.endPoint + "/category";
@@ -320,10 +367,152 @@ app.factory("CategoryService", function(ConfigurationService, $http){
 		}
 	}
 });
+/**
+ *
+ * Created by recovery on 2/23/14.
+ */
+
+app.factory("Collections", function($log){
+    var provinces = [
+        "กรุงเทพมหานคร",
+        "กระบี่",
+        "กาญจนบุรี",
+        "กาฬสินธุ์",
+        "กำแพงเพชร",
+        "ขอนแก่น",
+        "จันทบุรี",
+        "ฉะเชิงเทรา",
+        "ชัยนาท",
+        "ชัยภูมิ",
+        "ชุมพร",
+        "ชลบุรี",
+        "เชียงใหม่",
+        "เชียงราย",
+        "ตรัง",
+        "ตราด",
+        "ตาก",
+        "นครนายก",
+        "นครปฐม",
+        "นครพนม",
+        "นครราชสีมา",
+        "นครศรีธรรมราช",
+        "นครสวรรค์",
+        "นราธิวาส",
+        "น่าน",
+        "นนทบุรี",
+        "บึงกาฬ",
+        "บุรีรัมย์",
+        "ประจวบคีรีขันธ์",
+        "ปทุมธานี",
+        "ปราจีนบุรี",
+        "ปัตตานี",
+        "พะเยา",
+        "พระนครศรีอยุธยา",
+        "พังงา",
+        "พิจิตร",
+        "พิษณุโลก",
+        "เพชรบุรี",
+        "เพชรบูรณ์",
+        "แพร่",
+        "พัทลุง",
+        "ภูเก็ต",
+        "มหาสารคาม",
+        "มุกดาหาร",
+        "แม่ฮ่องสอน",
+        "ยโสธร",
+        "ยะลา",
+        "ร้อยเอ็ด",
+        "ระนอง",
+        "ระยอง",
+        "ราชบุรี",
+        "ลพบุรี",
+        "ลำปาง",
+        "ลำพูน",
+        "เลย",
+        "ศรีสะเกษ",
+        "สกลนคร",
+        "สงขลา",
+        "สมุทรสาคร",
+        "สมุทรปราการ",
+        "สมุทรสงคราม",
+        "สระแก้ว",
+        "สระบุรี",
+        "สิงห์บุรี",
+        "สุโขทัย",
+        "สุพรรณบุรี",
+        "สุราษฎร์ธานี",
+        "สุรินทร์",
+        "สตูล",
+        "หนองคาย",
+        "หนองบัวลำภู",
+        "อำนาจเจริญ",
+        "อุดรธานี",
+        "อุตรดิตถ์",
+        "อุทัยธานี",
+        "อุบลราชธานี",
+        "อ่างทอง"
+    ];
+
+    return {
+        provinces : provinces
+    };
+});
+
 app.factory("ConfigurationService", function(){
 	return {
-		endPoint : "http://192.168.0.109:8877"
+		endPoint : "http://emenu.ecmxpert.com:8877"
 	}
+});
+/**
+ * Created by recovery on 2/23/14.
+ */
+
+app.factory("DeviceService", function($http, $log, ConfigurationService){
+
+    var endPoint = ConfigurationService.endPoint;
+
+    var DeviceInfo = function() {
+        this.deviceId = "";
+        this.serialNumber = "";
+    }
+
+    function add(info, callback){
+        var request = $http({
+            url : endPoint + "/device",
+            method : "POST",
+            data : JSON.stringify(info),
+            headers : { "Content-Type" : "multipart/form-data" }
+        });
+
+        request.success(function(result){
+            callback(result);
+        });
+
+        request.error(function(err){
+            $log.error(err);
+        });
+    }
+
+    function findAll(callback){
+        var request = $http({
+            url : endPoint + "/device",
+            method : "GET"
+        });
+
+        request.success(function(result){
+            callback(result);
+        });
+
+        request.error(function(err){
+            $log.error(err);
+        });
+    }
+
+    return {
+        findAll :function(callback) { findAll(callback); },
+        add: function(info, callback) { add(info, callback); },
+        DeviceInfo : DeviceInfo
+    };
 });
 app.directive('ngEnter', function() {
     return function(scope, element, attrs) {
@@ -484,10 +673,188 @@ app.factory("UserService", function($location, $http, ConfigurationService){
 		}
 	};
 });
-app.controller("BranchController", function($scope, NavigateService){
+app.controller("BranchController", function( $log, $scope, NavigateService, BranchService,
+                                             DeviceService, Collections){
+
+    // active nav bar
 	$scope.category = true;
 	NavigateService($scope);
-});
+
+    // Scope variable
+    $scope.branchs = [];
+    $scope.devices = [];
+    $scope.provinces = Collections.provinces;
+
+    $scope.currentBranch = new BranchService.BranchInfo();
+    $scope.provincesReady = true;
+    $scope.devicesReady = false;
+
+    // Selected device
+    $scope.selectedDevice = {};
+
+    // Drop down item
+    $scope.provinceDropdown = null;
+    $scope.devinceDropdown = null;
+
+    function createDeviceDropdown(){
+        $scope.deviceDropdown = $('.device-dropdown').dropdown();
+    }
+
+    // Initialize
+    angular.element(document).ready(function(){
+        if(typeof(window.scrollReveal) === "function"){
+            window.scrollReveal = new scrollReveal();
+        }
+
+        // Create drop down immediately
+        $scope.provinceDropdown = $(".province-dropdown").dropdown();
+
+        // Create drop down after devices is ok.
+        var intervalId = setInterval(function(){
+            if($scope.devicesReady){
+                createDeviceDropdown();
+                clearInterval(intervalId);
+                $scope.$apply();
+            }
+        }, 1000);
+    });
+
+    // Load init data
+    // * $scope.branchs
+    // * $scope.devices
+    BranchService.findAll(findAllCallback);
+    DeviceService.findAll(findAllDeviceCallback);
+
+    // Parameters
+    // * DeviceInfo[]
+    function findAllDeviceCallback(data){
+        $scope.devices = data;
+        $scope.devicesReady = true;
+
+    }
+
+    // BranchService.findAll() callback
+    // Parameters
+    // * BranchInfo[]
+    function findAllCallback(data) {
+        $scope.branchs = data;
+        $log.info(data);
+    }
+
+    // Remove from list
+    // Parameters
+    // * Result
+    // * Result.data = BranchInfo
+    function removeCallback(result){
+        var info = result.data;
+
+        // Find item
+        var filter = $scope.branchs.filter(function(el){ return el.identifier === info.identifier; });
+
+        // Find item's index
+        var index = $scope.branchs.indexOf(filter[0]);
+
+        $log.info(index);
+
+        // Remove from array
+        $scope.branchs.splice(index,1);
+    }
+
+    // BranchService.add() callback
+    // Parameters
+    // * Result
+    // * Result.data = BranchInfo
+    function addCallback(result) {
+        $log.info("<< success >>");
+        $log.info(result);
+
+        if(!$scope.currentBranch.identifier) {
+            var branch = result.data;
+            $scope.branchs.push(branch);
+        }
+
+        // Reset current data...
+        $scope.currentBranch = new BranchService.BranchInfo();
+    }
+
+    // Add/Update branch
+    // * Take BranchInfo as parameter
+    $scope.add = function(info){
+        var province = $scope.provinceDropdown.dropdown("get text");
+        info.province = province;
+        BranchService.add(info, addCallback)
+    };
+
+    // Remove branch from list
+    $scope.remove = function(info){
+        info.delete = true;
+        BranchService.add(info, removeCallback);
+    };
+
+    // Fire edit mode
+    $scope.edit = function(branch){
+        $scope.currentBranch = branch;
+        $scope.provinceDropdown.dropdown("set text", branch.province);
+    };
+
+    // Add new device to branch
+    $scope.addDevice = function(){
+        var identifier = $scope.deviceDropdown.dropdown("get value");
+        $scope.currentBranch.deviceIds.push(identifier);
+
+        createDeviceDropdown();
+    };
+
+    // Remove selected device
+    $scope.removeDevice = function(){
+        var index = $scope.currentBranch.deviceIds.indexOf($scope.selectedDevice.identifier);
+        $scope.currentBranch.deviceIds.splice(index,1);
+        $scope.selectedDevice = {};
+
+        createDeviceDropdown();
+    };
+
+    // Select device to remove
+    $scope.selectDevice = function(device){
+        $scope.selectedDevice = device;
+    };
+
+    // Get full DeviceInfo by giving identifier
+    $scope.getDeviceByIdentifier = function(identifier){
+        var device = {};
+        $scope.devices.forEach(function(d){
+            if(d.identifier == identifier) {
+                device = d;
+            }
+        });
+
+        return device;
+    };
+
+    // Check is device should be include in list
+    // Show only free device
+    $scope.checkAvailableDevice = function(device){
+        var ok = true;
+        $scope.branchs.forEach(function(branch){
+            branch.deviceIds.forEach(function(del){
+                if(del === device.identifier) ok = false;
+            });
+        });
+
+        $scope.currentBranch.deviceIds.forEach(function(el){
+            if(el === device.identifier)  ok = false;
+        });
+
+        return ok;
+    }
+
+    $scope.isDeviceOk = function(){
+            if($scope.devicesReady && $scope.deviceDropdown != null) {
+            var device = $scope.deviceDropdown.dropdown("get text");
+            if(typeof(device) === "string") return true; }
+    }
+
+}); // controller
 app.controller("CategoryController", function($scope, NavigateService, CategoryService, ProductService, $upload, UserService){
 
 	// Active ui
@@ -812,6 +1179,50 @@ app.controller("CleanController", function($scope, ConfigurationService){
 	$scope.list = function(){
 		list();
 	};
+});
+
+app.controller("DeviceController", function($scope, NavigateService, DeviceService){
+	NavigateService($scope);
+
+    $scope.currentDevice = new DeviceService.DeviceInfo();
+    $scope.devices = [];
+
+    function findAllCallback(rs){
+        rs.forEach(function(info){
+            $scope.devices.push(info);
+        });
+    }
+
+    function addCallback(rs){
+        var info = rs.data;
+        if(!$scope.currentDevice.identifier){
+            $scope.devices.push(info);
+        }
+        $scope.currentDevice = new DeviceService.DeviceInfo();
+    }
+
+    function removeCallback(rs){
+        var info = rs.data;
+        var filter = $scope.devices.filter( function(el) { return el.identifier === info.identifier; });
+        var index = $scope.devices.indexOf(filter[0]);
+        $scope.devices.splice(index,1);
+    }
+
+    // Init
+    DeviceService.findAll(findAllCallback)
+
+    $scope.add = function(info){
+        DeviceService.add(info, addCallback);
+    };
+
+    $scope.remove = function(info){
+        info.delete = true;
+        DeviceService.add(info, removeCallback)
+    }
+
+    $scope.edit = function(info){
+        $scope.currentDevice = info;
+    };
 });
 app.controller("HomeController", function($scope, NavigateService, CategoryService, ProductService, UserService){
 

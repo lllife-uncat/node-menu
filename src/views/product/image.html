@@ -2,7 +2,7 @@
 <!-- IMAGE -->
 
 <div class="show-image ui modal">
-	
+
 	<div class="ui raised segment">
 
 		<div class="ui two column grid ">
@@ -12,12 +12,12 @@
 						<p><i class="ui icon bookmark"></i> {{currentPicture.title}}</p>
 					</div>
 					<div class="ui" >
-						<img class="rounded ui image huge" src="{{currentPicture.$url}}" style="width:100%">
+						<img class="rounded ui image huge" ng-src="{{currentPicture.$url}}" style="width:100%">
 					</div>
 
 					<div class="ui  top label pointing">
 						<p><i class="ui icon bookmark"></i> {{currentPicture.description}}</p>
-					</div>		
+					</div>
 				</div>
 
 			</div>
@@ -69,17 +69,17 @@
 
 				<div class="field"  ng-if="currentPicture.identifier != null">
 					<div class=" ui button mini" ng-click="saveAllImage(); hideImageModal();">
-						<i class="tags icon"></i> 
+						<i class="tags icon"></i>
 						<span>OK</span>
 					</div>
 
 					<div class=" ui label mini" ng-click="removeImage(currentPicture)" ng-show="currentPicture.identifier != null" ng-if="false">
-						<i class="tags icon"></i> 
+						<i class="tags icon"></i>
 						<span>Remove</span>
 					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
 
 	</div>
 

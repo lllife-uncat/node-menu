@@ -1,69 +1,190 @@
-<div class="ui two column grid">
-	<div class="column">
+<div class="ui small secondary pointing menu">
+    <a class="item active">
+        <i class="cart icon"></i> New Branch
+    </a>
+</div>
 
-		<div class="ui fluid form segment">
+<div class="ui animated fadeIn">
+    <div class="ui grid">
+        <div class="eight wide column">
+            <div class="ui segment">
+                <div class="ui form"> <!-- Form -->
 
-			<div class="field">
-				<label for="">Title</label>
-				<input type="text" class="type">
-			</div>
+                    <div class="ui two fields"> <!-- Fields -->
+                        <div class="field">
+                            <label> <i class="ui tag icon"></i> Name </label>
+                            <input type="text" placeholder="" ng-model="currentBranch.name">
+                        </div>
+                        <div class="field">
+                            <label> <i class="ui key icon"></i> Branch ID </label>
+                            <input type="text" placeholder="" ng-model="currentBranch.branchId">
+                        </div>
+                    </div>
 
-			<div class="field">
-				<label for="">Telephone</label>
-				<input type="text" class="type">
-			</div>
+                    <div class="ui two fields">
+                        <div class="field">
+                            <label> <i class="ui sitemap icon"></i> Province </label>
 
-			<div class="field">
-				<div class="ui button mini">
-					<i class="reorder icon"></i> Save
-				</div>
-			</div>
+                            <div class="ui selection dropdown province-dropdown" ng-if="provincesReady">
+                                <input type="hidden" name="province" ng-model="currentBranch.province">
 
-		</div>
-	</div> <!-- first column -->
+                                <div class="text">กรุงเทพมหานคร</div>
+                                <i class="dropdown icon"></i>
 
-	<div class="column">
-		<div class="ui fluid form segment">
+                                <div class="menu">
+                                    <div class="item" ng-repeat="province in provinces"
+                                         ng-click="currentBranch.province = province"
+                                         data-value="{{province}}"
+                                         ng-class="{ active : currentBranch.province == province}">{{province}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label> <i class="ui sitemap icon"></i> District </label>
+                            <input type="text" placeholder="" ng-model="currentBranch.district">
+                        </div>
+                    </div>
 
-			<div class="field">
 
-				<label for="">Edit Branch</label>
+                    <div class="ui two fields"><!-- Fields -->
+                        <div class="row">
+                            <div class="field">
+                                <label for=""> <i class="ui phone icon"></i> Contact Phone </label>
+                                <input type="text" ng-model="currentBranch.phone">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="field">
+                                <label for=""> <i class="ui tag icon"></i> Description </label>
+                                <textarea name="" cols="30" rows="0" style="height:10px"
+                                          ng-model="currentBranch.description"></textarea>
+                            </div>
+                        </div>
+                    </div>
 
-				<div class="ui action input">
-					<input type="text" placeholder="Search...">
-					<div class="ui icon button"><i class="search icon"></i></div>
-				</div>	
+                </div>
+            </div>
+        </div>
 
-				<div class="ui segment">
-					<div class="ko-tag ui mini button active">
-						<i class="edit icon"></i> Feedback
-					</div>
-					<div class="ko-tag ui mini button">
-						<i class="edit icon"></i> Style 
-					</div>
-					<div class="ko-tag ui mini button">
-						<i class="edit icon"></i> Pure 
-					</div>
-					<div class="ko-tag ui mini button">
-						<i class="edit icon"></i> How 
-					</div>
-					<div class="ko-tag ui mini button active">
-						<i class="edit icon"></i> Genius
-					</div>
-					<div class="ko-tag ui mini button">
-						<i class="edit icon"></i> Carrier
-					</div>
-					<div class="ko-tag ui mini button">
-						<i class="edit icon"></i> Category A
-					</div>
-					<div class="ko-tag ui mini button">
-						<i class="edit icon"></i> Different Long Name
-					</div>
-				</div>
-			</div> <!-- parents -->
 
-		</div>
+        <div class="six wide column">
+            <div class="ui segment">
+                <div class="ui form">
 
-	</div> <!-- second column -->
-</div> <!--grid-->
+                    <div class="ui fields">
+                        <div class="field">
+                            <label for=""> <i class="ui tablet icon"></i> Device ID </label>
+                            <div class="ui selection dropdown device-dropdown"
+                                 ng-if="devicesReady" ng-click="isDeviceOk()">
+                                <input type="hidden" name="device">
 
+                                <div class="text"></div>
+                                <i class="dropdown icon" ng-if="true"></i>
+
+                                <div class="menu">
+                                    <div class="item" ng-repeat="device in devices | filter:checkAvailableDevice"
+                                         data-value="{{device.identifier}}">{{device.deviceId}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field"></div>
+                    </div>
+
+                    <div class="fields">
+                        <div>
+                            <div class="ui mini button" style="margin-top: 10px" ng-click="addDevice()"
+                                 ng-if="isDeviceOk()">
+                                <i class="ui add icon green"></i>Add
+                            </div>
+                            <div class="ui mini button" style="margin-top: 10px" ng-click="removeDevice()"
+                                 ng-if="selectedDevice.identifier && false">
+                                <i class="ui remove icon red"></i>Remove
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br/>
+
+                <table class="ui small table segment" ng-if="currentBranch.deviceIds.length" >
+                    <thead>
+                    <tr>
+                        <th><i class="ui tablet icon"></i></th>
+                        <th>ID</th>
+                        <th>S/N</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr class="animated fadeIn" ng-repeat="id in currentBranch.deviceIds" ng-click="selectDevice(getDeviceByIdentifier(id))">
+                        <td>{{$index + 1}}</td>
+                        <td>{{ getDeviceByIdentifier(id).deviceId }}</td>
+                        <td>{{ getDeviceByIdentifier(id).serialNumber}}</td>
+                        <td>
+                            <div class="ui mini button" ng-click="selectDevice(getDeviceByIdentifier(id)); removeDevice();">
+                                <i class="ui red remove icon"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="ui mini button animated fadeInUp" ng-click="add(currentBranch)" ng-if="currentBranch.name">
+        <i class="ui sitemap icon"></i> Save
+    </div>
+</div>
+</div>
+
+<br/>
+
+
+<table class="ui small table segment" data-scrollReveal>
+
+    <thead>
+    <tr>
+        <th><i class="ui bolt icon"></i></th>
+        <th><label for="">Name</label></th>
+        <th><label for="">Branch ID</label></th>
+        <th><label for="">Province</label></th>
+        <th><label for="">District</label></th>
+        <th><label for="">Devices</label></th>
+        <th><label for="">Edit/Remove</label></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr ng-repeat="branch in branchs | orderBy: 'identifier':true" data-scrollReveal class="animated fadeIn">
+        <td>{{$index + 1}}</td>
+        <td>{{branch.name}}</td>
+        <td>{{branch.branchId}}</td>
+        <td>{{branch.province}}</td>
+        <td>{{branch.district}}</td>
+        <td>
+            <div class="ui mini label black" ng-repeat="id in branch.deviceIds">
+                <i class="ui tablet icon"></i>
+                {{getDeviceByIdentifier(id).deviceId}}
+            </div>
+        </td>
+        <td style="min-width:250px">
+            <div class="ui mini button" ng-click="edit(branch)">
+                <i class="ui icon edit"></i>
+            </div>
+            <div class="ui mini button" ng-click="remove(branch)">
+                <i class="ui icon remove"></i> Remove
+            </div>
+        </td>
+    </tr>
+    </tbody>
+
+</table>

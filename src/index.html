@@ -1,125 +1,115 @@
 <html>
-<head>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+        <!-- <meta name="viewport" content="initial-scale=1.0, user-scalable=no"> -->
+
+        <!-- FS LAB-->
+        <script src="venders/fastclick/fastclick.js"></script> <!-- don't delay 200ms -->
+        <script src="venders/ftscroller/ftscroller.js"></script> <!-- come along with fastclick -->
+
+        <script src="venders/sockjs-client/sockjs-0.3.min.js"></script> <!-- vertxbus dependency -->
+        <script src="venders/sockjs-client/vertxbus-2.1.js"></script> <!-- talk with vert.x event bus -->
+
+        <script src="venders/angular/angular.js"></script> <!-- angular framework -->
+        <script src="venders/angular-route/angular-route.js"></script> <!-- angular'route module -->
+        <script src="venders/ng-file-upload/angular-file-upload.js"></script> <!-- angular's update module -->
+        <script src="venders/angular-animate/angular-animate.js"></script> <!-- angular's animation module -->
+        <script src="venders/ng-table/ng-table.src.js"></script> <!-- angular's table module -->
+
+        <script src="venders/scroll-reveal/scrollReveal.js"></script> <!-- scroll reveal library -->
+
+        <script src="venders/jquery/jquery.js"></script> <!-- semantic's dependency -->
+        <script src="venders/semantic/javascript/semantic.js"></script> <!-- semantic library -->
+        <script src="http://10.0.0.77:35729/livereload.js"></script>
+
+        <script src="js/final.js"></script> <!-- application -->
+
+        <link rel="stylesheet" href="venders/semantic/css/semantic.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="venders/ng-table/ng-table.css">
+    </head>
+
+    <body ng-app="MenuApp"  ng-controller="NavigateController">
+
+        <div class="ko-body">
+
+            <script>
+                window.addEventListener("load", function(){
+                    FastClick.attach(document.body);
+                });
+            </script>
+
+            <section class="ko-title">
+
+            </section>
+
+            <div class="ui small inverted menu animated fadeInDown" ng-if="isLogged()" >
+
+                <a class="active item" href="#/home" ng-class="{ active: location=='/' }">
+                    <i class="home icon"></i> <span class="ui label circular" style="background:none;">Home</span>
+                </a> <!-- Home -->
+
+                <a class="item" href="#/product" ng-class="{ active: location=='/product' }">
+                    <i class="cart icon" ></i> <span class="ui label circular" style="background:none;">Product</span>
+                </a> <!-- Product-->
+
+                <a class="item" href="#/category" ng-class="{ active: location=='/category' }">
+                    <i class="tags icon"></i> <span class="ui label circular" style="background:none;">Category</span>
+                </a> <!-- Category -->
 
 
-	<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+                <a class="item" href="#/branch" ng-class="{ active: location=='/branch' }">
+                    <i class="sitemap icon"></i> <span class="ui label circular" style="background: none">Branch</span>
+                </a>
 
-	<!-- <meta name="viewport" content="initial-scale=1.0, user-scalable=no"> -->
+                <a class="item" href="#/device" ng-class="{ active: location == '/device' }">
+                    <i class="tablet icon"></i> <span class="ui label circular" style="background: none;">Device</span>
+                </a>
 
-	<!-- <script src="venders/ng-file-upload/angular-file-upload-shim.js"></script> -->
-
-	<!-- FS LAB-->
-	<script src="venders/fastclick/fastclick.js"></script>
-	<script src="venders/ftscroller/ftscroller.js"></script>
-
-	<script src="venders/sockjs-client/sockjs-0.3.min.js"></script>
-	<script src="venders/sockjs-client/vertxbus-2.1.js"></script>
-
-	<script src="venders/angular/angular.js"></script>
-	<script src="venders/angular-route/angular-route.js"></script>
-	<script src="venders/ng-file-upload/angular-file-upload.js"></script>
-	<script src="venders/angular-animate/angular-animate.js"></script>
-    <script src="venders/scroll-reveal/scrollReveal.js"></script>
-
-	<!-- <script src="venders/angular-ui-utils/ui-utils.js"></script> -->
- 	<!-- <script src="venders/angular-ui-utils/ui-utils-ieshiv.js"></script> -->
-
-	<script src="venders/ng-table/ng-table.src.js"></script>
-
-	<script src="venders/jquery/jquery.js"></script>
-	<script src="venders/semantic/javascript/semantic.js"></script>
-	<script src="http://10.0.0.67:35729/livereload.js"></script>
-	<script src="js/final.js"></script>
-
-	<link rel="stylesheet" href="venders/semantic/css/semantic.css">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="venders/ng-table/ng-table.css">
-
-</head>
-
-<body ng-app="MenuApp"  ng-controller="NavigateController" >
-
-	<script>
-		window.addEventListener("load", function(){
-			FastClick.attach(document.body);
-		});
-	</script>
-	
-	<div class="ui inverted menu animated fadeInDown" ng-if="isLogged()" >
-
-		<a class="active item" href="#/home" ng-class="{ active: location=='/' }">
-			<i class="home icon"></i> <span class="ui label circular" style="background:none;">Home</span>
-		</a> <!-- Home -->
-
-		<a class="item" href="#/product" ng-class="{ active: location=='/product' }">
-			<i class="cart icon" ></i> <span class="ui label circular" style="background:none;">Product</span>
-		</a> <!-- Product-->
-
-		<a class="item" href="#/category" ng-class="{ active: location=='/category' }">
-			<i class="tags icon"></i> <span class="ui label circular" style="background:none;">Category</span>
-		</a> <!-- Category -->
+                <a class="item" href="#/synchronize" ng-class="{ active: location=='/synchronize' }">
+                    <i class="upload cloud icon"></i> <span class="ui label circular" style="background:none;">Publish</span>
+                </a> <!-- Image -->
 
 
- 		<a class="item" href="#/branch" ng-class="{ active: location=='/branch' }">
-			<i class="sitemap icon"></i> <span class="ui label circular" style="background: none">Branch</span>
-		</a>
+                <!-- 		<a class="item" href="#/user" ng-class="{ active: location=='/user' }">
+<i class="user icon"></i> User
+</a> --> <!-- Video -->
 
-        <a class="item" href="#/device" ng-class="{ active: location == '/device' }">
-            <i class="tablet icon"></i> <span class="ui label" style="background: none;">Device</span>
-        </a>
+                <div class="right menu">
+                    <div class="ui mini label pointing right" ng-show="show" ng-class="{red : error, green : !error}" ng-click="hide()">
+                        <span>{{message}} </span>
+                    </div>
 
-        <a class="item" href="#/synchronize" ng-class="{ active: location=='/synchronize' }">
-            <i class="upload cloud icon"></i> <span class="ui label circular" style="background:none;">Publish</span>
-        </a> <!-- Image -->
+                    <a class="ui item" ng-show="show"> <i class="user icon orange"></i></a>
+                    <a class="ui item" ng-click="logout()" ng-show="isLogged()"> <i class="bolt icon orange"></i></a>
 
+                    <!-- <a class="ui item"> Logout </a> -->
+                </div>
 
-<!-- 		<a class="item" href="#/user" ng-class="{ active: location=='/user' }">
-			<i class="user icon"></i> User
-		</a> --> <!-- Video -->
+                <div class="ui bottom attached progress  black" ng-if="false">
+                    <div class="bar"></div>
+                </div> <!-- progress -->
 
-		<div class="right menu">
-			<div class="ui mini label pointing right" ng-show="show" ng-class="{red : error, green : !error}" ng-click="hide()"> 
-				<span>{{message}} </span>
-			</div>
+            </div> <!-- header -->
 
-			<a class="ui item" ng-show="show"> <i class="user icon orange"></i></a>
-			<a class="ui item" ng-click="logout()" ng-show="isLogged()"> <i class="bolt icon orange"></i></a>
+            <section class="ui raised segment" style="min-height:90%">
+                <div ng-view class="">
+                </div>
+            </section> <!-- content -->
 
-			<!-- <a class="ui item"> Logout </a> -->
-		</div>
+            <!-- <div class="ui section divider"></div> -->
 
-		<div class="ui bottom attached progress  black" ng-if="false">
-			<div class="bar"></div>
-		</div> <!-- progress -->
+        </div> <!-- end ko-body -->
 
-	</div> <!-- header -->
+        <script>
+            $(document).ready(function(){
+                console.log("==ready==");
+                jQuery('input[type="number"]').keyup(function(){
+                    console.log("hello");
+                    $(this).val($(this).val().replace(/[^\d]/,''));
+                });
+            });
+        </script>
 
-	<div class="ui raised segment" style="min-height:90%">
-		<div ng-view class="">
-		</div>
-	</div> <!-- content -->
-
-	<!-- <div class="ui section divider"></div> -->
-
-	<script>
-
-
-		$(document).ready(function(){
-
-
-			console.log("==ready==");
-			jQuery('input[type="number"]').keyup(function(){
-				console.log("hello");
-				$(this).val($(this).val().replace(/[^\d]/,''));
-			});
-
-			// console.log("==init popup==");
-			// var thumb = $('.ko-thumbnail');
-			// thumb.popup({
-			// 	on: 'hover'
-			// });
-	});
-	</script>
-
-</body>
+    </body>
 </html>

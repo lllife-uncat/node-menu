@@ -3,10 +3,10 @@
 <div class="column" ng-class="{ 'animated fadeIn' : true}">
   <div class="ui segment">
     <a class="ko-tag ui image label" ng-repeat="category in categories | filter:allCategoryFilter" ng-click="selectProductCategory(category)" ng-class="{ green : category.$selectedFilter, black : !category.$selectedFilter}" ng-if="category.$level === 'C'">
-      <img src="{{category.$images[0].$thumbnail}}" alt="">
-      <i class="tags icon"></i> {{category.title}} 
+      <img ng-src="{{category.$images[0].$thumbnail}}" alt="">
+      <i class="tags icon"></i> {{category.title}}
       <span class="circular label red" ng-if="category.$products.length > 0">({{category.$products.length}})</span>
-    </a>  
+    </a>
   </div>
 
 
@@ -23,7 +23,7 @@
 
           <th>
             <div>
-              <label ng-click="showArchiveChange()">Product</label> 
+              <label ng-click="showArchiveChange()">Product</label>
             </div>
           </th>
 
@@ -71,8 +71,8 @@
           </td>
 
           <td>
-            <i class="ui mini button" ng-if="!product.$edit" ng-class="{red : product.archive, green: !product.archive }" ng-click="product.archive = !product.archive;inlineUpdate(product);"> 
-              <i class="archive icon"></i> 
+            <i class="ui mini button" ng-if="!product.$edit" ng-class="{red : product.archive, green: !product.archive }" ng-click="product.archive = !product.archive;inlineUpdate(product);">
+              <i class="archive icon"></i>
             </i>
             <span ng-if="!product.$edit" ng-class="{ 'ui label': product.archive }">{{product.name}}</span>
             <div ng-if="product.$edit" class="ui form"> <input type="text" ng-model="product.name" /> </div>
@@ -140,7 +140,7 @@
           <td style="min-width: 200px;">
             <div ng-if="!product.archive" style="display:inline">
              <div class="ui mini button " ng-if="!product.$edit" ng-click="product.$edit = true;setInlineEditing(true);"> <i class="edit icon" ></i> </div>
-             <div class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false;inlineUpdate(product)"> <i class="save icon" ></i> </div>              
+             <div class="ui mini button " ng-if="product.$edit" ng-click="product.$edit = false;inlineUpdate(product)"> <i class="save icon" ></i> </div>
            </div>
 
            <div class="ui mini button" href="" style="text-decoration:none;"  ng-click="removeProduct(product)" ng-if="!product.$edit" >

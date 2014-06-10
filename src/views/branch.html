@@ -1,4 +1,4 @@
-<div class="ui secondary pointing menu">
+<div class="ui small secondary pointing menu">
     <a class="item active">
         <i class="cart icon"></i> New Branch
     </a>
@@ -144,7 +144,6 @@
         <i class="ui sitemap icon"></i> Save
     </div>
 </div>
-</div>
 
 <br/>
 
@@ -171,7 +170,7 @@
         <td>{{branch.province}}</td>
         <td>{{branch.district}}</td>
         <td>
-            <div class="ui mini label black" ng-repeat="id in branch.deviceIds">
+            <div class="ui mini label black ko-block" ng-repeat="id in branch.deviceIds">
                 <i class="ui tablet icon"></i>
                 {{getDeviceByIdentifier(id).deviceId}}
             </div>

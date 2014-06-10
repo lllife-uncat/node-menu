@@ -460,9 +460,10 @@ app.factory("Collections", function($log){
 
 app.factory("ConfigurationService", function(){
 	return {
-		endPoint : "http://10.0.0.67:8877"
+		endPoint : "http://10.0.0.77:8877"
 	}
 });
+
 /**
  * Created by recovery on 2/23/14.
  */

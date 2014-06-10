@@ -20,8 +20,8 @@
 
 			<!--
 			<div class="ui left floated small image rounded" ng-repeat="category in categories" ng-click="selectCategory(category)" ng-if="false">
-				<a class="ui right corner label" ng-class="{ green : category.$selected }"> 
-					<div class="text"> {{category.$products.length}} </div> 
+				<a class="ui right corner label" ng-class="{ green : category.$selected }">
+					<div class="text"> {{category.$products.length}} </div>
 				</a>
 				<a href="">
 					<img src="{{category.$images[0].$thumbnail}}">
@@ -31,11 +31,11 @@
 		-->
 
 		<a class="ko-tag ui image label" ng-repeat="category in categoriesC" ng-click="selectCategory(category)"  ng-class="{ green : category.$selected,  black : !category.$selected }" ng-if="category.$level === 'C'">
-			<img src="{{category.$images[0].$thumbnail}}" alt="">
+			<img ng-src="{{category.$images[0].$thumbnail}}" alt="">
 			<!-- <i class="tags icon"></i>  -->
-			{{category.title}} 
+			{{category.title}}
 			<span class="circular label red" ng-if="category.$products.length > 0">({{category.$products.length}})</span>
-		</a>  
+		</a>
 
 	</div>
 
@@ -64,11 +64,11 @@
 					<a class="ui right corner label green" ng-if="currentProduct.identifier == product.identifier">
 						<i class="cart icon"></i>
 					</a>
-					<a href=""><img src="{{product.$images[0].$thumbnail}}"></a>
-					<a class="ui bottom attached" ng-class="{ green : currentProduct.identifier == product.identifier}"> 
-						<div class="text">{{product.name.substring(0,10)}}</div> 
+					<a href=""><img ng-src="{{product.$images[0].$thumbnail}}"></a>
+					<a class="ui bottom attached" ng-class="{ green : currentProduct.identifier == product.identifier}">
+						<div class="text">{{product.name.substring(0,10)}}</div>
 					</a>
-				</div> 	
+				</div>
 			</div>
 
 			<div>
@@ -156,7 +156,7 @@
 			<div class="ui column grid">
 				<div class="column six wide">
 
-					<div > 
+					<div >
 
 						<div class="ui ribbon label black">
 							<i class=" cart icon "></i>
@@ -177,18 +177,18 @@
 					<div class="ui divided selection list">
 						<a class="item" style="font-size:80%">
 							<div class="ui red horizontal label">Price</div>
-							{{currentProduct.primaryPrice.formatMoney(2, '.', ',')}} 
+							{{currentProduct.primaryPrice.formatMoney(2, '.', ',')}}
 							<span style="color:gray;font-size:small"><i class="ui dollar icon"></i></span>
 						</a>
 
 						<a class="item" style="font-size:80%">
 							<div class="ui green horizontal label">Member</div>
-							{{currentProduct.memberPrice.formatMoney(2, '.', ',')}} 
+							{{currentProduct.memberPrice.formatMoney(2, '.', ',')}}
 							<span style="color:gray;font-size:small"><i class="ui dollar icon"></i></span>
 						</a>
 						<a class="item" style="font-size:80%">
 							<div class="ui purple horizontal label">Promotion</div>
-							{{currentProduct.promotionPrice.formatMoney(2, '.', ',')}} 
+							{{currentProduct.promotionPrice.formatMoney(2, '.', ',')}}
 							<span style="color:gray;font-size:small"><i class="ui dollar icon"></i></span>
 						</a>
 					</div>
@@ -210,8 +210,8 @@
 
 
 						<div class="ui large rounded images" style="margin:0px;" ng-class="{ 'animated fadeInDown' : true}">
-							<a href=""  data-content="{{currentProduct.$images[currentImageIndex].title}}" ng-click="nextImage()"> 
-								<img src="{{currentProduct.$images[currentImageIndex].$url}}"style="max-width:100%; max-height:70%"  /> 
+							<a href=""  data-content="{{currentProduct.$images[currentImageIndex].title}}" ng-click="nextImage()">
+								<img ng-src="{{currentProduct.$images[currentImageIndex].$url}}"style="max-width:100%; max-height:70%"  />
 							</a>
 						</div>
 
@@ -221,7 +221,7 @@
 
 					</div>
 
-					<div ng-if="false"> 
+					<div ng-if="false">
 						<div class="ui label green" style="width:100%; text-transform:none; margin-bottom:0px;">
 							<i class="photo icon" ng-if="true"></i>{{currentProduct.$images[currentImageIndex].title}}
 						</div>
